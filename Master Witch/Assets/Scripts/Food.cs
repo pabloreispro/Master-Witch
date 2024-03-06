@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Food : MonoBehaviour
 {
-    float progress;
+    public float progress;
     // Start is called before the first frame update
     void Start()
     {

@@ -4,9 +4,10 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-    PlayerInput playerInput;
+    public static PlayerMovement instance;
+    public PlayerInput playerInput;
     public float speed;
     public float speedPlayer;
 
@@ -18,8 +19,9 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         playerInput = new PlayerInput();
         playerInput.PlayerControl.Enable();
-
-
+        playerInput.PlayerInteract.Enable();
+        instance = this;
+        playerInput.PlayerInteract.Interaction.performed += Interact;
         //inputs para buttons 
         //na funcao precisa colocar InputAction.CallbackContext context
         //e o context funciona como um ativador
@@ -41,6 +43,13 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, r, speed);
         }
         controller.Move(move* Time.deltaTime * speedPlayer);
-        
+    }
+
+    void Interact(InputAction.CallbackContext context){
+        if(context.performed){
+            Debug.Log("E");
+            Bench.instance.AddIngredient();
+            //food = Player.instance.gameObject.GetChild
+        }
     }
 }
