@@ -4,19 +4,15 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void Interact(int playerID){
-        
+    public bool isBench;
+    public bool isIngredient;
+    private void OnControllerColliderHit(ControllerColliderHit hit) {
+        if(hit.gameObject.CompareTag("Bench")){
+            Bench.instance.foodAsset = gameObject.transform.GetChild(0).gameObject;
+        }
+        if(hit.gameObject.CompareTag("Ingredient")){
+            gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            
+        }
     }
 }

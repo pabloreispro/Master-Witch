@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
     public int id;
     string name;
     Color color;
-    public PlayerMovement playerMovement;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,4 +19,6 @@ public class Player : MonoBehaviour
     {
         
     }
+
+    
 }

@@ -12,7 +12,7 @@ public class Bench : MonoBehaviour
     public Food food;
     bool isPlayer;
     public GameObject foodAsset;
-    float timeProgress=0f;
+    public float timeProgress=0f;
 
     // Start is called before the first frame update
     void Start()
@@ -40,28 +40,19 @@ public class Bench : MonoBehaviour
     }
 
     public void AddIngredient(){
-        if(isPlayer && food == null){
+        if(Player.instance.id == playerID && food == null){
             food = foodAsset.GetComponent<Food>();
             foodAsset.SetActive(false);
+            gameObject.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
 
     public void OnEndProgress(){
         if(timeProgress == food.progress){
+            gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            foodAsset = null;
             //colocar mudança prefab food
             //ativar foodAsset
-        }
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "Player"){
-            if(Player.instance.id == playerID){
-                isPlayer = true;
-                foodAsset = other.gameObject.transform.GetChild(0).gameObject;
-            }else{
-                isPlayer = false;
-            }
         }
     }
 
