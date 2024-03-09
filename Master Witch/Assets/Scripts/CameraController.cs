@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class CameraController : MonoBehaviour
+public class CameraController : NetworkBehaviour
 {
     public Transform player1;
     public Transform player2;

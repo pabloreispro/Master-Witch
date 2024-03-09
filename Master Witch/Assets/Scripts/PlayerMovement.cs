@@ -32,7 +32,8 @@ public class PlayerMovement : NetworkBehaviour
 
     void FixedUpdate()
     {
-        MovementPlayer();
+        if(IsOwner == true)
+            MovementPlayer();
     }
 
     void MovementPlayer(){
@@ -49,7 +50,7 @@ public class PlayerMovement : NetworkBehaviour
 
     void Interact(InputAction.CallbackContext context){
         if(context.performed){
-            Debug.Log("E");
+            
             if(ingredientAsset.activeSelf)
                 Bench.instance.AddIngredient();
             //food = Player.instance.gameObject.GetChild

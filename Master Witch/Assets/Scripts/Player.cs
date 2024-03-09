@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
+using JetBrains.Annotations;
 
-public class Player : MonoBehaviour
+public class Player : NetworkBehaviour
 {
     public static Player instance;
     public int id;
@@ -12,6 +14,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         instance = this;
+        
     }
 
     // Update is called once per frame

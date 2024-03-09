@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
-public class Bench : MonoBehaviour
+public class Bench : NetworkBehaviour
 {
     public static Bench instance;
     public int playerID;
@@ -44,7 +45,7 @@ public class Bench : MonoBehaviour
             food = foodAsset.GetComponent<Food>();
             foodAsset.SetActive(false);
             gameObject.transform.GetChild(0).gameObject.SetActive(true);
-        }
+        }   
     }
 
     public void OnEndProgress(){
