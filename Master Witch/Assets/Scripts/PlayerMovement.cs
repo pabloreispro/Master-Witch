@@ -5,17 +5,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
 
-public class PlayerMovement : NetworkBehaviour
+public class PlayerMovement : Player
 {
-    public static PlayerMovement instance;
     public PlayerInput playerInput;
     public float speed;
     public float speedPlayer;
-
     CharacterController controller;
-
     bool groundedPlayer;
-    public GameObject ingredientAsset;
     void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -50,10 +46,8 @@ public class PlayerMovement : NetworkBehaviour
 
     void Interact(InputAction.CallbackContext context){
         if(context.performed){
+                
             
-            if(ingredientAsset.activeSelf)
-                Bench.instance.AddIngredient();
-            //food = Player.instance.gameObject.GetChild
         }
     }
 }
