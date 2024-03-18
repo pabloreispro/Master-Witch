@@ -6,7 +6,8 @@ using Game.SO;
 namespace Game.SO {
 
 [CreateAssetMenu(fileName = "RecipeSO", menuName = "Game/RecipeSO")]
-    public class RecipeSO : ScriptableObject{
+    public class RecipeSO : FoodSO
+    {
        
         public CategoryModifier categoryModifier;
         public RecipeCondition [] recipeConditions;
