@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -453,9 +453,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 184829212}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ffc1a4654d4146359c9ee073d679b79, type: 3}
+  m_Script: {fileID: 11500000, guid: 4df7e31a96f26488f912fab076f0f4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  progress: 0
+  food: {fileID: 0}
 --- !u!1 &219909981
 GameObject:
   m_ObjectHideFlags: 0
@@ -1811,6 +1813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea988620642f45aab9762c965773f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  assetBench: {fileID: 0}
 --- !u!1 &1006384243
 GameObject:
   m_ObjectHideFlags: 0
@@ -2053,6 +2056,7 @@ GameObject:
   - component: {fileID: 1230838673}
   - component: {fileID: 1230838672}
   - component: {fileID: 1230838671}
+  - component: {fileID: 1230838675}
   m_Layer: 0
   m_Name: Pocao2
   m_TagString: Ingredient
@@ -2158,6 +2162,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1230838669}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1230838675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230838669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4df7e31a96f26488f912fab076f0f4ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progress: 0
+  food: {fileID: 0}
 --- !u!1 &1260186544
 GameObject:
   m_ObjectHideFlags: 0
