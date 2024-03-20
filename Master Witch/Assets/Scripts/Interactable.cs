@@ -6,6 +6,6 @@ using Unity.Netcode;
 public abstract class Interactable : NetworkBehaviour
 {
     
-    public virtual void Drop(GameObject item){}
-    public virtual void Pick(GameObject item){}
+    public virtual void Drop(Player player){}
+    public virtual void Pick(Player player){}
 }

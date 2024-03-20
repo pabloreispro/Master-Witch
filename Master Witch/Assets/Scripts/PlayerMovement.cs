@@ -12,7 +12,7 @@ public class PlayerMovement : Player
     public float speedPlayer;
     CharacterController controller;
     bool groundedPlayer;
-    public GameObject assetIngredient;
+    
     
     void Awake()
     {
@@ -20,7 +20,6 @@ public class PlayerMovement : Player
         playerInput = new PlayerInput();
         playerInput.PlayerControl.Enable();
         playerInput.PlayerInteract.Enable();
-        instance = this;
         playerInput.PlayerInteract.Interaction.performed += Interact;
         //inputs para buttons 
         //na funcao precisa colocar InputAction.CallbackContext context
@@ -47,13 +46,20 @@ public class PlayerMovement : Player
     }
 
     void Interact(InputAction.CallbackContext context){
-        if(context.performed){
-            if(interact != null){
-                if(!isHandFull)
-                    interact.Pick(assetIngredient);
-                else
-                    interact.Drop(assetIngredient);
+        if(IsOwner){
+            if(context.performed){
+                InteractServerRpc();
             }
         }
+    }
+    [ServerRpc]
+    public void InteractServerRpc(){
+        stateObjectIngrediente.Value = true;
+        SetPickObjectClientRpc(stateObjectIngrediente.Value);
+    }
+
+    [ClientRpc]
+    public void SetPickObjectClientRpc(bool has){
+        assetIngredient.SetActive(has);
     }
 }

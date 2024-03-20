@@ -6,16 +6,22 @@ using JetBrains.Annotations;
 
 public class Player : NetworkBehaviour
 {
-    public static Player instance;
     public int id;
     string name;
     Color color;
     public Interactable interact;
     public bool isHandFull;
+    public GameObject assetIngredient;
+    public NetworkVariable<bool> stateObjectIngrediente = new NetworkVariable<bool>();
+
+    public void ONetworkSpawn()
+    {
+        stateObjectIngrediente.Value = false;
+        
+    }
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;
         
     }
 

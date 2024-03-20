@@ -14,18 +14,16 @@ public class Bench : Interactable
 
     }
     public void AddIngredient(){
-        Player.instance.isHandFull = false;
         assetBench.SetActive(true);
-        
     }
 
     public void OnEndProgress(){
 
     }
 
-    public override void Drop(GameObject item)
+    public override void Drop(Player player)
     {
         AddIngredient();
-        item.SetActive(false);
+        player.assetIngredient.SetActive(false);
     }
 }
