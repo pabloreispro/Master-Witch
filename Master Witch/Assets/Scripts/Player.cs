@@ -10,6 +10,7 @@ public class Player : NetworkBehaviour
     public int id;
     string name;
     Color color;
+    public Interactable interact;
     public bool isHandFull;
     // Start is called before the first frame update
     void Start()
@@ -25,9 +26,8 @@ public class Player : NetworkBehaviour
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit) {
-        var obj = hit.collider.GetComponent<Interactable>();
-        if(isHandFull){
-            
+        if(hit.gameObject.GetComponent<Interactable>() != null){
+            interact = hit.gameObject.GetComponent<Interactable>();
         }
     }
 }

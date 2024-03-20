@@ -7,4 +7,10 @@ public class Ingredient : Interactable
 {
     public float progress;
     public FoodSO food;
+
+    public override void Pick(GameObject item)
+    {
+        Player.instance.isHandFull = true;
+        item.SetActive(true);
+    }
 }

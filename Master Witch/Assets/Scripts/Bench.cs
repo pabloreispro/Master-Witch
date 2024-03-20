@@ -8,15 +8,24 @@ public class Bench : Interactable
     int playerID;
     List<Ingredient> ingredients = new List<Ingredient>();
     BenchType benchType;
+    public GameObject assetBench;
 
     public void progress(){
 
     }
     public void AddIngredient(){
+        Player.instance.isHandFull = false;
+        assetBench.SetActive(true);
         
     }
 
     public void OnEndProgress(){
 
+    }
+
+    public override void Drop(GameObject item)
+    {
+        AddIngredient();
+        item.SetActive(false);
     }
 }

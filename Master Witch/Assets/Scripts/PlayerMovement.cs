@@ -12,6 +12,8 @@ public class PlayerMovement : Player
     public float speedPlayer;
     CharacterController controller;
     bool groundedPlayer;
+    public GameObject assetIngredient;
+    
     void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -46,8 +48,12 @@ public class PlayerMovement : Player
 
     void Interact(InputAction.CallbackContext context){
         if(context.performed){
-                
-            
+            if(interact != null){
+                if(!isHandFull)
+                    interact.Pick(assetIngredient);
+                else
+                    interact.Drop(assetIngredient);
+            }
         }
     }
 }

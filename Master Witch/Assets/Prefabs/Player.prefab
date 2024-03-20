@@ -383,6 +383,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  interact: {fileID: 0}
+  isHandFull: 0
 --- !u!114 &7608809434937928448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,8 +398,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  interact: {fileID: 0}
+  isHandFull: 0
   speed: 15
   speedPlayer: 15
+  assetIngredient: {fileID: 897554752763670127}
 --- !u!114 &215957238498368790
 MonoBehaviour:
   m_ObjectHideFlags: 0
