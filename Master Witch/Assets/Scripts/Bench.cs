@@ -24,6 +24,7 @@ public class Bench : Interactable
     public override void Drop(Player player)
     {
         AddIngredient();
-        player.assetIngredient.SetActive(false);
+        player.stateObject = false;
+        player.isHandfull = false;
     }
 }

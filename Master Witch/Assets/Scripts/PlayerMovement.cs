@@ -48,13 +48,17 @@ public class PlayerMovement : Player
     void Interact(InputAction.CallbackContext context){
         if(IsOwner){
             if(context.performed){
-                InteractServerRpc();
+                if(!isHandfull)
+                    interact.Pick(this);
+                else
+                    interact.Drop(this);
+                InteractServerRpc(stateObject);
             }
         }
     }
     [ServerRpc]
-    public void InteractServerRpc(){
-        stateObjectIngrediente.Value = true;
+    public void InteractServerRpc(bool has){
+        stateObjectIngrediente.Value = has;
         SetPickObjectClientRpc(stateObjectIngrediente.Value);
     }
 

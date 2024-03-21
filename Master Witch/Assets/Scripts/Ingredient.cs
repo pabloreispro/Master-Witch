@@ -8,10 +8,11 @@ public class Ingredient : Interactable
 {
     public float progress;
     public FoodSO food;
-
+    public bool valueAsset;
 
     public override void Pick(Player player)
     {
-        player.stateObjectIngrediente.Value = true;
+        player.stateObject = true;
+        player.isHandfull = true;
     }
 }

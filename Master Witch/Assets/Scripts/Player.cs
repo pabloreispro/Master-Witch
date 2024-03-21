@@ -10,8 +10,9 @@ public class Player : NetworkBehaviour
     string name;
     Color color;
     public Interactable interact;
-    public bool isHandFull;
     public GameObject assetIngredient;
+    public bool stateObject;
+    public bool isHandfull;
     public NetworkVariable<bool> stateObjectIngrediente = new NetworkVariable<bool>();
 
     public void ONetworkSpawn()
