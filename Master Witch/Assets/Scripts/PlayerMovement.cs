@@ -48,6 +48,7 @@ public class PlayerMovement : Player
     void Interact(InputAction.CallbackContext context){
         if(IsOwner){
             if(context.performed){
+                
                 if(!isHandfull)
                     interact.Pick(this);
                 else

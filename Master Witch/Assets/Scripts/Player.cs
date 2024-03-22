@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using JetBrains.Annotations;
+using Game.SO;
 
 public class Player : NetworkBehaviour
 {
@@ -11,6 +12,7 @@ public class Player : NetworkBehaviour
     Color color;
     public Interactable interact;
     public GameObject assetIngredient;
+    public FoodSO ingredient;
     public bool stateObject;
     public bool isHandfull;
     public NetworkVariable<bool> stateObjectIngrediente = new NetworkVariable<bool>();

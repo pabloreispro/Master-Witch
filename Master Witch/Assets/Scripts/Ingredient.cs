@@ -14,5 +14,6 @@ public class Ingredient : Interactable
     {
         player.stateObject = true;
         player.isHandfull = true;
+        player.ingredient = food;
     }
 }
