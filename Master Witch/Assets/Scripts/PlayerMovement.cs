@@ -4,6 +4,8 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
+using Unity.VisualScripting;
+
 
 public class PlayerMovement : Player
 {
@@ -12,7 +14,7 @@ public class PlayerMovement : Player
     public float speedPlayer;
     CharacterController controller;
     bool groundedPlayer;
-    
+    public ServerManager spawnManager;
     
     void Awake()
     {
@@ -48,18 +50,32 @@ public class PlayerMovement : Player
     void Interact(InputAction.CallbackContext context){
         if(IsOwner){
             if(context.performed){
-                
-                if(!isHandfull)
-                    interact.Pick(this);
-                else
-                    interact.Drop(this);
-                InteractServerRpc(stateObject);
+                if(!isHand.Value){
+                    interact.PickServerRpc(NetworkObjectId);
+                    
+                    InteractServerRpc(stateObject);
+                }else{
+                    
+                    interact.DropServerRpc(NetworkObjectId);
+                }
             }
         }
     }
+    
+    /*[ServerRpc]
+    void DropServerRpc(){
+        interact.Drop(this);
+        DropClientRpc();
+    }
+    [ClientRpc]
+    void DropClientRpc(){
+        interact.Drop(this);
+    }*/
+    
     [ServerRpc]
     public void InteractServerRpc(bool has){
         stateObjectIngrediente.Value = has;
+        isHand.Value = has;
         SetPickObjectClientRpc(stateObjectIngrediente.Value);
     }
 
@@ -67,4 +83,5 @@ public class PlayerMovement : Player
     public void SetPickObjectClientRpc(bool has){
         assetIngredient.SetActive(has);
     }
+
 }

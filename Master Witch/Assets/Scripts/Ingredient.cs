@@ -12,8 +12,10 @@ public class Ingredient : Interactable
 
     public override void Pick(Player player)
     {
+        
         player.stateObject = true;
         player.isHandfull = true;
         player.ingredient = food;
     }
+    
 }

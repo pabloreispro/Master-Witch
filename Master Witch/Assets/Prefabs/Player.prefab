@@ -245,7 +245,6 @@ GameObject:
   - component: {fileID: 751274680935273254}
   - component: {fileID: 7791635206704851967}
   - component: {fileID: 7125220279745573194}
-  - component: {fileID: 2962424495476223492}
   - component: {fileID: 7608809434937928448}
   - component: {fileID: 215957238498368790}
   m_Layer: 0
@@ -391,22 +390,6 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &2962424495476223492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6058738765583766785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c13da6daac0fbd41b7304a15d88eb70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 0
-  interact: {fileID: 0}
-  isHandFull: 0
-  assetIngredient: {fileID: 897554752763670127}
 --- !u!114 &7608809434937928448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,8 +404,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   interact: {fileID: 0}
-  isHandFull: 0
   assetIngredient: {fileID: 897554752763670127}
+  ingredient: {fileID: 0}
+  stateObject: 0
+  isHandfull: 0
+  stateObjectIngrediente:
+    m_InternalValue: 0
   speed: 15
   speedPlayer: 15
 --- !u!114 &215957238498368790

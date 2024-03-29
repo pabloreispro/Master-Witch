@@ -16,6 +16,7 @@ public class Player : NetworkBehaviour
     public bool stateObject;
     public bool isHandfull;
     public NetworkVariable<bool> stateObjectIngrediente = new NetworkVariable<bool>();
+    public NetworkVariable<bool> isHand = new NetworkVariable<bool>();
 
     public void ONetworkSpawn()
     {
