@@ -6,16 +6,23 @@ using Unity.Netcode;
 
 public class Ingredient : Interactable
 {
-    public float progress;
     public FoodSO food;
-    public bool valueAsset;
+    public bool isHandIngredient;
+
 
     public override void Pick(Player player)
     {
-        
-        player.stateObject = true;
-        player.isHandfull = true;
+        player.assetIngredient.SetActive(true);
+        player.isHand = true;
         player.ingredient = food;
+        player.interact = null;
+        if(isHandIngredient){
+            Debug.Log("Destruiu");
+            DestroyServerRpc();
+        }
     }
-    
+    [ServerRpc(RequireOwnership = false)]
+    public void DestroyServerRpc(){
+        this.GetComponent<NetworkObject>().Despawn();
+    }
 }

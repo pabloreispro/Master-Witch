@@ -12,12 +12,10 @@ public abstract class Interactable : NetworkBehaviour
     public virtual void Pick(Player player){}
     [ServerRpc(RequireOwnership = false)]
     public void DropServerRpc(ulong playerID){
-        
         DropClientRpc(playerID);
     }
     [ClientRpc]
     public void DropClientRpc(ulong playerID){
-        
         foreach(Player player in FindObjectsOfType<Player>()){
             if(player.NetworkObjectId == playerID){
                 Debug.Log("depositou");

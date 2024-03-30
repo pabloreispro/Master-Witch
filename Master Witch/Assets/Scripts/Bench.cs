@@ -16,7 +16,7 @@ public class Bench : Interactable
     public Vector3 positionSpawn;
 
     public void progress(){
-        
+        SpawnObject();
     }
     
     public void AddIngredient(FoodSO ingredient){
@@ -33,16 +33,14 @@ public class Bench : Interactable
 
     public override void Drop(Player player)
     {
+        player.assetIngredient.SetActive(false);
         AddIngredient(player.ingredient);
-        SpawnObject();
-        player.stateObject = false;
-        player.isHandfull = false;
+        player.ResetStatus(false);
     }
 
     void SpawnObject(){
-        Vector3 spawnPosition = new Vector3(this.transform.position.x, 0.9f, this.transform.position.z);
-        var objectSpawn = Instantiate(assetBench, spawnPosition, Quaternion.identity);
+        Vector3 spawnPosition = new Vector3(this.transform.position.x, 1f, this.transform.position.z);
+        Instantiate(assetBench, spawnPosition, Quaternion.identity);
         //objectSpawn.GetComponent<NetworkObject>().Spawn(true);
     }
-
 }

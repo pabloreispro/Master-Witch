@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
 using Unity.VisualScripting;
+using Game.SO;
+using UnityEngine.Rendering;
 
 
 public class PlayerMovement : Player
@@ -14,7 +16,7 @@ public class PlayerMovement : Player
     public float speedPlayer;
     CharacterController controller;
     bool groundedPlayer;
-    public ServerManager spawnManager;
+    public float distanciaMaxima = 2.0f;
     
     void Awake()
     {
@@ -31,8 +33,29 @@ public class PlayerMovement : Player
 
     void FixedUpdate()
     {
-        if(IsOwner == true)
+        if(IsOwner == true){
+            Ray ray = new Ray(transform.position, transform.forward);
+            RaycastHit hit;
+            
+            Debug.DrawRay(ray.origin, ray.direction * distanciaMaxima, Color.red);
+            
+            if (Physics.Raycast(ray, out hit, distanciaMaxima))
+            {
+                if (hit.collider.gameObject.GetComponent<Interactable>() != null)
+                {
+                    interact = hit.collider.gameObject.GetComponent<Interactable>();
+                    Debug.Log("Colidiu com o objeto que tem o script específico!");
+                }else{
+                    interact = null;
+                }
+            }
+            else
+            {
+                interact = null;
+            }
+
             MovementPlayer();
+        }
     }
 
     void MovementPlayer(){
@@ -50,16 +73,34 @@ public class PlayerMovement : Player
     void Interact(InputAction.CallbackContext context){
         if(IsOwner){
             if(context.performed){
-                if(!isHand.Value){
-                    interact.PickServerRpc(NetworkObjectId);
-                    
-                    InteractServerRpc(stateObject);
-                }else{
-                    
-                    interact.DropServerRpc(NetworkObjectId);
-                }
+                PickDropObject();
             }
         }
+    }
+    public void PickDropObject(){
+        if(isHand){
+            if(interact == null) 
+                DropInteractServerRpc();
+            else
+                interact.DropServerRpc(NetworkObjectId);
+        }else{
+            interact.PickServerRpc(NetworkObjectId);
+        }
+        //InteractServerRpc(stateObject);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void DropInteractServerRpc(){
+        var objectSpawn = Instantiate(ingredient.foodPrefab, this.transform.position, Quaternion.identity);
+        objectSpawn.GetComponent<NetworkObject>().Spawn(true);
+        DropInteractClientRpc();
+    }
+
+    [ClientRpc]
+    public void DropInteractClientRpc(){
+        
+        assetIngredient.SetActive(false);
+        ResetStatus(false);
     }
     
     /*[ServerRpc]
@@ -75,7 +116,7 @@ public class PlayerMovement : Player
     [ServerRpc]
     public void InteractServerRpc(bool has){
         stateObjectIngrediente.Value = has;
-        isHand.Value = has;
+        isHand = has;
         SetPickObjectClientRpc(stateObjectIngrediente.Value);
     }
 

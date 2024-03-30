@@ -10,34 +10,28 @@ public class Player : NetworkBehaviour
     public int id;
     string name;
     Color color;
+    
     public Interactable interact;
     public GameObject assetIngredient;
     public FoodSO ingredient;
     public bool stateObject;
-    public bool isHandfull;
     public NetworkVariable<bool> stateObjectIngrediente = new NetworkVariable<bool>();
-    public NetworkVariable<bool> isHand = new NetworkVariable<bool>();
+    public bool isHand;
 
     public void ONetworkSpawn()
     {
         stateObjectIngrediente.Value = false;
-        
+        isHand = false;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void ResetStatus(bool has){
+        interact = null;
+        ingredient = null;
+        stateObject = has;
+        isHand = has;
+        stateObjectIngrediente.Value = has;
     }
 
-    private void OnControllerColliderHit(ControllerColliderHit hit) {
-        if(hit.gameObject.GetComponent<Interactable>() != null){
-            interact = hit.gameObject.GetComponent<Interactable>();
-        }
-    }
+    /*private void OnControllerColliderHit(ControllerColliderHit hit) {
+        interact = hit.gameObject.GetComponent<Interactable>();
+    }*/
 }
