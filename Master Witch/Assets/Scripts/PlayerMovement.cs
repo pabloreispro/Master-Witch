@@ -44,7 +44,7 @@ public class PlayerMovement : Player
                 if (hit.collider.gameObject.GetComponent<Interactable>() != null)
                 {
                     interact = hit.collider.gameObject.GetComponent<Interactable>();
-                    Debug.Log("Colidiu com o objeto que tem o script específico!");
+                
                 }else{
                     interact = null;
                 }
@@ -86,7 +86,6 @@ public class PlayerMovement : Player
         }else{
             interact.PickServerRpc(NetworkObjectId);
         }
-        //InteractServerRpc(stateObject);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -98,31 +97,8 @@ public class PlayerMovement : Player
 
     [ClientRpc]
     public void DropInteractClientRpc(){
-        
         assetIngredient.SetActive(false);
         ResetStatus(false);
-    }
-    
-    /*[ServerRpc]
-    void DropServerRpc(){
-        interact.Drop(this);
-        DropClientRpc();
-    }
-    [ClientRpc]
-    void DropClientRpc(){
-        interact.Drop(this);
-    }*/
-    
-    [ServerRpc]
-    public void InteractServerRpc(bool has){
-        stateObjectIngrediente.Value = has;
-        isHand = has;
-        SetPickObjectClientRpc(stateObjectIngrediente.Value);
-    }
-
-    [ClientRpc]
-    public void SetPickObjectClientRpc(bool has){
-        assetIngredient.SetActive(has);
     }
 
 }

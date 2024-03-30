@@ -18,7 +18,6 @@ public abstract class Interactable : NetworkBehaviour
     public void DropClientRpc(ulong playerID){
         foreach(Player player in FindObjectsOfType<Player>()){
             if(player.NetworkObjectId == playerID){
-                Debug.Log("depositou");
                 Drop(player);
             }
         }
@@ -26,7 +25,6 @@ public abstract class Interactable : NetworkBehaviour
 
     [ServerRpc(RequireOwnership = false)]
     public void PickServerRpc(ulong playerID){
-        Debug.Log("Pegou");
         PickClientRpc(playerID);
     }
     [ClientRpc]

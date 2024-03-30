@@ -30,8 +30,4 @@ public class Player : NetworkBehaviour
         isHand = has;
         stateObjectIngrediente.Value = has;
     }
-
-    /*private void OnControllerColliderHit(ControllerColliderHit hit) {
-        interact = hit.gameObject.GetComponent<Interactable>();
-    }*/
 }

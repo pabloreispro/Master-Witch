@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Game.SO;
 using Unity.Mathematics;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum BenchType {Oven, Stove, Board}
@@ -14,9 +15,11 @@ public class Bench : Interactable
     BenchType benchType;
     public GameObject assetBench;
     public Vector3 positionSpawn;
+    public bool endProgress;
 
     public void progress(){
         SpawnObject();
+
     }
     
     public void AddIngredient(FoodSO ingredient){
@@ -31,6 +34,18 @@ public class Bench : Interactable
 
     }
 
+    public override void Pick(Player player)
+    {
+        if(endProgress){
+            if(ingredients.Count>0){
+                player.ingredient = ingredients[0];
+                ingredients.Clear();
+            }
+            player.assetIngredient.SetActive(true);
+            
+        }
+    }
+
     public override void Drop(Player player)
     {
         player.assetIngredient.SetActive(false);
@@ -41,6 +56,5 @@ public class Bench : Interactable
     void SpawnObject(){
         Vector3 spawnPosition = new Vector3(this.transform.position.x, 1f, this.transform.position.z);
         Instantiate(assetBench, spawnPosition, Quaternion.identity);
-        //objectSpawn.GetComponent<NetworkObject>().Spawn(true);
     }
 }
