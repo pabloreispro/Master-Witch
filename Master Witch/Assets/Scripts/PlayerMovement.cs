@@ -34,7 +34,13 @@ public class PlayerMovement : Player
     void FixedUpdate()
     {
         if(IsOwner == true){
-            Ray ray = new Ray(transform.position, transform.forward);
+            RaycastPlayer();
+            MovementPlayer();
+        }
+    }
+
+    public void RaycastPlayer(){
+        Ray ray = new Ray(transform.position, transform.forward);
             RaycastHit hit;
             
             Debug.DrawRay(ray.origin, ray.direction * distanciaMaxima, Color.red);
@@ -52,10 +58,7 @@ public class PlayerMovement : Player
             else
             {
                 interact = null;
-            }
-
-            MovementPlayer();
-        }
+            }   
     }
 
     void MovementPlayer(){

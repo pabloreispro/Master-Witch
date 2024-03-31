@@ -25,4 +25,6 @@ public class Ingredient : Interactable
     public void DestroyServerRpc(){
         this.GetComponent<NetworkObject>().Despawn();
     }
+
+
 }
