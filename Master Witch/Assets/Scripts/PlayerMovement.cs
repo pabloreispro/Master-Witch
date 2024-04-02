@@ -117,8 +117,8 @@ public class PlayerMovement : Player
 
     [ClientRpc]
     public void DropInteractClientRpc(){
-        assetIngredient.SetActive(false);
-        ResetStatus(false);
+        this.isHand = false;
+        this.ingredient = null;
     }
 
 }

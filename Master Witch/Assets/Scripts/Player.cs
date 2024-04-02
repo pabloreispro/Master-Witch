@@ -21,10 +21,5 @@ public class Player : NetworkBehaviour
     {
         stateObjectIngrediente.Value = false;
     }
-    public void ResetStatus(bool has){
-        interact = null;
-        ingredient = null;
-        isHand = has;
-    }
     
 }

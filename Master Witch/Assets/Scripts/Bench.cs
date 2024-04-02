@@ -20,7 +20,7 @@ public class Bench : Interactable
 
     public void progress(){
         SpawnObject();
-
+        OnEndProgress();
     }
     
     public void AddIngredient(FoodSO ingredient){
@@ -32,7 +32,7 @@ public class Bench : Interactable
     }
 
     public void OnEndProgress(){
-
+        endProgress = true;
     }
 
     public override void Pick(Player player)
@@ -44,27 +44,20 @@ public class Bench : Interactable
                 ingredients.Clear();
             }
             //CanDestroyIngredientServerRpc();\
-            auxObject.GetComponent<Ingredient>().DestroySelf();
+            //auxObject.GetComponent<Ingredient>().DestroySelf();
+            DestroyImmediate(auxObject, true);
         }
     }
 
     public override void Drop(Player player)
     {
         AddIngredient(player.ingredient);
-        player.ResetStatus(false);
+        player.isHand = false;
+        player.ingredient = null;
     }
 
     void SpawnObject(){
         Vector3 spawnPosition = new Vector3(this.transform.position.x, 1f, this.transform.position.z);
         auxObject = Instantiate(assetBench, spawnPosition, Quaternion.identity);
-    }
-
-    [ServerRpc(RequireOwnership=false)]
-    public void CanDestroyIngredientServerRpc(){
-        CanDEstroyIngredientClientRpc();
-    }
-    [ClientRpc]
-    public void CanDEstroyIngredientClientRpc(){
-        auxObject.GetComponent<Ingredient>().DestroySelf();
     }
 }
