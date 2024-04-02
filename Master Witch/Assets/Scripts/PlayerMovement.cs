@@ -82,13 +82,28 @@ public class PlayerMovement : Player
     }
     public void PickDropObject(){
         if(isHand){
-            if(interact == null) 
+            if(interact == null){
                 DropInteractServerRpc();
-            else
+                StatusAssetServerRpc(false);
+            }
+            else{
                 interact.DropServerRpc(NetworkObjectId);
+                StatusAssetServerRpc(false);
+            }
         }else{
             interact.PickServerRpc(NetworkObjectId);
+            StatusAssetServerRpc(true);
         }
+    }
+
+    [ServerRpc]
+    public void StatusAssetServerRpc(bool has){
+        stateObjectIngrediente.Value = has;
+        StatusClientRpc(stateObjectIngrediente.Value);
+    }
+    [ClientRpc]
+    public void StatusClientRpc(bool has){
+        assetIngredient.SetActive(has);
     }
 
     [ServerRpc(RequireOwnership = false)]

@@ -12,7 +12,6 @@ public class Ingredient : Interactable
 
     public override void Pick(Player player)
     {
-        player.assetIngredient.SetActive(true);
         player.isHand = true;
         player.ingredient = food;
         player.interact = null;

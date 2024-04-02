@@ -14,7 +14,6 @@ public class Player : NetworkBehaviour
     public Interactable interact;
     public GameObject assetIngredient;
     public FoodSO ingredient;
-    public bool stateObject;
     public NetworkVariable<bool> stateObjectIngrediente = new NetworkVariable<bool>();
     public bool isHand;
 
@@ -25,8 +24,6 @@ public class Player : NetworkBehaviour
     public void ResetStatus(bool has){
         interact = null;
         ingredient = null;
-        stateObject = has;
         isHand = has;
-        stateObjectIngrediente.Value = has;
     }
 }

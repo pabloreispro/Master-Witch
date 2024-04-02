@@ -6,10 +6,9 @@ using Unity.Netcode;
 public abstract class Interactable : NetworkBehaviour
 {
 
-    public virtual void Drop(Player player){
-        
-    }
+    public virtual void Drop(Player player){}
     public virtual void Pick(Player player){}
+
     [ServerRpc(RequireOwnership = false)]
     public void DropServerRpc(ulong playerID){
         DropClientRpc(playerID);

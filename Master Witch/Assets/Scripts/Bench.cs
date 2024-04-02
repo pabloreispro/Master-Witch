@@ -37,18 +37,17 @@ public class Bench : Interactable
     public override void Pick(Player player)
     {
         if(endProgress){
+            player.isHand = true;
             if(ingredients.Count>0){
                 player.ingredient = ingredients[0];
                 ingredients.Clear();
             }
-            player.assetIngredient.SetActive(true);
-            player.isHand = true;
+            
         }
     }
 
     public override void Drop(Player player)
     {
-        player.assetIngredient.SetActive(false);
         AddIngredient(player.ingredient);
         player.ResetStatus(false);
     }
