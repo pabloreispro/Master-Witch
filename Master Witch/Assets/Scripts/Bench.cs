@@ -42,7 +42,7 @@ public class Bench : Interactable
                 ingredients.Clear();
             }
             player.assetIngredient.SetActive(true);
-
+            player.isHand = true;
         }
     }
 

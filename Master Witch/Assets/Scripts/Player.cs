@@ -21,7 +21,6 @@ public class Player : NetworkBehaviour
     public void ONetworkSpawn()
     {
         stateObjectIngrediente.Value = false;
-        isHand = false;
     }
     public void ResetStatus(bool has){
         interact = null;
