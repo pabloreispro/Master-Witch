@@ -96,6 +96,8 @@ public class PlayerMovement : Player
         }
     }
 
+    
+
     [ServerRpc]
     public void StatusAssetServerRpc(bool has){
         stateObjectIngrediente.Value = has;

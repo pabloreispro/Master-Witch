@@ -26,4 +26,5 @@ public class Player : NetworkBehaviour
         ingredient = null;
         isHand = has;
     }
+    
 }

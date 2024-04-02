@@ -15,13 +15,19 @@ public class Ingredient : Interactable
         player.isHand = true;
         player.ingredient = food;
         player.interact = null;
+        DestroySelf();
+    }
+
+    public void DestroySelf(){
         if(isHandIngredient){
-            Debug.Log("Destruiu");
+            
             DestroyServerRpc();
         }
     }
     [ServerRpc(RequireOwnership = false)]
     public void DestroyServerRpc(){
+        Debug.Log("Destruiu");
+        this.GetComponent<NetworkObject>().DontDestroyWithOwner = true;
         this.GetComponent<NetworkObject>().Despawn();
     }
 

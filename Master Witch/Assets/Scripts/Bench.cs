@@ -16,6 +16,7 @@ public class Bench : Interactable
     public GameObject assetBench;
     public Vector3 positionSpawn;
     public bool endProgress;
+    public GameObject auxObject;
 
     public void progress(){
         SpawnObject();
@@ -42,7 +43,8 @@ public class Bench : Interactable
                 player.ingredient = ingredients[0];
                 ingredients.Clear();
             }
-            
+            //CanDestroyIngredientServerRpc();\
+            auxObject.GetComponent<Ingredient>().DestroySelf();
         }
     }
 
@@ -54,6 +56,15 @@ public class Bench : Interactable
 
     void SpawnObject(){
         Vector3 spawnPosition = new Vector3(this.transform.position.x, 1f, this.transform.position.z);
-        Instantiate(assetBench, spawnPosition, Quaternion.identity);
+        auxObject = Instantiate(assetBench, spawnPosition, Quaternion.identity);
+    }
+
+    [ServerRpc(RequireOwnership=false)]
+    public void CanDestroyIngredientServerRpc(){
+        CanDEstroyIngredientClientRpc();
+    }
+    [ClientRpc]
+    public void CanDEstroyIngredientClientRpc(){
+        auxObject.GetComponent<Ingredient>().DestroySelf();
     }
 }
