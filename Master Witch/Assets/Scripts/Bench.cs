@@ -29,7 +29,7 @@ public class Bench : Interactable
         startProgress = false;
         timer = 0f;
         timerProgress = 0;
-        auxObject = 0;
+        auxObject = 0f;
     }
 
     private void Update() {
