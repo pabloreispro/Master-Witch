@@ -66,6 +66,10 @@ public class Bench : Interactable
             progress();
     }
 
+    public void RemoveIngredient(FoodSO ingredient){
+
+    }
+
     public void OnEndProgress(){
         slider.gameObject.SetActive(false);
         endProgress = true;
@@ -75,6 +79,7 @@ public class Bench : Interactable
     {
         if(endProgress){
             player.isHand = true;
+            player.stateIngredient = true;
             if(ingredients.Count>0){
                 player.ingredient = ingredients[0];
                 ingredients.Clear();
@@ -84,11 +89,16 @@ public class Bench : Interactable
             DestroyImmediate(auxObject, true);
             Reset();
         }
+        if(benchType == BenchType.Storage){
+
+        }
+
     }
 
     public override void Drop(Player player)
     {
         endProgress = false;
+        player.stateIngredient = false;
         AddIngredient(player.ingredient);
         player.isHand = false;
         player.ingredient = null;

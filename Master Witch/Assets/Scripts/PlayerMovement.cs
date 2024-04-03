@@ -84,15 +84,15 @@ public class PlayerMovement : Player
         if(isHand){
             if(interact == null){
                 DropInteractServerRpc();
-                StatusAssetServerRpc(false);
+                StatusAssetServerRpc(stateIngredient);
             }
             else{
                 interact.DropServerRpc(NetworkObjectId);
-                StatusAssetServerRpc(false);
+                StatusAssetServerRpc(stateIngredient);
             }
         }else{
             interact.PickServerRpc(NetworkObjectId);
-            StatusAssetServerRpc(true);
+            StatusAssetServerRpc(stateIngredient);
         }
     }
 
@@ -110,7 +110,8 @@ public class PlayerMovement : Player
 
     [ServerRpc(RequireOwnership = false)]
     public void DropInteractServerRpc(){
-        var objectSpawn = Instantiate(ingredient.foodPrefab, this.transform.position, Quaternion.identity);
+        stateIngredient = false;
+        var objectSpawn = Instantiate(ingredient.foodPrefab, new Vector3(this.transform.position.x, 1.0f, this.transform.position.z), Quaternion.identity);
         objectSpawn.GetComponent<NetworkObject>().Spawn(true);
         DropInteractClientRpc();
     }

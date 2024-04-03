@@ -14,6 +14,7 @@ public class Player : NetworkBehaviour
     public Interactable interact;
     public GameObject assetIngredient;
     public FoodSO ingredient;
+    public bool stateIngredient;
     public NetworkVariable<bool> stateObjectIngrediente = new NetworkVariable<bool>();
     public bool isHand;
 
