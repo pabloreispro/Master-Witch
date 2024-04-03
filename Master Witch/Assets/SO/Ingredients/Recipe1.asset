@@ -10,21 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
-  m_Name: RecipeSO
+  m_Name: Recipe1
   m_EditorClassIdentifier: 
+  foodID: 0
+  category: 
+  foodPrefab: {fileID: 0}
+  timeProgress: 0
   categoryModifier:
     Animal: 0
     Vegetal: 0
     Fungi: 0
     Mystical: 0
-  recipeConditions:
-  - ingredient: {fileID: 0}
-    recipe: {fileID: 0}
-    category: 0
-    categoryPoints: 0
-    isAllowed: 0
-  - ingredient: {fileID: 0}
-    recipe: {fileID: 0}
-    category: 0
-    categoryPoints: 0
-    isAllowed: 0
+  recipeConditions: []

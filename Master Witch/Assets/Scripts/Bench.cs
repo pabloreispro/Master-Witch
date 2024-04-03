@@ -6,29 +6,59 @@ using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum BenchType {Oven, Stove, Board}
+public enum BenchType {Oven, Stove, Board, Storage}
 public class Bench : Interactable
 {
     int playerID;
     [SerializeField]
     List<FoodSO> ingredients = new List<FoodSO>();
-    BenchType benchType;
-    public GameObject assetBench;
-    public Vector3 positionSpawn;
-    public bool endProgress;
+    public BenchType benchType;
+
+    public GameObject[] assetBench;
+    public bool isSpawn;
     public GameObject auxObject;
 
+    public bool endProgress;
+    public bool startProgress;
+    public float timer;
+    public float timerProgress;
+    public float auxTimer;
+
+    void Reset(){
+        endProgress = false;
+        startProgress = false;
+        timer = 0f;
+        timerProgress = 0;
+        auxObject = 0;
+    }
+
+    private void Update() {
+        if(startProgress){
+            timer += Time.deltaTime;
+            if(timer >= timerProgress){
+                Debug.Log("Acabou de preparar");
+                startProgress = false;
+                OnEndProgress();
+            } 
+        }
+              
+    }
+
     public void progress(){
-        SpawnObject();
-        OnEndProgress();
+        startProgress = true;
+        foreach(FoodSO item in ingredients){
+            auxTimer=item.timeProgress;
+        }
+        timerProgress+=auxTimer;
     }
     
     public void AddIngredient(FoodSO ingredient){
-        //assetBench.SetActive(true);
+        timer = 0;
         ingredients.Add(ingredient);
-        assetBench = ingredients[0].foodPrefab;
-        progress();
-
+        if(auxObject==null)
+            assetBenchType();
+        if(!endProgress && benchType != BenchType.Storage)
+            progress();
     }
 
     public void OnEndProgress(){
@@ -46,6 +76,7 @@ public class Bench : Interactable
             //CanDestroyIngredientServerRpc();\
             //auxObject.GetComponent<Ingredient>().DestroySelf();
             DestroyImmediate(auxObject, true);
+            Reset();
         }
     }
 
@@ -56,8 +87,26 @@ public class Bench : Interactable
         player.ingredient = null;
     }
 
-    void SpawnObject(){
-        Vector3 spawnPosition = new Vector3(this.transform.position.x, 1f, this.transform.position.z);
-        auxObject = Instantiate(assetBench, spawnPosition, Quaternion.identity);
+    void SpawnObject(int index){
+        Vector3 spawnPosition = new Vector3(this.transform.position.x, 1.5f, this.transform.position.z);
+        auxObject = Instantiate(assetBench[index], spawnPosition, Quaternion.identity);
+    }
+
+    void assetBenchType(){
+        switch (benchType)
+        {
+            case BenchType.Oven:
+                SpawnObject(0);
+                break;
+            case BenchType.Stove:
+                SpawnObject(1);
+                break;
+            case BenchType.Board:
+                SpawnObject(2);
+                break;
+            case BenchType.Storage:
+                SpawnObject(3);
+                break;
+        }
     }
 }
