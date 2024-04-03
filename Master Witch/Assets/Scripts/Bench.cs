@@ -5,6 +5,7 @@ using Unity.Mathematics;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum BenchType {Oven, Stove, Board, Storage}
 public class Bench : Interactable
@@ -23,6 +24,7 @@ public class Bench : Interactable
     public float timer;
     public float timerProgress;
     public float auxTimer;
+    public Slider slider;
 
     void Reset(){
         endProgress = false;
@@ -35,6 +37,7 @@ public class Bench : Interactable
     private void Update() {
         if(startProgress){
             timer += Time.deltaTime;
+            slider.value = timer;
             if(timer >= timerProgress){
                 Debug.Log("Acabou de preparar");
                 startProgress = false;
@@ -50,6 +53,8 @@ public class Bench : Interactable
             auxTimer=item.timeProgress;
         }
         timerProgress+=auxTimer;
+        slider.gameObject.SetActive(true);
+        slider.maxValue = timerProgress;
     }
     
     public void AddIngredient(FoodSO ingredient){
@@ -62,6 +67,7 @@ public class Bench : Interactable
     }
 
     public void OnEndProgress(){
+        slider.gameObject.SetActive(false);
         endProgress = true;
     }
 
@@ -82,6 +88,7 @@ public class Bench : Interactable
 
     public override void Drop(Player player)
     {
+        endProgress = false;
         AddIngredient(player.ingredient);
         player.isHand = false;
         player.ingredient = null;
