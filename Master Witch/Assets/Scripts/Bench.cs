@@ -66,8 +66,10 @@ public class Bench : Interactable
             progress();
     }
 
-    public void RemoveIngredient(FoodSO ingredient){
-
+    public FoodSO RemoveIngredient(FoodSO ingredient){
+        FoodSO aux = ingredients.Find(x => x == ingredient);
+        ingredients.Remove(ingredient);
+        return aux;
     }
 
     public void OnEndProgress(){
@@ -90,7 +92,14 @@ public class Bench : Interactable
             Reset();
         }
         if(benchType == BenchType.Storage){
+            player.isHand = true;
+            player.stateIngredient = true;
+            player.ingredient = RemoveIngredient(player.getIngredient);
+            if(ingredients.Count == 0){
 
+                DestroyImmediate(auxObject, true);
+            }
+            
         }
 
     }
