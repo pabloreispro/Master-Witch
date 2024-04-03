@@ -40,7 +40,7 @@ public class PlayerMovement : Player
     }
 
     public void RaycastPlayer(){
-        Ray ray = new Ray(transform.position, transform.forward);
+        Ray ray = new Ray(transform.position + new Vector3(0,1.0f, 0), transform.forward);
             RaycastHit hit;
             
             Debug.DrawRay(ray.origin, ray.direction * distanciaMaxima, Color.red);

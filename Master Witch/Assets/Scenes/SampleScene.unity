@@ -156,6 +156,7 @@ Transform:
   - {fileID: 332368013}
   - {fileID: 581516502}
   - {fileID: 184829213}
+  - {fileID: 1067625792}
   - {fileID: 1230838670}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2029,6 +2030,7 @@ MonoBehaviour:
   startProgress: 0
   timer: 0
   timerProgress: 0
+  auxTimer: 0
 --- !u!1 &1006384243
 GameObject:
   m_ObjectHideFlags: 0
@@ -2162,6 +2164,91 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1006384243}
   m_CullTransparentMesh: 1
+--- !u!1001 &1067625791
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 46476254}
+    m_Modifications:
+    - target: {fileID: 565471125967411231, guid: bcf22d9101f1549cfa4ac4d216ee7ab5,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 815655305
+      objectReference: {fileID: 0}
+    - target: {fileID: 5727082883113431001, guid: bcf22d9101f1549cfa4ac4d216ee7ab5,
+        type: 3}
+      propertyPath: food
+      value: 
+      objectReference: {fileID: 11400000, guid: 412a53c78a1f44aee88eae4afff78863,
+        type: 2}
+    - target: {fileID: 6403589197307698954, guid: bcf22d9101f1549cfa4ac4d216ee7ab5,
+        type: 3}
+      propertyPath: m_Name
+      value: Pocao1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128673977931140718, guid: bcf22d9101f1549cfa4ac4d216ee7ab5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -26.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128673977931140718, guid: bcf22d9101f1549cfa4ac4d216ee7ab5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128673977931140718, guid: bcf22d9101f1549cfa4ac4d216ee7ab5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128673977931140718, guid: bcf22d9101f1549cfa4ac4d216ee7ab5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128673977931140718, guid: bcf22d9101f1549cfa4ac4d216ee7ab5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128673977931140718, guid: bcf22d9101f1549cfa4ac4d216ee7ab5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128673977931140718, guid: bcf22d9101f1549cfa4ac4d216ee7ab5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128673977931140718, guid: bcf22d9101f1549cfa4ac4d216ee7ab5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128673977931140718, guid: bcf22d9101f1549cfa4ac4d216ee7ab5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128673977931140718, guid: bcf22d9101f1549cfa4ac4d216ee7ab5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bcf22d9101f1549cfa4ac4d216ee7ab5, type: 3}
+--- !u!4 &1067625792 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7128673977931140718, guid: bcf22d9101f1549cfa4ac4d216ee7ab5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1067625791}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1121566904
 GameObject:
   m_ObjectHideFlags: 0
@@ -2459,7 +2546,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1260186545}
-    PlayerPrefab: {fileID: 6058738765583766785, guid: d7adb049d76ca484f830424d00aa0f1a,
+    PlayerPrefab: {fileID: 9016872758617236011, guid: a6c73109e14a04b83bb2094c2ced4653,
       type: 3}
     Prefabs:
       NetworkPrefabsLists:
