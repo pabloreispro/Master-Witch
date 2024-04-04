@@ -96,10 +96,8 @@ public class Bench : Interactable
             player.stateIngredient = true;
             player.ingredient = RemoveIngredient(player.getIngredient);
             if(ingredients.Count == 0){
-
                 DestroyImmediate(auxObject, true);
             }
-            
         }
 
     }

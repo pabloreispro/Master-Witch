@@ -106,6 +106,8 @@ public class PlayerMovement : Player
     [ClientRpc]
     public void StatusClientRpc(bool has){
         assetIngredient.SetActive(has);
+        assetIngredient.GetComponent<MeshFilter>().sharedMesh = ingredient.foodPrefab.GetComponent<MeshFilter>().sharedMesh;
+        assetIngredient.GetComponent<MeshRenderer>().sharedMaterial = ingredient.foodPrefab.GetComponent<MeshRenderer>().sharedMaterial;
     }
 
     [ServerRpc(RequireOwnership = false)]
