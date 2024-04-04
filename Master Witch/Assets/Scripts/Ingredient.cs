@@ -14,6 +14,7 @@ public class Ingredient : Interactable
     {
         player.isHand = true;
         player.StatusAssetServerRpc(true);
+        player.ChangeMeshHandServerRpc();
         player.ingredient = food;
         DestroySelf();
     }

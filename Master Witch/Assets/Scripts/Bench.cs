@@ -82,6 +82,7 @@ public class Bench : Interactable
         if(endProgress){
             player.isHand = true;
             player.StatusAssetServerRpc(true);
+            player.ChangeMeshHandServerRpc();
             if(ingredients.Count>0){
                 player.ingredient = ingredients[0];
                 ingredients.Clear();
@@ -94,6 +95,7 @@ public class Bench : Interactable
         if(benchType == BenchType.Storage){
             player.isHand = true;
             player.StatusAssetServerRpc(true);
+            player.ChangeMeshHandServerRpc();
             player.ingredient = RemoveIngredient(player.getIngredient);
             if(ingredients.Count == 0){
                 DestroyImmediate(auxObject, true);
