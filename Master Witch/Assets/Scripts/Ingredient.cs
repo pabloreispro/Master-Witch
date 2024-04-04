@@ -13,9 +13,8 @@ public class Ingredient : Interactable
     public override void Pick(Player player)
     {
         player.isHand = true;
-        player.stateIngredient = true;
+        player.StatusAssetServerRpc(true);
         player.ingredient = food;
-        player.interact = null;
         DestroySelf();
     }
 

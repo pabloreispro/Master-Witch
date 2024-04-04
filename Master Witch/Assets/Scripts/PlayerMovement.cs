@@ -84,35 +84,24 @@ public class PlayerMovement : Player
         if(isHand){
             if(interact == null){
                 DropInteractServerRpc();
-                StatusAssetServerRpc(stateIngredient);
+                
             }
             else{
                 interact.DropServerRpc(NetworkObjectId);
-                StatusAssetServerRpc(stateIngredient);
+                
             }
         }else{
             interact.PickServerRpc(NetworkObjectId);
-            StatusAssetServerRpc(stateIngredient);
         }
     }
 
     
 
-    [ServerRpc]
-    public void StatusAssetServerRpc(bool has){
-        stateObjectIngrediente.Value = has;
-        StatusClientRpc(stateObjectIngrediente.Value);
-    }
-    [ClientRpc]
-    public void StatusClientRpc(bool has){
-        assetIngredient.SetActive(has);
-        assetIngredient.GetComponent<MeshFilter>().sharedMesh = ingredient.foodPrefab.GetComponent<MeshFilter>().sharedMesh;
-        assetIngredient.GetComponent<MeshRenderer>().sharedMaterial = ingredient.foodPrefab.GetComponent<MeshRenderer>().sharedMaterial;
-    }
+    
 
     [ServerRpc(RequireOwnership = false)]
     public void DropInteractServerRpc(){
-        stateIngredient = false;
+        StatusAssetServerRpc(false);
         var objectSpawn = Instantiate(ingredient.foodPrefab, new Vector3(this.transform.position.x, 1.0f, this.transform.position.z), Quaternion.identity);
         objectSpawn.GetComponent<NetworkObject>().Spawn(true);
         DropInteractClientRpc();

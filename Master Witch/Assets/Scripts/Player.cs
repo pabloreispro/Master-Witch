@@ -27,5 +27,20 @@ public class Player : NetworkBehaviour
     {
         stateObjectIngrediente.Value = false;
     }
-    
+    [ServerRpc]
+    public void StatusAssetServerRpc(bool has){
+        stateObjectIngrediente.Value = has;
+        StatusClientRpc(stateObjectIngrediente.Value);
+    }
+    [ClientRpc]
+    public void StatusClientRpc(bool has){
+        assetIngredient.SetActive(has);
+       //assetIngredient.GetComponent<MeshFilter>().sharedMesh = ingredient.foodPrefab.GetComponent<MeshFilter>().sharedMesh;
+       //assetIngredient.GetComponent<MeshRenderer>().sharedMaterial = ingredient.foodPrefab.GetComponent<MeshRenderer>().sharedMaterial;
+    }
+
+    [ServerRpc]
+    public void ChangeMeshHand(){
+        
+    }
 }

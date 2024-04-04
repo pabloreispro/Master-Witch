@@ -81,7 +81,7 @@ public class Bench : Interactable
     {
         if(endProgress){
             player.isHand = true;
-            player.stateIngredient = true;
+            player.StatusAssetServerRpc(true);
             if(ingredients.Count>0){
                 player.ingredient = ingredients[0];
                 ingredients.Clear();
@@ -93,7 +93,7 @@ public class Bench : Interactable
         }
         if(benchType == BenchType.Storage){
             player.isHand = true;
-            player.stateIngredient = true;
+            player.StatusAssetServerRpc(true);
             player.ingredient = RemoveIngredient(player.getIngredient);
             if(ingredients.Count == 0){
                 DestroyImmediate(auxObject, true);
@@ -105,7 +105,7 @@ public class Bench : Interactable
     public override void Drop(Player player)
     {
         endProgress = false;
-        player.stateIngredient = false;
+        player.StatusAssetServerRpc(false);
         AddIngredient(player.ingredient);
         player.isHand = false;
         player.ingredient = null;
