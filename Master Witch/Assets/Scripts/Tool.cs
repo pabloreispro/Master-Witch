@@ -1,26 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Game.SO;
 using Unity.Netcode;
 
-public class Ingredient : Interactable
+public class Tool : Interactable
 {
-    public FoodSO food;
-    public bool isHandIngredient;
-
+    public ToolsSO tool;
+    public bool isHandTool;
 
     public override void Pick(Player player)
     {
         player.isHand = true;
+        player.tool = tool;
         player.StatusAssetServerRpc(true);
-        player.ingredient = food;
-        player.ChangeMeshHandServerRpc();
-        DestroySelf();
+        player.ChangeMeshHandToolServerRpc();
     }
 
     public void DestroySelf(){
-        if(isHandIngredient){
+        if(isHandTool){
             DestroyServerRpc();
         }
     }
@@ -30,6 +27,5 @@ public class Ingredient : Interactable
         this.GetComponent<NetworkObject>().DontDestroyWithOwner = true;
         this.GetComponent<NetworkObject>().Despawn();
     }
-
 
 }

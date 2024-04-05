@@ -17,6 +17,7 @@ public class PlayerMovement : Player
     CharacterController controller;
     bool groundedPlayer;
     public float distanciaMaxima = 2.0f;
+
     
     void Awake()
     {
@@ -83,27 +84,29 @@ public class PlayerMovement : Player
     public void PickDropObject(){
         if(isHand){
             if(interact == null){
-                DropInteractServerRpc();
-                
+                DropInteractServerRpc();   
             }
             else{
                 interact.DropServerRpc(NetworkObjectId);
-                
             }
         }else{
             interact.PickServerRpc(NetworkObjectId);
         }
     }
-
-    
-
     
 
     [ServerRpc(RequireOwnership = false)]
     public void DropInteractServerRpc(){
         StatusAssetServerRpc(false);
-        var objectSpawn = Instantiate(ingredient.foodPrefab, new Vector3(this.transform.position.x, 1.0f, this.transform.position.z), Quaternion.identity);
-        objectSpawn.GetComponent<NetworkObject>().Spawn(true);
+        if(ingredient!=null){
+            var objectSpawn = Instantiate(ingredient.foodPrefab, new Vector3(this.transform.position.x, 1.0f, this.transform.position.z), Quaternion.identity);
+            objectSpawn.GetComponent<NetworkObject>().Spawn(true);
+        }
+        if(tool!=null){
+            var objectSpawn = Instantiate(tool.prefab, new Vector3(this.transform.position.x, 1.0f, this.transform.position.z), Quaternion.identity);
+            objectSpawn.GetComponent<NetworkObject>().Spawn(true);
+        }
+        
         DropInteractClientRpc();
     }
 

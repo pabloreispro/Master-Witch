@@ -11,15 +11,16 @@ public class Player : NetworkBehaviour
     public int id;
     string name;
     Color color;
+
     
     [Header("Scriptable Object")]
     public Interactable interact;
     public FoodSO ingredient;
     public FoodSO getIngredient;
+    public ToolsSO tool;
 
     [Header("Ingredient Hand")]
     public GameObject assetIngredient;
-    public bool stateIngredient;
     public NetworkVariable<bool> stateObjectIngrediente = new NetworkVariable<bool>();
     public bool isHand;
 
@@ -46,5 +47,14 @@ public class Player : NetworkBehaviour
     public void ChangeMeshHandClientRpc(){
         assetIngredient.GetComponent<MeshFilter>().sharedMesh = ingredient.foodPrefab.GetComponent<MeshFilter>().sharedMesh;
         assetIngredient.GetComponent<MeshRenderer>().sharedMaterial = ingredient.foodPrefab.GetComponent<MeshRenderer>().sharedMaterial;
+    }
+    [ServerRpc]
+    public void ChangeMeshHandToolServerRpc(){
+        ChangeMeshHandToolClientRpc();
+    }
+    [ClientRpc]
+    public void ChangeMeshHandToolClientRpc(){
+        assetIngredient.GetComponent<MeshFilter>().sharedMesh = tool.prefab.GetComponent<MeshFilter>().sharedMesh;
+        assetIngredient.GetComponent<MeshRenderer>().sharedMaterial = tool.prefab.GetComponent<MeshRenderer>().sharedMaterial;
     }
 }
