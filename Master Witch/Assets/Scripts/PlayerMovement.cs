@@ -82,6 +82,7 @@ public class PlayerMovement : Player
         }
     }
     public void PickDropObject(){
+        
         if(isHand){
             if(interact == null){
                 DropInteractServerRpc();   

@@ -23,7 +23,13 @@ public class Player : NetworkBehaviour
     public GameObject assetIngredient;
     public NetworkVariable<bool> stateObjectIngrediente = new NetworkVariable<bool>();
     public bool isHand;
+    
 
+    [Header("Basket Config")]
+    public bool isMarketIngredient;
+    public int basketMax;
+    [SerializeField]
+    private List <FoodSO> ingredientsBasket = new List<FoodSO>();
     public void ONetworkSpawn()
     {
         stateObjectIngrediente.Value = false;
@@ -56,5 +62,15 @@ public class Player : NetworkBehaviour
     public void ChangeMeshHandToolClientRpc(){
         assetIngredient.GetComponent<MeshFilter>().sharedMesh = tool.prefab.GetComponent<MeshFilter>().sharedMesh;
         assetIngredient.GetComponent<MeshRenderer>().sharedMaterial = tool.prefab.GetComponent<MeshRenderer>().sharedMaterial;
+    }
+
+    public void AddItemBasket(FoodSO ingredient)
+    {
+        if(ingredientsBasket.Count < basketMax)
+        {
+            ingredientsBasket.Add(ingredient);
+            Debug.Log("Add");
+        }
+        
     }
 }
