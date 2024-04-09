@@ -98,24 +98,26 @@ public class PlayerMovement : Player
 
     [ServerRpc(RequireOwnership = false)]
     public void DropInteractServerRpc(){
-        StatusAssetServerRpc(false);
+        
         if(ingredient!=null){
             var objectSpawn = Instantiate(ingredient.foodPrefab, new Vector3(assetIngredient.transform.position.x, 1.0f, assetIngredient.transform.position.z), Quaternion.identity);
             objectSpawn.GetComponent<NetworkObject>().Spawn(true);
+            DropInteractClientRpc();
+            StatusAssetServerRpc(false);
         }
-        if(tool!=null){
+        /*if(tool!=null){
             var objectSpawn = Instantiate(tool.prefab, new Vector3(assetIngredient.transform.position.x, 1.0f, assetIngredient.transform.position.z), Quaternion.identity);
             objectSpawn.GetComponent<NetworkObject>().Spawn(true);
-        }
+        }*/
         
-        DropInteractClientRpc();
+        
     }
 
     [ClientRpc]
     public void DropInteractClientRpc(){
         this.isHand = false;
         this.ingredient = null;
-        this.tool = null;
+        //this.tool = null;
     }
 
 }
