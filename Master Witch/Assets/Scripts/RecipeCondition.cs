@@ -4,9 +4,9 @@ using Game.SO;
 [System.Serializable]
 public class RecipeCondition 
 {
-    public Ingredient ingredient;
-    public RecipeSO recipe;
-    public Category category;
+    public Ingredient[] ingredient;
+    public RecipeSO[] recipe;
+    public Category categorySpecial;
     public float categoryPoints;
     public bool isAllowed;
 
