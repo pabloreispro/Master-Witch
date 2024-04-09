@@ -5,10 +5,19 @@ using Game.SO;
 public class MarketBench : Interactable
 {
     public FoodSO food;
-    
+    public bool getBasket;
     public override void Pick(Player player)
     {
-        player.AddItemBasket(food);
+        if(getBasket == true)
+        {
+            player.hasBasket = true;
+        }
+        else if(player.hasBasket == true && getBasket != true)
+        {
+           player.AddItemBasket(food); 
+        }
+        
+        
     }
 
 }

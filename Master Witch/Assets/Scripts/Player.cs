@@ -26,7 +26,7 @@ public class Player : NetworkBehaviour
     
 
     [Header("Basket Config")]
-    public bool isMarketIngredient;
+    public bool hasBasket;
     public int basketMax;
     [SerializeField]
     private List <FoodSO> ingredientsBasket = new List<FoodSO>();
