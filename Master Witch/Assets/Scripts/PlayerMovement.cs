@@ -42,24 +42,24 @@ public class PlayerMovement : Player
 
     public void RaycastPlayer(){
         Ray ray = new Ray(transform.position + new Vector3(0,1.0f, 0), transform.forward);
-            RaycastHit hit;
-            
-            Debug.DrawRay(ray.origin, ray.direction * distanciaMaxima, Color.red);
-            
-            if (Physics.Raycast(ray, out hit, distanciaMaxima))
+        RaycastHit hit;
+        
+        Debug.DrawRay(ray.origin, ray.direction * distanciaMaxima, Color.red);
+        
+        if (Physics.Raycast(ray, out hit, distanciaMaxima))
+        {
+            if (hit.collider.gameObject.GetComponent<Interactable>() != null)
             {
-                if (hit.collider.gameObject.GetComponent<Interactable>() != null)
-                {
-                    interact = hit.collider.gameObject.GetComponent<Interactable>();
-                
-                }else{
-                    interact = null;
-                }
-            }
-            else
-            {
+                interact = hit.collider.gameObject.GetComponent<Interactable>();
+            
+            }else{
                 interact = null;
-            }   
+            }
+        }
+        else
+        {
+            interact = null;
+        }   
     }
 
     void MovementPlayer(){
@@ -100,11 +100,11 @@ public class PlayerMovement : Player
     public void DropInteractServerRpc(){
         StatusAssetServerRpc(false);
         if(ingredient!=null){
-            var objectSpawn = Instantiate(ingredient.foodPrefab, new Vector3(this.transform.position.x, 1.0f, this.transform.position.z), Quaternion.identity);
+            var objectSpawn = Instantiate(ingredient.foodPrefab, new Vector3(assetIngredient.transform.position.x, 1.0f, assetIngredient.transform.position.z), Quaternion.identity);
             objectSpawn.GetComponent<NetworkObject>().Spawn(true);
         }
         if(tool!=null){
-            var objectSpawn = Instantiate(tool.prefab, new Vector3(this.transform.position.x, 1.0f, this.transform.position.z), Quaternion.identity);
+            var objectSpawn = Instantiate(tool.prefab, new Vector3(assetIngredient.transform.position.x, 1.0f, assetIngredient.transform.position.z), Quaternion.identity);
             objectSpawn.GetComponent<NetworkObject>().Spawn(true);
         }
         
@@ -115,6 +115,7 @@ public class PlayerMovement : Player
     public void DropInteractClientRpc(){
         this.isHand = false;
         this.ingredient = null;
+        this.tool = null;
     }
 
 }

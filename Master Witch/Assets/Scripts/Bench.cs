@@ -104,6 +104,7 @@ public class Bench : Interactable
 
     public override void Drop(Player player)
     {
+        
         if(player.tool !=null){
             if(player.tool.benchType == benchType){
                 tool = player.tool;
