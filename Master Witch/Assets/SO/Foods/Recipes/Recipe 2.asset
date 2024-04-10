@@ -9,11 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a050a947ea54423f82b2119ed431967, type: 3}
-  m_Name: Ingredient2
+  m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
+  m_Name: Recipe 2
   m_EditorClassIdentifier: 
-  foodID: 1
+  foodID: 0
   category: 
   foodPrefab: {fileID: 7215296140735246990, guid: fe2ad2d42c28846a8863677bd440c7f5,
     type: 3}
-  timeProgress: 0
+  timeProgress: 10
+  categoryModifier:
+    Animal: 0
+    Vegetal: 0
+    Fungi: 0
+    Mystical: 0
+  recipeConditions:
+  - type: 0
+    foods:
+    - {fileID: 11400000, guid: 35718ad198a772145a1617871493e038, type: 2}
+    category: 0
+    categoryPoints: 0
+    isAllowed: 1

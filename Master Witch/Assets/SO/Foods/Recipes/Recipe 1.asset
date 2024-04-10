@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
+  m_Name: Recipe 1
+  m_EditorClassIdentifier: 
+  foodID: 4
+  category: 
+  foodPrefab: {fileID: 7215296140735246990, guid: fe2ad2d42c28846a8863677bd440c7f5,
+    type: 3}
+  timeProgress: 10
+  categoryModifier:
+    Animal: 0
+    Vegetal: 0
+    Fungi: 0
+    Mystical: 0
+  recipeConditions:
+  - type: 1
+    foods:
+    - {fileID: 11400000, guid: 35718ad198a772145a1617871493e038, type: 2}
+    category: 1
+    categoryPoints: 10
+    isAllowed: 1
+  - type: 0
+    foods:
+    - {fileID: 11400000, guid: a837fcd40fde543169a03671d1a74e5b, type: 2}
+    category: 1
+    categoryPoints: 10
+    isAllowed: 0

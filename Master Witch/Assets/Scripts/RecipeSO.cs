@@ -10,10 +10,19 @@ namespace Game.SO {
     {
        
         public CategoryModifier categoryModifier;
-        public RecipeCondition [] recipeConditions;
-        public bool CheckConditions()
+        public RecipeCondition[] recipeConditions;
+        public bool CheckConditions(List<FoodSO> ingredients)
         {
-            return false;
+            for (int i = 0; i < recipeConditions.Length; i++)
+            {
+                if (!recipeConditions[i].CheckCondition(ingredients))
+                {
+                    Debug.Log($"Condition {i} is not completed");
+                    return false;
+                }
+            }
+            Debug.Log($"All conditions completed");
+            return true;
         }
     }
 }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
-  m_Name: Recipe1
+  m_Name: Recipe 3
   m_EditorClassIdentifier: 
   foodID: 0
   category: 
@@ -23,8 +23,9 @@ MonoBehaviour:
     Fungi: 0
     Mystical: 0
   recipeConditions:
-  - ingredient: []
-    recipe: []
-    categorySpecial: 0
+  - type: 0
+    foods:
+    - {fileID: 11400000, guid: fe4ce7c6f223e8647ac2a46b45001f61, type: 2}
+    category: 0
     categoryPoints: 0
-    isAllowed: 0
+    isAllowed: 1
