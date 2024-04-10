@@ -146,6 +146,7 @@ public class Bench : Interactable
             AddIngredient(player.ingredient);
             player.isHand = false;
             player.ingredient = null;
+            player.StatusAssetServerRpc(false);
         }
 
     }
