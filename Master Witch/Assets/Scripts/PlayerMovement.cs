@@ -17,6 +17,7 @@ public class PlayerMovement : Player
     CharacterController controller;
     bool groundedPlayer;
     public float distanciaMaxima = 2.0f;
+    public int numberOfRays = 10;
 
     
     void Awake()
@@ -41,31 +42,46 @@ public class PlayerMovement : Player
     }
 
     public void RaycastPlayer(){
-        Ray ray = new Ray(transform.position + new Vector3(0,1.0f, 0), transform.forward);
-        RaycastHit hit;
-        
-        Debug.DrawRay(ray.origin, ray.direction * distanciaMaxima, Color.red);
-        
-        if (Physics.Raycast(ray, out hit, distanciaMaxima))
+        float angleStep = 60.0f / (numberOfRays - 1); 
+
+        for (int i = 0; i < numberOfRays; i++)
         {
-            if (hit.collider.gameObject.GetComponent<Interactable>() != null)
+
+            float angle = transform.eulerAngles.y - 30 + angleStep * i; 
+            Vector3 direction = Quaternion.Euler(0, angle, 0) * Vector3.forward;
+
+            Ray ray = new Ray(transform.position + new Vector3(0, 0.5f, 0), direction);
+            RaycastHit hit;
+
+            Debug.DrawRay(ray.origin, ray.direction * distanciaMaxima, Color.red);
+
+            if (Physics.Raycast(ray, out hit, distanciaMaxima))
             {
-                interact = hit.collider.gameObject.GetComponent<Interactable>();
-            
-            }else{
+                Interactable tempInteract = hit.collider.gameObject.GetComponent<Interactable>();
+                if (tempInteract != null)
+                {
+                    interact = tempInteract;
+                    break;
+                }
+            }
+            else
+            {
                 interact = null;
             }
         }
-        else
-        {
-            interact = null;
-        }   
     }
 
     void MovementPlayer(){
         Vector2 inputVector = playerInput.PlayerControl.Movement.ReadValue<Vector2>();
 
         Vector3 move = new Vector3(inputVector.x, 0, inputVector.y).normalized;
+
+        float gravity = -9.81f; 
+        float verticalVelocity = 0; 
+
+        verticalVelocity += gravity * Time.deltaTime;
+
+        move.y += verticalVelocity;
         
         if(inputVector!=new Vector2(0,0)){
             Quaternion r = Quaternion.LookRotation(move);
