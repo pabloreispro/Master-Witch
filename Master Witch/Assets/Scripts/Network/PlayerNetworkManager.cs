@@ -26,14 +26,14 @@ namespace Network
 
         void OnClientConnected(ulong playerID)
         {
-            playerList.Add(playerID, NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>());
+            //playerList.Add(playerID, NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>());
             OnClientConnectedClientRpc(playerID);
         }
         [ClientRpc]
         void OnClientConnectedClientRpc(ulong playerID)
         {
-            if(!IsServer)
-                playerList.Add(playerID, NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>());
+            //if(!IsServer)
+                //playerList.Add(playerID, NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>());
         }
         void OnClientDisconnected(ulong playerID)
         {

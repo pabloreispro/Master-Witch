@@ -95,7 +95,7 @@ public class Bench : Interactable
 
     public override void Pick(Player player)
     {
-        if (player != targetPlayer) return;
+        //if (player != targetPlayer) return;
         if (endProgress)
         {
             player.isHand = true;
@@ -128,7 +128,7 @@ public class Bench : Interactable
 
     public override void Drop(Player player)
     {
-        if (player != targetPlayer) return;
+        //if (player != targetPlayer) return;
         if (player.tool != null)
         {
             if (player.tool.benchType == benchType)
