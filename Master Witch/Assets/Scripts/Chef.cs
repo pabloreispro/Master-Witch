@@ -14,6 +14,7 @@ public class Chef : Interactable
         if (playerRecipe == null) return;
         base.Drop(player);
         Review(player.ingredientsBasket, playerRecipe);
+        player.StatusAssetServerRpc(false);
     }
     public override void Pick(Player player)
     {

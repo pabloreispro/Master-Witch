@@ -50,7 +50,7 @@ public class PlayerMovement : Player
             float angle = transform.eulerAngles.y - 30 + angleStep * i; 
             Vector3 direction = Quaternion.Euler(0, angle, 0) * Vector3.forward;
 
-            Ray ray = new Ray(transform.position + new Vector3(0, 0.5f, 0), direction);
+            Ray ray = new Ray(transform.position + new Vector3(0, 1.0f, 0), direction);
             RaycastHit hit;
 
             Debug.DrawRay(ray.origin, ray.direction * distanciaMaxima, Color.red);
