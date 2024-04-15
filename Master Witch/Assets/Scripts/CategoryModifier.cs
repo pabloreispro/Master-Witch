@@ -3,8 +3,8 @@ using UnityEngine;
 [System.Serializable]
 public class CategoryModifier
 {
-    public int Animal;
-    public int Vegetal;
-    public int Fungi;
-    public int Mystical;
+    public float Animal;
+    public float Vegetal;
+    public float Fungi;
+    public float Mystical;
 }

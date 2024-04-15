@@ -13,25 +13,20 @@ MonoBehaviour:
   m_Name: Recipe 1
   m_EditorClassIdentifier: 
   foodID: 4
-  category: 
+  category: 00000000
   foodPrefab: {fileID: 7215296140735246990, guid: fe2ad2d42c28846a8863677bd440c7f5,
     type: 3}
   timeProgress: 10
+  score: 0
   categoryModifier:
     Animal: 0
-    Vegetal: 0
+    Vegetal: 0.1
     Fungi: 0
     Mystical: 0
   recipeConditions:
-  - type: 1
-    foods:
-    - {fileID: 11400000, guid: 35718ad198a772145a1617871493e038, type: 2}
-    category: 1
-    categoryPoints: 10
-    isAllowed: 1
   - type: 0
     foods:
     - {fileID: 11400000, guid: a837fcd40fde543169a03671d1a74e5b, type: 2}
     category: 1
     categoryPoints: 10
-    isAllowed: 0
+    isAllowed: 1

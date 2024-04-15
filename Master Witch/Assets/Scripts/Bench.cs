@@ -82,9 +82,8 @@ public class Bench : Interactable
 
     public void OnEndProgress()
     {
-        ingredients.Clear();
-        ingredients.Add(targetRecipe);
-
+        //ingredients.Clear();
+        //ingredients.Add(targetRecipe);
         slider.gameObject.SetActive(false);
         endProgress = true;
     }
@@ -104,7 +103,8 @@ public class Bench : Interactable
             player.ChangeMeshHandToolServerRpc();
             if (ingredients.Count > 0)
             {
-                player.ingredient = ingredients[0];
+                //player.ingredient = ingredients[0];
+                player.ingredient = targetRecipe;
                 ingredients.Clear();
             }
             //CanDestroyIngredientServerRpc();\

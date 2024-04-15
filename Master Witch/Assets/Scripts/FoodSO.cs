@@ -9,6 +9,6 @@ namespace Game.SO{
         public Category[] category;
         public GameObject foodPrefab;
         public float timeProgress;
-
+        public float score;
     }
 }
