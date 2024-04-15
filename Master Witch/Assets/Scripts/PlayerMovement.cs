@@ -104,7 +104,15 @@ public class PlayerMovement : Player
                 DropInteractServerRpc();   
             }
             else{
-                interact.DropServerRpc(NetworkObjectId);
+                
+                if(tool.benchType == BenchType.Basket)
+                {
+                    interact.PickServerRpc(NetworkObjectId);
+                }
+                else
+                {
+                   interact.DropServerRpc(NetworkObjectId); 
+                }
             }
         }else{
             interact.PickServerRpc(NetworkObjectId);

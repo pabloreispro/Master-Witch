@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum BenchType {Oven, Stove, Board, Storage}
+public enum BenchType {Oven, Stove, Board, Storage, Basket, TrashBin, Cabinet}
 public class Bench : Interactable
 {
     int playerID;
