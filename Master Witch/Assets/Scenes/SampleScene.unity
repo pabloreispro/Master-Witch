@@ -2909,7 +2909,6 @@ MonoBehaviour:
   - {fileID: 2145511823}
   - {fileID: 1486421626}
   - {fileID: 979441280}
-  chef: {fileID: 0}
 --- !u!4 &1121566906
 Transform:
   m_ObjectHideFlags: 0
@@ -4074,8 +4073,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1910449377}
-  - component: {fileID: 1910449376}
   - component: {fileID: 1910449375}
+  - component: {fileID: 1910449376}
+  - component: {fileID: 1910449378}
   m_Layer: 0
   m_Name: Chef
   m_TagString: Untagged
@@ -4115,7 +4115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78f4fc32e5b00c4b87eb10aa3b08560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chefSO: {fileID: 0}
+  chefSO: {fileID: 11400000, guid: bcc609bf0ea885c4c84947552613d14c, type: 2}
 --- !u!4 &1910449377
 Transform:
   m_ObjectHideFlags: 0
@@ -4125,13 +4125,34 @@ Transform:
   m_GameObject: {fileID: 1910449374}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.033547, y: 14.745062, z: -8.66254}
+  m_LocalPosition: {x: -7.41, y: 0.68, z: 18.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 364075102}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1910449378
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910449374}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.68
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1964868159
 GameObject:
   m_ObjectHideFlags: 0
