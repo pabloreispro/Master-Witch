@@ -129,25 +129,39 @@ public class Bench : Interactable
     public override void Drop(Player player)
     {
         //if (player != targetPlayer) return;
-        if (player.tool != null)
+        if(benchType == BenchType.TrashBin)
         {
-            if (player.tool.benchType == benchType)
+            player.StatusAssetServerRpc(false);
+            player.isHand = false;
+            player.tool = null;
+            player.ingredient = null;
+            player.ingredientsBasket.Clear();
+        }
+        else
+        {
+            if (player.tool != null)
             {
-                tool = player.tool;
-                assetBenchType(tool.prefab);
-                player.tool = null;
+                if (player.tool.benchType == benchType)
+                {
+                    tool = player.tool;
+                    assetBenchType(tool.prefab);
+                    player.tool = null;
+                    player.isHand = false;
+                    player.StatusAssetServerRpc(false);
+                    
+                }
+                
+            }
+            if (player.ingredient != null && tool != null)
+            {
+                endProgress = false;
+                AddIngredient(player.ingredient);
                 player.isHand = false;
+                player.ingredient = null;
                 player.StatusAssetServerRpc(false);
             }
         }
-        if (player.ingredient != null && tool != null)
-        {
-            endProgress = false;
-            AddIngredient(player.ingredient);
-            player.isHand = false;
-            player.ingredient = null;
-            player.StatusAssetServerRpc(false);
-        }
+        
 
     }
 

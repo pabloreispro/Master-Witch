@@ -99,11 +99,18 @@ public class PlayerMovement : Player
     }
     public void PickDropObject(){
         
-        if(isHand){
-            if(interact == null){
+        if(isHand)
+        {
+            if(interact == null)
+            {
                 DropInteractServerRpc();   
             }
-            else{
+            else if (interact.GetType() == typeof(Bench))
+            {
+                interact.DropServerRpc(NetworkObjectId);
+            }
+            else
+            {
                 
                 if(tool.benchType == BenchType.Basket)
                 {
@@ -114,7 +121,9 @@ public class PlayerMovement : Player
                    interact.DropServerRpc(NetworkObjectId); 
                 }
             }
-        }else{
+        }
+        else
+        {
             interact.PickServerRpc(NetworkObjectId);
         }
     }
