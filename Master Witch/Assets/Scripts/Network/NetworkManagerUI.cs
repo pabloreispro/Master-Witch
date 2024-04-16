@@ -4,30 +4,75 @@ using UnityEngine;
 using UnityEngine.UI;
 using Unity.Netcode;
 using UnityEngine.Rendering;
+using Unity.Netcode.Transports.UTP;
+using TMPro;
 
-public class NetworkManagerUI : MonoBehaviour
+public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
 {
-    [SerializeField] private Button serverButton;
-    [SerializeField] private Button hostButton;
-    [SerializeField] private Button clientButton;
+    [Header("Network UI")]
+    [SerializeField] GameObject networkWindow;
+    [SerializeField] TMP_InputField addressInputField;
+    [SerializeField] Button serverButton;
+    [SerializeField] Button hostButton;
+    [SerializeField] Button clientButton;
+    [SerializeField] Button startGameButton;
+    [SerializeField] Button disconnectButton;
 
-    void Awake()
+    private void Awake()
     {
-        serverButton.onClick.AddListener(() =>
-        {
-            NetworkManager.Singleton.StartServer();
-        });
-
-        hostButton.onClick.AddListener(() =>
-        {
-            NetworkManager.Singleton.StartHost();
-        });
-
-        clientButton.onClick.AddListener(() =>
-        {
-            NetworkManager.Singleton.StartClient();
-        });
+        networkWindow.SetActive(true);
+        serverButton.onClick.AddListener(StartServer);
+        hostButton.onClick.AddListener(StartHost);
+        clientButton.onClick.AddListener(StartClient);
+        startGameButton.onClick.AddListener(StartGame);
+        disconnectButton.onClick.AddListener(Disconnect);
+        startGameButton.gameObject.SetActive(false);
+        disconnectButton.gameObject.SetActive(false);
+    }
+    void UpdateHUD()
+    {
+        startGameButton.gameObject.SetActive(IsHost);
+        networkWindow.gameObject.SetActive(false);
+        //disconnectButton.gameObject.SetActive(true);
+    }
+    public void StartGame()
+    {
+        GameManager.Instance.StartGame();
+        startGameButton.gameObject.SetActive(false);
     }
 
-    
+    public void StartServer()
+    {
+        NetworkManager.Singleton.StartServer();
+        UpdateHUD();
+    }
+    public void StartHost()
+    {
+        NetworkManager.Singleton.StartHost();
+        UpdateHUD();
+    }
+    public void StartClient() 
+    {
+        TryConnectClient();
+        UpdateHUD();
+    }
+    public void Disconnect()
+    {
+        NetworkManager.DisconnectClient(OwnerClientId);
+    }
+    private void TryConnectClient()
+    {
+        string ipAddress = addressInputField.text;
+        if (ipAddress == null || ipAddress.Length == 0)
+        {
+            ipAddress = "127.0.0.1";
+        }
+        UnityTransport transport = (UnityTransport)NetworkManager.Singleton.NetworkConfig.NetworkTransport;
+        transport.ConnectionData.Address = ipAddress;
+        //transport.ConnectionData.Port = ushort.Parse("7777");
+        NetworkManager.Singleton.StartClient();
+    }
+
+
+
 }
