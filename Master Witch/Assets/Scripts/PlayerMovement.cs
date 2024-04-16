@@ -17,7 +17,7 @@ public class PlayerMovement : Player
     public PlayerInput playerInput;
     public float speed;
     public float speedPlayer;
-    CharacterController controller;
+    public CharacterController controller;
     bool groundedPlayer;
     public float distanciaMaxima = 2.0f;
     public int numberOfRays = 10;

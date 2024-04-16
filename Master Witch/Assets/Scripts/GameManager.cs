@@ -19,12 +19,12 @@ public class GameManager : Singleton<GameManager>
 
     void ConnectionApprovalCallback(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
         {
-            int i = PlayerNetworkManager.Instance.playerList.Values.ToList().Count%SceneManager.Instance.spawnPlayersMarket.Count;
+            int i = PlayerNetworkManager.Instance.playerList.Values.ToList().Count % SceneManager.Instance.spawnPlayersMarket.Count;
              
             response.Approved = true;
             response.CreatePlayerObject = true;
             response.Position = SceneManager.Instance.spawnPlayersMarket.ElementAt(i).position;
-            
+            //response.Rotation = Quaternion.Euler(0f,180f,0f);
         }
 
     void Start()

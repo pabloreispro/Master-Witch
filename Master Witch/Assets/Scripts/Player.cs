@@ -34,9 +34,21 @@ public class Player : NetworkBehaviour
     public List <FoodSO> ingredientsBasket = new List<FoodSO>();
 
     
-    public override void OnNetworkSpawn()
+    [ServerRpc (RequireOwnership = false)]
+    public void RepositionServerRpc(Vector3 pos)
     {
-       base.OnNetworkSpawn();
+        
+        RepositionClientRpc(pos);
+    }
+    [ClientRpc]
+    public void RepositionClientRpc(Vector3 pos)
+    {
+        
+        this.GetComponent<PlayerMovement>().controller.enabled = false;
+        this.transform.position = pos;
+        this.transform.rotation = Quaternion.identity;
+        this.transform.rotation = Quaternion.Euler(0f,180f,0f);
+        this.GetComponent<PlayerMovement>().controller.enabled = true;
         
         
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.UI;
 using Network;
+using System.Linq;
 
 public class SceneManager : SingletonNetwork<SceneManager>
 {
@@ -23,18 +24,22 @@ public class SceneManager : SingletonNetwork<SceneManager>
     // Start is called before the first frame update
     void Start()
     {
-        
+        timeCount.OnValueChanged += (a,b) => texto.text = b.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
+    [ServerRpc (RequireOwnership = false)]
+    public void RepositionPlayerServerRpc()
     {
-        
+        for (int i = 0; i < PlayerNetworkManager.Instance.playerList.Values.ToList().Count; i++)
+        {
+            var player = PlayerNetworkManager.Instance.playerList.Values.ToList().ElementAt(i);
+            player.RepositionServerRpc(spawnPlayersMain.ElementAt(i).position);
+        }
     }
-
+    
     public void StartMarket()
     {
-        StartCoroutine("a");
+        StartCoroutine("TimeCounter");
     }
 
     [ServerRpc (RequireOwnership = false)]
@@ -49,25 +54,16 @@ public class SceneManager : SingletonNetwork<SceneManager>
         prefabMain.SetActive(b);
     }
     
-    [ServerRpc]
-    public void UpdateTextServerRpc()
-    {
-        UpdateTextClientRpc();
-    }
-    [ClientRpc]
-    public void UpdateTextClientRpc()
-    {
-        texto.text = timeCount.Value.ToString();
-    }
-    IEnumerator a()
+    
+    IEnumerator TimeCounter()
     {
         while(timeCount.Value > 0)
         {
-            UpdateTextServerRpc();
             yield return new WaitForSeconds(1f);
             timeCount.Value--;
         }
         ChangeSceneServerRpc(false,true);
+        RepositionPlayerServerRpc();
         
     }
 }
