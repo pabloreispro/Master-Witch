@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum BenchType {Oven, Stove, Board, Storage, Basket, TrashBin, Cabinet, General}
+public enum BenchType {Oven, Stove, Board, Storage, Basket, TrashBin, General}
 public class Bench : Interactable
 {
     int playerID;
@@ -37,6 +37,7 @@ public class Bench : Interactable
         timer = 0f;
         timerProgress = 0;
         auxTimer = 0f;
+        tool = null;
     }
 
     private void Update()
@@ -105,6 +106,7 @@ public class Bench : Interactable
             if (ingredients.Count > 0)
             {
                 //player.ingredient = ingredients[0];
+                player.recipeIngredients.Clear();
                 player.ingredient = targetRecipe;
                 foreach(FoodSO item in ingredients){
                     player.recipeIngredients.Add(item);
@@ -144,7 +146,7 @@ public class Bench : Interactable
         }
         else
         {
-            if (player.tool != null)
+            if (player.tool != null && tool == null)
             {
                 if (player.tool.benchType == benchType)
                 {
@@ -155,7 +157,6 @@ public class Bench : Interactable
                     player.StatusAssetServerRpc(false);
                     
                 }
-                
             }
             if (player.ingredient != null && tool != null)
             {

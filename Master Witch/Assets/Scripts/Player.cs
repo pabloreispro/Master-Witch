@@ -37,7 +37,6 @@ public class Player : NetworkBehaviour
     [ServerRpc (RequireOwnership = false)]
     public void RepositionServerRpc(Vector3 pos)
     {
-        
         RepositionClientRpc(pos);
     }
     [ClientRpc]
@@ -49,15 +48,13 @@ public class Player : NetworkBehaviour
         this.transform.rotation = Quaternion.identity;
         this.transform.rotation = Quaternion.Euler(0f,180f,0f);
         this.GetComponent<PlayerMovement>().controller.enabled = true;
-        
-        
     }
     
 
     
     
     
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void StatusAssetServerRpc(bool has){
         stateObjectIngrediente.Value = has;
         StatusClientRpc(stateObjectIngrediente.Value);
@@ -68,7 +65,7 @@ public class Player : NetworkBehaviour
        
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void ChangeMeshHandServerRpc(){
         ChangeMeshHandClientRpc();
     }
@@ -77,7 +74,7 @@ public class Player : NetworkBehaviour
         assetIngredient.GetComponent<MeshFilter>().sharedMesh = ingredient.foodPrefab.GetComponent<MeshFilter>().sharedMesh;
         assetIngredient.GetComponent<MeshRenderer>().sharedMaterial = ingredient.foodPrefab.GetComponent<MeshRenderer>().sharedMaterial;
     }
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void ChangeMeshHandToolServerRpc(){
         ChangeMeshHandToolClientRpc();
     }

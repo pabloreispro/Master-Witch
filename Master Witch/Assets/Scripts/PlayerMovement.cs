@@ -124,7 +124,6 @@ public class PlayerMovement : Player
             }
             else
             {
-                
                 if(tool.benchType == BenchType.Basket)
                 {
                     interact.PickServerRpc(NetworkObjectId);

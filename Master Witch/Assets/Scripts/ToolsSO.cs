@@ -8,6 +8,5 @@ using UnityEngine;
     {
         public GameObject prefab;
         public BenchType benchType;
-        public List<FoodSO> ingredients = new List<FoodSO>();
     }
 

@@ -5,6 +5,7 @@ using Unity.Netcode;
 using UnityEngine.UI;
 using Network;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class SceneManager : SingletonNetwork<SceneManager>
 {
@@ -22,7 +23,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     public Text texto;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         timeCount.OnValueChanged += (a,b) => texto.text = b.ToString();
     }
@@ -42,7 +43,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
         StartCoroutine("TimeCounter");
     }
 
-    [ServerRpc (RequireOwnership = false)]
+    [ServerRpc(RequireOwnership = false)]
     public void ChangeSceneServerRpc(bool a, bool b)
     {
         ChangeSceneClientRpc(test.Value = a, test2.Value = b);

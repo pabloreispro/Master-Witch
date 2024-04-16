@@ -28,7 +28,6 @@ public abstract class Interactable : NetworkBehaviour
     }
     [ClientRpc]
     public void PickClientRpc(ulong playerID){
-        
         foreach(Player player in FindObjectsOfType<Player>()){
             if(player.NetworkObjectId == playerID){
                 Pick(player);

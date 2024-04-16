@@ -10,6 +10,7 @@ public class Tool : Interactable
 
     public override void Pick(Player player)
     {
+        
         player.isHand = true;
         player.tool = tool;
         player.StatusAssetServerRpc(true);

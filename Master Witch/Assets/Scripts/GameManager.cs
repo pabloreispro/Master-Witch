@@ -11,6 +11,7 @@ public class GameManager : Singleton<GameManager>
     GameState gameState;
     [SerializeField] FoodDatabaseSO foodDatabase;
     [SerializeField] Bench[] benches;
+    public SceneManager scene;
 
     #region Properties
     public GameState GameState => gameState;
@@ -33,6 +34,7 @@ public class GameManager : Singleton<GameManager>
     }
     public void StartGame()
     {
+        scene.ChangeSceneServerRpc(true, false);
         for (int i = 0; i < benches.Length; i++)
         {
             var player = PlayerNetworkManager.Instance.GetPlayerByIndex(i);
