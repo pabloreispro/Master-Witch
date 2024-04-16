@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Game.SO;
 using Unity.Mathematics;
 using Unity.Netcode;
@@ -7,7 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum BenchType {Oven, Stove, Board, Storage, Basket, TrashBin, Cabinet}
+public enum BenchType {Oven, Stove, Board, Storage, Basket, TrashBin, Cabinet, General}
 public class Bench : Interactable
 {
     int playerID;
@@ -105,6 +106,9 @@ public class Bench : Interactable
             {
                 //player.ingredient = ingredients[0];
                 player.ingredient = targetRecipe;
+                foreach(FoodSO item in ingredients){
+                    player.recipeIngredients.Add(item);
+                }
                 ingredients.Clear();
             }
             //CanDestroyIngredientServerRpc();\
@@ -136,6 +140,7 @@ public class Bench : Interactable
             player.tool = null;
             player.ingredient = null;
             player.ingredientsBasket.Clear();
+            player.recipeIngredients.Clear();
         }
         else
         {

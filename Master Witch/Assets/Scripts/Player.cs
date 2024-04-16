@@ -23,12 +23,14 @@ public class Player : NetworkBehaviour
     public GameObject assetIngredient;
     public NetworkVariable<bool> stateObjectIngrediente = new NetworkVariable<bool>();
     public bool isHand;
+    public List<FoodSO> recipeIngredients = new List<FoodSO>();
     
 
     [Header("Basket Config")]
     public int basketMax;
     
     public List <FoodSO> ingredientsBasket = new List<FoodSO>();
+
     
     public void ONetworkSpawn()
     {
