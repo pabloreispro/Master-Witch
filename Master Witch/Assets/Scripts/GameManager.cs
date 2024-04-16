@@ -25,6 +25,8 @@ public class GameManager : Singleton<GameManager>
                 benches[i].SetPlayer(player);
             else break;
         }
+        var g = FindAnyObjectByType<SceneManager>();
+        g.StartMarket();
     }
     public void ChangeGameState(GameState gameState)
     {
