@@ -146,6 +146,7 @@ public class Bench : Interactable
         }
         else
         {
+            
             if (player.tool != null && tool == null)
             {
                 if (player.tool.benchType == benchType)
@@ -167,8 +168,6 @@ public class Bench : Interactable
                 player.StatusAssetServerRpc(false);
             }
         }
-        
-
     }
 
     void SpawnObject(GameObject assetBench)
