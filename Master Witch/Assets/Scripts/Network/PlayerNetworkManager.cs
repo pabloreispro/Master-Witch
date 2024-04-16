@@ -8,7 +8,7 @@ namespace Network
 {
     public class PlayerNetworkManager : SingletonNetwork<PlayerNetworkManager>
     {
-        Dictionary<ulong, Player> playerList = new Dictionary<ulong, Player>();
+        public Dictionary<ulong, Player> playerList = new Dictionary<ulong, Player>();
         // Start is called before the first frame update
         void Awake()
         {
@@ -26,14 +26,15 @@ namespace Network
 
         void OnClientConnected(ulong playerID)
         {
-            //playerList.Add(playerID, NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>());
+            playerList.Add(playerID, NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>());
+            Debug.Log("aqui");
             OnClientConnectedClientRpc(playerID);
         }
         [ClientRpc]
         void OnClientConnectedClientRpc(ulong playerID)
         {
-            //if(!IsServer)
-                //playerList.Add(playerID, NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>());
+            if(!IsServer)
+                playerList.Add(playerID, NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>());
         }
         void OnClientDisconnected(ulong playerID)
         {

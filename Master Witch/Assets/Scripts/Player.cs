@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using Unity.Netcode;
 using JetBrains.Annotations;
 using Game.SO;
+using Network;
 
 public class Player : NetworkBehaviour
 {
@@ -24,7 +26,7 @@ public class Player : NetworkBehaviour
     public NetworkVariable<bool> stateObjectIngrediente = new NetworkVariable<bool>();
     public bool isHand;
     public List<FoodSO> recipeIngredients = new List<FoodSO>();
-    
+    public List<Player> s = new List<Player>();
 
     [Header("Basket Config")]
     public int basketMax;
@@ -32,10 +34,17 @@ public class Player : NetworkBehaviour
     public List <FoodSO> ingredientsBasket = new List<FoodSO>();
 
     
-    public void ONetworkSpawn()
+    public override void OnNetworkSpawn()
     {
-        stateObjectIngrediente.Value = false;
+       base.OnNetworkSpawn();
+        
+        
     }
+    
+
+    
+    
+    
     [ServerRpc]
     public void StatusAssetServerRpc(bool has){
         stateObjectIngrediente.Value = has;

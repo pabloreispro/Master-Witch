@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.SO;
 using Network;
+using Unity.Netcode;
+using System.Linq;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -15,7 +17,20 @@ public class GameManager : Singleton<GameManager>
     public FoodDatabaseSO FoodDatabaseSO => foodDatabase;
     #endregion
 
+    void ConnectionApprovalCallback(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
+        {
+            int i = PlayerNetworkManager.Instance.playerList.Values.ToList().Count%SceneManager.Instance.spawnPlayersMarket.Count;
+             
+            response.Approved = true;
+            response.CreatePlayerObject = true;
+            response.Position = SceneManager.Instance.spawnPlayersMarket.ElementAt(i).position;
+            
+        }
 
+    void Start()
+    {
+        NetworkManager.Singleton.ConnectionApprovalCallback = ConnectionApprovalCallback;
+    }
     public void StartGame()
     {
         for (int i = 0; i < benches.Length; i++)
@@ -25,6 +40,8 @@ public class GameManager : Singleton<GameManager>
                 benches[i].SetPlayer(player);
             else break;
         }
+        var g = FindAnyObjectByType<SceneManager>();
+        g.StartMarket();
     }
     public void ChangeGameState(GameState gameState)
     {

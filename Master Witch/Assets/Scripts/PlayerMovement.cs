@@ -7,6 +7,9 @@ using Unity.Netcode;
 using Unity.VisualScripting;
 using Game.SO;
 using UnityEngine.Rendering;
+using Network;
+using System.Linq;
+using System;
 
 
 public class PlayerMovement : Player
@@ -19,9 +22,18 @@ public class PlayerMovement : Player
     public float distanciaMaxima = 2.0f;
     public int numberOfRays = 10;
 
+
+    public override void OnNetworkSpawn()
+    {
+       base.OnNetworkSpawn();
+        controller.enabled = true;
+        
+    }
     
     void Awake()
     {
+        
+       
         controller = GetComponent<CharacterController>();
         playerInput = new PlayerInput();
         playerInput.PlayerControl.Enable();
@@ -32,6 +44,7 @@ public class PlayerMovement : Player
         //e o context funciona como um ativador
         //playerInput.PlayerControl.Movement.performed += MovementPlayer;
     }
+    
 
     void FixedUpdate()
     {
