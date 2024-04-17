@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
-  m_Name: Recipe 4
+  m_Name: LuckyMansPotion
   m_EditorClassIdentifier: 
-  foodID: 7
-  category: 03000000
-  foodPrefab: {fileID: 7215296140735246990, guid: fe2ad2d42c28846a8863677bd440c7f5,
+  foodID: 9
+  category: 
+  foodPrefab: {fileID: 1555352594408113430, guid: 3aea20be70f06214caa846cb7b9bc0cf,
     type: 3}
-  timeProgress: 10
+  imageFood: {fileID: 0}
+  timeProgress: 0
   score: 0
   categoryModifier:
     Animal: 0
@@ -25,8 +26,16 @@ MonoBehaviour:
     Mystical: 0
   recipeConditions:
   - type: 0
+    benchType: 2
+    foods: []
+    category: 0
+    categoryPoints: 0
+    isAllowed: 0
+  - type: 1
+    benchType: 2
     foods:
-    - {fileID: 11400000, guid: 7ec1735b58c22194abdba7b6f68be8ca, type: 2}
+    - {fileID: 11400000, guid: 06f0231a6e4ea364da5f7c222f60decd, type: 2}
+    - {fileID: 11400000, guid: 0421991de3889f045a52edad32d77781, type: 2}
     category: 0
     categoryPoints: 0
     isAllowed: 1

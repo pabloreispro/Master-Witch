@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
-  m_Name: TrevoFatiado
+  m_Name: RaizAncestralCozida
   m_EditorClassIdentifier: 
-  foodID: 12
+  foodID: 10
   category: 01000000
-  foodPrefab: {fileID: 3366391518325610106, guid: 495413329b06119478eba2f9a19125b8,
+  foodPrefab: {fileID: 5523963209737211300, guid: 0a47a5ef9456bef4d85e0558d7582adb,
     type: 3}
   imageFood: {fileID: 0}
-  timeProgress: 10
-  score: 10
+  timeProgress: 0
+  score: 0
   categoryModifier:
     Animal: 0
     Vegetal: 0
@@ -26,16 +26,16 @@ MonoBehaviour:
     Mystical: 0
   recipeConditions:
   - type: 0
-    benchType: 2
+    benchType: 1
     foods:
-    - {fileID: 11400000, guid: 35718ad198a772145a1617871493e038, type: 2}
+    - {fileID: 11400000, guid: 598c3399e7ccdbe479c9813145c43492, type: 2}
     category: 0
     categoryPoints: 0
     isAllowed: 1
   - type: 1
-    benchType: 2
+    benchType: 0
     foods:
-    - {fileID: 11400000, guid: a837fcd40fde543169a03671d1a74e5b, type: 2}
+    - {fileID: 11400000, guid: 598c3399e7ccdbe479c9813145c43492, type: 2}
     category: 0
     categoryPoints: 0
     isAllowed: 1

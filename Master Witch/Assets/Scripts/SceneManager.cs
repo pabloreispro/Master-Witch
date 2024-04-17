@@ -35,12 +35,6 @@ public class SceneManager : SingletonNetwork<SceneManager>
         {
             var player = PlayerNetworkManager.Instance.playerList.Values.ToList().ElementAt(i);
             player.bench.ElementAt(i).ingredients.AddRange(player.ingredientsBasket);
-            player.StatusAssetServerRpc(false);
-            player.isHand = false;
-            player.tool = null;
-            player.ingredient = null;
-            player.ingredientsBasket.Clear();
-            player.recipeIngredients.Clear();
             player.RepositionServerRpc(spawnPlayersMain.ElementAt(i).position);
         }
     }

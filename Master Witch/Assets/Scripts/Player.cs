@@ -64,6 +64,12 @@ public class Player : NetworkBehaviour
         this.transform.rotation = Quaternion.identity;
         this.transform.rotation = Quaternion.Euler(0f,180f,0f);
         this.GetComponent<PlayerMovement>().controller.enabled = true;
+        StatusAssetServerRpc(false);
+        isHand = false;
+        tool = null;
+        ingredient = null;
+        ingredientsBasket.Clear();
+        recipeIngredients.Clear();
     }
     
 

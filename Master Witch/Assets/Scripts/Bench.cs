@@ -124,13 +124,8 @@ public class Bench : Interactable
         }
         if (benchType == BenchType.Storage)
         {
-            if(IsClient)
-            {
-                GetComponent<StorageController>().enabled = true;
-                inventory.SetActive(true);
-            }
-            
-            
+            this.GetComponent<StorageController>().enabled = true;
+            this.inventory.SetActive(true);
         }
         if(benchType == BenchType.General){
             player.isHand = true;

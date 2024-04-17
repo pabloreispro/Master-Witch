@@ -5,8 +5,9 @@ using Game.SO;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using Unity.Netcode;
 
-public class StorageController : MonoBehaviour
+public class StorageController : NetworkBehaviour
 {
     
     public Button[] slots;
@@ -32,8 +33,6 @@ public class StorageController : MonoBehaviour
         storageItems.AddRange(bench.ingredients);
         
         UpdateInventory();
-        
-        
     }
 
     public void OnSlotSelected(int slotIndex)
@@ -53,9 +52,7 @@ public class StorageController : MonoBehaviour
             player.isHand = true;
             player.StatusAssetServerRpc(true);
             player.ingredient = slotSelected;
-            
             player.ChangeMeshHandServerRpc();
-
             panelInventory.SetActive(false);   
         }
         if(Input.GetKeyDown(KeyCode.Q))
@@ -63,9 +60,7 @@ public class StorageController : MonoBehaviour
             Time.timeScale = 1;
             panelInventory.SetActive(false);
         }
-
     }
-
     void UpdateInventory()
     {
         int maxIndex = Mathf.Min(slots.Length, storageItems.Count); 

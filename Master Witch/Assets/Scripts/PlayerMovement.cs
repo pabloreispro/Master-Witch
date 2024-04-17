@@ -32,8 +32,6 @@ public class PlayerMovement : Player
     
     void Awake()
     {
-        
-       
         controller = GetComponent<CharacterController>();
         playerInput = new PlayerInput();
         playerInput.PlayerControl.Enable();

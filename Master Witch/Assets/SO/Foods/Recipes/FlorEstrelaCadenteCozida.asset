@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
-  m_Name: Recipe 3
+  m_Name: FlorEstrelaCadenteCozida
   m_EditorClassIdentifier: 
-  foodID: 0
-  category: 02000000
-  foodPrefab: {fileID: 7215296140735246990, guid: fe2ad2d42c28846a8863677bd440c7f5,
+  foodID: 7
+  category: 01000000
+  foodPrefab: {fileID: 3920217010996556338, guid: f52fd811ced5fc948908b6d5c6a12744,
     type: 3}
-  timeProgress: 10
+  imageFood: {fileID: 0}
+  timeProgress: 0
   score: 0
   categoryModifier:
     Animal: 0
@@ -25,9 +26,15 @@ MonoBehaviour:
     Mystical: 0
   recipeConditions:
   - type: 0
+    benchType: 1
+    foods: []
+    category: 0
+    categoryPoints: 0
+    isAllowed: 0
+  - type: 1
+    benchType: 0
     foods:
-    - {fileID: 11400000, guid: 0a254dfce393d3c449d323f97bf30b05, type: 2}
-    - {fileID: 11400000, guid: b56403736821e7c4f99ecb4845a3f440, type: 2}
+    - {fileID: 11400000, guid: fe4ce7c6f223e8647ac2a46b45001f61, type: 2}
     category: 0
     categoryPoints: 0
     isAllowed: 1
