@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using System;
 using Unity.Netcode;
 
+
 public class StorageController : NetworkBehaviour
 {
     
@@ -19,6 +20,7 @@ public class StorageController : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.GetComponent<StorageController>().enabled = false;
         mainCamera = Camera.main;
         Vector3 lookDir = panelInventory.transform.position - mainCamera.transform.position ;
         

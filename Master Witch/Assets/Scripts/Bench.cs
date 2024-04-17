@@ -107,10 +107,8 @@ public class Bench : Interactable
             player.isHand = true;
             player.tool = tool;
             player.StatusAssetServerRpc(true);
-            player.ChangeMeshHandToolServerRpc();
             if (ingredients.Count > 0)
             {
-                //player.ingredient = ingredients[0];
                 player.recipeIngredients.Clear();
                 player.ingredient = targetRecipe;
                 foreach(FoodSO item in ingredients){
@@ -118,8 +116,8 @@ public class Bench : Interactable
                 }
                 ingredients.Clear();
             }
-            //CanDestroyIngredientServerRpc();\
-            //auxObject.GetComponent<Ingredient>().DestroySelf();
+            player.ChangeMeshHandServerRpc();
+
             Reset();
         }
         if (benchType == BenchType.Storage)
@@ -133,6 +131,7 @@ public class Bench : Interactable
             player.ingredient = ingredients[0];
             player.tool = tool;
             player.ChangeMeshHandToolServerRpc();
+            player.recipeIngredients = ingredients.ToList();
             Reset();
         }
 
@@ -157,6 +156,7 @@ public class Bench : Interactable
             if(tool == null && ingredients.Count == 0){
                 player.StatusAssetServerRpc(false);
                 tool = player.tool;
+                player.recipeIngredients.Clear();
                 assetBenchType(tool.prefab);
                 AddIngredient(player.ingredient);
                 player.isHand = false;
