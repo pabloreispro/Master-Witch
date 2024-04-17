@@ -73,6 +73,8 @@ public class Player : NetworkBehaviour
     public void ChangeMeshHandClientRpc(){
         assetIngredient.GetComponent<MeshFilter>().sharedMesh = ingredient.foodPrefab.GetComponent<MeshFilter>().sharedMesh;
         assetIngredient.GetComponent<MeshRenderer>().sharedMaterial = ingredient.foodPrefab.GetComponent<MeshRenderer>().sharedMaterial;
+        assetIngredient.transform.localScale = ingredient.foodPrefab.transform.localScale;
+        assetIngredient.transform.rotation = ingredient.foodPrefab.transform.rotation;
     }
     [ServerRpc(RequireOwnership = false)]
     public void ChangeMeshHandToolServerRpc(){
@@ -82,6 +84,8 @@ public class Player : NetworkBehaviour
     public void ChangeMeshHandToolClientRpc(){
         assetIngredient.GetComponent<MeshFilter>().sharedMesh = tool.prefab.GetComponent<MeshFilter>().sharedMesh;
         assetIngredient.GetComponent<MeshRenderer>().sharedMaterial = tool.prefab.GetComponent<MeshRenderer>().sharedMaterial;
+        assetIngredient.transform.localScale = tool.prefab.transform.localScale;
+        assetIngredient.transform.rotation = tool.prefab.transform.rotation;
     }
 
     public void AddItemBasket(FoodSO ingredient)
