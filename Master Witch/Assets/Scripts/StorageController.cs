@@ -8,34 +8,74 @@ using System;
 
 public class StorageController : MonoBehaviour
 {
-    public Button g;
+    
     public Button[] slots;
     public FoodSO slotSelected;
     public List<FoodSO> storageItems;
-
+    public Camera mainCamera;
+    public GameObject panelInventory;
     // Start is called before the first frame update
     void Start()
     {
+        mainCamera = Camera.main;
+        Vector3 lookDir = panelInventory.transform.position - mainCamera.transform.position ;
+        
+        panelInventory.transform.rotation = Quaternion.LookRotation(lookDir);
         
 
-        //slots.Sort((a, b) => string.Compare(a.name, b.name, StringComparison.Ordinal));
-
-        var Bench = GetComponent<Bench>();
-        storageItems.AddRange(Bench.ingredients);
-        for (int i = 0; i < Bench.ingredients.Count; i++)
+        foreach (var item in slots)
         {
-            slots[i].onClick.AddListener(() => OnSlotSelected(i));
+            item.interactable = false;
         }
+
+        var bench = GetComponent<Bench>();
+        storageItems.AddRange(bench.ingredients);
+        
+        UpdateInventory();
+        
+        
     }
 
-    void OnSlotSelected(int slotIndex)
+    public void OnSlotSelected(int slotIndex)
     {
-        if(storageItems.ElementAt(slotIndex) != null)
-        slotSelected = storageItems.ElementAt(slotIndex);
+        if(storageItems.ElementAt(slotIndex) != null) slotSelected = storageItems.ElementAt(slotIndex);
+        
     }
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.G) && slotSelected != null)
+        {
+            storageItems.Remove(slotSelected);
+            UpdateInventory();
+            Time.timeScale = 1;
+            var player = GetComponent<Bench>().auxPlayer;
+            player.isHand = true;
+            player.StatusAssetServerRpc(true);
+            player.ingredient = slotSelected;
+            
+            player.ChangeMeshHandServerRpc();
+
+            panelInventory.SetActive(false);   
+        }
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            Time.timeScale = 1;
+            panelInventory.SetActive(false);
+        }
+
+    }
+
+    void UpdateInventory()
+    {
+        int maxIndex = Mathf.Min(slots.Length, storageItems.Count); 
+
+        for (int i = 0; i < maxIndex; i++)
+        {
+            if (storageItems.ElementAt(i) != null)
+            {
+                slots[i].interactable = true;
+            }
+        }
     }
 }

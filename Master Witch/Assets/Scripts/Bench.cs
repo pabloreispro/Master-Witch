@@ -13,6 +13,7 @@ public class Bench : Interactable
 {
     int playerID;
     Player targetPlayer;
+    public Player auxPlayer;
     public ToolsSO tool;
 
     
@@ -29,6 +30,7 @@ public class Bench : Interactable
     public float timerProgress;
     public float auxTimer;
     public Slider slider;
+    public GameObject inventory;
 
     void Reset()
     {
@@ -99,6 +101,7 @@ public class Bench : Interactable
     public override void Pick(Player player)
     {
         //if (player != targetPlayer) return;
+        auxPlayer = player;
         if (endProgress)
         {
             player.isHand = true;
@@ -121,14 +124,13 @@ public class Bench : Interactable
         }
         if (benchType == BenchType.Storage)
         {
-            player.isHand = true;
-            player.StatusAssetServerRpc(true);
-            player.ChangeMeshHandServerRpc();
-            player.ingredient = RemoveIngredient(player.getIngredient);
-            if (ingredients.Count == 0)
+            if(IsClient)
             {
-                DestroyImmediate(auxObject, true);
+                GetComponent<StorageController>().enabled = true;
+                inventory.SetActive(true);
             }
+            
+            
         }
         if(benchType == BenchType.General){
             player.isHand = true;
@@ -140,7 +142,10 @@ public class Bench : Interactable
         }
 
     }
-
+    public void GetPlayer(Player player)
+    {
+        
+    }
     public override void Drop(Player player)
     {
         //if (player != targetPlayer) return;

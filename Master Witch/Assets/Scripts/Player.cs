@@ -49,11 +49,7 @@ public class Player : NetworkBehaviour
         
     }
 
-     private int CompareByHierarchy(Bench a, Bench b)
-    {
-        // Comparar os transformes dos bancos para determinar a hierarquia
-        return a.transform.GetSiblingIndex().CompareTo(b.transform.GetSiblingIndex());
-    }
+    
     [ServerRpc (RequireOwnership = false)]
     public void RepositionServerRpc(Vector3 pos)
     {
