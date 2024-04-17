@@ -11,11 +11,11 @@ namespace Game.SO {
        
         public CategoryModifier categoryModifier;
         public RecipeCondition[] recipeConditions;
-        public bool CheckConditions(List<FoodSO> ingredients)
+        public bool CheckConditions(List<FoodSO> ingredients, BenchType benchType)
         {
             for (int i = 0; i < recipeConditions.Length; i++)
             {
-                if (!recipeConditions[i].CheckCondition(ingredients))
+                if (!recipeConditions[i].CheckCondition(ingredients, benchType))
                 {
                     Debug.Log($"Condition {i} is not completed");
                     return false;

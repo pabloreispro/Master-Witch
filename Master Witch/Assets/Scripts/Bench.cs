@@ -72,7 +72,7 @@ public class Bench : Interactable
     {
         timer = 0;
         ingredients.Add(ingredient);
-        targetRecipe = GameManager.Instance.GetValidRecipe(ingredients);
+        targetRecipe = GameManager.Instance.GetValidRecipe(ingredients, benchType);
         if (!endProgress && benchType != BenchType.General)
             progress();
     }

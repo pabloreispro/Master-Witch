@@ -65,14 +65,14 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public RecipeSO GetValidRecipe(List<FoodSO> ingredients)
+    public RecipeSO GetValidRecipe(List<FoodSO> ingredients, BenchType benchType)
     {
         List<RecipeSO> validRecipes = new List<RecipeSO>();
         Debug.Log(foodDatabase.RecipeContainer.Count);
         foreach (var recipe in foodDatabase.RecipeContainer)
         {
             Debug.Log(recipe.name);
-            if(recipe.CheckConditions(ingredients))
+            if(recipe.CheckConditions(ingredients, benchType))
                 validRecipes.Add(recipe);
         }
         if (validRecipes.Count > 0)

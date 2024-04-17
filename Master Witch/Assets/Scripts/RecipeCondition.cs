@@ -9,15 +9,18 @@ using Unity.Collections.LowLevel.Unsafe;
 public class RecipeCondition 
 {
     public ConditionType type;
+    public BenchType benchType;
     public List<FoodSO> foods = new List<FoodSO>();
     public Category category;
     public float categoryPoints;
     [Tooltip("False if it's not allowed, true if it's Obrigatory")] public bool isAllowed;
 
-    public bool CheckCondition(List<FoodSO> ingredients)
+    public bool CheckCondition(List<FoodSO> ingredients, BenchType bench)
     {
         switch (type)
         {
+            case ConditionType.BenchType:
+                return bench == benchType;
             case ConditionType.Food:
                 if (isAllowed)
                 {
@@ -71,6 +74,7 @@ public class RecipeCondition
 
     public enum ConditionType
     {
+        BenchType,
         Food,
         Category
     }
@@ -99,6 +103,10 @@ class RecipeConditionPropertyDrawer : PropertyDrawer
 
         switch ((ConditionType)type.intValue)
         {
+            case ConditionType.BenchType:
+                var benchType = property.FindPropertyRelative("benchType");
+                benchType.intValue = EditorGUI.Popup(secondRect, "Bench Type", benchType.intValue, benchType.enumNames);
+                break;
             case ConditionType.Food:
                 var food = property.FindPropertyRelative("foods");
                 isAllowed.boolValue = EditorGUI.Toggle(secondRect, isAllowed.boolValue ? "Obrigatory" : "Not Allowed", isAllowed.boolValue);
