@@ -31,6 +31,12 @@ public class Bench : Interactable
     public float auxTimer;
     public Slider slider;
     public GameObject inventory;
+    StorageController storage;
+
+    private void Start()
+    {
+        storage = GetComponent<StorageController>();
+    }
 
     void Reset()
     {
@@ -79,13 +85,26 @@ public class Bench : Interactable
             progress();
     }
 
+
     public FoodSO RemoveIngredient(FoodSO ingredient)
     {
         FoodSO aux = ingredients.Find(x => x == ingredient);
-        ingredients.Remove(ingredient);
+        RemoveIngredientServerRpc(ingredients.IndexOf(ingredient));
         return aux;
     }
-
+    [ServerRpc(RequireOwnership = false)]
+    void RemoveIngredientServerRpc(int recipeSlot)
+    {
+        Debug.Log(recipeSlot);
+        ingredients.RemoveAt(recipeSlot);
+        RemoveIngredientClientRpc(recipeSlot);
+    }
+    [ClientRpc]
+    void RemoveIngredientClientRpc(int recipeSlot)
+    {
+        if (IsServer) return;
+        ingredients.RemoveAt(recipeSlot);
+    }
     public void OnEndProgress()
     {
         //ingredients.Clear();
@@ -122,8 +141,11 @@ public class Bench : Interactable
         }
         if (benchType == BenchType.Storage)
         {
-            this.GetComponent<StorageController>().enabled = true;
-            this.inventory.SetActive(true);
+            if (player.IsOwner && !storage.Active)
+            {
+                storage.Initialize(ingredients);
+                inventory.SetActive(true);
+            }
         }
         if(benchType == BenchType.General){
             player.isHand = true;

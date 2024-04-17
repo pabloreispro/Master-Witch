@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using Unity.Netcode;
+using Network;
 
 
 public class StorageController : NetworkBehaviour
@@ -17,25 +18,29 @@ public class StorageController : NetworkBehaviour
     public Camera mainCamera;
     public GameObject panelInventory;
     public int indexSlots;
+    Bench bench;
+    public bool Active { get; private set; }
     // Start is called before the first frame update
     void Start()
     {
-        this.GetComponent<StorageController>().enabled = false;
         mainCamera = Camera.main;
         Vector3 lookDir = panelInventory.transform.position - mainCamera.transform.position ;
         
         panelInventory.transform.rotation = Quaternion.LookRotation(lookDir);
+        bench = GetComponent<Bench>();
         
 
+    }
+    public void Initialize(List<FoodSO> ingredients)
+    {
+        storageItems.Clear();
         foreach (var item in slots)
         {
             item.interactable = false;
         }
-
-        var bench = GetComponent<Bench>();
-        storageItems.AddRange(bench.ingredients);
-        
+        storageItems.AddRange(ingredients);
         UpdateInventory();
+        Active = true;
     }
 
     public void OnSlotSelected(int slotIndex)
@@ -51,26 +56,35 @@ public class StorageController : NetworkBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.G) && slotSelected != null)
-        {
-            storageItems.Remove(slotSelected);
-            
-            
+        {            
             UpdateInventory();
             Time.timeScale = 1;
-            var player = GetComponent<Bench>().auxPlayer;
-            player.isHand = true;
-            player.StatusAssetServerRpc(true);
-            player.ingredient = slotSelected;
+            SetPlayerItemServerRpc(PlayerNetworkManager.Instance.GetID[bench.auxPlayer], indexSlots);
             slotSelected = null;
-            player.ChangeMeshHandServerRpc();
-            panelInventory.SetActive(false); 
-            slots[indexSlots].interactable = false;  
+            panelInventory.SetActive(false);
+            Active = false;
         }
         if(Input.GetKeyDown(KeyCode.Q))
         {
             Time.timeScale = 1;
             panelInventory.SetActive(false);
+            Active = false;
         }
+    }
+    [ServerRpc(RequireOwnership = false)]
+    void SetPlayerItemServerRpc(ulong playerID, int itemIndex)
+    {
+        SetPlayerItemClientRpc(playerID, itemIndex);
+        bench.RemoveIngredient(storageItems[itemIndex]);
+    }
+    [ClientRpc]
+    void SetPlayerItemClientRpc(ulong playerID, int itemIndex)
+    {
+        var player = PlayerNetworkManager.Instance.GetPlayer[playerID];
+        player.isHand = true;
+        player.StatusAssetServerRpc(true);
+        player.ingredient = storageItems[itemIndex];
+        player.ChangeMeshHandServerRpc();
     }
     void UpdateInventory()
     {

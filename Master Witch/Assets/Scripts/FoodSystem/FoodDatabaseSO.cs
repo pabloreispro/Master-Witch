@@ -27,6 +27,7 @@ namespace Game.SO
             recipeContainer = new List<RecipeSO>();
             for (int i = 0; i < foodContainer.Count; i++)
             {
+                if (foodContainer[i] == null) continue;
                 var item = foodContainer[i];
                 item.foodID = i;
                 if (item as RecipeSO != null)

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using Network;
 
 public abstract class Interactable : NetworkBehaviour
 {
@@ -20,6 +21,7 @@ public abstract class Interactable : NetworkBehaviour
                 Drop(player);
             }
         }
+        //Drop(PlayerNetworkManager.Instance.playerList[playerID]);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -28,11 +30,14 @@ public abstract class Interactable : NetworkBehaviour
     }
     [ClientRpc]
     public void PickClientRpc(ulong playerID){
-        foreach(Player player in FindObjectsOfType<Player>()){
-            if(player.NetworkObjectId == playerID){
+        foreach (Player player in FindObjectsOfType<Player>())
+        {
+            if (player.NetworkObjectId == playerID)
+            {
                 Pick(player);
             }
         }
+        //Pick(PlayerNetworkManager.Instance.playerList[playerID]);
     }
 
 }

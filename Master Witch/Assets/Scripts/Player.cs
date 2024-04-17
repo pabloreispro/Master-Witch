@@ -59,22 +59,18 @@ public class Player : NetworkBehaviour
     public void RepositionClientRpc(Vector3 pos)
     {
         
-        this.GetComponent<PlayerMovement>().controller.enabled = false;
-        this.transform.position = pos;
-        this.transform.rotation = Quaternion.identity;
-        this.transform.rotation = Quaternion.Euler(0f,180f,0f);
-        this.GetComponent<PlayerMovement>().controller.enabled = true;
+        GetComponent<PlayerMovement>().controller.enabled = false;
+        transform.position = pos;
+        transform.rotation = Quaternion.identity;
+        transform.rotation = Quaternion.Euler(0f,180f,0f);
+        GetComponent<PlayerMovement>().controller.enabled = true;
         StatusAssetServerRpc(false);
         isHand = false;
         tool = null;
         ingredient = null;
         ingredientsBasket.Clear();
         recipeIngredients.Clear();
-    }
-    
-
-    
-    
+    }    
     
     [ServerRpc(RequireOwnership = false)]
     public void StatusAssetServerRpc(bool has){

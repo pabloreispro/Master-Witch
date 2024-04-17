@@ -31,14 +31,25 @@ public class SceneManager : SingletonNetwork<SceneManager>
     [ServerRpc (RequireOwnership = false)]
     public void RepositionPlayerServerRpc()
     {
-        for (int i = 0; i < PlayerNetworkManager.Instance.playerList.Values.ToList().Count; i++)
+        RefillBenchesClientRpc();
+        for (int i = 0; i < PlayerNetworkManager.Instance.GetPlayer.Values.ToList().Count; i++)
         {
-            var player = PlayerNetworkManager.Instance.playerList.Values.ToList().ElementAt(i);
+            var player = PlayerNetworkManager.Instance.GetPlayer.Values.ToList().ElementAt(i);
             player.bench.ElementAt(i).ingredients.AddRange(player.ingredientsBasket);
             player.RepositionServerRpc(spawnPlayersMain.ElementAt(i).position);
         }
     }
-    
+    [ClientRpc]
+    void RefillBenchesClientRpc()
+    {
+        if (IsServer) return;
+        for (int i = 0; i < PlayerNetworkManager.Instance.GetPlayer.Values.ToList().Count; i++)
+        {
+            var player = PlayerNetworkManager.Instance.GetPlayer.Values.ToList().ElementAt(i);
+            Debug.Log($"{player.NetworkObjectId}, {player.ingredientsBasket.Count}");
+            player.bench.ElementAt(i).ingredients.AddRange(player.ingredientsBasket);
+        }
+    }
     public void StartMarket()
     {
         StartCoroutine("TimeCounter");

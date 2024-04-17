@@ -8,12 +8,16 @@ namespace Network
 {
     public class PlayerNetworkManager : SingletonNetwork<PlayerNetworkManager>
     {
-        public Dictionary<ulong, Player> playerList = new Dictionary<ulong, Player>();
+        Dictionary<ulong, Player> playerList = new Dictionary<ulong, Player>();
+        Dictionary<Player, ulong> idList = new Dictionary<Player, ulong>();
         [Header("Player Materials")]
         [SerializeField] Material player1Mat;
         [SerializeField] Material player2Mat;
         [SerializeField] Material player3Mat;
         [SerializeField] Material player4Mat;
+
+        public Dictionary<ulong, Player> GetPlayer => playerList;
+        public Dictionary<Player, ulong> GetID => idList;
         // Start is called before the first frame update
         void Awake()
         {
@@ -21,7 +25,6 @@ namespace Network
             NetworkManager.OnClientDisconnectCallback += OnClientDisconnected;
         }
 
-        public Player GetPlayerByID(ulong playerID) => playerList[playerID];
         public Player GetPlayerByIndex(int playerIndex)
         {
             if (playerIndex >= playerList.Count) return null;
@@ -36,6 +39,7 @@ namespace Network
             var player = NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>();
             Debug.Log($"Connected id: {playerID}, NO ID: {player.NetworkObjectId}, NB ID {player.NetworkBehaviourId}");
             playerList.Add(playerID, player);
+            idList.Add(player, playerID);
             OnPlayerConnect();
             OnClientConnectedClientRpc(playerID, playerList.Keys.ToArray());
         }
@@ -56,6 +60,11 @@ namespace Network
                         break;
                     }
                 }
+            }
+            idList = new Dictionary<Player, ulong>();
+            for (int i = 0; i < playerList.Count; i++)
+            {
+                idList.Add(playerList.Values.ToArray()[i], playerList.Keys.ToArray()[i]);
             }
             OnPlayerConnect();
         }
