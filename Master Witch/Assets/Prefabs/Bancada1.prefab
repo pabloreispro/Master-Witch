@@ -571,8 +571,8 @@ MonoBehaviour:
   tool: {fileID: 0}
   ingredients: []
   benchType: 0
-  isSpawn: 0
   auxObject: {fileID: 0}
+  isCooking: 0
   endProgress: 0
   startProgress: 0
   timer: 0
@@ -1021,8 +1021,8 @@ MonoBehaviour:
   tool: {fileID: 0}
   ingredients: []
   benchType: 3
-  isSpawn: 0
   auxObject: {fileID: 0}
+  isCooking: 0
   endProgress: 0
   startProgress: 0
   timer: 0
@@ -1690,7 +1690,7 @@ GameObject:
   - component: {fileID: 8683796566143292068}
   - component: {fileID: 187950731926369093}
   m_Layer: 0
-  m_Name: Stove
+  m_Name: General
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1797,9 +1797,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tool: {fileID: 0}
   ingredients: []
-  benchType: 1
-  isSpawn: 0
+  benchType: 6
   auxObject: {fileID: 0}
+  isCooking: 0
   endProgress: 0
   startProgress: 0
   timer: 0
@@ -1981,8 +1981,8 @@ MonoBehaviour:
   tool: {fileID: 0}
   ingredients: []
   benchType: 1
-  isSpawn: 0
   auxObject: {fileID: 0}
+  isCooking: 0
   endProgress: 0
   startProgress: 0
   timer: 0
@@ -2433,8 +2433,8 @@ MonoBehaviour:
   tool: {fileID: 0}
   ingredients: []
   benchType: 2
-  isSpawn: 0
   auxObject: {fileID: 0}
+  isCooking: 0
   endProgress: 0
   startProgress: 0
   timer: 0

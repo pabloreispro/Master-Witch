@@ -20,8 +20,8 @@ public class Bench : Interactable
     RecipeSO targetRecipe;
     public BenchType benchType;
 
-    public bool isSpawn;
     public GameObject auxObject;
+    public bool isCooking;
 
     public bool endProgress;
     public bool startProgress;
@@ -38,6 +38,8 @@ public class Bench : Interactable
         timerProgress = 0;
         auxTimer = 0f;
         tool = null;
+        DestroyImmediate(auxObject, true);
+        ingredients.Clear();
     }
 
     private void Update()
@@ -71,7 +73,7 @@ public class Bench : Interactable
         timer = 0;
         ingredients.Add(ingredient);
         targetRecipe = GameManager.Instance.GetValidRecipe(ingredients);
-        if (!endProgress && benchType != BenchType.Storage)
+        if (!endProgress && benchType != BenchType.General)
             progress();
     }
 
@@ -115,7 +117,6 @@ public class Bench : Interactable
             }
             //CanDestroyIngredientServerRpc();\
             //auxObject.GetComponent<Ingredient>().DestroySelf();
-            DestroyImmediate(auxObject, true);
             Reset();
         }
         if (benchType == BenchType.Storage)
@@ -128,6 +129,14 @@ public class Bench : Interactable
             {
                 DestroyImmediate(auxObject, true);
             }
+        }
+        if(benchType == BenchType.General){
+            player.isHand = true;
+            player.StatusAssetServerRpc(true);
+            player.ingredient = ingredients[0];
+            player.tool = tool;
+            player.ChangeMeshHandToolServerRpc();
+            Reset();
         }
 
     }
@@ -144,9 +153,19 @@ public class Bench : Interactable
             player.ingredientsBasket.Clear();
             player.recipeIngredients.Clear();
         }
+        else if(benchType == BenchType.General){
+            if(tool == null && ingredients.Count == 0){
+                player.StatusAssetServerRpc(false);
+                tool = player.tool;
+                assetBenchType(tool.prefab);
+                AddIngredient(player.ingredient);
+                player.isHand = false;
+                player.ingredient = null;
+                player.tool = null;
+            }
+        }
         else
         {
-            
             if (player.tool != null && tool == null)
             {
                 if (player.tool.benchType == benchType)
@@ -154,9 +173,8 @@ public class Bench : Interactable
                     tool = player.tool;
                     assetBenchType(tool.prefab);
                     player.tool = null;
-                    player.isHand = false;
+                    player.isHand = false; 
                     player.StatusAssetServerRpc(false);
-                    
                 }
             }
             if (player.ingredient != null && tool != null)
@@ -190,6 +208,9 @@ public class Bench : Interactable
                 SpawnObject(gameObject);
                 break;
             case BenchType.Storage:
+                SpawnObject(gameObject);
+                break;
+            case BenchType.General:
                 SpawnObject(gameObject);
                 break;
         }

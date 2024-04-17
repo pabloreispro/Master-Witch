@@ -550,8 +550,8 @@ MonoBehaviour:
   tool: {fileID: 0}
   ingredients: []
   benchType: 5
-  isSpawn: 0
   auxObject: {fileID: 0}
+  isCooking: 0
   endProgress: 0
   startProgress: 0
   timer: 0
@@ -969,6 +969,7 @@ Transform:
   - {fileID: 5068116884970105870}
   - {fileID: 3031097658019737974}
   - {fileID: 5186346059347086140}
+  - {fileID: 5390927202935349416}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2522333182964077867
@@ -991,3 +992,82 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!1001 &5573999245029984067
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 9063652971663941084}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: ea0a26c3a54c04845aaa5c50d3a258fc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea0a26c3a54c04845aaa5c50d3a258fc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea0a26c3a54c04845aaa5c50d3a258fc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.82
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea0a26c3a54c04845aaa5c50d3a258fc,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea0a26c3a54c04845aaa5c50d3a258fc,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea0a26c3a54c04845aaa5c50d3a258fc,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea0a26c3a54c04845aaa5c50d3a258fc,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea0a26c3a54c04845aaa5c50d3a258fc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea0a26c3a54c04845aaa5c50d3a258fc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea0a26c3a54c04845aaa5c50d3a258fc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ea0a26c3a54c04845aaa5c50d3a258fc,
+        type: 3}
+      propertyPath: m_Name
+      value: SalaDeIngredientes_Blocagem
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ea0a26c3a54c04845aaa5c50d3a258fc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ea0a26c3a54c04845aaa5c50d3a258fc, type: 3}
+--- !u!4 &5390927202935349416 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ea0a26c3a54c04845aaa5c50d3a258fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 5573999245029984067}
+  m_PrefabAsset: {fileID: 0}

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2556,8 +2556,8 @@ MonoBehaviour:
   tool: {fileID: 0}
   ingredients: []
   benchType: 0
-  isSpawn: 0
   auxObject: {fileID: 0}
+  isCooking: 0
   endProgress: 0
   startProgress: 0
   timer: 0
@@ -5033,6 +5033,11 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2999621353
+      objectReference: {fileID: 0}
+    - target: {fileID: 5108611499857990563, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4081510948
       objectReference: {fileID: 0}
     - target: {fileID: 5741346929363456697, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
