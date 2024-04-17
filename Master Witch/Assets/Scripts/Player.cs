@@ -6,6 +6,7 @@ using Unity.Netcode;
 using JetBrains.Annotations;
 using Game.SO;
 using Network;
+using System;
 
 public class Player : NetworkBehaviour
 {
@@ -26,14 +27,33 @@ public class Player : NetworkBehaviour
     public NetworkVariable<bool> stateObjectIngrediente = new NetworkVariable<bool>();
     public bool isHand;
     public List<FoodSO> recipeIngredients = new List<FoodSO>();
-    public List<Player> s = new List<Player>();
 
+    public List<Bench> bench = new List<Bench>();
     [Header("Basket Config")]
     public int basketMax;
-    
     public List <FoodSO> ingredientsBasket = new List<FoodSO>();
 
     
+    void Start()
+    {
+        
+        foreach (Bench item in FindObjectsOfType<Bench>() )
+        {
+            if(item.benchType == BenchType.Storage )
+            {
+                bench.Add(item);
+            }
+        }
+
+        bench.Sort((a, b) => string.Compare(a.name, b.name, StringComparison.Ordinal));
+        
+    }
+
+     private int CompareByHierarchy(Bench a, Bench b)
+    {
+        // Comparar os transformes dos bancos para determinar a hierarquia
+        return a.transform.GetSiblingIndex().CompareTo(b.transform.GetSiblingIndex());
+    }
     [ServerRpc (RequireOwnership = false)]
     public void RepositionServerRpc(Vector3 pos)
     {

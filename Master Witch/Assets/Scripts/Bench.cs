@@ -15,8 +15,8 @@ public class Bench : Interactable
     Player targetPlayer;
     public ToolsSO tool;
 
-    [SerializeField]
-    List<FoodSO> ingredients = new List<FoodSO>();
+    
+    public List<FoodSO> ingredients = new List<FoodSO>();
     RecipeSO targetRecipe;
     public BenchType benchType;
 
