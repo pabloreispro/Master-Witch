@@ -9,6 +9,11 @@ namespace Network
     public class PlayerNetworkManager : SingletonNetwork<PlayerNetworkManager>
     {
         public Dictionary<ulong, Player> playerList = new Dictionary<ulong, Player>();
+        [Header("Player Materials")]
+        [SerializeField] Material player1Mat;
+        [SerializeField] Material player2Mat;
+        [SerializeField] Material player3Mat;
+        [SerializeField] Material player4Mat;
         // Start is called before the first frame update
         void Awake()
         {
@@ -26,15 +31,56 @@ namespace Network
 
         void OnClientConnected(ulong playerID)
         {
-            playerList.Add(playerID, NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>());
+            if (!IsServer) return;
             Debug.Log("aqui");
-            OnClientConnectedClientRpc(playerID);
+            var player = NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>();
+            Debug.Log($"Connected id: {playerID}, NO ID: {player.NetworkObjectId}, NB ID {player.NetworkBehaviourId}");
+            playerList.Add(playerID, player);
+            OnPlayerConnect();
+            OnClientConnectedClientRpc(playerID, playerList.Keys.ToArray());
         }
         [ClientRpc]
-        void OnClientConnectedClientRpc(ulong playerID)
+        void OnClientConnectedClientRpc(ulong playerID, ulong[] keys)
         {
-            if(!IsServer)
-                playerList.Add(playerID, NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>());
+            if (IsServer) return;
+            playerList = new Dictionary<ulong, Player>();
+            var players = FindObjectsOfType<Player>();
+            for (int i = 0; i < keys.Length; i++)
+            {
+                for (int j = 0; j < players.Length; j++)
+                {
+                    if (players[j].OwnerClientId == keys[i])
+                    {
+                        Debug.Log($"{keys[i]}, {players[j].NetworkObjectId}");
+                        playerList.Add(keys[i], players[j]);
+                        break;
+                    }
+                }
+            }
+            OnPlayerConnect();
+        }
+        void OnPlayerConnect()
+        {
+            for (int i = 0; i < playerList.Count; i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        playerList.ElementAt(i).Value.OnConnected(player1Mat);
+                        break;
+                    case 1:
+                        playerList.ElementAt(i).Value.OnConnected(player2Mat);
+                        break;
+                    case 2:
+                        playerList.ElementAt(i).Value.OnConnected(player3Mat);
+                        break;
+                    case 3:
+                        playerList.ElementAt(i).Value.OnConnected(player4Mat);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
         void OnClientDisconnected(ulong playerID)
         {

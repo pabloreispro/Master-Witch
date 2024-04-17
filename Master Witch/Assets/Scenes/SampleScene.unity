@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4824,6 +4824,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1c5200ec3d567498c16f960abf7d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player1Mat: {fileID: 2100000, guid: 72cef44f0d7d27c42ab9acf68e625954, type: 2}
+  player2Mat: {fileID: 2100000, guid: e386d6a08c3396643b74e953b4559771, type: 2}
+  player3Mat: {fileID: 2100000, guid: 9ee652112e51ec64cb79d4d91261c955, type: 2}
+  player4Mat: {fileID: 2100000, guid: c65b43d41a363a746bbf6e68787934bf, type: 2}
 --- !u!4 &2064820928
 Transform:
   m_ObjectHideFlags: 0

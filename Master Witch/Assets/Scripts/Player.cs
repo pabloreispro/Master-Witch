@@ -12,7 +12,7 @@ public class Player : NetworkBehaviour
     [Header("Info Player")]
     public int id;
     string name;
-    Color color;
+    [SerializeField] MeshRenderer hatRenderer;
 
     
     [Header("Scriptable Object")]
@@ -95,6 +95,10 @@ public class Player : NetworkBehaviour
             ingredientsBasket.Add(ingredient);
             Debug.Log("Add");
         }
-        
+    }
+
+    public void OnConnected(Material newMaterial)
+    {
+        hatRenderer.material = newMaterial;
     }
 }
