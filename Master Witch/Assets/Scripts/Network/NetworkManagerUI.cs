@@ -69,7 +69,7 @@ public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
         }
         UnityTransport transport = (UnityTransport)NetworkManager.Singleton.NetworkConfig.NetworkTransport;
         transport.ConnectionData.Address = ipAddress;
-        //transport.ConnectionData.Port = ushort.Parse("7777");
+        transport.ConnectionData.Port = ushort.Parse("7777");
         NetworkManager.Singleton.StartClient();
     }
 

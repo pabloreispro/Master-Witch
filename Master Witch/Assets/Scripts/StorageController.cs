@@ -15,6 +15,7 @@ public class StorageController : NetworkBehaviour
     public List<FoodSO> storageItems;
     public Camera mainCamera;
     public GameObject panelInventory;
+    private int indexSlots;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,15 +30,18 @@ public class StorageController : NetworkBehaviour
             item.interactable = false;
         }
 
-        var bench = GetComponent<Bench>();
-        storageItems.AddRange(bench.ingredients);
+        
         
         UpdateInventory();
     }
 
     public void OnSlotSelected(int slotIndex)
     {
-        if(storageItems.ElementAt(slotIndex) != null) slotSelected = storageItems.ElementAt(slotIndex);
+        if(storageItems.ElementAt(slotIndex) != null) 
+        {
+            slotSelected = storageItems.ElementAt(slotIndex);
+            indexSlots = slotIndex;
+        }
         
     }
     // Update is called once per frame
@@ -46,6 +50,7 @@ public class StorageController : NetworkBehaviour
         if(Input.GetKeyDown(KeyCode.G) && slotSelected != null)
         {
             storageItems.Remove(slotSelected);
+            slots[indexSlots].interactable = false;
             UpdateInventory();
             Time.timeScale = 1;
             var player = GetComponent<Bench>().auxPlayer;
@@ -63,6 +68,8 @@ public class StorageController : NetworkBehaviour
     }
     void UpdateInventory()
     {
+        var bench = GetComponent<Bench>();
+        storageItems.AddRange(bench.ingredients);
         int maxIndex = Mathf.Min(slots.Length, storageItems.Count); 
 
         for (int i = 0; i < maxIndex; i++)
@@ -70,6 +77,7 @@ public class StorageController : NetworkBehaviour
             if (storageItems.ElementAt(i) != null)
             {
                 slots[i].interactable = true;
+                slots[i].image.sprite = storageItems[i].imageFood;
             }
         }
     }
