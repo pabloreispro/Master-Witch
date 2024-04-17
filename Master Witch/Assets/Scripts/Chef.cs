@@ -1,4 +1,5 @@
 using Game.SO;
+using Network;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,7 @@ public class Chef : Interactable
         var playerRecipe = player.ingredient as RecipeSO;
         if (playerRecipe == null) return;
         base.Drop(player);
-        Review(player.ingredientsBasket, playerRecipe);
+        Review(player.recipeIngredients, playerRecipe, player.id);
         player.StatusAssetServerRpc(false);
     }
     public override void Pick(Player player)
@@ -21,10 +22,12 @@ public class Chef : Interactable
         var playerRecipe = player.ingredient as RecipeSO;
         if (playerRecipe == null) return;
         base.Pick(player);
-        Review(player.ingredientsBasket, playerRecipe);
+        Review(player.recipeIngredients, playerRecipe, player.id);
     }
-    public void Review(List<FoodSO> foods, RecipeSO targetRecipe)
+    public void Review(List<FoodSO> foods, RecipeSO targetRecipe, int playerID)
     {
-        Debug.Log($"Total score of {targetRecipe.name} is {chefSO.ReviewRecipe(foods, targetRecipe)}");
+        var score = chefSO.ReviewRecipe(foods, targetRecipe);
+        Debug.Log($"Total score of {targetRecipe.name} is {score}");
+        NetworkManagerUI.Instance.UpdatePlayerScore(playerID, score);
     }
 }

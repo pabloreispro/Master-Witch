@@ -115,8 +115,9 @@ public class Player : NetworkBehaviour
         }
     }
 
-    public void OnConnected(Material newMaterial)
+    public void OnConnected(Material newMaterial, int id)
     {
         hatRenderer.material = newMaterial;
+        this.id = id;
     }
 }

@@ -31,7 +31,6 @@ namespace Network
             return playerList.ElementAt(playerIndex).Value;
         }
 
-
         void OnClientConnected(ulong playerID)
         {
             if (!IsServer) return;
@@ -75,16 +74,16 @@ namespace Network
                 switch (i)
                 {
                     case 0:
-                        playerList.ElementAt(i).Value.OnConnected(player1Mat);
+                        playerList.ElementAt(i).Value.OnConnected(player1Mat, i);
                         break;
                     case 1:
-                        playerList.ElementAt(i).Value.OnConnected(player2Mat);
+                        playerList.ElementAt(i).Value.OnConnected(player2Mat, i);
                         break;
                     case 2:
-                        playerList.ElementAt(i).Value.OnConnected(player3Mat);
+                        playerList.ElementAt(i).Value.OnConnected(player3Mat, i);
                         break;
                     case 3:
-                        playerList.ElementAt(i).Value.OnConnected(player4Mat);
+                        playerList.ElementAt(i).Value.OnConnected(player4Mat, i);
                         break;
                     default:
                         break;

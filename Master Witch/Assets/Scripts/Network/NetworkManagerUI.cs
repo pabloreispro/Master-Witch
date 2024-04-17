@@ -6,10 +6,13 @@ using Unity.Netcode;
 using UnityEngine.Rendering;
 using Unity.Netcode.Transports.UTP;
 using TMPro;
+using UnityEngine.Rendering.Universal.Internal;
 
 public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
 {
-    [Header("Network UI")]
+    [Header("Start HUD")]
+    [SerializeField] GameObject startBg;
+    [Header("Network HUD")]
     [SerializeField] GameObject networkWindow;
     [SerializeField] TMP_InputField addressInputField;
     [SerializeField] Button serverButton;
@@ -17,7 +20,11 @@ public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
     [SerializeField] Button clientButton;
     [SerializeField] Button startGameButton;
     [SerializeField] Button disconnectButton;
-
+    [Header("Final HUD")]
+    [SerializeField] TextMeshProUGUI p1FinalScore;
+    [SerializeField] TextMeshProUGUI p2FinalScore;
+    [SerializeField] TextMeshProUGUI p3FinalScore;
+    [SerializeField] TextMeshProUGUI p4FinalScore;
     private void Awake()
     {
         networkWindow.SetActive(true);
@@ -35,10 +42,32 @@ public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
         networkWindow.gameObject.SetActive(false);
         //disconnectButton.gameObject.SetActive(true);
     }
+    public void UpdatePlayerScore(int playerID, float score)
+    {
+        switch (playerID)
+        {
+            case 0:
+                p1FinalScore.text = score.ToString();
+                break;
+            case 1:
+                p1FinalScore.text = score.ToString();
+                break;
+            case 2:
+                p1FinalScore.text = score.ToString();
+                break;
+            case 3:
+                p1FinalScore.text = score.ToString();
+                break;
+            default:
+                break;
+        }
+    }
+    #region Network
     public void StartGame()
     {
         GameManager.Instance.StartGame();
         startGameButton.gameObject.SetActive(false);
+        startBg.SetActive(false);
     }
 
     public void StartServer()
@@ -72,7 +101,7 @@ public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
         transport.ConnectionData.Port = ushort.Parse("7777");
         NetworkManager.Singleton.StartClient();
     }
-
+    #endregion
 
 
 }
