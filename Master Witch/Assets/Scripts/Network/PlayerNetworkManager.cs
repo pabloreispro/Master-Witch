@@ -101,6 +101,5 @@ namespace Network
             if(!IsServer)
                 playerList.Remove(playerID);
         }
-
     }
 }

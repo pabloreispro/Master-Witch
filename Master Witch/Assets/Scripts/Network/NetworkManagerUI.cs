@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 using Unity.Netcode.Transports.UTP;
 using TMPro;
 using UnityEngine.Rendering.Universal.Internal;
+using WebSocketSharp;
 
 public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
 {
@@ -15,11 +16,16 @@ public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
     [Header("Network HUD")]
     [SerializeField] GameObject networkWindow;
     [SerializeField] TMP_InputField addressInputField;
+    [SerializeField] TextMeshProUGUI lobbyCodeText;
     [SerializeField] Button serverButton;
     [SerializeField] Button hostButton;
     [SerializeField] Button clientButton;
     [SerializeField] Button startGameButton;
     [SerializeField] Button disconnectButton;
+    [Header("Lobby HUD")]
+    [SerializeField] TMP_InputField lobbyCode;
+    [SerializeField] TMP_InputField lobbyName;
+    [SerializeField] Toggle publicityToggle;
     [Header("Final HUD")]
     [SerializeField] TextMeshProUGUI p1FinalScore;
     [SerializeField] TextMeshProUGUI p2FinalScore;
@@ -36,9 +42,9 @@ public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
         startGameButton.gameObject.SetActive(false);
         disconnectButton.gameObject.SetActive(false);
     }
-    void UpdateHUD()
+    void UpdateHUD(bool isHost)
     {
-        startGameButton.gameObject.SetActive(IsHost);
+        startGameButton.gameObject.SetActive(isHost);
         networkWindow.gameObject.SetActive(false);
         //disconnectButton.gameObject.SetActive(true);
     }
@@ -68,22 +74,27 @@ public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
         GameManager.Instance.StartGame();
         startGameButton.gameObject.SetActive(false);
         startBg.SetActive(false);
+        StartGameClientRpc();
     }
-
+    [ClientRpc]
+    void StartGameClientRpc()
+    {
+        startBg.SetActive(false);
+    }
     public void StartServer()
     {
         NetworkManager.Singleton.StartServer();
-        UpdateHUD();
+        UpdateHUD(true);
     }
     public void StartHost()
     {
         NetworkManager.Singleton.StartHost();
-        UpdateHUD();
+        UpdateHUD(true);
     }
     public void StartClient() 
     {
         TryConnectClient();
-        UpdateHUD();
+        UpdateHUD(false);
     }
     public void Disconnect()
     {
@@ -101,7 +112,35 @@ public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
         transport.ConnectionData.Port = ushort.Parse("7777");
         NetworkManager.Singleton.StartClient();
     }
+
+    #region Lobby
+    public void CreateLobby()
+    {
+        LobbyManager.Instance.CriaLobby(lobbyName.text, 4, publicityToggle.isOn, "Main");
+        UpdateHUD(true);
+    }
+    public void ListLobbies()
+    {
+        LobbyManager.Instance.ListaLobbies();
+    }
+    public void JoinLobby()
+    {
+        if (lobbyCode.text.IsNullOrEmpty())
+            Debug.Log($"Lobby code null");
+        else
+            Debug.Log($"Joining {lobbyCode.text}");
+        LobbyManager.Instance.JoinLobbyByCode(lobbyCode.text);
+        UpdateHUD(false);
+    }
+    public void QuickJoinLobby()
+    {
+        LobbyManager.Instance.QuickJoinLobby();
+        UpdateHUD(false);
+    }
+    public void UpdateLobbyCode(string lobbyCode)
+    {
+        lobbyCodeText.text = $"Lobby Code: {lobbyCode}";
+    }
     #endregion
-
-
+    #endregion
 }
