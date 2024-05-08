@@ -8,6 +8,7 @@ using Game.SO;
 using Network;
 using System;
 
+
 public class Player : NetworkBehaviour
 {
     [Header("Info Player")]
@@ -34,6 +35,13 @@ public class Player : NetworkBehaviour
     public List <FoodSO> ingredientsBasket = new List<FoodSO>();
 
     
+    public override void OnNetworkSpawn()
+    {
+        if(IsLocalPlayer)
+        {
+            CameraController.Instance.target = this.transform;
+        }
+    }
     void Start()
     {
         

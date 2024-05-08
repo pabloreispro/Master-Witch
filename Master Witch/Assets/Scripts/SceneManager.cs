@@ -17,8 +17,8 @@ public class SceneManager : SingletonNetwork<SceneManager>
 
     
     public List<Transform> spawnPlayersMain = new List<Transform>();
-    public NetworkVariable<bool> test = new NetworkVariable<bool>();
-    public NetworkVariable<bool> test2 = new NetworkVariable<bool>();
+    public NetworkVariable<bool> sceneMarket = new NetworkVariable<bool>();
+    public NetworkVariable<bool> sceneMain = new NetworkVariable<bool>();
     public NetworkVariable<int> timeCount = new NetworkVariable<int>();
     public Text texto;
 
@@ -58,7 +58,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     [ServerRpc(RequireOwnership = false)]
     public void ChangeSceneServerRpc(bool a, bool b)
     {
-        ChangeSceneClientRpc(test.Value = a, test2.Value = b);
+        ChangeSceneClientRpc(sceneMarket.Value = a, sceneMain.Value = b);
     }
     [ClientRpc]
     public void ChangeSceneClientRpc(bool a, bool b)
