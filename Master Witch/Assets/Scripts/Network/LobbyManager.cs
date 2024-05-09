@@ -96,7 +96,6 @@ public class LobbyManager : SingletonNetwork<LobbyManager>
             Debug.Log($"O lobby {lobby.Name} foi criado por {playerName}\t" +
                 $"Número de players: {lobby.MaxPlayers}\tID: {lobby.Id}\tToken: {lobby.LobbyCode}\tPrivate? {lobby.IsPrivate}");
             NetworkManagerUI.Instance.UpdateLobbyCode(lobby.LobbyCode);
-            await StartHostWithRelay();
         }
         catch (LobbyServiceException e)
         {
@@ -169,7 +168,6 @@ public class LobbyManager : SingletonNetwork<LobbyManager>
             Debug.Log($"Entrando no lobby {lobbyCode}");
             Lobby joinedLobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode, options);
             NetworkManagerUI.Instance.UpdateLobbyCode(lobbyCode);
-            await StartClientWithRelay(lobbyCode);
             MostraInformacoesPlayers(joinedLobby);
         }
         catch (LobbyServiceException e)
@@ -196,7 +194,6 @@ public class LobbyManager : SingletonNetwork<LobbyManager>
 
             Lobby joinedLobby = await Lobbies.Instance.QuickJoinLobbyAsync();
             NetworkManagerUI.Instance.UpdateLobbyCode(joinedLobby.LobbyCode);
-            await StartClientWithRelay(joinedLobby.LobbyCode);
             MostraInformacoesPlayers(joinedLobby);
         }
         catch (LobbyServiceException e)
@@ -255,6 +252,8 @@ public class LobbyManager : SingletonNetwork<LobbyManager>
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation, "dtls"));
             var joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+            Debug.Log(joinCode);
+            NetworkManagerUI.Instance.UpdateLobbyCode(joinCode);
             return NetworkManager.Singleton.StartHost() ? joinCode : null;
         }
         catch (RelayServiceException e)
@@ -263,7 +262,14 @@ public class LobbyManager : SingletonNetwork<LobbyManager>
             throw;
         }
     }
-
+    public async void ClientRelay(string joinCode)
+    {
+        await StartClientWithRelay(joinCode);
+    }
+    public async void HostRelay()
+    {
+        await StartHostWithRelay(4);
+    }
     public async Task<bool> StartClientWithRelay(string joinCode)
     {
         try
@@ -276,6 +282,7 @@ public class LobbyManager : SingletonNetwork<LobbyManager>
             var joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode: joinCode);
             // Tipo da Conexão: DTLS --> Conexão Segura
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
+            NetworkManagerUI.Instance.UpdateLobbyCode(joinCode);
             return !string.IsNullOrEmpty(joinCode) && NetworkManager.Singleton.StartClient();
         }
         catch (RelayServiceException e)

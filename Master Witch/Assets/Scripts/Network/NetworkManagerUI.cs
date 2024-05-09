@@ -71,7 +71,6 @@ public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
     #region Network
     public void StartGame()
     {
-        GameManager.Instance.StartGame();
         startGameButton.gameObject.SetActive(false);
         startBg.SetActive(false);
         StartGameClientRpc();
@@ -80,6 +79,16 @@ public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
     void StartGameClientRpc()
     {
         startBg.SetActive(false);
+    }
+    public void ConnectToRelay()
+    {
+        LobbyManager.Instance.ClientRelay(lobbyCode.text.Substring(0, 6));
+        UpdateHUD(false);
+    }
+    public void HostRelay()
+    {
+        LobbyManager.Instance.HostRelay();
+        UpdateHUD(true);
     }
     public void StartServer()
     {
@@ -128,8 +137,8 @@ public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
         if (lobbyCode.text.IsNullOrEmpty())
             Debug.Log($"Lobby code null");
         else
-            Debug.Log($"Joining {lobbyCode.text}");
-        LobbyManager.Instance.JoinLobbyByCode(lobbyCode.text);
+            Debug.Log($"Joining {lobbyCode.text.Substring(0, 6)}");
+        LobbyManager.Instance.JoinLobbyByCode(lobbyCode.text.Substring(0, 6));
         UpdateHUD(false);
     }
     public void QuickJoinLobby()

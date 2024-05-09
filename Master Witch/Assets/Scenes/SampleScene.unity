@@ -2744,7 +2744,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1207041852}
         m_TargetAssemblyTypeName: NetworkManagerUI, Assembly-CSharp
-        m_MethodName: CreateLobby
+        m_MethodName: HostRelay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3912,7 +3912,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1207041852}
         m_TargetAssemblyTypeName: NetworkManagerUI, Assembly-CSharp
-        m_MethodName: JoinLobby
+        m_MethodName: ConnectToRelay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6492,6 +6492,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ProtocolType: 1
+  m_UseWebSockets: 0
+  m_UseEncryption: 0
   m_MaxPacketQueueSize: 128
   m_MaxPayloadSize: 6144
   m_HeartbeatTimeoutMS: 500
