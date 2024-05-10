@@ -23,9 +23,11 @@ public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
     [SerializeField] Button startGameButton;
     [SerializeField] Button disconnectButton;
     [Header("Lobby HUD")]
+    [SerializeField] LobbyItemUI lobbyItemPrefab;
     [SerializeField] TMP_InputField lobbyCode;
     [SerializeField] TMP_InputField lobbyName;
     [SerializeField] Toggle publicityToggle;
+    [SerializeField] Transform lobbiesHolder;
     [Header("Final HUD")]
     [SerializeField] TextMeshProUGUI p1FinalScore;
     [SerializeField] TextMeshProUGUI p2FinalScore;
@@ -71,6 +73,7 @@ public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
     #region Network
     public void StartGame()
     {
+        GameManager.Instance.StartGame();
         startGameButton.gameObject.SetActive(false);
         startBg.SetActive(false);
         StartGameClientRpc();
@@ -128,9 +131,15 @@ public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
         LobbyManager.Instance.CriaLobby(lobbyName.text, 4, publicityToggle.isOn, "Main");
         UpdateHUD(true);
     }
-    public void ListLobbies()
+    public void UpdateLobbiesList() => ListLobbies();
+    async void ListLobbies()
     {
-        LobbyManager.Instance.ListaLobbies();
+        var lobbies = await LobbyManager.Instance.ListaLobbies();
+        foreach (var lobby in lobbies)
+        {
+            var item = Instantiate(lobbyItemPrefab, lobbiesHolder);
+            item.Initialize(lobby);
+        }
     }
     public void JoinLobby()
     {

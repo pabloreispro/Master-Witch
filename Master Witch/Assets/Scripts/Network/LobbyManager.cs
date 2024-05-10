@@ -102,7 +102,7 @@ public class LobbyManager : SingletonNetwork<LobbyManager>
             Debug.Log(e.Message);
         }
     }
-    public async void ListaLobbies(QueryLobbiesOptions queryLobbiesOptions = null)
+    public async Task<List<Lobby>> ListaLobbies(QueryLobbiesOptions queryLobbiesOptions = null)
     {
         try
         {
@@ -115,14 +115,15 @@ public class LobbyManager : SingletonNetwork<LobbyManager>
                 MostraInformacoesPlayers(lobby);
                 i++;
             }
+            return queryResponse.Results;
         }
         catch (LobbyServiceException e)
         {
             Debug.Log(e.Message);
+            return null;
         }
 
     }
-
     public void FiltraListaLobbies(string availableSlots)
     {
         try
