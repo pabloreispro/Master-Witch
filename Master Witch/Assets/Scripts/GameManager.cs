@@ -5,8 +5,9 @@ using Game.SO;
 using Network;
 using Unity.Netcode;
 using System.Linq;
+using UI;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : SingletonNetwork<GameManager>
 {
     GameState gameState;
     [SerializeField] FoodDatabaseSO foodDatabase;
@@ -32,8 +33,10 @@ public class GameManager : Singleton<GameManager>
     {
         NetworkManager.Singleton.ConnectionApprovalCallback = ConnectionApprovalCallback;
     }
-    public void StartGame()
+    public async void StartGame()
     {
+        var joinCode = await LobbyManager.Instance.StartHostRelay();
+
         scene.ChangeSceneServerRpc(true, false);
         for (int i = 0; i < benches.Length; i++)
         {
@@ -45,6 +48,16 @@ public class GameManager : Singleton<GameManager>
         var g = FindAnyObjectByType<SceneManager>();
         g.StartMarket();
     }
+    public void StartGameClient(string joinCode) => StartRelay(joinCode);
+    async void StartRelay(string joinCode)
+    {
+        if (IsHost) return;
+        Debug.Log($"start relay {joinCode}");
+        await LobbyManager.Instance.StartClientWithRelay(joinCode);
+        Debug.Log($"join");
+        NetworkManagerUI.Instance.OnGameStarted();
+    }
+
     public void ChangeGameState(GameState gameState)
     {
         switch (gameState)

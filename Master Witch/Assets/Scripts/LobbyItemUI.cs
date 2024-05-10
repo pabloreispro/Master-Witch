@@ -3,19 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.Services.Lobbies.Models;
-public class LobbyItemUI : MonoBehaviour
+using Network;
+
+namespace UI.Network
 {
-    [SerializeField] TextMeshProUGUI lobbyNameText;
-    [SerializeField] TextMeshProUGUI playerAmountText;
-    Lobby lobby;
-    public void Initialize(Lobby newLobby)
+    public class LobbyItemUI : MonoBehaviour
     {
-        lobby = newLobby;
-        lobbyNameText.text = lobby.Name;
-        playerAmountText.text = $"{4 - lobby.AvailableSlots} / 4";
-    }
-    public void ConnectToLobby()
-    {
-        LobbyManager.Instance.JoinLobbyByCode(lobby.Data["LobbyCode"].Value);
+        [SerializeField] TextMeshProUGUI lobbyNameText;
+        [SerializeField] TextMeshProUGUI playerAmountText;
+        Lobby lobby;
+        public void Initialize(Lobby newLobby)
+        {
+            lobby = newLobby;
+            lobbyNameText.text = lobby.Name;
+            playerAmountText.text = $"{4 - lobby.AvailableSlots} / 4";
+        }
+        public void ConnectToLobby()
+        {
+            LobbyManager.Instance.JoinLobbyByCode(lobby.Data["LobbyCode"].Value);
+        }
     }
 }
