@@ -722,11 +722,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   auxPlayer: {fileID: 0}
-  tool: {fileID: 0}
-  ingredients: []
+  toolInBench: {fileID: 0}
   benchType: 0
-  auxObject: {fileID: 0}
-  isCooking: 0
+  auxObject: {fileID: 3751768490784798295}
   endProgress: 0
   startProgress: 0
   timer: 0
@@ -734,6 +732,7 @@ MonoBehaviour:
   auxTimer: 0
   slider: {fileID: 2501188378139463448}
   inventory: {fileID: 0}
+  positionBasket: {fileID: 0}
 --- !u!114 &1200805717413114829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1481,11 +1480,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   auxPlayer: {fileID: 0}
-  tool: {fileID: 0}
-  ingredients: []
+  toolInBench: {fileID: 0}
   benchType: 3
   auxObject: {fileID: 0}
-  isCooking: 0
   endProgress: 0
   startProgress: 0
   timer: 0
@@ -1493,6 +1490,7 @@ MonoBehaviour:
   auxTimer: 0
   slider: {fileID: 2749183410851229623}
   inventory: {fileID: 3307249885370981456}
+  positionBasket: {fileID: 5363085924010314818}
 --- !u!114 &5950514516201595124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2364,11 +2362,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   auxPlayer: {fileID: 0}
-  tool: {fileID: 0}
-  ingredients: []
+  toolInBench: {fileID: 0}
   benchType: 6
-  auxObject: {fileID: 0}
-  isCooking: 0
+  auxObject: {fileID: 5671859642757814178}
   endProgress: 0
   startProgress: 0
   timer: 0
@@ -2376,6 +2372,7 @@ MonoBehaviour:
   auxTimer: 0
   slider: {fileID: 3202881334318531017}
   inventory: {fileID: 0}
+  positionBasket: {fileID: 0}
 --- !u!114 &8683796566143292068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2549,11 +2546,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   auxPlayer: {fileID: 0}
-  tool: {fileID: 0}
-  ingredients: []
+  toolInBench: {fileID: 0}
   benchType: 1
-  auxObject: {fileID: 0}
-  isCooking: 0
+  auxObject: {fileID: 6471171222776427178}
   endProgress: 0
   startProgress: 0
   timer: 0
@@ -2561,6 +2556,7 @@ MonoBehaviour:
   auxTimer: 0
   slider: {fileID: 5760569699141208043}
   inventory: {fileID: 0}
+  positionBasket: {fileID: 0}
 --- !u!114 &4469222305298321492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3156,11 +3152,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   auxPlayer: {fileID: 0}
-  tool: {fileID: 0}
-  ingredients: []
+  toolInBench: {fileID: 0}
   benchType: 2
-  auxObject: {fileID: 0}
-  isCooking: 0
+  auxObject: {fileID: 2843739555119892251}
   endProgress: 0
   startProgress: 0
   timer: 0
@@ -3168,6 +3162,7 @@ MonoBehaviour:
   auxTimer: 0
   slider: {fileID: 6081087596286251902}
   inventory: {fileID: 0}
+  positionBasket: {fileID: 0}
 --- !u!114 &8779370145065315291
 MonoBehaviour:
   m_ObjectHideFlags: 0

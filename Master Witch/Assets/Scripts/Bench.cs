@@ -14,16 +14,10 @@ public class Bench : Interactable
     int playerID;
     Player targetPlayer;
     public Player auxPlayer;
-    public ToolsSO tool;
-
-    
-    public List<FoodSO> ingredients = new List<FoodSO>();
+    public Tool toolInBench;
     RecipeSO targetRecipe;
     public BenchType benchType;
-
     public GameObject auxObject;
-    public bool isCooking;
-
     public bool endProgress;
     public bool startProgress;
     public float timer;
@@ -32,6 +26,7 @@ public class Bench : Interactable
     public Slider slider;
     public GameObject inventory;
     StorageController storage;
+    public Transform positionBasket;
 
     private void Start()
     {
@@ -45,20 +40,21 @@ public class Bench : Interactable
         timer = 0f;
         timerProgress = 0;
         auxTimer = 0f;
-        tool = null;
-        DestroyImmediate(auxObject, true);
-        ingredients.Clear();
     }
 
     private void Update()
     {
+        if(benchType == BenchType.Storage){
+            toolInBench = this.GetComponentInChildren<Tool>();
+            if(toolInBench != null)
+                toolInBench.transform.position = positionBasket.position;
+        }
         if (startProgress)
         {
             timer += Time.deltaTime;
             slider.value = timer;
             if (timer >= timerProgress)
             {
-                Debug.Log("Acabou de preparar");
                 startProgress = false;
                 OnEndProgress();
             }
@@ -67,7 +63,7 @@ public class Bench : Interactable
     public void progress()
     {
         startProgress = true;
-        foreach (FoodSO item in ingredients)
+        foreach (FoodSO item in toolInBench.ingredients)
         {
             auxTimer = item.timeProgress;
         }
@@ -79,8 +75,8 @@ public class Bench : Interactable
     public void AddIngredient(FoodSO ingredient)
     {
         timer = 0;
-        ingredients.Add(ingredient);
-        targetRecipe = GameManager.Instance.GetValidRecipe(ingredients, benchType);
+        toolInBench.ingredients.Add(ingredient);
+        targetRecipe = GameManager.Instance.GetValidRecipe(toolInBench.ingredients, benchType);
         if (!endProgress && benchType != BenchType.General)
             progress();
     }
@@ -88,22 +84,22 @@ public class Bench : Interactable
 
     public FoodSO RemoveIngredient(FoodSO ingredient)
     {
-        FoodSO aux = ingredients.Find(x => x == ingredient);
-        RemoveIngredientServerRpc(ingredients.IndexOf(ingredient));
+        FoodSO aux = toolInBench.ingredients.Find(x => x == ingredient);
+        RemoveIngredientServerRpc(toolInBench.ingredients.IndexOf(ingredient));
         return aux;
     }
     [ServerRpc(RequireOwnership = false)]
     void RemoveIngredientServerRpc(int recipeSlot)
     {
         Debug.Log(recipeSlot);
-        ingredients.RemoveAt(recipeSlot);
+        toolInBench.ingredients.RemoveAt(recipeSlot);
         RemoveIngredientClientRpc(recipeSlot);
     }
     [ClientRpc]
     void RemoveIngredientClientRpc(int recipeSlot)
     {
         if (IsServer) return;
-        ingredients.RemoveAt(recipeSlot);
+        toolInBench.ingredients.RemoveAt(recipeSlot);
     }
     public void OnEndProgress()
     {
@@ -124,36 +120,29 @@ public class Bench : Interactable
         if (endProgress)
         {
             player.isHand = true;
-            player.tool = tool;
-            player.StatusAssetServerRpc(true);
-            if (ingredients.Count > 0)
-            {
-                player.recipeIngredients.Clear();
-                player.ingredient = targetRecipe;
-                foreach(FoodSO item in ingredients){
-                    player.recipeIngredients.Add(item);
-                }
-                ingredients.Clear();
-            }
-            player.ChangeMeshHandServerRpc();
-
+            var spawnObject = Instantiate(targetRecipe.foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
+            spawnObject.GetComponent<NetworkObject>().Spawn();
+            spawnObject.GetComponent<NetworkObject>().TrySetParent(player.transform);
+            toolInBench.DestroySelf();
             Reset();
         }
         if (benchType == BenchType.Storage)
         {
             if (player.IsOwner && !storage.Active)
             {
-                storage.Initialize(ingredients);
+                storage.Initialize(toolInBench.ingredients);
                 inventory.SetActive(true);
             }
         }
         if(benchType == BenchType.General){
             player.isHand = true;
-            player.StatusAssetServerRpc(true);
-            player.ingredient = ingredients[0];
-            player.tool = tool;
-            player.ChangeMeshHandToolServerRpc();
-            player.recipeIngredients = ingredients.ToList();
+            if(this.GetComponentInChildren<Ingredient>()!=null)
+                this.GetComponentInChildren<Ingredient>().GetComponent<NetworkObject>().TrySetParent(player.transform);
+            if(toolInBench!=null)
+            {
+                toolInBench.GetComponentInChildren<NetworkObject>().TrySetParent(player.transform);
+                toolInBench=null;
+            }
             Reset();
         }
 
@@ -167,74 +156,46 @@ public class Bench : Interactable
         //if (player != targetPlayer) return;
         if(benchType == BenchType.TrashBin)
         {
-            player.StatusAssetServerRpc(false);
+            player.GetComponentInChildren<Interactable>().DestroySelf();  
             player.isHand = false;
-            player.tool = null;
-            player.ingredient = null;
-            player.ingredientsBasket.Clear();
-            player.recipeIngredients.Clear();
         }
         else if(benchType == BenchType.General){
-            if(tool == null && ingredients.Count == 0){
-                player.StatusAssetServerRpc(false);
-                tool = player.tool;
-                player.recipeIngredients.Clear();
-                assetBenchType(tool.prefab);
-                AddIngredient(player.ingredient);
-                player.isHand = false;
-                player.ingredient = null;
-                player.tool = null;
+            if(player.GetComponentInChildren<Tool>() != null){
+                player.GetComponentInChildren<Tool>().GetComponent<NetworkObject>().TrySetParent(this.transform);
+                toolInBench = this.GetComponentInChildren<Tool>();
+                toolInBench.gameObject.transform.position = auxObject.transform.position;
             }
+            if(toolInBench != null && player.GetComponentInChildren<Ingredient>() != null){
+                AddIngredient(player.GetComponentInChildren<Ingredient>().food);
+                player.GetComponentInChildren<Ingredient>().DestroySelf();
+            }
+            else if(player.GetComponentInChildren<Ingredient>() != null){
+                player.GetComponentInChildren<Ingredient>().GetComponent<NetworkObject>().TrySetParent(this.transform);
+                this.GetComponentInChildren<Ingredient>().gameObject.transform.position = auxObject.transform.position;
+            }
+            player.isHand = false;
         }
         else
         {
-            if (player.tool != null && tool == null)
+            if(player.GetComponentInChildren<Tool>() != null)
             {
-                if (player.tool.benchType == benchType)
+                if (player.GetComponentInChildren<Tool>().tool.benchType == benchType)
                 {
-                    tool = player.tool;
-                    assetBenchType(tool.prefab);
-                    player.tool = null;
-                    player.isHand = false; 
-                    player.StatusAssetServerRpc(false);
+                    player.GetComponentInChildren<Tool>().GetComponent<NetworkObject>().TrySetParent(this.transform);
+                    toolInBench = this.GetComponentInChildren<Tool>();
+                    toolInBench.gameObject.transform.position = auxObject.transform.position;
+                    player.isHand = false;
+                    if(toolInBench.ingredients.Count > 0){
+                        progress();
+                    }
                 }
             }
-            if (player.ingredient != null && tool != null)
-            {
+            if(player.GetComponentInChildren<Ingredient>() != null){
                 endProgress = false;
-                AddIngredient(player.ingredient);
+                AddIngredient(player.GetComponentInChildren<Ingredient>().food);
+                player.GetComponentInChildren<Ingredient>().DestroySelf();
                 player.isHand = false;
-                player.ingredient = null;
-                player.StatusAssetServerRpc(false);
             }
-        }
-    }
-
-    void SpawnObject(GameObject assetBench)
-    {
-        Vector3 spawnPosition = new Vector3(this.transform.position.x, 1.5f, this.transform.position.z);
-        auxObject = Instantiate(assetBench, spawnPosition, Quaternion.identity);
-    }
-
-    void assetBenchType(GameObject gameObject)
-    {
-        switch (benchType)
-        {
-            case BenchType.Oven:
-                SpawnObject(gameObject);
-                break;
-            case BenchType.Stove:
-                SpawnObject(gameObject);
-                break;
-            case BenchType.Board:
-                SpawnObject(gameObject);
-                break;
-            case BenchType.Storage:
-                SpawnObject(gameObject);
-                break;
-            case BenchType.General:
-                SpawnObject(gameObject);
-                break;
         }
     }
 }

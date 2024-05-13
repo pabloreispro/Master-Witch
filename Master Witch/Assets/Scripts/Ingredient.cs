@@ -9,27 +9,15 @@ public class Ingredient : Interactable
     public FoodSO food;
     public bool isHandIngredient;
 
-
     public override void Pick(Player player)
     {
-        player.isHand = true;
-        player.StatusAssetServerRpc(true);
-        player.ingredient = food;
-        player.ChangeMeshHandServerRpc();
-        DestroySelf();
-    }
-
-    public void DestroySelf(){
         if(isHandIngredient){
-            DestroyServerRpc();
+            this.GetComponent<NetworkObject>().TrySetParent(player.transform);
+            this.GetComponent<NetworkObject>().transform.position = player.assetIngredient.transform.position;
+        }else{
+            player.GetComponentInChildren<Tool>().ingredients.Add(food);
         }
+        player.isIngredient = true;
+        player.isHand = true;
     }
-    [ServerRpc(RequireOwnership = false)]
-    public void DestroyServerRpc(){
-        Debug.Log("Destruiu");
-        this.GetComponent<NetworkObject>().DontDestroyWithOwner = true;
-        this.GetComponent<NetworkObject>().Despawn();
-    }
-
-
 }

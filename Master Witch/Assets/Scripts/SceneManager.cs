@@ -15,7 +15,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     
     public List<Transform> spawnPlayersMarket = new List<Transform>();
 
-    
+    public List<Transform> spawnBasket = new List<Transform>();
     public List<Transform> spawnPlayersMain = new List<Transform>();
     public NetworkVariable<bool> sceneMarket = new NetworkVariable<bool>();
     public NetworkVariable<bool> sceneMain = new NetworkVariable<bool>();
@@ -35,8 +35,11 @@ public class SceneManager : SingletonNetwork<SceneManager>
         for (int i = 0; i < PlayerNetworkManager.Instance.GetPlayer.Values.ToList().Count; i++)
         {
             var player = PlayerNetworkManager.Instance.GetPlayer.Values.ToList().ElementAt(i);
-            player.bench.ElementAt(i).ingredients.AddRange(player.ingredientsBasket);
+            //player.bench.ElementAt(i).ingredients.AddRange(player.ingredientsBasket);
+            player.GetComponentInChildren<Tool>().gameObject.transform.position = spawnBasket.ElementAt(i).transform.position;
+            player.GetComponentInChildren<Tool>().GetComponentInChildren<NetworkObject>().TrySetParent(spawnBasket.ElementAt(i).transform);
             player.RepositionServerRpc(spawnPlayersMain.ElementAt(i).position);
+            
         }
     }
     [ClientRpc]
@@ -46,8 +49,10 @@ public class SceneManager : SingletonNetwork<SceneManager>
         for (int i = 0; i < PlayerNetworkManager.Instance.GetPlayer.Values.ToList().Count; i++)
         {
             var player = PlayerNetworkManager.Instance.GetPlayer.Values.ToList().ElementAt(i);
-            Debug.Log($"{player.NetworkObjectId}, {player.ingredientsBasket.Count}");
-            player.bench.ElementAt(i).ingredients.AddRange(player.ingredientsBasket);
+            //Debug.Log($"{player.NetworkObjectId}, {player.ingredientsBasket.Count}");
+            //player.bench.ElementAt(i).ingredients.AddRange(player.ingredientsBasket);
+            player.GetComponentInChildren<Tool>().GetComponentInChildren<NetworkObject>().TrySetParent(spawnBasket.ElementAt(i).transform);
+
         }
     }
     public void StartMarket()

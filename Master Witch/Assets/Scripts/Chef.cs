@@ -12,18 +12,19 @@ public class Chef : Interactable
     // PROVISORIO
     public override void Drop(Player player)
     {
-        var playerRecipe = player.ingredient as RecipeSO;
+        var playerRecipe = player.GetComponent<Tool>().foodFinish as RecipeSO;
         if (playerRecipe == null) return;
         base.Drop(player);
-        Review(player.recipeIngredients, playerRecipe, player.id);
-        player.StatusAssetServerRpc(false);
+        Review(player.GetComponentInChildren<Tool>().ingredients, playerRecipe, player.id);
+        //player.StatusAssetServerRpc(false);
     }
     public override void Pick(Player player)
     {
-        var playerRecipe = player.ingredient as RecipeSO;
+        var playerRecipe = player.GetComponent<Tool>().foodFinish as RecipeSO;
         if (playerRecipe == null) return;
         base.Pick(player);
-        Review(player.recipeIngredients, playerRecipe, player.id);
+        //Review(player.recipeIngredients, playerRecipe, player.id);
+        Review(player.GetComponentInChildren<Tool>().ingredients, playerRecipe, player.id);
     }
     public void Review(List<FoodSO> foods, RecipeSO targetRecipe, int playerID)
     {

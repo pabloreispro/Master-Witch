@@ -19,20 +19,17 @@ public class Player : NetworkBehaviour
     
     [Header("Scriptable Object")]
     public Interactable interact;
-    public FoodSO ingredient;
     public FoodSO getIngredient;
-    public ToolsSO tool;
 
     [Header("Ingredient Hand")]
     public GameObject assetIngredient;
     public NetworkVariable<bool> stateObjectIngrediente = new NetworkVariable<bool>();
     public bool isHand;
-    public List<FoodSO> recipeIngredients = new List<FoodSO>();
+    public bool isIngredient;
 
     public List<Bench> bench = new List<Bench>();
     [Header("Basket Config")]
     public int basketMax;
-    public List <FoodSO> ingredientsBasket = new List<FoodSO>();
 
     
     public override void OnNetworkSpawn()
@@ -72,54 +69,15 @@ public class Player : NetworkBehaviour
         transform.rotation = Quaternion.identity;
         transform.rotation = Quaternion.Euler(0f,180f,0f);
         GetComponent<PlayerMovement>().controller.enabled = true;
-        StatusAssetServerRpc(false);
+        //StatusAssetServerRpc(false);
         isHand = false;
-        tool = null;
-        ingredient = null;
-        ingredientsBasket.Clear();
-        recipeIngredients.Clear();
-    }    
-    
-    [ServerRpc(RequireOwnership = false)]
-    public void StatusAssetServerRpc(bool has){
-        stateObjectIngrediente.Value = has;
-        StatusClientRpc(stateObjectIngrediente.Value);
-    }
-    [ClientRpc]
-    public void StatusClientRpc(bool has){
-        assetIngredient.SetActive(has);
-       
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    public void ChangeMeshHandServerRpc(){
-        ChangeMeshHandClientRpc();
-    }
-    [ClientRpc]
-    public void ChangeMeshHandClientRpc(){
-        assetIngredient.GetComponent<MeshFilter>().sharedMesh = ingredient.foodPrefab.GetComponent<MeshFilter>().sharedMesh;
-        assetIngredient.GetComponent<MeshRenderer>().sharedMaterial = ingredient.foodPrefab.GetComponent<MeshRenderer>().sharedMaterial;
-        assetIngredient.transform.localScale = ingredient.foodPrefab.transform.localScale;
-        assetIngredient.transform.rotation = ingredient.foodPrefab.transform.rotation;
-    }
-    [ServerRpc(RequireOwnership = false)]
-    public void ChangeMeshHandToolServerRpc(){
-        ChangeMeshHandToolClientRpc();
-    }
-    [ClientRpc]
-    public void ChangeMeshHandToolClientRpc(){
-        assetIngredient.GetComponent<MeshFilter>().sharedMesh = tool.prefab.GetComponent<MeshFilter>().sharedMesh;
-        assetIngredient.GetComponent<MeshRenderer>().sharedMaterial = tool.prefab.GetComponent<MeshRenderer>().sharedMaterial;
-        assetIngredient.transform.localScale = tool.prefab.transform.localScale;
-        assetIngredient.transform.rotation = tool.prefab.transform.rotation;
     }
 
     public void AddItemBasket(FoodSO ingredient)
     {
-        if(ingredientsBasket.Count < basketMax)
+        if(this.GetComponentInChildren<Tool>().ingredients.Count < basketMax)
         {
-            ingredientsBasket.Add(ingredient);
-            Debug.Log("Add");
+            this.GetComponentInChildren<Tool>().ingredients.Add(ingredient);
         }
     }
 

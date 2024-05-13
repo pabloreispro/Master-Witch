@@ -10,6 +10,7 @@ using UnityEngine.Rendering;
 using Network;
 using System.Linq;
 using System;
+using Unity.Multiplayer.Tools.NetStatsMonitor;
 
 
 public class PlayerMovement : Player
@@ -42,11 +43,15 @@ public class PlayerMovement : Player
         //e o context funciona como um ativador
         //playerInput.PlayerControl.Movement.performed += MovementPlayer;
     }
-    
 
     void FixedUpdate()
     {
+
+
         if(IsOwner == true){
+            if(this.GetComponentInChildren<Interactable>()!=null){
+                this.GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = false;
+            }
             RaycastPlayer();
             MovementPlayer();
         }
@@ -114,7 +119,9 @@ public class PlayerMovement : Player
         {
             if(interact == null)
             {
-                DropInteractServerRpc();   
+                this.GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = true;
+                this.GetComponentInChildren<Interactable>().GetComponent<NetworkObject>().TryRemoveParent();
+                isHand = false;
             }
             else if (interact.GetType() == typeof(Bench))
             {
@@ -122,7 +129,7 @@ public class PlayerMovement : Player
             }
             else
             {
-                if(tool.benchType == BenchType.Basket)
+                if(this.GetComponentInChildren<Tool>().tool.benchType == BenchType.Basket)
                 {
                     interact.PickServerRpc(NetworkObjectId);
                 }
@@ -137,30 +144,4 @@ public class PlayerMovement : Player
             interact.PickServerRpc(NetworkObjectId);
         }
     }
-    
-
-    [ServerRpc(RequireOwnership = false)]
-    public void DropInteractServerRpc(){
-        
-        if(ingredient!=null){
-            var objectSpawn = Instantiate(ingredient.foodPrefab, new Vector3(assetIngredient.transform.position.x, 1.0f, assetIngredient.transform.position.z), Quaternion.identity);
-            objectSpawn.GetComponent<NetworkObject>().Spawn(true);
-            DropInteractClientRpc();
-            StatusAssetServerRpc(false);
-        }
-        /*if(tool!=null){
-            var objectSpawn = Instantiate(tool.prefab, new Vector3(assetIngredient.transform.position.x, 1.0f, assetIngredient.transform.position.z), Quaternion.identity);
-            objectSpawn.GetComponent<NetworkObject>().Spawn(true);
-        }*/
-        
-        
-    }
-
-    [ClientRpc]
-    public void DropInteractClientRpc(){
-        this.isHand = false;
-        this.ingredient = null;
-        //this.tool = null;
-    }
-
 }

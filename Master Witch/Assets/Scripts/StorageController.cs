@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using System;
 using Unity.Netcode;
 using Network;
+using Unity.VisualScripting;
 
 
 public class StorageController : NetworkBehaviour
@@ -80,11 +81,18 @@ public class StorageController : NetworkBehaviour
     [ClientRpc]
     void SetPlayerItemClientRpc(ulong playerID, int itemIndex)
     {
+        Debug.Log("peguei o item");
         var player = PlayerNetworkManager.Instance.GetPlayer[playerID];
         player.isHand = true;
-        player.StatusAssetServerRpc(true);
+        if(IsServer){
+            var objectSpawn = Instantiate(storageItems[itemIndex].foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
+            objectSpawn.GetComponent<NetworkObject>().Spawn();
+            objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
+        }
+        /*player.StatusAssetServerRpc(true);
         player.ingredient = storageItems[itemIndex];
-        player.ChangeMeshHandServerRpc();
+        player.ChangeMeshHandServerRpc();*/
+        
     }
     void UpdateInventory()
     {

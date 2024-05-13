@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 using Network;
 
+public enum TypeObject{Ingredient, Tool}
 public abstract class Interactable : NetworkBehaviour
 {
 
@@ -38,6 +39,15 @@ public abstract class Interactable : NetworkBehaviour
             }
         }
         //Pick(PlayerNetworkManager.Instance.playerList[playerID]);
+    }
+
+    public void DestroySelf(){
+        DestroyServerRpc();
+    }
+    [ServerRpc(RequireOwnership = false)]
+    public void DestroyServerRpc(){
+        this.GetComponent<NetworkObject>().DontDestroyWithOwner = true;
+        this.GetComponent<NetworkObject>().Despawn();
     }
 
 }
