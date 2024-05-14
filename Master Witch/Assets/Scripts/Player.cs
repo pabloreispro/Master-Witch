@@ -36,7 +36,7 @@ public class Player : NetworkBehaviour
     {
         if(IsLocalPlayer)
         {
-            CameraController.Instance.target = this.transform;
+            NewCamController.Instance.target = this.transform;
         }
     }
     void Start()

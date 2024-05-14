@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5041995257297736727}
   - component: {fileID: 7336780654301784579}
   - component: {fileID: 1583371660697056678}
-  - component: {fileID: 694339428051891330}
   - component: {fileID: 3247982252536651559}
   m_Layer: 0
   m_Name: Main Camera
@@ -152,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1294773333
+  GlobalObjectIdHash: 593935393
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -160,23 +159,6 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &694339428051891330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 557825825609928811}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1eb80960b358724ebdf1c18324956e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player1: {fileID: 0}
-  player2: {fileID: 0}
-  mainCamera: {fileID: 3660058442903333497}
-  fieldOfViewAngle: 60
-  adjustmentSpeed: 1
 --- !u!114 &3247982252536651559
 MonoBehaviour:
   m_ObjectHideFlags: 0
