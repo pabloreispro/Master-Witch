@@ -8,6 +8,7 @@ public class Ingredient : Interactable
 {
     public FoodSO food;
     public bool isHandIngredient;
+    public TypeObject typeObject;
 
     public override void Pick(Player player)
     {
@@ -17,7 +18,6 @@ public class Ingredient : Interactable
         }else{
             player.GetComponentInChildren<Tool>().ingredients.Add(food);
         }
-        player.isIngredient = true;
         player.isHand = true;
     }
 }

@@ -120,10 +120,10 @@ public class Bench : Interactable
         if (endProgress)
         {
             player.isHand = true;
-            var spawnObject = Instantiate(targetRecipe.foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
-            spawnObject.GetComponent<NetworkObject>().Spawn();
-            spawnObject.GetComponent<NetworkObject>().TrySetParent(player.transform);
-            toolInBench.DestroySelf();
+            toolInBench.foodFinish = targetRecipe;
+            toolInBench.ingredientsUsed.AddRange(toolInBench.ingredients);
+            toolInBench.ingredients.Clear();
+            toolInBench.GetComponent<NetworkObject>().TrySetParent(player.transform);
             Reset();
         }
         if (benchType == BenchType.Storage)
@@ -160,7 +160,7 @@ public class Bench : Interactable
             player.isHand = false;
         }
         else if(benchType == BenchType.General){
-            if(player.GetComponentInChildren<Tool>() != null){
+            if(player.objectHand != null){
                 player.GetComponentInChildren<Tool>().GetComponent<NetworkObject>().TrySetParent(this.transform);
                 toolInBench = this.GetComponentInChildren<Tool>();
                 toolInBench.gameObject.transform.position = auxObject.transform.position;

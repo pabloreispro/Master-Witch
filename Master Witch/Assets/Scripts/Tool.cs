@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using Game.SO;
+using System;
 
 public class Tool : Interactable
 {
     public ToolsSO tool;
+    public TypeObject typeObject;
     public bool isHandTool;
     public FoodSO foodFinish;
     public List<FoodSO> ingredients = new List<FoodSO>();
+    public List<FoodSO> ingredientsUsed = new List<FoodSO>();
 
     public override void Pick(Player player)
     {
@@ -23,9 +26,7 @@ public class Tool : Interactable
             this.GetComponent<NetworkObject>().TrySetParent(player.transform);
         }
         player.isHand = true;
-        player.isIngredient = false;
         //player.StatusAssetServerRpc(true);
         //player.ChangeMeshHandToolServerRpc();
     }
-
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 24763710}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10115,9 +10115,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 112539158542002787, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 24763713}
     - target: {fileID: 189503636069478194, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -10173,16 +10173,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: SalaDePreparo_Blocagem
       objectReference: {fileID: 0}
-    - target: {fileID: 1771721702911432288, guid: 010d67ac3e0926d409e937d25bfe4b51,
+    - target: {fileID: 2154269710418963436, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 24763713}
     - target: {fileID: 2178869880961317056, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3907122672
       objectReference: {fileID: 0}
+    - target: {fileID: 2441290017977754913, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 24763713}
     - target: {fileID: 2859752223116946291, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -10228,32 +10233,15 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 1676183010
       objectReference: {fileID: 0}
-    - target: {fileID: 3849551146144649913, guid: 010d67ac3e0926d409e937d25bfe4b51,
+    - target: {fileID: 4043342026967382480, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
-      propertyPath: ingredients.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3849551146144649913, guid: 010d67ac3e0926d409e937d25bfe4b51,
-        type: 3}
-      propertyPath: ingredients.Array.data[0]
+      propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 11400000, guid: 8799ea1134f27b34aa9f221275d4fdaf,
-        type: 2}
-    - target: {fileID: 3849551146144649913, guid: 010d67ac3e0926d409e937d25bfe4b51,
-        type: 3}
-      propertyPath: ingredients.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 8799ea1134f27b34aa9f221275d4fdaf,
-        type: 2}
+      objectReference: {fileID: 24763713}
     - target: {fileID: 4307042515809512188, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1812462570
-      objectReference: {fileID: 0}
-    - target: {fileID: 4750742993107221298, guid: 010d67ac3e0926d409e937d25bfe4b51,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4786411774442526609, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
@@ -10280,16 +10268,6 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 2995757067
       objectReference: {fileID: 0}
-    - target: {fileID: 5108611499857990563, guid: 010d67ac3e0926d409e937d25bfe4b51,
-        type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 4081510948
-      objectReference: {fileID: 0}
-    - target: {fileID: 5242063330604295247, guid: 010d67ac3e0926d409e937d25bfe4b51,
-        type: 3}
-      propertyPath: m_Name
-      value: Storage0
-      objectReference: {fileID: 0}
     - target: {fileID: 5635234655918314840, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -10300,25 +10278,10 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 3750534600
       objectReference: {fileID: 0}
-    - target: {fileID: 5852495493265470026, guid: 010d67ac3e0926d409e937d25bfe4b51,
-        type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 1655169039
-      objectReference: {fileID: 0}
-    - target: {fileID: 6024400381590140754, guid: 010d67ac3e0926d409e937d25bfe4b51,
-        type: 3}
-      propertyPath: m_Name
-      value: 'Bancada1 '
-      objectReference: {fileID: 0}
     - target: {fileID: 6036808922309677878, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3771607384
-      objectReference: {fileID: 0}
-    - target: {fileID: 6113036112103826880, guid: 010d67ac3e0926d409e937d25bfe4b51,
-        type: 3}
-      propertyPath: m_Name
-      value: Storage1
       objectReference: {fileID: 0}
     - target: {fileID: 6325730502836898217, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
@@ -10369,11 +10332,6 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 4237050949
-      objectReference: {fileID: 0}
-    - target: {fileID: 7552933781556423437, guid: 010d67ac3e0926d409e937d25bfe4b51,
-        type: 3}
-      propertyPath: m_Name
-      value: Storage3
       objectReference: {fileID: 0}
     - target: {fileID: 7597817304677466985, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
@@ -10435,16 +10393,6 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 672420146
       objectReference: {fileID: 0}
-    - target: {fileID: 8042950161691507103, guid: 010d67ac3e0926d409e937d25bfe4b51,
-        type: 3}
-      propertyPath: m_Name
-      value: 'Bancada1 '
-      objectReference: {fileID: 0}
-    - target: {fileID: 8155046069042870268, guid: 010d67ac3e0926d409e937d25bfe4b51,
-        type: 3}
-      propertyPath: m_Name
-      value: Storage2
-      objectReference: {fileID: 0}
     - target: {fileID: 8207193859486970867, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -10481,9 +10429,7 @@ PrefabInstance:
       value: 1082964988
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 1355680216447568166, guid: 010d67ac3e0926d409e937d25bfe4b51, type: 3}
-    - {fileID: 2472107059466812840, guid: 010d67ac3e0926d409e937d25bfe4b51, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 010d67ac3e0926d409e937d25bfe4b51, type: 3}

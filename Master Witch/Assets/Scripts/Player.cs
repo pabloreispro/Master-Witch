@@ -25,7 +25,7 @@ public class Player : NetworkBehaviour
     public GameObject assetIngredient;
     public NetworkVariable<bool> stateObjectIngrediente = new NetworkVariable<bool>();
     public bool isHand;
-    public bool isIngredient;
+    public Interactable objectHand;
 
     public List<Bench> bench = new List<Bench>();
     [Header("Basket Config")]
