@@ -8,7 +8,7 @@ namespace Game.SO {
 [CreateAssetMenu(fileName = "RecipeSO", menuName = "Game/RecipeSO")]
     public class RecipeSO : FoodSO
     {
-       
+        public bool finishRecipe;
         public CategoryModifier categoryModifier;
         public RecipeCondition[] recipeConditions;
         public bool CheckConditions(List<FoodSO> ingredients, BenchType benchType)

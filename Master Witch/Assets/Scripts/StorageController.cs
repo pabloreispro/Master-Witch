@@ -84,11 +84,11 @@ public class StorageController : NetworkBehaviour
         Debug.Log("peguei o item");
         var player = PlayerNetworkManager.Instance.GetPlayer[playerID];
         player.isHand = true;
-        if(IsServer){
-            var objectSpawn = Instantiate(storageItems[itemIndex].foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
-            objectSpawn.GetComponent<NetworkObject>().Spawn();
-            objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
-        }
+
+        var objectSpawn = Instantiate(storageItems[itemIndex].foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
+        objectSpawn.GetComponent<NetworkObject>().Spawn();
+        objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
+        
         /*player.StatusAssetServerRpc(true);
         player.ingredient = storageItems[itemIndex];
         player.ChangeMeshHandServerRpc();*/

@@ -10,22 +10,24 @@ public class Tool : Interactable
     public ToolsSO tool;
     public TypeObject typeObject;
     public bool isHandTool;
-    public FoodSO foodFinish;
+    public RecipeSO foodFinish;
     public List<FoodSO> ingredients = new List<FoodSO>();
+    public List<FoodSO> ingredientsUsed = new List<FoodSO>();
 
     public override void Pick(Player player)
     {
         if(!isHandTool){
-            if(IsServer){
-                var objectSpawn = Instantiate(tool.prefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
-                objectSpawn.GetComponent<NetworkObject>().Spawn();
-                objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
+            
+            var objectSpawn = Instantiate(tool.prefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
+            objectSpawn.GetComponent<NetworkObject>().Spawn();
+            objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
+            objectSpawn.transform.position = player.assetIngredient.transform.position;
 
-                if(this.tool.benchType == BenchType.Basket)
-                {
-                    player.isHandBasket = true;
-                }
+            if(this.tool.benchType == BenchType.Basket)
+            {
+                player.isHandBasket = true;
             }
+            
         }else{
             this.GetComponent<NetworkObject>().TrySetParent(player.transform);
         }

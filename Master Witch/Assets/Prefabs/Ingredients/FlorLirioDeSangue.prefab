@@ -68,9 +68,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlorLirioDeSangue
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -7511558181221131132, guid: eeb81531083c6804b9ceb67711d2d0cf, type: 3}
+    - {fileID: -5754084199372789682, guid: eeb81531083c6804b9ceb67711d2d0cf, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: eeb81531083c6804b9ceb67711d2d0cf,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6633631431203607945}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: eeb81531083c6804b9ceb67711d2d0cf,
         type: 3}
@@ -85,6 +91,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6365158616849116042}
   m_SourcePrefab: {fileID: 100100000, guid: eeb81531083c6804b9ceb67711d2d0cf, type: 3}
+--- !u!4 &5881570603633030521 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: eeb81531083c6804b9ceb67711d2d0cf,
+    type: 3}
+  m_PrefabInstance: {fileID: 6202917045165642386}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6544954984807362499 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: eeb81531083c6804b9ceb67711d2d0cf,
@@ -124,7 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2225532986
+  GlobalObjectIdHash: 415133738
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -146,3 +158,98 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   food: {fileID: 11400000, guid: 35718ad198a772145a1617871493e038, type: 2}
   isHandIngredient: 1
+  typeObject: 0
+--- !u!1001 &6594921177548632674
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5881570603633030521}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: eeb81531083c6804b9ceb67711d2d0cf,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eeb81531083c6804b9ceb67711d2d0cf,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eeb81531083c6804b9ceb67711d2d0cf,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eeb81531083c6804b9ceb67711d2d0cf,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eeb81531083c6804b9ceb67711d2d0cf,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eeb81531083c6804b9ceb67711d2d0cf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eeb81531083c6804b9ceb67711d2d0cf,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eeb81531083c6804b9ceb67711d2d0cf,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eeb81531083c6804b9ceb67711d2d0cf,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eeb81531083c6804b9ceb67711d2d0cf,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eeb81531083c6804b9ceb67711d2d0cf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eeb81531083c6804b9ceb67711d2d0cf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eeb81531083c6804b9ceb67711d2d0cf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: eeb81531083c6804b9ceb67711d2d0cf,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 51ad5054e2857c548ba6be7c178d3094, type: 2}
+    - target: {fileID: 919132149155446097, guid: eeb81531083c6804b9ceb67711d2d0cf,
+        type: 3}
+      propertyPath: m_Name
+      value: FlorLirioDeSangue
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eeb81531083c6804b9ceb67711d2d0cf, type: 3}
+--- !u!4 &6633631431203607945 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: eeb81531083c6804b9ceb67711d2d0cf,
+    type: 3}
+  m_PrefabInstance: {fileID: 6594921177548632674}
+  m_PrefabAsset: {fileID: 0}

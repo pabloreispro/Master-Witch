@@ -62,6 +62,7 @@ public class Bench : Interactable
     }
     public void progress()
     {
+        targetRecipe = GameManager.Instance.GetValidRecipe(toolInBench.ingredients, benchType);
         startProgress = true;
         foreach (FoodSO item in toolInBench.ingredients)
         {
@@ -76,7 +77,6 @@ public class Bench : Interactable
     {
         timer = 0;
         toolInBench.ingredients.Add(ingredient);
-        targetRecipe = GameManager.Instance.GetValidRecipe(toolInBench.ingredients, benchType);
         if (!endProgress && benchType != BenchType.General)
             progress();
     }
@@ -120,9 +120,29 @@ public class Bench : Interactable
         if (endProgress)
         {
             player.isHand = true;
-            toolInBench.foodFinish = targetRecipe;
-            toolInBench.ingredients.Clear();
-            toolInBench.GetComponent<NetworkObject>().TrySetParent(player.transform);
+            if(targetRecipe.finishRecipe){
+                
+                var objectSpawn = Instantiate(targetRecipe.foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
+                objectSpawn.GetComponent<NetworkObject>().Spawn();
+                objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
+                objectSpawn.GetComponent<Tool>().ingredients.AddRange(toolInBench.ingredients);
+                toolInBench.DestroySelf();
+            }else{
+
+                toolInBench.ingredientsUsed.AddRange(toolInBench.ingredients);
+                toolInBench.ingredients.Clear();
+                toolInBench.foodFinish = targetRecipe;
+                toolInBench.ingredients.Add(targetRecipe);
+                toolInBench.transform.position = player.assetIngredient.transform.position;
+                toolInBench.GetComponent<NetworkObject>().TrySetParent(player.transform);
+            }
+
+
+            /*var objectSpawn = Instantiate(targetRecipe.foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
+            objectSpawn.GetComponent<NetworkObject>().Spawn();
+            objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
+            
+            toolInBench.DestroySelf();*/
             Reset();
         }
         if (benchType == BenchType.Storage)
@@ -163,9 +183,14 @@ public class Bench : Interactable
         else if(benchType == BenchType.General){
             
             if((interact as Tool) != null){
-                player.GetComponentInChildren<Tool>().GetComponent<NetworkObject>().TrySetParent(this.transform);
-                toolInBench = this.GetComponentInChildren<Tool>();
-                toolInBench.gameObject.transform.position = auxObject.transform.position;
+                if(toolInBench == null){
+                    player.GetComponentInChildren<Tool>().GetComponent<NetworkObject>().TrySetParent(this.transform);
+                    toolInBench = this.GetComponentInChildren<Tool>();
+                    toolInBench.gameObject.transform.position = auxObject.transform.position;
+                }else{
+                    toolInBench.ingredients.AddRange(player.GetComponentInChildren<Tool>().ingredients);
+                    player.GetComponentInChildren<Tool>().DestroySelf();
+                }
             }
             if(toolInBench != null && (interact as Ingredient)!=null){
                 AddIngredient(player.GetComponentInChildren<Ingredient>().food);
@@ -186,10 +211,11 @@ public class Bench : Interactable
                     player.GetComponentInChildren<Tool>().GetComponent<NetworkObject>().TrySetParent(this.transform);
                     toolInBench = this.GetComponentInChildren<Tool>();
                     toolInBench.gameObject.transform.position = auxObject.transform.position;
-                    player.isHand = false;
                     if(toolInBench.ingredients.Count > 0){
+                        endProgress = false;
                         progress();
                     }
+                    player.isHand = false;
                 }
             }
             if((interact as Ingredient) != null){
