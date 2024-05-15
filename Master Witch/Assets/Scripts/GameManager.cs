@@ -12,7 +12,6 @@ public class GameManager : SingletonNetwork<GameManager>
     GameState gameState;
     [SerializeField] FoodDatabaseSO foodDatabase;
     [SerializeField] Bench[] benches;
-    public SceneManager scene;
 
     #region Properties
     public GameState GameState => gameState;
@@ -20,24 +19,30 @@ public class GameManager : SingletonNetwork<GameManager>
     #endregion
 
     void ConnectionApprovalCallback(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
-        {
-            int i = PlayerNetworkManager.Instance.GetPlayer.Values.ToList().Count % SceneManager.Instance.spawnPlayersMarket.Count;
-             
-            response.Approved = true;
-            response.CreatePlayerObject = true;
-            response.Position = SceneManager.Instance.spawnPlayersMarket.ElementAt(i).position;
-            //response.Rotation = Quaternion.Euler(0f,180f,0f);
-        }
+    {
+        int i = PlayerNetworkManager.Instance.GetPlayer.Values.ToList().Count % SceneManager.Instance.spawnPlayersMarket.Count;
+
+        response.Approved = true;
+        response.CreatePlayerObject = true;
+        response.Position = SceneManager.Instance.spawnPlayersMarket.ElementAt(i).position;
+        //response.Rotation = Quaternion.Euler(0f,180f,0f);
+    }
 
     void Start()
     {
         NetworkManager.Singleton.ConnectionApprovalCallback = ConnectionApprovalCallback;
     }
-    public async void StartGame()
+    public async void HostRelay()
     {
-        var joinCode = await LobbyManager.Instance.StartHostRelay();
-
-        scene.ChangeSceneServerRpc(true, false);
+        NetworkManagerUI.Instance.EnableHUD(false);
+        await LobbyManager.Instance.StartHostRelay();
+    }
+    [ServerRpc(RequireOwnership = false)]
+    public void OnClientsReadyServerRpc()
+    {
+        SceneManager.Instance.ChangeSceneServerRpc(true, false);
+        SceneManager.Instance.StartMarket();
+        NetworkManagerUI.Instance.OnGameStartedClientRpc();
         for (int i = 0; i < benches.Length; i++)
         {
             var player = PlayerNetworkManager.Instance.GetPlayerByIndex(i);
@@ -45,17 +50,15 @@ public class GameManager : SingletonNetwork<GameManager>
                 benches[i].SetPlayer(player);
             else break;
         }
-        var g = FindAnyObjectByType<SceneManager>();
-        g.StartMarket();
     }
-    public void StartGameClient(string joinCode) => StartRelay(joinCode);
-    async void StartRelay(string joinCode)
+    public void JoinRelay(string joinCode) => StartClientRelay(joinCode);
+    async void StartClientRelay(string joinCode)
     {
         if (IsHost) return;
+        NetworkManagerUI.Instance.EnableHUD(false);
         Debug.Log($"start relay {joinCode}");
         await LobbyManager.Instance.StartClientWithRelay(joinCode);
         Debug.Log($"join");
-        NetworkManagerUI.Instance.OnGameStarted();
     }
 
     public void ChangeGameState(GameState gameState)

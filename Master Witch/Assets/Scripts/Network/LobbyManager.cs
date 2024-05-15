@@ -32,6 +32,7 @@ namespace Network
         bool isHost;
         #endregion
         #region Properties
+        public Lobby JoinedLobby => joinedLobby;
         #endregion
         private async void Start()
         {
@@ -255,7 +256,7 @@ namespace Network
             if (!isHost)
             {
                 if (joinedLobby.Data["RelayCode"].Value != "0")
-                    GameManager.Instance.StartGameClient(joinedLobby.Data["RelayCode"].Value);
+                    GameManager.Instance.JoinRelay(joinedLobby.Data["RelayCode"].Value);
             }
         }
         #endregion

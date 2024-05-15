@@ -12,6 +12,7 @@ using UI.Network;
 
 using Network;
 using Unity.Services.Lobbies.Models;
+using Unity.Services.Authentication;
 
 namespace UI
 {
@@ -60,8 +61,16 @@ namespace UI
             networkOptionsHUD.SetActive(!enabled);
             joinLobbyHUD.SetActive(false);
             createLobbyHUD.SetActive(false);
+            if (enabled)
+                startGameButton.gameObject.SetActive(AuthenticationService.Instance.PlayerId == LobbyManager.Instance.JoinedLobby.HostId);
         }
-        public void OnGameStarted()
+        public void EnableHUD(bool enabled)
+        {
+            lobbyHUD.SetActive(enabled);
+            networkOptionsHUD.SetActive(enabled);
+        }
+        [ClientRpc]
+        public void OnGameStartedClientRpc()
         {
             gameHUD.SetActive(true);
             networkHUD.SetActive(false);
@@ -89,8 +98,7 @@ namespace UI
         #region Network
         public void StartGame()
         {
-            GameManager.Instance.StartGame();
-            OnGameStarted();
+            GameManager.Instance.HostRelay();
         }
         //public void StartHost()
         //{

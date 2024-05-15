@@ -61,19 +61,21 @@ public class SceneManager : SingletonNetwork<SceneManager>
     }
     public void StartMarket()
     {
-        StartCoroutine("TimeCounter");
+        StartCoroutine(TimeCounter());
     }
 
     [ServerRpc(RequireOwnership = false)]
     public void ChangeSceneServerRpc(bool a, bool b)
     {
         ChangeSceneClientRpc(sceneMarket.Value = a, sceneMain.Value = b);
+        Debug.Log("ChangeScene server");
     }
     [ClientRpc]
     public void ChangeSceneClientRpc(bool a, bool b)
     {
         prefabMarket.SetActive(a);
         prefabMain.SetActive(b);
+        Debug.Log("ChangeScene client");
     }
     
     

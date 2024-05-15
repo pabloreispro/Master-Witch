@@ -18,6 +18,7 @@ namespace Network
 
         public Dictionary<ulong, Player> GetPlayer => playerList;
         public Dictionary<Player, ulong> GetID => idList;
+        Dictionary<ulong, bool> playersReady = new Dictionary<ulong, bool>();
         // Start is called before the first frame update
         void Awake()
         {
@@ -89,6 +90,8 @@ namespace Network
                         break;
                 }
             }
+            if (playerList.Count >= LobbyManager.Instance.JoinedLobby.Players.Count)
+                GameManager.Instance.OnClientsReadyServerRpc();
         }
         void OnClientDisconnected(ulong playerID)
         {
