@@ -158,6 +158,7 @@ public class Bench : Interactable
         {
             interact.DestroySelf();  
             player.isHand = false;
+            player.isHandBasket = false;
         }
         else if(benchType == BenchType.General){
             
