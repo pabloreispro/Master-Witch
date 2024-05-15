@@ -121,7 +121,6 @@ public class Bench : Interactable
         {
             player.isHand = true;
             toolInBench.foodFinish = targetRecipe;
-            toolInBench.ingredientsUsed.AddRange(toolInBench.ingredients);
             toolInBench.ingredients.Clear();
             toolInBench.GetComponent<NetworkObject>().TrySetParent(player.transform);
             Reset();
@@ -153,23 +152,25 @@ public class Bench : Interactable
     }
     public override void Drop(Player player)
     {
+        var interact = player.GetComponentInChildren<Interactable>();
         //if (player != targetPlayer) return;
         if(benchType == BenchType.TrashBin)
         {
-            player.GetComponentInChildren<Interactable>().DestroySelf();  
+            interact.DestroySelf();  
             player.isHand = false;
         }
         else if(benchType == BenchType.General){
-            if(player.objectHand != null){
+            
+            if((interact as Tool) != null){
                 player.GetComponentInChildren<Tool>().GetComponent<NetworkObject>().TrySetParent(this.transform);
                 toolInBench = this.GetComponentInChildren<Tool>();
                 toolInBench.gameObject.transform.position = auxObject.transform.position;
             }
-            if(toolInBench != null && player.GetComponentInChildren<Ingredient>() != null){
+            if(toolInBench != null && (interact as Ingredient)!=null){
                 AddIngredient(player.GetComponentInChildren<Ingredient>().food);
                 player.GetComponentInChildren<Ingredient>().DestroySelf();
             }
-            else if(player.GetComponentInChildren<Ingredient>() != null){
+            else if((interact as Ingredient)!=null){
                 player.GetComponentInChildren<Ingredient>().GetComponent<NetworkObject>().TrySetParent(this.transform);
                 this.GetComponentInChildren<Ingredient>().gameObject.transform.position = auxObject.transform.position;
             }
@@ -177,9 +178,9 @@ public class Bench : Interactable
         }
         else
         {
-            if(player.GetComponentInChildren<Tool>() != null)
+            if((interact as Tool) != null)
             {
-                if (player.GetComponentInChildren<Tool>().tool.benchType == benchType)
+                if ((interact as Tool).tool.benchType == benchType)
                 {
                     player.GetComponentInChildren<Tool>().GetComponent<NetworkObject>().TrySetParent(this.transform);
                     toolInBench = this.GetComponentInChildren<Tool>();
@@ -190,7 +191,7 @@ public class Bench : Interactable
                     }
                 }
             }
-            if(player.GetComponentInChildren<Ingredient>() != null){
+            if((interact as Ingredient) != null){
                 endProgress = false;
                 AddIngredient(player.GetComponentInChildren<Ingredient>().food);
                 player.GetComponentInChildren<Ingredient>().DestroySelf();

@@ -36,9 +36,11 @@ public class SceneManager : SingletonNetwork<SceneManager>
         {
             var player = PlayerNetworkManager.Instance.GetPlayer.Values.ToList().ElementAt(i);
             //player.bench.ElementAt(i).ingredients.AddRange(player.ingredientsBasket);
-            player.GetComponentInChildren<Tool>().gameObject.transform.position = spawnBasket.ElementAt(i).transform.position;
-            player.GetComponentInChildren<Tool>().GetComponentInChildren<NetworkObject>().TrySetParent(spawnBasket.ElementAt(i).transform);
-            player.RepositionServerRpc(spawnPlayersMain.ElementAt(i).position);
+            if(player.GetComponentInChildren<Tool>() != null){
+                player.GetComponentInChildren<Tool>().gameObject.transform.position = spawnBasket.ElementAt(i).transform.position;
+                player.GetComponentInChildren<Tool>().GetComponentInChildren<NetworkObject>().TrySetParent(spawnBasket.ElementAt(i).transform);
+                player.RepositionServerRpc(spawnPlayersMain.ElementAt(i).position); 
+            }
             
         }
     }
@@ -51,7 +53,9 @@ public class SceneManager : SingletonNetwork<SceneManager>
             var player = PlayerNetworkManager.Instance.GetPlayer.Values.ToList().ElementAt(i);
             //Debug.Log($"{player.NetworkObjectId}, {player.ingredientsBasket.Count}");
             //player.bench.ElementAt(i).ingredients.AddRange(player.ingredientsBasket);
-            player.GetComponentInChildren<Tool>().GetComponentInChildren<NetworkObject>().TrySetParent(spawnBasket.ElementAt(i).transform);
+            if(player.GetComponentInChildren<Tool>() != null){
+                player.GetComponentInChildren<Tool>().GetComponentInChildren<NetworkObject>().TrySetParent(spawnBasket.ElementAt(i).transform);
+            }
 
         }
     }
