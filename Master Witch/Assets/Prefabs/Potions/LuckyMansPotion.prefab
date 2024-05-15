@@ -89,11 +89,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3abd4ac4e647005418661b967096774e,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2484854377834887185}
+      addedObject: {fileID: 4738987424037114153}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3abd4ac4e647005418661b967096774e,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4738987424037114153}
+      addedObject: {fileID: 1501760403621363518}
   m_SourcePrefab: {fileID: 100100000, guid: 3abd4ac4e647005418661b967096774e, type: 3}
 --- !u!1 &1555352594408113430 stripped
 GameObject:
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3877718766
+  GlobalObjectIdHash: 1896250941
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -121,20 +121,6 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 1
   AutoObjectParentSync: 1
---- !u!114 &2484854377834887185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1555352594408113430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4df7e31a96f26488f912fab076f0f4ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  food: {fileID: 11400000, guid: 67c70339f93af984096d496ee7d2d43b, type: 2}
-  isHandIngredient: 0
 --- !u!65 &4738987424037114153
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -156,3 +142,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0021263384, y: 0.002053904, z: 0.0054247924}
   m_Center: {x: 0.000006859998, y: -0.00007695944, z: 0.00012394955}
+--- !u!114 &1501760403621363518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555352594408113430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bba96f3b4aec74f03a21bd37a2137343, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tool: {fileID: 11400000, guid: 0c8494de141e341829418010eb7205e1, type: 2}
+  typeObject: 0
+  isHandTool: 1
+  foodFinish: {fileID: 11400000, guid: 67c70339f93af984096d496ee7d2d43b, type: 2}
+  ingredients: []
+  ingredientsUsed: []
