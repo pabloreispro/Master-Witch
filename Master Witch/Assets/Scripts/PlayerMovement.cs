@@ -15,6 +15,9 @@ using Unity.Multiplayer.Tools.NetStatsMonitor;
 
 public class PlayerMovement : Player
 {
+   
+
+    [Header("Movement Configs")]
     public PlayerInput playerInput;
     public float speed;
     public float speedPlayer;
@@ -43,11 +46,12 @@ public class PlayerMovement : Player
         //e o context funciona como um ativador
         //playerInput.PlayerControl.Movement.performed += MovementPlayer;
     }
+    
 
     void FixedUpdate()
     {
 
-
+        AnimationController();
         if(IsOwner == true){
             if(this.GetComponentInChildren<Interactable>()!=null){
                 this.GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = false;
@@ -89,9 +93,9 @@ public class PlayerMovement : Player
 
     void MovementPlayer(){
         Vector2 inputVector = playerInput.PlayerControl.Movement.ReadValue<Vector2>();
-
+        
         Vector3 move = new Vector3(inputVector.x, 0, inputVector.y).normalized;
-
+        
         float gravity = -9.81f; 
         float verticalVelocity = 0; 
 
@@ -100,9 +104,19 @@ public class PlayerMovement : Player
         move.y += verticalVelocity;
         
         if(inputVector!=new Vector2(0,0)){
+            
             Quaternion r = Quaternion.LookRotation(move);
             transform.rotation = Quaternion.Slerp(transform.rotation, r, speed);
+            
+            if(isHand && isHandBasket){currentState = PlayerState.WalkingBasket;}
+            else if(isHand && !isHandBasket){currentState = PlayerState.WalkingInteract;}
+            else currentState =  PlayerState.Walking; 
         }
+        else 
+        {
+            currentState = PlayerState.Idle;
+        }
+
         controller.Move(move* Time.deltaTime * speedPlayer);
     }
 
@@ -116,6 +130,7 @@ public class PlayerMovement : Player
     public void PickDropObject(){
         if(isHand)
         {
+            
             if(interact == null)
             {
                 this.GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = true;
@@ -125,12 +140,14 @@ public class PlayerMovement : Player
             else if (interact.GetType() == typeof(Bench))
             {
                 interact.DropServerRpc(NetworkObjectId);
+                currentState = PlayerState.Interact;
             }
             else
             {
                 if(this.GetComponentInChildren<Tool>().tool.benchType == BenchType.Basket)
                 {
                     interact.PickServerRpc(NetworkObjectId);
+                    currentState = PlayerState.PuttingBasket;
                 }
                 else
                 {
@@ -140,7 +157,40 @@ public class PlayerMovement : Player
         }
         else
         {
+            currentState = PlayerState.Interact;
             interact.PickServerRpc(NetworkObjectId);
         }
     }
+    public void AnimationController()
+    {
+        switch(currentState)
+        {
+            case PlayerState.Idle:
+                animator.SetBool("IsWalking", false);
+                animator.SetBool("IsWalkingInteract", false);
+                animator.SetBool("IsWalkingBasket", false);
+            break;
+            case PlayerState.IdleBasket:
+
+            break;
+            case PlayerState.Interact:
+                animator.SetTrigger("Interact");
+            break;
+            case PlayerState.Walking:
+                animator.SetBool("IsWalking", true);
+            break;
+            case PlayerState.WalkingInteract:
+                animator.SetBool("IsWalkingInteract", true);
+            break;
+            case PlayerState.WalkingBasket:
+                animator.SetBool("IsWalkingBasket", true);
+            break;
+            case PlayerState.PuttingBasket:
+                animator.SetTrigger("PutInBasket");
+            break;
+            
+        }
+    }
+
+    
 }

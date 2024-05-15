@@ -73,6 +73,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 90077bcb88f0f1245b3ab1196da2bfed,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 90077bcb88f0f1245b3ab1196da2bfed,
         type: 3}
       propertyPath: m_Name
@@ -167,6 +172,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: cesta
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 90077bcb88f0f1245b3ab1196da2bfed,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -5754084199372789682, guid: 90077bcb88f0f1245b3ab1196da2bfed, type: 3}
     - {fileID: -7511558181221131132, guid: 90077bcb88f0f1245b3ab1196da2bfed, type: 3}
@@ -256,6 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tool: {fileID: 11400000, guid: 36bb32b95ef6ec140bc4378c700fcbd3, type: 2}
+  typeObject: 0
   isHandTool: 1
   foodFinish: {fileID: 0}
   ingredients: []

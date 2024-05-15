@@ -9,8 +9,22 @@ using Network;
 using System;
 
 
+public enum PlayerState
+{
+    Idle,
+    IdleBasket,
+    Interact,
+    Walking,
+    WalkingInteract,
+    WalkingBasket,
+    PuttingBasket
+}
 public class Player : NetworkBehaviour
 {
+     [Header("Animation Configs")]
+    public PlayerState currentState;
+    public Animator animator;
+
     [Header("Info Player")]
     public int id;
     string name;
@@ -25,6 +39,7 @@ public class Player : NetworkBehaviour
     public GameObject assetIngredient;
     public NetworkVariable<bool> stateObjectIngrediente = new NetworkVariable<bool>();
     public bool isHand;
+    public bool isHandBasket;
 
     public List<Bench> bench = new List<Bench>();
     [Header("Basket Config")]
@@ -40,6 +55,7 @@ public class Player : NetworkBehaviour
     }
     void Start()
     {
+        animator = GetComponent<Animator>();
         
         foreach (Bench item in FindObjectsOfType<Bench>() )
         {
@@ -52,6 +68,8 @@ public class Player : NetworkBehaviour
         bench.Sort((a, b) => string.Compare(a.name, b.name, StringComparison.Ordinal));
         
     }
+
+    
 
     
     [ServerRpc (RequireOwnership = false)]
@@ -70,6 +88,7 @@ public class Player : NetworkBehaviour
         GetComponent<PlayerMovement>().controller.enabled = true;
         //StatusAssetServerRpc(false);
         isHand = false;
+        isHandBasket = false;
     }
 
     public void AddItemBasket(FoodSO ingredient)
@@ -85,4 +104,6 @@ public class Player : NetworkBehaviour
         hatRenderer.material = newMaterial;
         this.id = id;
     }
+
+    
 }
