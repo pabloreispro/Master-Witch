@@ -12,7 +12,6 @@ public class Tool : Interactable
     public bool isHandTool;
     public RecipeSO foodFinish;
     public List<FoodSO> ingredients = new List<FoodSO>();
-    public List<FoodSO> ingredientsUsed = new List<FoodSO>();
     
 
     public override void Pick(Player player)
