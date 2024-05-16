@@ -51,8 +51,9 @@ public class PlayerMovement : Player
     void FixedUpdate()
     {
 
-        AnimationController();
+        
         if(IsOwner == true){
+            AnimationController();
             if(this.GetComponentInChildren<Interactable>()!=null){
                 this.GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = false;
             }

@@ -13,6 +13,7 @@ public class Tool : Interactable
     public RecipeSO foodFinish;
     public List<FoodSO> ingredients = new List<FoodSO>();
     public List<FoodSO> ingredientsUsed = new List<FoodSO>();
+    
 
     public override void Pick(Player player)
     {
@@ -22,6 +23,7 @@ public class Tool : Interactable
             objectSpawn.GetComponent<NetworkObject>().Spawn();
             objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
             objectSpawn.transform.position = player.assetIngredient.transform.position;
+            
 
             if(this.tool.benchType == BenchType.Basket)
             {

@@ -26,11 +26,14 @@ public class Bench : Interactable
     public Slider slider;
     public GameObject inventory;
     StorageController storage;
+    
     public Transform positionBasket;
+
 
     private void Start()
     {
         storage = GetComponent<StorageController>();
+
     }
 
     void Reset()
@@ -135,7 +138,7 @@ public class Bench : Interactable
                 toolInBench.transform.position = player.assetIngredient.transform.position;
                 toolInBench.GetComponent<NetworkObject>().TrySetParent(player.transform);
             }
-
+            
             /*var objectSpawn = Instantiate(targetRecipe.foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
             objectSpawn.GetComponent<NetworkObject>().Spawn();
             objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
