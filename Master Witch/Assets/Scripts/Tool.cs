@@ -17,12 +17,12 @@ public class Tool : Interactable
     public override void Pick(Player player)
     {
         if(!isHandTool){
-            
-            var objectSpawn = Instantiate(tool.prefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
-            objectSpawn.GetComponent<NetworkObject>().Spawn();
-            objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
-            objectSpawn.transform.position = player.assetIngredient.transform.position;
-            
+            if(IsServer){
+                var objectSpawn = Instantiate(tool.prefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
+                objectSpawn.GetComponent<NetworkObject>().Spawn();
+                objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
+                objectSpawn.transform.position = player.assetIngredient.transform.position;
+            }
 
             if(this.tool.benchType == BenchType.Basket)
             {
