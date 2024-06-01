@@ -56,6 +56,7 @@ public class PlayerMovement : Player
             AnimationController();
             if(this.GetComponentInChildren<Interactable>()!=null){
                 isHand = true;
+                this.GetComponentInChildren<Interactable>().gameObject.transform.position = assetIngredient.transform.position;
                 this.GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = false;
             }else{
                 isHand = false;
