@@ -13,6 +13,8 @@ public class GameManager : SingletonNetwork<GameManager>
     [SerializeField] FoodDatabaseSO foodDatabase;
     [SerializeField] Bench[] benches;
 
+    Dictionary<int, float> ResultFinal = new Dictionary<int, float>();
+
     #region Properties
     public GameState GameState => gameState;
     public FoodDatabaseSO FoodDatabaseSO => foodDatabase;
@@ -59,6 +61,14 @@ public class GameManager : SingletonNetwork<GameManager>
         Debug.Log($"start relay {joinCode}");
         await LobbyManager.Instance.StartClientWithRelay(joinCode);
         Debug.Log($"join");
+    }
+
+    public void PlayerResultFinal(int playerID, float score){
+        ResultFinal.Add(playerID, score);
+    }
+
+    public void PlayerElimation(){
+        
     }
 
     public void ChangeGameState(GameState gameState)
