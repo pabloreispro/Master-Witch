@@ -10,7 +10,7 @@ using Network;
 using Unity.VisualScripting;
 
 
-public class StorageController : NetworkBehaviour
+public class StorageController : Interactable
 {
     
     public Button[] slots;
@@ -53,6 +53,7 @@ public class StorageController : NetworkBehaviour
         }
         
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -83,11 +84,13 @@ public class StorageController : NetworkBehaviour
     {
         Debug.Log("peguei o item");
         var player = PlayerNetworkManager.Instance.GetPlayer[playerID];
-        player.isHand = true;
 
         var objectSpawn = Instantiate(storageItems[itemIndex].foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
         objectSpawn.GetComponent<NetworkObject>().Spawn();
+        objectSpawn.transform.position = player.assetIngredient.transform.position;
         objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
+        
+        
         
         /*player.StatusAssetServerRpc(true);
         player.ingredient = storageItems[itemIndex];

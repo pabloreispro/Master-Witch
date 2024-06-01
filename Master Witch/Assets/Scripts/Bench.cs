@@ -169,16 +169,12 @@ public class Bench : Interactable
         if(benchType == BenchType.TrashBin)
         {
             interact.DestroySelf();  
-            player.isHand = false;
             player.isHandBasket = false;
         }
         else if(benchType == BenchType.General){
-            
             if((interact as Tool) != null){
                 if(toolInBench == null){
-                    toolInBench = interact as Tool;
-                    toolInBench.GetComponent<NetworkObject>().TrySetParent(this.transform);
-                    toolInBench.gameObject.transform.position = auxObject.transform.position;
+                    PositionBench(interact);
                 }else{
                     toolInBench.ingredients.AddRange((interact as Tool).ingredients);
                     interact.DestroySelf();
@@ -189,10 +185,9 @@ public class Bench : Interactable
                 player.GetComponentInChildren<Ingredient>().DestroySelf();
             }
             else if((interact as Ingredient)!=null){
-                (interact as Ingredient).GetComponent<NetworkObject>().TrySetParent(this.transform);
-                this.GetComponentInChildren<Ingredient>().gameObject.transform.position = auxObject.transform.position;
+                interact.gameObject.transform.position = auxObject.transform.position;
+                interact.GetComponent<NetworkObject>().TrySetParent(this.transform);
             }
-            player.isHand = false;
         }
         else
         {
@@ -200,9 +195,7 @@ public class Bench : Interactable
             {
                 if ((interact as Tool).tool.benchType == benchType)
                 {
-                    (interact as Tool).GetComponent<NetworkObject>().TrySetParent(this.transform);
-                    toolInBench = this.GetComponentInChildren<Tool>();
-                    toolInBench.gameObject.transform.position = auxObject.transform.position;
+                    PositionBench(interact);
                     if(toolInBench.ingredients.Count > 0){
                         endProgress = false;
                         progress();
@@ -217,5 +210,13 @@ public class Bench : Interactable
                 player.isHand = false;
             }
         }
+    }
+
+    public void PositionBench(Interactable interact){
+        interact.gameObject.transform.position = auxObject.transform.position;
+        if(interact as Tool){
+            toolInBench = interact.GetComponent<Tool>();
+        }
+        interact.GetComponent<NetworkObject>().TrySetParent(this.transform);
     }
 }

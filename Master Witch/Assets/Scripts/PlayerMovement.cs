@@ -55,7 +55,10 @@ public class PlayerMovement : Player
         if(IsOwner == true){
             AnimationController();
             if(this.GetComponentInChildren<Interactable>()!=null){
+                isHand = true;
                 this.GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = false;
+            }else{
+                isHand = false;
             }
             RaycastPlayer();
             MovementPlayer();
