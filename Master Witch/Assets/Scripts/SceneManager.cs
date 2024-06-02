@@ -28,6 +28,11 @@ public class SceneManager : SingletonNetwork<SceneManager>
         timeCount.OnValueChanged += (a,b) => texto.text = b.ToString();
     }
 
+    public override void OnNetworkSpawn()
+    {
+        timeCount.Value = 50;
+    }
+
     [ServerRpc (RequireOwnership = false)]
     public void RepositionPlayerServerRpc()
     {

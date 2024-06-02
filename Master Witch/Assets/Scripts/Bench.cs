@@ -25,7 +25,7 @@ public class Bench : Interactable
     public float auxTimer;
     public Slider slider;
     public GameObject inventory;
-    StorageController storage;
+    public StorageController storage;
     
     public Transform positionBasket;
 
@@ -119,15 +119,16 @@ public class Bench : Interactable
     public override void Pick(Player player)
     {
         //if (player != targetPlayer) return;
-        auxPlayer = player;
         if (endProgress)
         {
             player.isHand = true;
             if(targetRecipe.finishRecipe){
-                var objectSpawn = Instantiate(targetRecipe.foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
-                objectSpawn.GetComponent<NetworkObject>().Spawn();
-                objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
-                objectSpawn.GetComponent<Tool>().ingredients.AddRange(toolInBench.ingredients);
+                if(IsServer){
+                    var objectSpawn = Instantiate(targetRecipe.foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
+                    objectSpawn.GetComponent<NetworkObject>().Spawn();
+                    objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
+                    objectSpawn.GetComponent<Tool>().ingredients.AddRange(toolInBench.ingredients);
+                }
                 toolInBench.DestroySelf();
             }else{
                 toolInBench.ingredients.Clear();
@@ -136,14 +137,6 @@ public class Bench : Interactable
                 toolInBench.GetComponent<NetworkObject>().TrySetParent(player.transform);
             }
             Reset();
-        }
-        if (benchType == BenchType.Storage)
-        {
-            if (player.IsOwner && !storage.Active)
-            {
-                storage.Initialize(toolInBench.ingredients);
-                inventory.SetActive(true);
-            }
         }
         if(benchType == BenchType.General){
             player.isHand = true;
@@ -218,5 +211,15 @@ public class Bench : Interactable
             toolInBench = interact.GetComponent<Tool>();
         }
         interact.GetComponent<NetworkObject>().TrySetParent(this.transform);
+    }
+
+    public void StorageInitialize(){
+        if(toolInBench!=null){
+            storage.Initialize(toolInBench.ingredients);
+            inventory.SetActive(true);
+        }
+    }
+    public void StorageDisable(){
+        inventory.SetActive(false);
     }
 }

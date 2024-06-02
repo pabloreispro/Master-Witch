@@ -10,7 +10,7 @@ using Network;
 using Unity.VisualScripting;
 
 
-public class StorageController : Interactable
+public class StorageController : SingletonNetwork<StorageController>
 {
     
     public Button[] slots;
@@ -20,7 +20,8 @@ public class StorageController : Interactable
     public GameObject panelInventory;
     public int indexSlots;
     Bench bench;
-    public bool Active { get; private set; }
+    public Player player;
+    //public bool Active { get; private set; }
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +42,7 @@ public class StorageController : Interactable
         }
         storageItems.AddRange(ingredients);
         UpdateInventory();
-        Active = true;
+        //Active = true;
     }
 
     public void OnSlotSelected(int slotIndex)
@@ -57,40 +58,48 @@ public class StorageController : Interactable
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.G) && slotSelected != null)
-        {            
-            UpdateInventory();
-            Time.timeScale = 1;
-            SetPlayerItemServerRpc(PlayerNetworkManager.Instance.GetID[bench.auxPlayer], indexSlots);
-            slotSelected = null;
-            panelInventory.SetActive(false);
-            Active = false;
-        }
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            Time.timeScale = 1;
-            panelInventory.SetActive(false);
-            Active = false;
+        if(IsOwner){
+            if(Input.GetKeyDown(KeyCode.G) && slotSelected != null)
+            {            
+                //Active = false;
+            }
+            if(Input.GetKeyDown(KeyCode.Q))
+            {
+                Time.timeScale = 1;
+                panelInventory.SetActive(false);
+                //Active = false;
+            }
         }
     }
-    [ServerRpc(RequireOwnership = false)]
-    void SetPlayerItemServerRpc(ulong playerID, int itemIndex)
+
+    public void SelectedIngredient(int indexSlots){
+        if(player.IsOwner){
+            UpdateInventory();
+            Time.timeScale = 1;
+            SetPlayerItemServerRpc(indexSlots);
+            slotSelected = null;
+            panelInventory.SetActive(false);
+        }
+    }
+
+    [ServerRpc(RequireOwnership =false)]
+    void SetPlayerItemServerRpc(int itemIndex)
     {
-        SetPlayerItemClientRpc(playerID, itemIndex);
+        SetPlayerItemClientRpc(itemIndex);
         bench.RemoveIngredient(storageItems[itemIndex]);
     }
     [ClientRpc]
-    void SetPlayerItemClientRpc(ulong playerID, int itemIndex)
+    void SetPlayerItemClientRpc(int itemIndex)
     {
         Debug.Log("peguei o item");
-        var player = PlayerNetworkManager.Instance.GetPlayer[playerID];
+        Debug.Log("Player in storage: "+player.id);
+
         if(IsServer){
             var objectSpawn = Instantiate(storageItems[itemIndex].foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
             objectSpawn.GetComponent<NetworkObject>().Spawn();
             objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
         }
-            
-        
+
         
         /*player.StatusAssetServerRpc(true);
         player.ingredient = storageItems[itemIndex];

@@ -26,6 +26,8 @@ public class PlayerMovement : Player
     public float distanciaMaxima = 2.0f;
     public int numberOfRays = 10;
 
+    Bench storage;
+
 
     public override void OnNetworkSpawn()
     {
@@ -50,8 +52,6 @@ public class PlayerMovement : Player
 
     void FixedUpdate()
     {
-
-        
         if(IsOwner == true){
             AnimationController();
             if(this.GetComponentInChildren<Interactable>()!=null){
@@ -61,8 +61,22 @@ public class PlayerMovement : Player
             }else{
                 isHand = false;
             }
+            
             RaycastPlayer();
             MovementPlayer();
+            VerifyStorage();
+            
+        }
+    }
+
+    public void VerifyStorage(){
+        if ((interact as Bench) != null && (interact as Bench).benchType == BenchType.Storage)
+        {
+            storage = (interact as Bench);
+            storage.storage.player = this;
+            storage.StorageInitialize();
+        }else if(storage!=null){
+            storage.StorageDisable();
         }
     }
 
@@ -71,7 +85,6 @@ public class PlayerMovement : Player
 
         for (int i = 0; i < numberOfRays; i++)
         {
-
             float angle = transform.eulerAngles.y - 30 + angleStep * i; 
             Vector3 direction = Quaternion.Euler(0, angle, 0) * Vector3.forward;
 
@@ -135,7 +148,6 @@ public class PlayerMovement : Player
     public void PickDropObject(){
         if(isHand)
         {
-            
             if(interact == null)
             {
                 this.GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = true;
