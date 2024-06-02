@@ -212,14 +212,23 @@ public class Bench : Interactable
         }
         interact.GetComponent<NetworkObject>().TrySetParent(this.transform);
     }
-
+    
     public void StorageInitialize(){
-        if(toolInBench!=null){
-            storage.Initialize(toolInBench.ingredients);
-            inventory.SetActive(true);
-        }
+        StoreServerRpc();
+        inventory.SetActive(true);
     }
     public void StorageDisable(){
         inventory.SetActive(false);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void StoreServerRpc(){
+        StoreClientRpc();
+    }
+    [ClientRpc]
+    public void StoreClientRpc(){
+        if(toolInBench!=null){
+            storage.Initialize(toolInBench.ingredients);
+        }
     }
 }

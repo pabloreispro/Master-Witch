@@ -76,34 +76,23 @@ public class StorageController : SingletonNetwork<StorageController>
         if(player.IsOwner){
             UpdateInventory();
             Time.timeScale = 1;
-            SetPlayerItemServerRpc(indexSlots);
+            SetPlayerItemServerRpc(indexSlots, PlayerNetworkManager.Instance.GetID[player]);
             slotSelected = null;
-            panelInventory.SetActive(false);
+            //panelInventory.SetActive(false);
         }
     }
 
-    [ServerRpc(RequireOwnership =false)]
-    void SetPlayerItemServerRpc(int itemIndex)
+    [ServerRpc(RequireOwnership = false)]
+    void SetPlayerItemServerRpc(int itemIndex, ulong playerID)
     {
-        SetPlayerItemClientRpc(itemIndex);
+        Debug.Log("Player id: "+ playerID);
+        Debug.Log("index id: "+ itemIndex);
+        var playerScene = PlayerNetworkManager.Instance.GetPlayer[playerID];
+        Debug.Log("PlayerSCene: "+playerScene.id+" name: "+playerScene.name);
+        var objectSpawn = Instantiate(storageItems[itemIndex].foodPrefab, new Vector3(playerScene.assetIngredient.transform.position.x, 1.0f, playerScene.assetIngredient.transform.position.z), Quaternion.identity);
+        objectSpawn.GetComponent<NetworkObject>().Spawn();
+        objectSpawn.GetComponent<NetworkObject>().TrySetParent(playerScene.transform);  
         bench.RemoveIngredient(storageItems[itemIndex]);
-    }
-    [ClientRpc]
-    void SetPlayerItemClientRpc(int itemIndex)
-    {
-        Debug.Log("peguei o item");
-        Debug.Log("Player in storage: "+player.id);
-
-        if(IsServer){
-            var objectSpawn = Instantiate(storageItems[itemIndex].foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
-            objectSpawn.GetComponent<NetworkObject>().Spawn();
-            objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
-        }
-
-        
-        /*player.StatusAssetServerRpc(true);
-        player.ingredient = storageItems[itemIndex];
-        player.ChangeMeshHandServerRpc();*/
         
     }
     void UpdateInventory()

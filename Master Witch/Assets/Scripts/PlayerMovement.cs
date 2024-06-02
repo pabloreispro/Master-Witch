@@ -76,6 +76,7 @@ public class PlayerMovement : Player
             storage.storage.player = this;
             storage.StorageInitialize();
         }else if(storage!=null){
+            storage.storage.player = null;
             storage.StorageDisable();
         }
     }

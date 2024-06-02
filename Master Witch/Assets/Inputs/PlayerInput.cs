@@ -107,6 +107,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Selected"",
+                    ""type"": ""Button"",
+                    ""id"": ""c9aec22c-a8f6-447b-bf71-5679b4d7f08b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -118,6 +127,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f41606d-83e9-47a2-8fb8-d84679e44ad1"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Selected"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -132,6 +152,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // PlayerInteract
         m_PlayerInteract = asset.FindActionMap("PlayerInteract", throwIfNotFound: true);
         m_PlayerInteract_Interaction = m_PlayerInteract.FindAction("Interaction", throwIfNotFound: true);
+        m_PlayerInteract_Selected = m_PlayerInteract.FindAction("Selected", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -240,11 +261,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerInteract;
     private List<IPlayerInteractActions> m_PlayerInteractActionsCallbackInterfaces = new List<IPlayerInteractActions>();
     private readonly InputAction m_PlayerInteract_Interaction;
+    private readonly InputAction m_PlayerInteract_Selected;
     public struct PlayerInteractActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerInteractActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Interaction => m_Wrapper.m_PlayerInteract_Interaction;
+        public InputAction @Selected => m_Wrapper.m_PlayerInteract_Selected;
         public InputActionMap Get() { return m_Wrapper.m_PlayerInteract; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -257,6 +280,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interaction.started += instance.OnInteraction;
             @Interaction.performed += instance.OnInteraction;
             @Interaction.canceled += instance.OnInteraction;
+            @Selected.started += instance.OnSelected;
+            @Selected.performed += instance.OnSelected;
+            @Selected.canceled += instance.OnSelected;
         }
 
         private void UnregisterCallbacks(IPlayerInteractActions instance)
@@ -264,6 +290,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interaction.started -= instance.OnInteraction;
             @Interaction.performed -= instance.OnInteraction;
             @Interaction.canceled -= instance.OnInteraction;
+            @Selected.started -= instance.OnSelected;
+            @Selected.performed -= instance.OnSelected;
+            @Selected.canceled -= instance.OnSelected;
         }
 
         public void RemoveCallbacks(IPlayerInteractActions instance)
@@ -288,5 +317,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     public interface IPlayerInteractActions
     {
         void OnInteraction(InputAction.CallbackContext context);
+        void OnSelected(InputAction.CallbackContext context);
     }
 }
