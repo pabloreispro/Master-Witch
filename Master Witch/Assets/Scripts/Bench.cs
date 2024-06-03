@@ -65,9 +65,9 @@ public class Bench : Interactable
     }
     public void progress()
     {
-        targetRecipe = GameManager.Instance.GetValidRecipe(toolInBench.ingredients, benchType);
+        targetRecipe = GameManager.Instance.GetValidRecipe(toolInBench.foodList, benchType);
         startProgress = true;
-        foreach (FoodSO item in toolInBench.ingredients)
+        foreach (FoodSO item in toolInBench.foodList)
         {
             auxTimer = item.timeProgress;
         }
@@ -76,10 +76,12 @@ public class Bench : Interactable
         slider.maxValue = timerProgress;
     }
 
-    public void AddIngredient(FoodSO ingredient)
+    public void AddIngredient(FoodSO ingredient) => AddIngredient(new RecipeData(ingredient));
+    public void AddIngredient(RecipeData recipeData)
     {
         timer = 0;
-        toolInBench.ingredients.Add(ingredient);
+        toolInBench.ingredients.Add(recipeData);
+        Debug.Log($"{recipeData.TargetFood} {recipeData.UtilizedIngredients.Count}");
         if (!endProgress && benchType != BenchType.General)
             progress();
     }
@@ -87,8 +89,15 @@ public class Bench : Interactable
 
     public FoodSO RemoveIngredient(FoodSO ingredient)
     {
-        FoodSO aux = toolInBench.ingredients.Find(x => x == ingredient);
-        RemoveIngredientServerRpc(toolInBench.ingredients.IndexOf(ingredient));
+        FoodSO aux = null;
+        for (int i = 0; i < toolInBench.ingredients.Count; i++)
+        {
+            if (toolInBench.ingredients[i].TargetFood == ingredient)
+            {
+                aux = toolInBench.ingredients[i].TargetFood;
+                RemoveIngredientServerRpc(i);
+            }
+        }
         return aux;
     }
     [ServerRpc(RequireOwnership = false)]
@@ -127,12 +136,13 @@ public class Bench : Interactable
                     var objectSpawn = Instantiate(targetRecipe.foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
                     objectSpawn.GetComponent<NetworkObject>().Spawn();
                     objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
-                    objectSpawn.GetComponent<Tool>().ingredients.AddRange(toolInBench.ingredients);
+                    objectSpawn.GetComponent<Tool>().ingredients.Add(new RecipeData(targetRecipe, toolInBench.ingredients));
                 }
                 toolInBench.DestroySelf();
             }else{
+                var recipeData = new RecipeData(targetRecipe, toolInBench.ingredients);
                 toolInBench.ingredients.Clear();
-                toolInBench.ingredients.Add(targetRecipe);
+                toolInBench.ingredients.Add(recipeData);
                 toolInBench.transform.position = player.assetIngredient.transform.position;
                 toolInBench.GetComponent<NetworkObject>().TrySetParent(player.transform);
             }
@@ -228,7 +238,7 @@ public class Bench : Interactable
     [ClientRpc]
     public void StoreClientRpc(){
         if(toolInBench!=null){
-            storage.Initialize(toolInBench.ingredients);
+            storage.Initialize(toolInBench.foodList);
         }
     }
 }

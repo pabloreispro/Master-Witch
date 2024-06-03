@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using static RecipeCondition;
@@ -14,10 +15,10 @@ namespace Game.SO
         [SerializeField] GameObject prefab;
         [SerializeField] ReviewCondition[] conditions;
 
-        public float ReviewRecipe(List<FoodSO> ingredients, RecipeSO targetRecipe)
+        public float ReviewRecipe(RecipeData recipe)
         {
             float score = 0;
-            foreach (var item in ingredients)
+            foreach (var item in recipe.UtilizedIngredients)
             {
                 float modifier = 1;
                 for (int i = 0; i < conditions.Length; i++)
@@ -25,17 +26,19 @@ namespace Game.SO
                     switch (conditions[i].type)
                     {
                         case ReviewType.FoodPreference:
-                            if (conditions[i].foods.Contains(item))
+                            if (conditions[i].foods.Contains(item.TargetFood))
                             {
                                 modifier += conditions[i].preferenceModifier;
+                                Debug.Log($"Adding {conditions[i].preferenceModifier} modifier by food preference in {item.TargetFood.name}. Total {modifier}");
                             }
                             break;
                         case ReviewType.CategoryPreference:
-                            for (int j = 0; j < item.category.Length; j++)
+                            for (int j = 0; j < item.TargetFood.category.Length; j++)
                             {
-                                if (item.category[j] == conditions[i].category)
+                                if (item.TargetFood.category[j] == conditions[i].category)
                                 {
                                     modifier += conditions[i].categoryModifier;
+                                    Debug.Log($"Adding {conditions[i].preferenceModifier} modifier by category preference in {item.TargetFood.name}. Total {modifier}");
                                 }
                             }
                             break;
@@ -43,9 +46,10 @@ namespace Game.SO
                             break;
                     }
                 }
-                score += item.score * modifier;
+                score += item.TargetFood.score * modifier;
+                Debug.Log($"Adding {item.TargetFood.score * modifier} points to score by {item.TargetFood.name} recipe. Total {score}");
             }
-            score += targetRecipe.GetScore(ingredients);
+            score += (recipe.TargetFood as RecipeSO).GetScore(recipe.UtilizedIngredients);
             return score;
         }
     }

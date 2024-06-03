@@ -24,33 +24,40 @@ namespace Game.SO {
             Debug.Log($"All conditions completed");
             return true;
         }
-        public float GetScore(List<FoodSO> foods)
+        public float GetScore(List<RecipeData> foods)
         {
             float score = 0;
             foreach (var item in foods)
             {
                 float modifier = 0;
-                for (int i = 0; i < item.category.Length; i++)
+                for (int i = 0; i < item.TargetFood.category.Length; i++)
                 {
-                    switch (item.category[i])
+                    switch (item.TargetFood.category[i])
                     {
                         case Category.Animal:
                             modifier += categoryModifier.Animal;
+                            Debug.Log($"Adding {categoryModifier.Animal} modifier by Animal category preference in {item.TargetFood.name} in the recipe {name}. Total {modifier}");
                             break;
                         case Category.Vegetal:
                             modifier += categoryModifier.Vegetal;
+                            Debug.Log($"Adding {categoryModifier.Vegetal} modifier by Vegetal category preference in {item.TargetFood.name} in the recipe {name}. Total {modifier}");
                             break;
                         case Category.Fungi:
                             modifier += categoryModifier.Fungi;
+                            Debug.Log($"Adding {categoryModifier.Fungi} modifier by Fungi category preference in {item.TargetFood.name} in the recipe {name}. Total {modifier}");
                             break;
                         case Category.Mystical:
                             modifier += categoryModifier.Mystical;
+                            Debug.Log($"Adding {categoryModifier.Mystical} modifier by Mystical category preference in {item.TargetFood.name} in the recipe {name}. Total {modifier}");
                             break;
                         default:
                             break;
                     }
+                    var recipe = item.TargetFood as RecipeSO;
+                    if (recipe != null)
+                        score += recipe.GetScore(item.UtilizedIngredients);
                 }
-                score += item.score * modifier;
+                score += item.TargetFood.score * modifier;
             }
             return score;
         }

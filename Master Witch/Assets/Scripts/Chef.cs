@@ -12,26 +12,25 @@ public class Chef : Interactable
     // PROVISORIO
     public override void Drop(Player player)
     {
-        var playerRecipe = player.GetComponentInChildren<Tool>().foodFinish;
-        
-        if (playerRecipe == null) return;
+        var tool = player.GetComponentInChildren<Tool>();
+        if (tool?.ingredients.Count <= 0) return;
         base.Drop(player);
-        Review(player.GetComponentInChildren<Tool>().ingredients, playerRecipe, player.id);
-        player.GetComponentInChildren<Tool>().DestroySelf();
+        Review(tool.ingredients[0], player.id);
+        tool.DestroySelf();
         //player.StatusAssetServerRpc(false);
     }
     public override void Pick(Player player)
     {
-        var playerRecipe = player.GetComponentInChildren<Tool>().foodFinish;
-        if (playerRecipe == null) return;
+        var tool = player.GetComponentInChildren<Tool>();
+        if (tool?.ingredients.Count <= 0) return;
         base.Pick(player);
         //Review(player.recipeIngredients, playerRecipe, player.id);
-        Review(player.GetComponentInChildren<Tool>().ingredients, playerRecipe, player.id);
+        Review(tool.ingredients[0], player.id);
     }
-    public void Review(List<FoodSO> foods, RecipeSO targetRecipe, int playerID)
+    public void Review(RecipeData recipe, int playerID)
     {
-        var score = chefSO.ReviewRecipe(foods, targetRecipe);
-        Debug.Log($"Total score of {targetRecipe.name} is {score}");
+        var score = chefSO.ReviewRecipe(recipe);
+        Debug.Log($"Total score of {recipe.TargetFood.name} is {score}");
         NetworkManagerUI.Instance.UpdatePlayerScore(playerID, score);
         GameManager.Instance.PlayerResultFinal(playerID, score);
     }

@@ -10,10 +10,20 @@ public class Tool : Interactable
     public ToolsSO tool;
     public TypeObject typeObject;
     public bool isHandTool;
-    public RecipeSO foodFinish;
-    public List<FoodSO> ingredients = new List<FoodSO>();
+    public List<RecipeData> ingredients = new List<RecipeData>();
     
-
+    public List<FoodSO> foodList 
+    {
+        get
+        {
+            var list = new List<FoodSO>();
+            foreach (var item in ingredients)
+            {
+                list.Add(item.TargetFood);
+            }
+            return list;
+        }
+    }
     public override void Pick(Player player)
     {
         if(!isHandTool){

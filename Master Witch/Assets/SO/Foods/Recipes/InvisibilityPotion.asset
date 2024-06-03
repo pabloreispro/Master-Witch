@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: InvisibilityPotion
   m_EditorClassIdentifier: 
   foodID: 8
-  category: 
+  category: 01000000
   foodPrefab: {fileID: 5776463045011519217, guid: dcda7b67e98c48c44b7c6c4edf756819,
     type: 3}
   imageFood: {fileID: 0}
@@ -23,7 +23,7 @@ MonoBehaviour:
   categoryModifier:
     Animal: 0
     Vegetal: 0
-    Fungi: 0
+    Fungi: -0.1
     Mystical: 0
   recipeConditions:
   - type: 0
@@ -35,8 +35,16 @@ MonoBehaviour:
   - type: 1
     benchType: 2
     foods:
-    - {fileID: 11400000, guid: b56403736821e7c4f99ecb4845a3f440, type: 2}
+    - {fileID: 11400000, guid: 0a254dfce393d3c449d323f97bf30b05, type: 2}
     - {fileID: 11400000, guid: 16d024fc4a2ce974987aa813a415ea4a, type: 2}
     category: 0
     categoryPoints: 0
     isAllowed: 1
+  - type: 2
+    benchType: 2
+    foods:
+    - {fileID: 11400000, guid: 0a254dfce393d3c449d323f97bf30b05, type: 2}
+    - {fileID: 11400000, guid: 16d024fc4a2ce974987aa813a415ea4a, type: 2}
+    category: 0
+    categoryPoints: 0
+    isAllowed: 0

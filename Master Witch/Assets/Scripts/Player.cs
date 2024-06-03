@@ -95,7 +95,7 @@ public class Player : NetworkBehaviour
     {
         if(this.GetComponentInChildren<Tool>().ingredients.Count < basketMax)
         {
-            this.GetComponentInChildren<Tool>().ingredients.Add(ingredient);
+            this.GetComponentInChildren<Tool>().ingredients.Add(new RecipeData(ingredient));
         }
     }
 

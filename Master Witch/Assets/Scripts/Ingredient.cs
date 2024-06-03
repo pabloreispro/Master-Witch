@@ -17,7 +17,7 @@ public class Ingredient : Interactable
             this.GetComponent<NetworkObject>().TrySetParent(player.transform);
             this.GetComponent<NetworkObject>().transform.position = player.assetIngredient.transform.position;
         }else{
-            player.GetComponentInChildren<Tool>().ingredients.Add(food);
+            player.GetComponentInChildren<Tool>().ingredients.Add(new RecipeData(food));
         }
         player.isHand = true;
     }
