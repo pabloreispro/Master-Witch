@@ -37,7 +37,7 @@ namespace Network
         private async void Start()
         {
 
-            // Dispara uma rotina de inicialização da API
+            // Dispara uma rotina de inicializaï¿½ï¿½o da API
             await UnityServices.InitializeAsync();
 
             // Escuta pelo evento de login do jogador
@@ -46,11 +46,12 @@ namespace Network
                 Debug.Log("Conectado como: " + AuthenticationService.Instance.PlayerId);
             };
 
-            // Dispara uma rotina de login do usuario (de forma anônima)
+            // Dispara uma rotina de login do usuario (de forma anï¿½nima)
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
             playerName = "Fulaninho" + Random.Range(1, 100);
             //UIHandler.instance.mainPanelPlayerNameInput.text = nomePlayer;
+            GameManager.Instance.GetInitialRecipe();
         }
 
         private void Update()
@@ -109,7 +110,7 @@ namespace Network
                 });
                 joinedLobby = lobby;
                 Debug.Log($"O lobby {lobby.Name} foi criado por {playerName}\t" +
-                    $"Número de players: {lobby.MaxPlayers}\tID: {lobby.Id}\tToken: {lobby.LobbyCode}\tPrivate? {lobby.IsPrivate}");
+                    $"Nï¿½mero de players: {lobby.MaxPlayers}\tID: {lobby.Id}\tToken: {lobby.LobbyCode}\tPrivate? {lobby.IsPrivate}");
                 NetworkManagerUI.Instance.EnableLobbyHUD();
                 NetworkManagerUI.Instance.UpdateLobbyInfo(lobby);
                 InvokeRepeating(nameof(HandleLobbyUpdates), 1.1f, 2.5f);
@@ -157,7 +158,7 @@ namespace Network
                 },
                     Order = new List<QueryOrder>
                 {
-                    // Ordena de forma decrescente pela data de Criação
+                    // Ordena de forma decrescente pela data de Criaï¿½ï¿½o
                     new QueryOrder(false, QueryOrder.FieldOptions.Created)
                 }
                 };
@@ -305,7 +306,7 @@ namespace Network
                     await AuthenticationService.Instance.SignInAnonymouslyAsync();
                 }
                 var joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode: joinCode);
-                // Tipo da Conexão: DTLS --> Conexão Segura
+                // Tipo da Conexï¿½o: DTLS --> Conexï¿½o Segura
                 NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, CONNECTION_TYPE));
                 CancelInvoke();
                 return !string.IsNullOrEmpty(joinCode) && NetworkManager.Singleton.StartClient();

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5010,6 +5010,7 @@ MonoBehaviour:
   auxTimer: 0
   slider: {fileID: 0}
   inventory: {fileID: 0}
+  storage: {fileID: 0}
   positionBasket: {fileID: 0}
 --- !u!1 &951743382
 GameObject:
@@ -6099,6 +6100,9 @@ MonoBehaviour:
   - {fileID: 2145511823}
   - {fileID: 1486421626}
   - {fileID: 979441280}
+  recipeDatabase:
+  - {fileID: 11400000, guid: 949ab9a304c4c44459d74872665fb2b2, type: 2}
+  - {fileID: 11400000, guid: 67c70339f93af984096d496ee7d2d43b, type: 2}
 --- !u!4 &1121566906
 Transform:
   m_ObjectHideFlags: 0

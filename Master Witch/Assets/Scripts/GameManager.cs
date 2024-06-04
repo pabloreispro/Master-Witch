@@ -12,6 +12,8 @@ public class GameManager : SingletonNetwork<GameManager>
     GameState gameState;
     [SerializeField] FoodDatabaseSO foodDatabase;
     [SerializeField] Bench[] benches;
+    [SerializeField] RecipeSO[] recipeDatabase;
+    public List<string> test;  
 
     Dictionary<int, float> ResultFinal = new Dictionary<int, float>();
 
@@ -107,6 +109,43 @@ public class GameManager : SingletonNetwork<GameManager>
         {
             Debug.Log($"No valid recipes, returning default");
             return foodDatabase.DefaultRecipe;
+        }
+    }
+
+    public void GetInitialRecipe()
+    {
+        RecipeSO initialRecipe = recipeDatabase.ElementAt(Random.Range(0, recipeDatabase.Length));
+        Stack<string> steps = new Stack<string>();
+        ExtractRecipeSteps(initialRecipe, steps);
+        
+        foreach (var step in steps)
+        {
+            test.Add(step);
+        }
+    }
+
+    private void ExtractRecipeSteps(RecipeSO recipe, Stack<string> steps)
+    {
+        foreach (var condition in recipe.recipeConditions)
+        {
+            if (condition.type == RecipeCondition.ConditionType.BenchType)
+            {
+                steps.Push(condition.benchType.ToString());
+            }
+            else if (condition.type == RecipeCondition.ConditionType.Food)
+            {
+                foreach (var item in condition.foods)
+                {
+                    if (item is RecipeSO nestedRecipe)
+                    {
+                        ExtractRecipeSteps(nestedRecipe, steps);
+                    }
+                    else
+                    {
+                        steps.Push(item.name.ToString());
+                    }
+                }
+            }
         }
     }
 }
