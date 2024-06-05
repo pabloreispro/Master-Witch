@@ -14,26 +14,37 @@ public class Bench : Interactable
     int playerID;
     Player targetPlayer;
     public Player auxPlayer;
+
+    [Header("Bench config")]
     public Tool toolInBench;
     RecipeSO targetRecipe;
     public BenchType benchType;
     public GameObject auxObject;
+    public Transform positionBasket;
+    public int multiBenchSpecial;
+    public bool SpecialBench;
+
+    [Header("Progress Recipe")]
     public bool endProgress;
     public bool startProgress;
     public float timer;
     public float timerProgress;
     public float auxTimer;
+
+    [Header("UI")]
     public Slider slider;
     public GameObject inventory;
     public StorageController storage;
+
     
-    public Transform positionBasket;
 
 
     private void Start()
     {
         storage = GetComponent<StorageController>();
-
+        if(!SpecialBench){
+            multiBenchSpecial = 1;
+        }
     }
 
     void Reset()
@@ -54,7 +65,7 @@ public class Bench : Interactable
         }
         if (startProgress)
         {
-            timer += Time.deltaTime;
+            timer += Time.deltaTime * multiBenchSpecial;
             slider.value = timer;
             if (timer >= timerProgress)
             {
