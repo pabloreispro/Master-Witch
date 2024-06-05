@@ -175,8 +175,11 @@ public class PlayerMovement : Player
         }
         else
         {
-            currentState = PlayerState.Interact;
-            interact.PickServerRpc(NetworkObjectId);
+            if(interact != null){
+                currentState = PlayerState.Interact;
+                interact.PickServerRpc(NetworkObjectId);
+
+            }
         }
     }
     public void AnimationController()

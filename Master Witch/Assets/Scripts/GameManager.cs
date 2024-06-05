@@ -116,37 +116,32 @@ public class GameManager : SingletonNetwork<GameManager>
     {
         RecipeSO initialRecipe = recipeDatabase.ElementAt(Random.Range(0, recipeDatabase.Length));
         Stack<string> steps = new Stack<string>();
-        ExtractRecipeSteps(initialRecipe, steps);
         
-        foreach (var step in steps)
+        
+        foreach (var step in ExtractRecipeSteps(initialRecipe))
         {
             test.Add(step);
         }
     }
 
-    private void ExtractRecipeSteps(RecipeSO recipe, Stack<string> steps)
+    private IEnumerable<string> ExtractRecipeSteps(RecipeSO recipe)
     {
+        var ingredients = recipe.recipeConditions.FirstOrDefault(r => r.type == RecipeCondition.ConditionType.Food);
+        var bench = recipe.recipeConditions.FirstOrDefault(r => r.type == RecipeCondition.ConditionType.BenchType);
         foreach (var condition in recipe.recipeConditions)
         {
-            if (condition.type == RecipeCondition.ConditionType.BenchType)
-            {
-                steps.Push(condition.benchType.ToString());
-            }
-            else if (condition.type == RecipeCondition.ConditionType.Food)
+            if (condition.type == RecipeCondition.ConditionType.Food)
             {
                 foreach (var item in condition.foods)
                 {
                     if (item is RecipeSO nestedRecipe)
-                    {
-                        ExtractRecipeSteps(nestedRecipe, steps);
-                    }
-                    else
-                    {
-                        steps.Push(item.name.ToString());
-                    }
+                        foreach(var s in ExtractRecipeSteps(nestedRecipe))
+                            yield return s;
                 }
             }
         }
+
+        yield return string.Join(" + ", ingredients.foods.Select(f => f.name)) + " -> " + bench.benchType + " = " + recipe.name;
     }
 }
 public enum GameState
