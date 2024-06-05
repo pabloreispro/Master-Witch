@@ -66,7 +66,7 @@ public class GameManager : SingletonNetwork<GameManager>
     }
 
     public void PlayerResultFinal(int playerID, float score){
-        ResultFinal.Add(playerID, score);
+        EliminationPlayer.Instance.AddScoresPlayers(playerID, score);
     }
 
     public void PlayerElimation(){
