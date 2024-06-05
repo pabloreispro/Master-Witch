@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,16 +23,22 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
             ElimPlayer();
         }
     }
+    //Essa funcao esta dentro do botao de start game
+    public void AddScoresPlayers(){
+        foreach(var item in PlayerNetworkManager.Instance.GetID){
+            scoresPlayers.Add(Convert.ToInt32(item.Value), 0);
+        }
+    }
 
-    public void AddScoresPlayers(int playerID, float score){
-        scoresPlayers.Add(playerID, score);
+    public void UpdadeScoresPlayers(int playerID, float score){
+        scoresPlayers[playerID] = score;
+        foreach(var item in scoresPlayers){
+            Debug.Log("Player id: " + item.Key +" score: "+ item.Value);
+        }
     }
 
     public void ElimPlayer(){
-        var player = scoresPlayers.Aggregate((l,r) => l.Value<r.Value ? l : r).Key;
-        Debug.Log("Player q vai ser eliminado "+player);
-        foreach(var item in scoresPlayers){
-            Debug.Log("ID dos jogadores: "+item.Value+"Scores dos jogadores: "+item.Value);
-        }
+        var player = scoresPlayers.Aggregate((l,r) => l.Value<r.Value ? l : r).Key; 
+        Debug.Log("Player eliminado é: "+player);
     }
 }

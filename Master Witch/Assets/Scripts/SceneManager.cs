@@ -72,6 +72,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     [ServerRpc(RequireOwnership = false)]
     public void ChangeSceneServerRpc(bool a, bool b)
     {
+        
         ChangeSceneClientRpc(sceneMarket.Value = a, sceneMain.Value = b);
         Debug.Log("ChangeScene server");
     }

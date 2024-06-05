@@ -6,6 +6,7 @@ using Network;
 using Unity.Netcode;
 using System.Linq;
 using UI;
+using Unity.VisualScripting;
 
 public class GameManager : SingletonNetwork<GameManager>
 {
@@ -22,6 +23,7 @@ public class GameManager : SingletonNetwork<GameManager>
     public FoodDatabaseSO FoodDatabaseSO => foodDatabase;
     #endregion
 
+
     void ConnectionApprovalCallback(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
     {
         int i = PlayerNetworkManager.Instance.GetPlayer.Values.ToList().Count % SceneManager.Instance.spawnPlayersMarket.Count;
@@ -35,7 +37,9 @@ public class GameManager : SingletonNetwork<GameManager>
     void Start()
     {
         NetworkManager.Singleton.ConnectionApprovalCallback = ConnectionApprovalCallback;
+        
     }
+
     public async void HostRelay()
     {
         NetworkManagerUI.Instance.EnableHUD(false);
@@ -54,6 +58,13 @@ public class GameManager : SingletonNetwork<GameManager>
                 benches[i].SetPlayer(player);
             else break;
         }
+        
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void FinalGameServerRpc(){
+       
+        //NetworkManagerUI.Instance.OnGameFinalClientRpc();
     }
     public void JoinRelay(string joinCode) => StartClientRelay(joinCode);
     async void StartClientRelay(string joinCode)
@@ -66,7 +77,6 @@ public class GameManager : SingletonNetwork<GameManager>
     }
 
     public void PlayerResultFinal(int playerID, float score){
-        EliminationPlayer.Instance.AddScoresPlayers(playerID, score);
     }
 
     public void PlayerElimation(){

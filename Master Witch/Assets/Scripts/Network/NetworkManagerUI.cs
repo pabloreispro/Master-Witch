@@ -46,6 +46,7 @@ namespace UI
         [SerializeField] TextMeshProUGUI p2FinalScore;
         [SerializeField] TextMeshProUGUI p3FinalScore;
         [SerializeField] TextMeshProUGUI p4FinalScore;
+        [SerializeField] GameObject finalPanel;
         private void Awake()
         {
             networkHUD.SetActive(true);
@@ -75,6 +76,10 @@ namespace UI
             gameHUD.SetActive(true);
             networkHUD.SetActive(false);
         }
+        [ClientRpc]
+        public void OnGameFinalClientRpc(){
+            finalPanel.gameObject.SetActive(true);
+        }
         public void UpdatePlayerScore(int playerID, float score)
         {
             switch (playerID)
@@ -83,13 +88,13 @@ namespace UI
                     p1FinalScore.text = score.ToString();
                     break;
                 case 1:
-                    p1FinalScore.text = score.ToString();
+                    p2FinalScore.text = score.ToString();
                     break;
                 case 2:
-                    p1FinalScore.text = score.ToString();
+                    p3FinalScore.text = score.ToString();
                     break;
                 case 3:
-                    p1FinalScore.text = score.ToString();
+                    p4FinalScore.text = score.ToString();
                     break;
                 default:
                     break;

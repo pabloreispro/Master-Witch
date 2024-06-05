@@ -32,6 +32,6 @@ public class Chef : Interactable
         var score = chefSO.ReviewRecipe(recipe);
         Debug.Log($"Total score of {recipe.TargetFood.name} is {score}");
         NetworkManagerUI.Instance.UpdatePlayerScore(playerID, score);
-        GameManager.Instance.PlayerResultFinal(playerID, score);
+        EliminationPlayer.Instance.UpdadeScoresPlayers(playerID, score);
     }
 }
