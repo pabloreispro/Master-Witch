@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Network;
+using Unity.Netcode;
 using UnityEngine;
 
 public class EliminationPlayer : Singleton<EliminationPlayer>
@@ -19,11 +20,14 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q)){
-            ElimPlayer();
+        if(Input.GetKeyDown(KeyCode.L)){
+            foreach(var item in scoresPlayers){
+                Debug.Log("Player id: " + item.Key +" score: "+ item.Value);
+            }
         }
     }
-    //Essa funcao esta dentro do botao de start game
+
+
     public void AddScoresPlayers(){
         foreach(var item in PlayerNetworkManager.Instance.GetID){
             scoresPlayers.Add(Convert.ToInt32(item.Value), 0);
@@ -36,8 +40,12 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
             Debug.Log("Player id: " + item.Key +" score: "+ item.Value);
         }
     }
-
-    public void ElimPlayer(){
+    [ServerRpc]
+    public void ElimPlayerServerRpc(){
+        ElimPlayerClientRpc();
+    }
+    [ClientRpc]
+    public void ElimPlayerClientRpc(){
         var player = scoresPlayers.Aggregate((l,r) => l.Value<r.Value ? l : r).Key; 
         Debug.Log("Player eliminado é: "+player);
     }

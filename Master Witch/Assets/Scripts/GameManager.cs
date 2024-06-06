@@ -40,6 +40,12 @@ public class GameManager : SingletonNetwork<GameManager>
         
     }
 
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.Q)){
+            PlayerResultFinal();
+        }
+    }
+
     public async void HostRelay()
     {
         NetworkManagerUI.Instance.EnableHUD(false);
@@ -76,7 +82,9 @@ public class GameManager : SingletonNetwork<GameManager>
         Debug.Log($"join");
     }
 
-    public void PlayerResultFinal(int playerID, float score){
+    public void PlayerResultFinal(){
+        EliminationPlayer.Instance.ElimPlayerServerRpc();
+        NetworkManagerUI.Instance.finalPanel.SetActive(true);
     }
 
     public void PlayerElimation(){

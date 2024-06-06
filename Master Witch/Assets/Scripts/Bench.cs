@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Game.SO;
+using Network;
 using Unity.Mathematics;
 using Unity.Netcode;
 using Unity.VisualScripting;
@@ -141,14 +142,9 @@ public class Bench : Interactable
         //if (player != targetPlayer) return;
         if (endProgress)
         {
-            player.isHand = true;
+            
             if(targetRecipe.finishRecipe){
-                if(IsServer){
-                    var objectSpawn = Instantiate(targetRecipe.foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
-                    objectSpawn.GetComponent<NetworkObject>().Spawn();
-                    objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
-                    objectSpawn.GetComponent<Tool>().ingredients.Add(new RecipeData(targetRecipe, toolInBench.ingredients));
-                }
+                player.GetComponentInChildren<Tool>().ingredients.Add(new RecipeData(targetRecipe, toolInBench.ingredients));
                 toolInBench.DestroySelf();
             }else{
                 var recipeData = new RecipeData(targetRecipe, toolInBench.ingredients);
@@ -252,4 +248,6 @@ public class Bench : Interactable
             storage.Initialize(toolInBench.foodList);
         }
     }
+
+    
 }

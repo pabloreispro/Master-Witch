@@ -46,7 +46,7 @@ namespace UI
         [SerializeField] TextMeshProUGUI p2FinalScore;
         [SerializeField] TextMeshProUGUI p3FinalScore;
         [SerializeField] TextMeshProUGUI p4FinalScore;
-        [SerializeField] GameObject finalPanel;
+        public GameObject finalPanel;
         private void Awake()
         {
             networkHUD.SetActive(true);
@@ -75,6 +75,7 @@ namespace UI
         {
             gameHUD.SetActive(true);
             networkHUD.SetActive(false);
+            EliminationPlayer.Instance.AddScoresPlayers();
         }
         [ClientRpc]
         public void OnGameFinalClientRpc(){
