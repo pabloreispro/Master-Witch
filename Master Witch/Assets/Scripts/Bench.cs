@@ -18,7 +18,7 @@ public class Bench : Interactable
 
     [Header("Bench config")]
     public Tool toolInBench;
-    RecipeSO targetRecipe;
+    public RecipeSO targetRecipe;
     public BenchType benchType;
     public GameObject auxObject;
     public Transform positionBasket;

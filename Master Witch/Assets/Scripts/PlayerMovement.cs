@@ -26,7 +26,6 @@ public class PlayerMovement : Player
     public float distanciaMaxima = 2.0f;
     public int numberOfRays = 10;
 
-    public Interactable interactablePlayer;
 
     Bench storage;
 
@@ -57,11 +56,10 @@ public class PlayerMovement : Player
         if(IsOwner == true){
             AnimationController();
             
-            if(interactablePlayer!=null){
-                
+            if(GetComponentInChildren<Interactable>()!=null){
                 isHand = true;
-                interactablePlayer.gameObject.transform.position = assetIngredient.transform.position;
-                interactablePlayer.GetComponent<Collider>().enabled = false;
+                GetComponentInChildren<Interactable>().gameObject.transform.position = assetIngredient.transform.position;
+                GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = false;
             }else{
                 isHand = false;
             }
@@ -161,8 +159,12 @@ public class PlayerMovement : Player
             }
             else if (interact.GetType() == typeof(Bench))
             {
+                
                 interact.DropServerRpc(NetworkObjectId);
                 currentState = PlayerState.Interact;
+                if((interact as Bench).targetRecipe!=null && (interact as Bench).targetRecipe.finishRecipe){
+                        interact.PickServerRpc(NetworkObjectId);
+                }
             }
             else
             {
@@ -182,7 +184,6 @@ public class PlayerMovement : Player
             if(interact != null){
                 currentState = PlayerState.Interact;
                 interact.PickServerRpc(NetworkObjectId);
-                interactablePlayer = GetComponentInChildren<Interactable>();
             }
         }
     }
