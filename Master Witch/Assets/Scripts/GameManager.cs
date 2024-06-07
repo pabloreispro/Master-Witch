@@ -7,6 +7,7 @@ using Unity.Netcode;
 using System.Linq;
 using UI;
 using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class GameManager : SingletonNetwork<GameManager>
 {
@@ -15,7 +16,8 @@ public class GameManager : SingletonNetwork<GameManager>
     [SerializeField] Bench[] benches;
     [SerializeField] RecipeSO[] recipeDatabase;
     public List<string> test;  
-
+    public GameObject grid,horizontalGroupPrefab,imagePrefab;
+    public Sprite plusSprite,equalsSprite,arrowSprite,benchOven,benchBoard,benchStove;
     Dictionary<int, float> ResultFinal = new Dictionary<int, float>();
 
     #region Properties
@@ -133,16 +135,14 @@ public class GameManager : SingletonNetwork<GameManager>
     public void GetInitialRecipe()
     {
         RecipeSO initialRecipe = recipeDatabase.ElementAt(Random.Range(0, recipeDatabase.Length));
-        Stack<string> steps = new Stack<string>();
-        
         
         foreach (var step in ExtractRecipeSteps(initialRecipe))
         {
-            test.Add(step);
+            step.transform.SetParent(grid.transform);
         }
     }
 
-    private IEnumerable<string> ExtractRecipeSteps(RecipeSO recipe)
+    private IEnumerable<GameObject> ExtractRecipeSteps(RecipeSO recipe)
     {
         var ingredients = recipe.recipeConditions.FirstOrDefault(r => r.type == RecipeCondition.ConditionType.Food);
         var bench = recipe.recipeConditions.FirstOrDefault(r => r.type == RecipeCondition.ConditionType.BenchType);
@@ -155,11 +155,68 @@ public class GameManager : SingletonNetwork<GameManager>
                     if (item is RecipeSO nestedRecipe)
                         foreach(var s in ExtractRecipeSteps(nestedRecipe))
                             yield return s;
+                            
+                }
+            }
+        }
+        var step = Instantiate(horizontalGroupPrefab);
+        
+        if (ingredients != null && ingredients.foods != null)
+        {
+            for (int i = 0; i < ingredients.foods.Count; i++)
+            {
+                var ingredient = ingredients.foods[i];
+                var item = Instantiate(imagePrefab, step.transform);
+                var image = item.GetComponent<Image>();
+                image.sprite = ingredient.imageFood; 
+
+                
+                if (i < ingredients.foods.Count - 1)
+                {
+                    var plus = Instantiate(imagePrefab, step.transform);
+                    var plusImage = plus.GetComponent<Image>();
+                    plusImage.sprite = plusSprite;
                 }
             }
         }
 
-        yield return string.Join(" + ", ingredients.foods.Select(f => f.name)) + " -> " + bench.benchType + " = " + recipe.name;
+        
+        if (bench != null)
+        {
+            var arrow = Instantiate(imagePrefab, step.transform);
+            var arrowImage = arrow.GetComponent<Image>();
+            arrowImage.sprite = arrowSprite; 
+
+            var benchItem = Instantiate(imagePrefab, step.transform);
+            var benchImage = benchItem.GetComponent<Image>();
+
+            if(bench.benchType == BenchType.Oven)
+            {
+                benchImage.sprite = benchOven; 
+            }
+            else if (bench.benchType == BenchType.Stove)
+            {
+                benchImage.sprite = benchStove;
+            }
+            else
+            {
+                benchImage.sprite = benchBoard;
+            }
+            
+        }
+
+        
+        var equals = Instantiate(imagePrefab, step.transform);
+        var equalsImage = equals.GetComponent<Image>();
+        equalsImage.sprite = equalsSprite;
+
+        
+        var result = Instantiate(imagePrefab, step.transform);
+        var resultImage = result.GetComponent<Image>();
+        resultImage.sprite = recipe.imageFood; 
+
+        yield return step;
+        //yield return horizontalGroupPrefab; //string.Join(" + ", ingredients.foods.Select(f => f.name)) + " -> " + bench.benchType + " = " + recipe.name;
     }
 }
 public enum GameState
