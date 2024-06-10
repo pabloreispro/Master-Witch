@@ -69,7 +69,6 @@ public class GameManager : SingletonNetwork<GameManager>
                 benches[i].SetPlayer(player);
             else break;
         }
-        
     }
 
     [ServerRpc(RequireOwnership = false)]

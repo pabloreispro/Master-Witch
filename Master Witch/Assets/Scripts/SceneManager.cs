@@ -20,7 +20,9 @@ public class SceneManager : SingletonNetwork<SceneManager>
     public List<Transform> spawnPlayersMain = new List<Transform>();
     public NetworkVariable<bool> sceneMarket = new NetworkVariable<bool>();
     public NetworkVariable<bool> sceneMain = new NetworkVariable<bool>();
-    public NetworkVariable<int> timeCount = new NetworkVariable<int>();
+    NetworkVariable<int> timeCount = new NetworkVariable<int>();
+    public NetworkVariable<int> timeMain = new NetworkVariable<int>();
+    public NetworkVariable<int> timeMarket = new NetworkVariable<int>();
     public Text texto;
 
     // Start is called before the first frame update
@@ -73,8 +75,14 @@ public class SceneManager : SingletonNetwork<SceneManager>
     [ServerRpc(RequireOwnership = false)]
     public void ChangeSceneServerRpc(bool a, bool b)
     {
-        
         ChangeSceneClientRpc(sceneMarket.Value = a, sceneMain.Value = b);
+        if(prefabMain.activeSelf){
+            timeCount.Value = 50;
+            StartCoroutine(TimeCounter());
+        }else{ 
+            timeCount.Value = 30;
+            StartMarket();
+        }
         Debug.Log("ChangeScene server");
     }
     [ClientRpc]
@@ -82,16 +90,13 @@ public class SceneManager : SingletonNetwork<SceneManager>
     {
         prefabMarket.SetActive(a);
         prefabMain.SetActive(b);
-        if(prefabMain.activeSelf){
-            timeCount.Value = 100;
-            StartCoroutine(TimeCounter());
-        }
         Debug.Log("ChangeScene client");
     }
     
     
     IEnumerator TimeCounter()
     {
+
         while(timeCount.Value > 0)
         {
             yield return new WaitForSeconds(1f);
@@ -107,7 +112,6 @@ public class SceneManager : SingletonNetwork<SceneManager>
         }else if(prefabMain.activeSelf){
             if(GameManager.Instance.numberRounds>1){
                 ChangeSceneServerRpc(true ,false);
-                StartMarket();
                 RepositionPlayerServerRpc();
             }else{
                 NetworkManagerUI.Instance.finalPanel.SetActive(true);
