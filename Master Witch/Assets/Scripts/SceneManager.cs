@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Network;
 using System.Linq;
 using Unity.VisualScripting;
+using UI;
 
 public class SceneManager : SingletonNetwork<SceneManager>
 {
@@ -30,7 +31,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
 
     public override void OnNetworkSpawn()
     {
-        timeCount.Value = 50;
+        timeCount.Value = 30;
     }
 
     [ServerRpc (RequireOwnership = false)]
@@ -81,6 +82,10 @@ public class SceneManager : SingletonNetwork<SceneManager>
     {
         prefabMarket.SetActive(a);
         prefabMain.SetActive(b);
+        if(prefabMain.activeSelf){
+            timeCount.Value = 100;
+            StartCoroutine(TimeCounter());
+        }
         Debug.Log("ChangeScene client");
     }
     
@@ -92,8 +97,20 @@ public class SceneManager : SingletonNetwork<SceneManager>
             yield return new WaitForSeconds(1f);
             timeCount.Value--;
         }
-        ChangeSceneServerRpc(false,true);
-        RepositionPlayerServerRpc();
-        
+        ControllerScenes();
+    }
+
+    public void ControllerScenes(){
+        if(prefabMarket.activeSelf){
+            ChangeSceneServerRpc(false,true);
+            RepositionPlayerServerRpc();
+        }else if(prefabMain.activeSelf){
+            if(GameManager.Instance.numberRounds>1){
+                ChangeSceneServerRpc(true ,false);
+                RepositionPlayerServerRpc();
+            }else{
+                NetworkManagerUI.Instance.finalPanel.SetActive(true);
+            }
+        }
     }
 }
