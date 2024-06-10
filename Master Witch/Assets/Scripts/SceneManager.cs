@@ -107,6 +107,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
         }else if(prefabMain.activeSelf){
             if(GameManager.Instance.numberRounds>1){
                 ChangeSceneServerRpc(true ,false);
+                StartMarket();
                 RepositionPlayerServerRpc();
             }else{
                 NetworkManagerUI.Instance.finalPanel.SetActive(true);
