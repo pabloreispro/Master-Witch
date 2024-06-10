@@ -13,6 +13,7 @@ using UI.Network;
 using Network;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Authentication;
+using Unity.VisualScripting;
 
 namespace UI
 {
@@ -42,10 +43,10 @@ namespace UI
         [SerializeField] LobbyPlayerItem lobbyPlayerItemPrefab;
         [SerializeField] Transform playerList;
         [Header("Final HUD")]
-        [SerializeField] TextMeshProUGUI p1FinalScore;
-        [SerializeField] TextMeshProUGUI p2FinalScore;
-        [SerializeField] TextMeshProUGUI p3FinalScore;
-        [SerializeField] TextMeshProUGUI p4FinalScore;
+        [SerializeField] TextMeshProUGUI[] playerFinalScore;
+        [SerializeField] Toggle[] playerFinalCheck;
+  
+        public Button continueButton, returnMenu;
         public GameObject finalPanel;
         private void Awake()
         {
@@ -56,6 +57,7 @@ namespace UI
             startGameButton.onClick.AddListener(StartGame);
             disconnectButton.gameObject.SetActive(false);
         }
+
         public void EnableLobbyHUD(bool enabled = true)
         {
             lobbyHUD.SetActive(enabled);
@@ -87,16 +89,16 @@ namespace UI
             switch (playerID)
             {
                 case 0:
-                    p1FinalScore.text = score.ToString();
+                    playerFinalScore[0].text = score.ToString();
                     break;
                 case 1:
-                    p2FinalScore.text = score.ToString();
+                    playerFinalScore[1].text = score.ToString();
                     break;
                 case 2:
-                    p3FinalScore.text = score.ToString();
+                    playerFinalScore[2].text = score.ToString();
                     break;
                 case 3:
-                    p4FinalScore.text = score.ToString();
+                    playerFinalScore[3].text = score.ToString();
                     break;
                 default:
                     break;
@@ -184,5 +186,50 @@ namespace UI
 
         #endregion
         #endregion
+
+        [ServerRpc]
+        public void ReturnMarketServerRpc(){
+            ReturnMarketClientRpc();
+        }
+
+        [ClientRpc]
+        public void ReturnMarketClientRpc(){
+            SceneManager.Instance.ChangeSceneServerRpc(true ,false);
+            SceneManager.Instance.RepositionPlayerServerRpc();
+            finalPanel.SetActive(false);
+        }
+
+        [ServerRpc(RequireOwnership =false)]
+        public void UpdateFinalScreenServerRpc(){
+            UpdateFinalScreenClientRpc();
+        }
+        [ClientRpc]
+        public void UpdateFinalScreenClientRpc(){
+            for(int i = 0; i<GameManager.Instance.numberRounds; i++){
+                playerFinalScore[i].gameObject.SetActive(true);
+            }
+        }
+
+        public void UpdateToggle(int playerID, bool toggleValue){
+            switch (playerID)
+            {
+                case 0:
+                    playerFinalCheck[0].isOn = toggleValue;
+                    break;
+                case 1:
+                    playerFinalCheck[1].isOn = toggleValue;
+                    break;
+                case 2:
+                    playerFinalCheck[2].isOn = toggleValue;
+                    break;
+                case 3:
+                    playerFinalCheck[3].isOn = toggleValue;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        
     }
 }

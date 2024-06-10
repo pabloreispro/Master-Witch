@@ -11,6 +11,7 @@ using Network;
 using System.Linq;
 using System;
 using Unity.Multiplayer.Tools.NetStatsMonitor;
+using UI;
 
 
 public class PlayerMovement : Player
@@ -54,6 +55,7 @@ public class PlayerMovement : Player
     void FixedUpdate()
     {
         if(IsOwner == true){
+            
             AnimationController();
             
             if(GetComponentInChildren<Interactable>()!=null){

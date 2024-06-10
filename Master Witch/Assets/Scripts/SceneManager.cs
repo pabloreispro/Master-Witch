@@ -67,6 +67,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
 
         }
     }
+
     public void StartMarket()
     {
         StartCoroutine(TimeCounter());
@@ -96,26 +97,25 @@ public class SceneManager : SingletonNetwork<SceneManager>
     
     IEnumerator TimeCounter()
     {
-
         while(timeCount.Value > 0)
         {
             yield return new WaitForSeconds(1f);
             timeCount.Value--;
         }
-        ControllerScenes();
+        ControllerScenesClientRpc();
     }
-
-    public void ControllerScenes(){
+    [ClientRpc]
+    public void ControllerScenesClientRpc(){
         if(prefabMarket.activeSelf){
             ChangeSceneServerRpc(false,true);
             RepositionPlayerServerRpc();
         }else if(prefabMain.activeSelf){
-            if(GameManager.Instance.numberRounds>1){
-                ChangeSceneServerRpc(true ,false);
-                RepositionPlayerServerRpc();
-            }else{
-                NetworkManagerUI.Instance.finalPanel.SetActive(true);
-            }
+            NetworkManagerUI.Instance.finalPanel.SetActive(true);
+            NetworkManagerUI.Instance.UpdateFinalScreenServerRpc();
+            NetworkManagerUI.Instance.continueButton.interactable = false;
+            //NetworkManagerUI.Instance.continueButton.interactable = false;
         }
     }
+
+    
 }

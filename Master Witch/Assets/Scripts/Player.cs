@@ -7,6 +7,7 @@ using JetBrains.Annotations;
 using Game.SO;
 using Network;
 using System;
+using UI;
 
 
 public enum PlayerState
@@ -104,6 +105,8 @@ public class Player : NetworkBehaviour
         hatRenderer.material = newMaterial;
         this.id = id;
     }
+
+    
 
     
 }
