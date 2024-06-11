@@ -45,9 +45,7 @@ namespace UI
         [SerializeField] Transform playerList;
         [Header("Final HUD")]
         [SerializeField] TextMeshProUGUI[] playerFinalScore;
-        [SerializeField] Toggle[] playerFinalCheck;
-  
-        public Button continueButton, returnMenu;
+        public Toggle[] playerFinalCheck;
         public GameObject finalPanel;
         private void Awake()
         {
@@ -189,18 +187,6 @@ namespace UI
         #endregion
 
         [ServerRpc(RequireOwnership =false)]
-        public void ReturnMarketServerRpc(){
-            SceneManager.Instance.ChangeSceneServerRpc(true ,false);
-            SceneManager.Instance.RepositionPlayerServerRpc();
-            ReturnMarketClientRpc();
-        }
-
-        [ClientRpc]
-        public void ReturnMarketClientRpc(){
-            finalPanel.SetActive(false);
-        }
-
-        [ServerRpc(RequireOwnership =false)]
         public void UpdateFinalScreenServerRpc(){
             UpdateFinalScreenClientRpc();
         }
@@ -214,7 +200,7 @@ namespace UI
         [ServerRpc(RequireOwnership = false)]
         public void UpdateToggleServerRpc(int playerID, bool toggleValue){
             UpdateToggleClientRpc(playerID, toggleValue);
-            CanNextRound();
+            EndRound.Instance.CanNextRound();
         }
 
         [ClientRpc]
@@ -228,17 +214,5 @@ namespace UI
             UpdateFinalScreenServerRpc();
         }
         
-
-        public void CanNextRound(){
-            int activeToggle = 0;
-            for(int i=0; i<playerFinalCheck.Length; i++){
-                if(playerFinalCheck[i].isOn){
-                    activeToggle++;
-                }
-            }
-            if(activeToggle == GameManager.Instance.numberPlayer){
-                ReturnMarketServerRpc();
-            }
-        }
     }
 }

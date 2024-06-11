@@ -6116,6 +6116,7 @@ GameObject:
   - component: {fileID: 1121566905}
   - component: {fileID: 1121566908}
   - component: {fileID: 1121566910}
+  - component: {fileID: 1121566911}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6156,7 +6157,7 @@ MonoBehaviour:
   benchOven: {fileID: 21300000, guid: 792dff4d0f6b6cb4b84c67e0b6026251, type: 3}
   benchBoard: {fileID: 21300000, guid: 07979f5ff0e76ac4d89978f88b7f3884, type: 3}
   benchStove: {fileID: 21300000, guid: ae47e92b05738254a941aabe9ed6af11, type: 3}
-  numberRounds: 0
+  numberPlayer: 0
 --- !u!4 &1121566906
 Transform:
   m_ObjectHideFlags: 0
@@ -6242,6 +6243,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff3ae25a710db2345bc657108e23346a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1121566911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121566904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4316d11e096b34da069c7bc753eb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1123502741 stripped
