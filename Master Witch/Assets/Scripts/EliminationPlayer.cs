@@ -41,12 +41,7 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
     public void UpdadeScoresPlayers(int playerID, float score){
         scoresPlayers[playerID] = score;
     }
-    [ServerRpc(RequireOwnership =false)]
-    public void ElimPlayerServerRpc(){
-        ElimPlayerClientRpc();
-    }
-    [ClientRpc]
-    public void ElimPlayerClientRpc(){
+    public void ElimPlayer(){
         var player = scoresPlayers.Aggregate((l,r) => l.Value<r.Value ? l : r); 
         PlayerNetworkManager.Instance.GetPlayerByIndex(player.Key).gameObject.SetActive(false);
         ElimPlayers.Add(player.Key, player.Value);

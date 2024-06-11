@@ -84,10 +84,13 @@ public class SceneManager : SingletonNetwork<SceneManager>
     {
         ChangeSceneClientRpc(sceneMarket.Value = a, sceneMain.Value = b);
 
-        if(prefabMain.activeSelf)
+        if(prefabMain.activeSelf){
             StartMainServerRpc();
-        else
+        }
+        else{
             StartMarketServerRpc();
+            
+        }
         
     }
     [ClientRpc]
@@ -118,7 +121,6 @@ public class SceneManager : SingletonNetwork<SceneManager>
         }
         else if(prefabMain.activeSelf){
             NetworkManagerUI.Instance.ActiveFinalPanelClientRpc();
-            EliminationPlayer.Instance.ElimPlayerServerRpc();
         }
     }
 

@@ -23,6 +23,7 @@ public class EndRound : SingletonNetwork<EndRound>
     [ClientRpc]
     public void ReturnMarketClientRpc(){
         NetworkManagerUI.Instance.finalPanel.SetActive(false);
+        EliminationPlayer.Instance.ElimPlayer();
     }
     public void CanNextRound(){
         int activeToggle = 0;
@@ -32,7 +33,8 @@ public class EndRound : SingletonNetwork<EndRound>
             }
         }
         if(activeToggle == GameManager.Instance.numberPlayer){
-            StartCoroutine(TimeCounter());
+            ReturnMarketServerRpc();
+            //StartCoroutine(TimeCounter());
         }
     }
     IEnumerator TimeCounter()
@@ -42,7 +44,5 @@ public class EndRound : SingletonNetwork<EndRound>
             yield return new WaitForSeconds(1f);
             timerCount.Value -= 1;
         }
-        ReturnMarketServerRpc();
-        
     }
 }
