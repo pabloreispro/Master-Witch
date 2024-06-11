@@ -23,7 +23,10 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
     {
         if(Input.GetKeyDown(KeyCode.L)){
             foreach(var item in scoresPlayers){
-                Debug.Log("Player id: " + item.Key +" score: "+ item.Value);
+                Debug.Log("Player scores id: " + item.Key +" score: "+ item.Value);
+            }
+            foreach(var item in ElimPlayers){
+                Debug.Log("Player eliminados id: " + item.Key +" score: "+ item.Value);
             }
         }
     }
@@ -37,11 +40,8 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
 
     public void UpdadeScoresPlayers(int playerID, float score){
         scoresPlayers[playerID] = score;
-        foreach(var item in scoresPlayers){
-            Debug.Log("Player id: " + item.Key +" score: "+ item.Value);
-        }
     }
-    [ServerRpc]
+    [ServerRpc(RequireOwnership =false)]
     public void ElimPlayerServerRpc(){
         ElimPlayerClientRpc();
     }
@@ -51,6 +51,11 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
         PlayerNetworkManager.Instance.GetPlayerByIndex(player.Key).gameObject.SetActive(false);
         ElimPlayers.Add(player.Key, player.Value);
         scoresPlayers.Remove(player.Key);
-        Debug.Log("Player eliminado é: "+player.Key+" com um score de: "+ player.Value);
+        GameManager.Instance.numberPlayer--;
+    }
+
+    public void Reset(){
+        scoresPlayers.Clear();
+        ElimPlayers.Clear();
     }
 }

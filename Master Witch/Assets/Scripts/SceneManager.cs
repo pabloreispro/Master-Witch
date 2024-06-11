@@ -74,7 +74,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     [ServerRpc (RequireOwnership = false)]
     public void StartMainServerRpc()
     {
-        timeCount.Value = 200;
+        timeCount.Value = 100;
         StartCoroutine(TimeCounter());
     }
            
@@ -118,7 +118,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
         }
         else if(prefabMain.activeSelf){
             NetworkManagerUI.Instance.ActiveFinalPanelClientRpc();
-            //NetworkManagerUI.Instance.continueButton.interactable = false;
+            EliminationPlayer.Instance.ElimPlayerServerRpc();
         }
     }
 

@@ -78,15 +78,6 @@ public class GameManager : SingletonNetwork<GameManager>
         Debug.Log($"join");
     }
 
-    public void PlayerResultFinal(){
-        EliminationPlayer.Instance.ElimPlayerServerRpc();
-        NetworkManagerUI.Instance.finalPanel.SetActive(true);
-    }
-
-    public void PlayerElimation(){
-        
-    }
-
     public void ChangeGameState(GameState gameState)
     {
         switch (gameState)

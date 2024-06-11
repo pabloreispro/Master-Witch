@@ -45,8 +45,11 @@ namespace UI
         [SerializeField] Transform playerList;
         [Header("Final HUD")]
         [SerializeField] TextMeshProUGUI[] playerFinalScore;
+        [SerializeField] TextMeshProUGUI[] textScore;
         public Toggle[] playerFinalCheck;
         public GameObject finalPanel;
+        public GameObject finalResult;
+        [SerializeField] TextMeshProUGUI[] namePlayerResult;
         private void Awake()
         {
             networkHUD.SetActive(true);
@@ -88,16 +91,16 @@ namespace UI
             switch (playerID)
             {
                 case 0:
-                    playerFinalScore[0].text = score.ToString();
+                    textScore[0].text = score.ToString();
                     break;
                 case 1:
-                    playerFinalScore[1].text = score.ToString();
+                    textScore[1].text = score.ToString();
                     break;
                 case 2:
-                    playerFinalScore[2].text = score.ToString();
+                    textScore[2].text = score.ToString();
                     break;
                 case 3:
-                    playerFinalScore[3].text = score.ToString();
+                    textScore[3].text = score.ToString();
                     break;
                 default:
                     break;
@@ -200,9 +203,7 @@ namespace UI
         [ServerRpc(RequireOwnership = false)]
         public void UpdateToggleServerRpc(int playerID, bool toggleValue){
             UpdateToggleClientRpc(playerID, toggleValue);
-            if(GameManager.Instance.numberPlayer>1){
-                EndRound.Instance.CanNextRound();
-            }
+            EndRound.Instance.CanNextRound();
         }
 
         [ClientRpc]
@@ -214,6 +215,26 @@ namespace UI
         public void ActiveFinalPanelClientRpc(){
             finalPanel.SetActive(true);
             UpdateFinalScreenServerRpc();
+            
+        }
+
+        public void UpdateFinalResult(int playerID)
+        {
+            string name = PlayerNetworkManager.Instance.GetPlayerByIndex(playerID).name;
+            switch (playerID)
+            {
+                case 0:
+                    namePlayerResult[0].text = name;
+                    break;
+                case 1:
+                    namePlayerResult[1].text = name;
+                    break;
+                case 2:
+                    namePlayerResult[2].text = name;
+                    break;
+                default:
+                    break;
+            }
         }
         
     }

@@ -17,6 +17,7 @@ public class EndRound : SingletonNetwork<EndRound>
         SceneManager.Instance.ChangeSceneServerRpc(true ,false);
         SceneManager.Instance.RepositionPlayerServerRpc();
         ReturnMarketClientRpc();
+        
     }
 
     [ClientRpc]
@@ -31,11 +32,9 @@ public class EndRound : SingletonNetwork<EndRound>
             }
         }
         if(activeToggle == GameManager.Instance.numberPlayer){
-            EliminationPlayer.Instance.ElimPlayerServerRpc();
             StartCoroutine(TimeCounter());
         }
     }
-
     IEnumerator TimeCounter()
     {
         while(timerCount.Value > 0)
@@ -43,6 +42,7 @@ public class EndRound : SingletonNetwork<EndRound>
             yield return new WaitForSeconds(1f);
             timerCount.Value -= 1;
         }
-        ReturnMarketServerRpc(); 
+        ReturnMarketServerRpc();
+        
     }
 }
