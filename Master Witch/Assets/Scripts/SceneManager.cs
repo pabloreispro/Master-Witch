@@ -67,14 +67,14 @@ public class SceneManager : SingletonNetwork<SceneManager>
     [ServerRpc (RequireOwnership = false)]
     public void StartMarketServerRpc()
     {
-        timeCount.Value = 10;
+        timeCount.Value = 30;
         StartCoroutine(TimeCounter());
     }
 
     [ServerRpc (RequireOwnership = false)]
     public void StartMainServerRpc()
     {
-        timeCount.Value = 10;
+        timeCount.Value = 100;
         StartCoroutine(TimeCounter());
     }
            

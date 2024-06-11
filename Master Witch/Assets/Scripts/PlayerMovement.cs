@@ -161,12 +161,12 @@ public class PlayerMovement : Player
             }
             else if (interact.GetType() == typeof(Bench))
             {
-                
-                interact.DropServerRpc(NetworkObjectId);
-                currentState = PlayerState.Interact;
                 if((interact as Bench).targetRecipe!=null && (interact as Bench).targetRecipe.finishRecipe){
                         interact.PickServerRpc(NetworkObjectId);
                 }
+                interact.DropServerRpc(NetworkObjectId);
+                currentState = PlayerState.Interact;
+                
             }
             else
             {

@@ -8,7 +8,8 @@ using UnityEngine;
 
 public class EliminationPlayer : Singleton<EliminationPlayer>
 {
-    Dictionary<int, float> scoresPlayers = new Dictionary<int, float>();
+    public Dictionary<int, float> scoresPlayers = new Dictionary<int, float>();
+    public Dictionary<int , float> ElimPlayers = new Dictionary<int, float>();
 
 
     // Start is called before the first frame update
@@ -46,7 +47,10 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
     }
     [ClientRpc]
     public void ElimPlayerClientRpc(){
-        var player = scoresPlayers.Aggregate((l,r) => l.Value<r.Value ? l : r).Key; 
-        Debug.Log("Player eliminado é: "+player);
+        var player = scoresPlayers.Aggregate((l,r) => l.Value<r.Value ? l : r); 
+        PlayerNetworkManager.Instance.GetPlayerByIndex(player.Key).gameObject.SetActive(false);
+        ElimPlayers.Add(player.Key, player.Value);
+        scoresPlayers.Remove(player.Key);
+        Debug.Log("Player eliminado é: "+player.Key+" com um score de: "+ player.Value);
     }
 }

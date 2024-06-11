@@ -6,6 +6,12 @@ using UI;
 
 public class EndRound : SingletonNetwork<EndRound>
 {
+    NetworkVariable<int> timerCount = new NetworkVariable<int>();
+
+    public override void OnNetworkSpawn(){
+        timerCount.Value = 5;
+    }
+
     [ServerRpc(RequireOwnership =false)]
     public void ReturnMarketServerRpc(){
         SceneManager.Instance.ChangeSceneServerRpc(true ,false);
@@ -25,7 +31,18 @@ public class EndRound : SingletonNetwork<EndRound>
             }
         }
         if(activeToggle == GameManager.Instance.numberPlayer){
-            ReturnMarketServerRpc();
+            EliminationPlayer.Instance.ElimPlayerServerRpc();
+            StartCoroutine(TimeCounter());
         }
+    }
+
+    IEnumerator TimeCounter()
+    {
+        while(timerCount.Value > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            timerCount.Value -= 1;
+        }
+        ReturnMarketServerRpc(); 
     }
 }

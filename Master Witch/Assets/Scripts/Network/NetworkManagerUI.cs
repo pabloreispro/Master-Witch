@@ -76,7 +76,7 @@ namespace UI
         {
             gameHUD.SetActive(true);
             networkHUD.SetActive(false);
-            //EliminationPlayer.Instance.AddScoresPlayers();
+            EliminationPlayer.Instance.AddScoresPlayers();
             GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.GetPlayer.Count;
         }
         [ClientRpc]
@@ -200,7 +200,9 @@ namespace UI
         [ServerRpc(RequireOwnership = false)]
         public void UpdateToggleServerRpc(int playerID, bool toggleValue){
             UpdateToggleClientRpc(playerID, toggleValue);
-            EndRound.Instance.CanNextRound();
+            if(GameManager.Instance.numberPlayer>1){
+                EndRound.Instance.CanNextRound();
+            }
         }
 
         [ClientRpc]
