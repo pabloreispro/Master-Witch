@@ -210,24 +210,21 @@ namespace UI
             }
         }
 
-        public void UpdateToggle(int playerID, bool toggleValue){
-            switch (playerID)
-            {
-                case 0:
-                    playerFinalCheck[0].isOn = toggleValue;
-                    break;
-                case 1:
-                    playerFinalCheck[1].isOn = toggleValue;
-                    break;
-                case 2:
-                    playerFinalCheck[2].isOn = toggleValue;
-                    break;
-                case 3:
-                    playerFinalCheck[3].isOn = toggleValue;
-                    break;
-                default:
-                    break;
-            }
+        [ServerRpc(RequireOwnership = false)]
+        public void UpdateToggleServerRpc(int playerID, bool toggleValue){
+            UpdateToggleClientRpc(playerID, toggleValue);
+        }
+
+        [ClientRpc]
+        public void UpdateToggleClientRpc(int playerID, bool toggleValue){
+            playerFinalCheck[playerID].isOn = toggleValue;
+        }
+
+        [ClientRpc]
+        public void ActiveFinalPanelClientRpc(){
+            finalPanel.SetActive(true);
+            UpdateFinalScreenServerRpc();
+            continueButton.interactable = false;
         }
 
         

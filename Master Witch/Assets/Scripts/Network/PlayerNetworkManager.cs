@@ -32,6 +32,16 @@ namespace Network
             return playerList.ElementAt(playerIndex).Value;
         }
 
+        public int GetPlayerIndexID(Player playerIndex)
+        {
+            for(int i =0; i<playerList.Count; i++){
+                if(GetPlayerByIndex(i)==playerIndex){
+                    return i;
+                }
+            }
+            return -1;
+        }
+
         void OnClientConnected(ulong playerID)
         {
             if (!IsServer) return;

@@ -117,9 +117,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
             RepositionPlayerServerRpc();
         }
         else if(prefabMain.activeSelf){
-            NetworkManagerUI.Instance.finalPanel.SetActive(true);
-            NetworkManagerUI.Instance.UpdateFinalScreenServerRpc();
-            NetworkManagerUI.Instance.continueButton.interactable = false;
+            NetworkManagerUI.Instance.ActiveFinalPanelClientRpc();
             //NetworkManagerUI.Instance.continueButton.interactable = false;
         }
     }
