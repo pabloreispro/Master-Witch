@@ -77,7 +77,7 @@ namespace UI
         {
             gameHUD.SetActive(true);
             networkHUD.SetActive(false);
-            EliminationPlayer.Instance.AddScoresPlayers();
+            //EliminationPlayer.Instance.AddScoresPlayers();
             GameManager.Instance.numberRounds = PlayerNetworkManager.Instance.GetPlayer.Count;
         }
         [ClientRpc]
