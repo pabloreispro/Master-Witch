@@ -14,6 +14,7 @@ using Network;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Authentication;
 using Unity.VisualScripting;
+using System.Runtime.InteropServices;
 
 namespace UI
 {
@@ -78,7 +79,7 @@ namespace UI
             gameHUD.SetActive(true);
             networkHUD.SetActive(false);
             //EliminationPlayer.Instance.AddScoresPlayers();
-            GameManager.Instance.numberRounds = PlayerNetworkManager.Instance.GetPlayer.Count;
+            GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.GetPlayer.Count;
         }
         [ClientRpc]
         public void OnGameFinalClientRpc(){
@@ -187,15 +188,15 @@ namespace UI
         #endregion
         #endregion
 
-        [ServerRpc]
+        [ServerRpc(RequireOwnership =false)]
         public void ReturnMarketServerRpc(){
+            SceneManager.Instance.ChangeSceneServerRpc(true ,false);
+            SceneManager.Instance.RepositionPlayerServerRpc();
             ReturnMarketClientRpc();
         }
 
         [ClientRpc]
         public void ReturnMarketClientRpc(){
-            SceneManager.Instance.ChangeSceneServerRpc(true ,false);
-            SceneManager.Instance.RepositionPlayerServerRpc();
             finalPanel.SetActive(false);
         }
 
@@ -205,7 +206,7 @@ namespace UI
         }
         [ClientRpc]
         public void UpdateFinalScreenClientRpc(){
-            for(int i = 0; i<GameManager.Instance.numberRounds; i++){
+            for(int i = 0; i<GameManager.Instance.numberPlayer; i++){
                 playerFinalScore[i].gameObject.SetActive(true);
             }
         }
@@ -213,6 +214,7 @@ namespace UI
         [ServerRpc(RequireOwnership = false)]
         public void UpdateToggleServerRpc(int playerID, bool toggleValue){
             UpdateToggleClientRpc(playerID, toggleValue);
+            CanNextRound();
         }
 
         [ClientRpc]
@@ -224,9 +226,19 @@ namespace UI
         public void ActiveFinalPanelClientRpc(){
             finalPanel.SetActive(true);
             UpdateFinalScreenServerRpc();
-            continueButton.interactable = false;
         }
-
         
+
+        public void CanNextRound(){
+            int activeToggle = 0;
+            for(int i=0; i<playerFinalCheck.Length; i++){
+                if(playerFinalCheck[i].isOn){
+                    activeToggle++;
+                }
+            }
+            if(activeToggle == GameManager.Instance.numberPlayer){
+                ReturnMarketServerRpc();
+            }
+        }
     }
 }

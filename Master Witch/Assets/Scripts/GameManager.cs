@@ -25,7 +25,7 @@ public class GameManager : SingletonNetwork<GameManager>
     public FoodDatabaseSO FoodDatabaseSO => foodDatabase;
     #endregion
 
-    public int numberRounds;
+    public int numberPlayer;
 
 
     void ConnectionApprovalCallback(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
@@ -43,14 +43,7 @@ public class GameManager : SingletonNetwork<GameManager>
         NetworkManager.Singleton.ConnectionApprovalCallback = ConnectionApprovalCallback;
         
     }
-
-    void Update(){
-        if(Input.GetKeyDown(KeyCode.Q)){
-            Debug.Log(numberRounds);
-            //PlayerResultFinal();
-        }
-    }
-
+    
     public async void HostRelay()
     {
         NetworkManagerUI.Instance.EnableHUD(false);
