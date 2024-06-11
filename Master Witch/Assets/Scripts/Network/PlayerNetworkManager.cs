@@ -19,7 +19,7 @@ namespace Network
         public Dictionary<ulong, Player> GetPlayer => playerList;
         public Dictionary<Player, ulong> GetID => idList;
         Dictionary<ulong, bool> playersReady = new Dictionary<ulong, bool>();
-        // Start is called before the first frame update
+        private static HashSet<ulong> readyClients = new HashSet<ulong>();
         void Awake()
         {
             NetworkManager.OnClientConnectedCallback += OnClientConnected;
@@ -90,9 +90,18 @@ namespace Network
                         break;
                 }
             }
-            if (playerList.Count >= LobbyManager.Instance.JoinedLobby.Players.Count)
-                GameManager.Instance.OnClientsReadyServerRpc();
+           SignalClientReadyServerRpc(NetworkManager.Singleton.LocalClientId);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    void SignalClientReadyServerRpc(ulong clientId)
+    {
+        readyClients.Add(clientId);
+        if (readyClients.Count >= LobbyManager.Instance.JoinedLobby.Players.Count)
+        {
+            GameManager.Instance.OnClientsReadyServerRpc();
         }
+    }
         void OnClientDisconnected(ulong playerID)
         {
             playerList.Remove(playerID);

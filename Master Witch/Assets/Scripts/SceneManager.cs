@@ -7,6 +7,7 @@ using Network;
 using System.Linq;
 using Unity.VisualScripting;
 using UI;
+using TMPro;
 
 public class SceneManager : SingletonNetwork<SceneManager>
 {
@@ -20,20 +21,15 @@ public class SceneManager : SingletonNetwork<SceneManager>
     public List<Transform> spawnPlayersMain = new List<Transform>();
     public NetworkVariable<bool> sceneMarket = new NetworkVariable<bool>();
     public NetworkVariable<bool> sceneMain = new NetworkVariable<bool>();
-    NetworkVariable<int> timeCount = new NetworkVariable<int>();
+    public NetworkVariable<int> timeCount = new NetworkVariable<int>();
     public NetworkVariable<int> timeMain = new NetworkVariable<int>();
     public NetworkVariable<int> timeMarket = new NetworkVariable<int>();
-    public Text texto;
+    public TextMeshProUGUI texto;
 
     // Start is called before the first frame update
     public void Start()
     {
         timeCount.OnValueChanged += (a,b) => texto.text = b.ToString();
-    }
-
-    public override void OnNetworkSpawn()
-    {
-        timeCount.Value = 30;
     }
 
     [ServerRpc (RequireOwnership = false)]
@@ -68,48 +64,59 @@ public class SceneManager : SingletonNetwork<SceneManager>
         }
     }
 
-    public void StartMarket()
+    [ServerRpc (RequireOwnership = false)]
+    public void StartMarketServerRpc()
     {
+        timeCount.Value = 30;
         StartCoroutine(TimeCounter());
     }
+
+    [ServerRpc (RequireOwnership = false)]
+    public void StartMainServerRpc()
+    {
+        timeCount.Value = 50;
+        StartCoroutine(TimeCounter());
+    }
+           
 
     [ServerRpc(RequireOwnership = false)]
     public void ChangeSceneServerRpc(bool a, bool b)
     {
         ChangeSceneClientRpc(sceneMarket.Value = a, sceneMain.Value = b);
-        if(prefabMain.activeSelf){
-            timeCount.Value = 50;
-            StartCoroutine(TimeCounter());
-        }else{ 
-            timeCount.Value = 30;
-            StartMarket();
-        }
-        Debug.Log("ChangeScene server");
+
+        if(prefabMain.activeSelf)
+            StartMainServerRpc();
+        else
+            StartMarketServerRpc();
+        
     }
     [ClientRpc]
     public void ChangeSceneClientRpc(bool a, bool b)
     {
         prefabMarket.SetActive(a);
         prefabMain.SetActive(b);
-        Debug.Log("ChangeScene client");
+        
     }
     
     
     IEnumerator TimeCounter()
     {
+        Debug.Log("Timer");
         while(timeCount.Value > 0)
         {
             yield return new WaitForSeconds(1f);
-            timeCount.Value--;
+            timeCount.Value -= 1;
         }
-        ControllerScenesClientRpc();
+        ControllerScenes();
     }
-    [ClientRpc]
-    public void ControllerScenesClientRpc(){
+    
+    public void ControllerScenes()
+    {
         if(prefabMarket.activeSelf){
             ChangeSceneServerRpc(false,true);
             RepositionPlayerServerRpc();
-        }else if(prefabMain.activeSelf){
+        }
+        else if(prefabMain.activeSelf){
             NetworkManagerUI.Instance.finalPanel.SetActive(true);
             NetworkManagerUI.Instance.UpdateFinalScreenServerRpc();
             NetworkManagerUI.Instance.continueButton.interactable = false;
