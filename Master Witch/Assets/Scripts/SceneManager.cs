@@ -74,7 +74,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     [ServerRpc (RequireOwnership = false)]
     public void StartMainServerRpc()
     {
-        timeCount.Value = 100;
+        timeCount.Value = 200;
         StartCoroutine(TimeCounter());
     }
            
