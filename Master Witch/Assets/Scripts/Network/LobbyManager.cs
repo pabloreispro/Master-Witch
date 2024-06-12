@@ -28,7 +28,7 @@ namespace Network
         #region Variables
         private Lobby joinedLobby;
         private float temporizadorAtivacaoLobby;
-        string playerName;
+        public string playerName;
         bool isHost;
         #endregion
         #region Properties

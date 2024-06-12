@@ -88,20 +88,25 @@ namespace UI
         }
         public void UpdatePlayerScore(int playerID, float score)
         {
+            string name = PlayerNetworkManager.Instance.GetPlayerByIndex(playerID).name;
+
             switch (playerID)
             {
+                
                 case 0:
-                   
+                    namePlayerResult[0].text = name;
                     textScore[0].text = score.ToString();
                     break;
                 case 1:
-                    
+                    namePlayerResult[1].text = name;
                     textScore[1].text = score.ToString();
                     break;
                 case 2:
+                    namePlayerResult[2].text = name;
                     textScore[2].text = score.ToString();
                     break;
                 case 3:
+                    namePlayerResult[3].text = name;
                     textScore[3].text = score.ToString();
                     break;
                 default:

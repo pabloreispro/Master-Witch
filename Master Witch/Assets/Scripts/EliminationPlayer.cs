@@ -5,6 +5,7 @@ using System.Linq;
 using Network;
 using Unity.Netcode;
 using UnityEngine;
+using UI;
 
 public class EliminationPlayer : Singleton<EliminationPlayer>
 {
@@ -23,6 +24,7 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.L)){
+            
             foreach(var item in scoresPlayers){
                 Debug.Log("Player scores id: " + item.Key +" score: "+ item.Value);
             }
@@ -36,11 +38,13 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
     public void AddScoresPlayers(){
         foreach(var item in PlayerNetworkManager.Instance.GetID){
             scoresPlayers.Add(Convert.ToInt32(item.Value), 0);
+            NetworkManagerUI.Instance.UpdatePlayerScore(Convert.ToInt32(item.Value), 0);
         }
     }
 
     public void UpdadeScoresPlayers(int playerID, float score){
         scoresPlayers[playerID] = score;
+        NetworkManagerUI.Instance.UpdatePlayerScore(playerID, score);
     }
     public void PlayerElimination(){
         var player = scoresPlayers.Aggregate((l,r) => l.Value<r.Value ? l : r); 
