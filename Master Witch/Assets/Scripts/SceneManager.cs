@@ -142,6 +142,15 @@ public class SceneManager : SingletonNetwork<SceneManager>
 
         float angle = (currentTime / maxTime) * 360; 
         clockHand.eulerAngles = new Vector3(0, 0, angle);
+
+        UpdateClockHandClientRpc(angle);
+    }
+
+    [ClientRpc]
+    void UpdateClockHandClientRpc(float angle)
+    {
+        
+        clockHand.eulerAngles = new Vector3(0, 0, angle);
     }
 
     
