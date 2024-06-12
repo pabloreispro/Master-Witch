@@ -5,6 +5,8 @@ using Unity.Netcode;
 using UI;
 using UnityEngine.Rendering;
 using System.Linq;
+using Unity.VisualScripting;
+using Network;
 
 public class EndRound : SingletonNetwork<EndRound>
 {
@@ -28,8 +30,12 @@ public class EndRound : SingletonNetwork<EndRound>
         NetworkManagerUI.Instance.finalPanel.SetActive(false);
         EliminationPlayer.Instance.PlayerElimination();
     }
-
-    public void finishGame(){
+    [ServerRpc(RequireOwnership =false)]
+    public void finishGameServerRpc(){
+        finishGameClientRpc();
+    }
+    [ClientRpc]
+    public void finishGameClientRpc(){
         //NetworkManagerUI.Instance.finalResult.SetActive(true);
         foreach(var item in EliminationPlayer.Instance.scoresPlayers){
             FinalScores[item.Key] = item.Value;
@@ -37,11 +43,10 @@ public class EndRound : SingletonNetwork<EndRound>
         foreach(var item in EliminationPlayer.Instance.ElimPlayers){
             FinalScores[item.Key] = item.Value;
         }
-        foreach(var item in FinalScores){
-            NetworkManagerUI.Instance.UpdateFinalResult(item.Key);
-        }
-
-        //NetworkManagerUI.Instance.UpdateFinalResult();
+        var orderedPlayers = FinalScores.OrderByDescending(player => player.Value).ToList();
+        GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.GetPlayer.Count;
+        NetworkManagerUI.Instance.UpdateFinalScreenServerRpc();
+        NetworkManagerUI.Instance.UpdateFinalResult(orderedPlayers);
     }
     public void CanNextRound(){
         int activeToggle = 0;
@@ -54,7 +59,7 @@ public class EndRound : SingletonNetwork<EndRound>
             if(GameManager.Instance.numberPlayer>2){
                 ReturnMarketServerRpc();
             }else{
-                finishGame();
+                finishGameServerRpc();
             }
             //StartCoroutine(TimeCounter());
         }

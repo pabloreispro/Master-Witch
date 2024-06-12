@@ -47,7 +47,7 @@ namespace Network
             if (!IsServer) return;
             Debug.Log("aqui");
             var player = NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>();
-            player.name = LobbyManager.Instance.playerName;
+            
             Debug.Log($"Connected id: {playerID}, NO ID: {player.NetworkObjectId}, NB ID {player.NetworkBehaviourId}");
             playerList.Add(playerID, player);
             idList.Add(player, playerID);

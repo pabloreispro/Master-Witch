@@ -15,6 +15,7 @@ using Unity.Services.Lobbies.Models;
 using Unity.Services.Authentication;
 using Unity.VisualScripting;
 using System.Runtime.InteropServices;
+using System.Linq;
 
 namespace UI
 {
@@ -49,7 +50,6 @@ namespace UI
         public Toggle[] playerFinalCheck;
         public GameObject finalPanel;
         public GameObject finalResult;
-        [SerializeField] TextMeshProUGUI[] namePlayerResult;
         private void Awake()
         {
             networkHUD.SetActive(true);
@@ -81,6 +81,7 @@ namespace UI
             networkHUD.SetActive(false);
             EliminationPlayer.Instance.AddScoresPlayers();
             GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.GetPlayer.Count;
+            NetworkManager.SpawnManager.GetLocalPlayerObject().name = LobbyManager.Instance.playerName;
         }
         [ClientRpc]
         public void OnGameFinalClientRpc(){
@@ -94,19 +95,19 @@ namespace UI
             {
                 
                 case 0:
-                    namePlayerResult[0].text = name;
+                    playerFinalScore[0].text = name;
                     textScore[0].text = score.ToString();
                     break;
                 case 1:
-                    namePlayerResult[1].text = name;
+                    playerFinalScore[1].text = name;
                     textScore[1].text = score.ToString();
                     break;
                 case 2:
-                    namePlayerResult[2].text = name;
+                    playerFinalScore[2].text = name;
                     textScore[2].text = score.ToString();
                     break;
                 case 3:
-                    namePlayerResult[3].text = name;
+                    playerFinalScore[3].text = name;
                     textScore[3].text = score.ToString();
                     break;
                 default:
@@ -227,25 +228,13 @@ namespace UI
             
         }
 
-        public void UpdateFinalResult(int playerID)
+        public void UpdateFinalResult(List<KeyValuePair<int, float>> orderPlayers)
         {
-            string name = PlayerNetworkManager.Instance.GetPlayerByIndex(playerID).name;
-            switch (playerID)
-            {
-                case 0:
-                    namePlayerResult[0].text = name;
-                    break;
-                case 1:
-                    namePlayerResult[1].text = name;
-                    break;
-                case 2:
-                    namePlayerResult[2].text = name;
-                    break;
-                    case 3:
-                    namePlayerResult[3].text = name;
-                    break;
-                default:
-                    break;
+            int i = 0;
+            foreach(var item in orderPlayers){
+                playerFinalScore[i].text = PlayerNetworkManager.Instance.GetPlayerByIndex(item.Key).name;
+                textScore[i].text = item.Value.ToString();
+                i++;
             }
         }
         

@@ -24,7 +24,7 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.L)){
-            
+
             foreach(var item in scoresPlayers){
                 Debug.Log("Player scores id: " + item.Key +" score: "+ item.Value);
             }
