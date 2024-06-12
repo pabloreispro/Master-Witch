@@ -8,6 +8,7 @@ using System.Linq;
 using UI;
 using Unity.VisualScripting;
 using UnityEngine.UI;
+using JetBrains.Annotations;
 
 public class GameManager : SingletonNetwork<GameManager>
 {
@@ -203,6 +204,15 @@ public class GameManager : SingletonNetwork<GameManager>
 
         yield return step;
         //yield return horizontalGroupPrefab; //string.Join(" + ", ingredients.foods.Select(f => f.name)) + " -> " + bench.benchType + " = " + recipe.name;
+    }
+
+    public void Reset(){
+        foreach(Interactable objectScene in FindObjectsOfType<Interactable>()){
+            objectScene.DestroySelf();
+        }
+        for(int i=0; i<numberPlayer; i++){
+            NetworkManagerUI.Instance.playerFinalCheck[i].isOn = false;
+        }
     }
 }
 public enum GameState

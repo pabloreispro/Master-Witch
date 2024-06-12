@@ -22,7 +22,7 @@ public class EndRound : SingletonNetwork<EndRound>
         SceneManager.Instance.ChangeSceneServerRpc(true ,false);
         SceneManager.Instance.RepositionPlayerServerRpc();
         ReturnMarketClientRpc();
-        
+        GameManager.Instance.Reset();
     }
 
     [ClientRpc]
@@ -45,6 +45,7 @@ public class EndRound : SingletonNetwork<EndRound>
         }
         var orderedPlayers = FinalScores.OrderByDescending(player => player.Value).ToList();
         GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.GetPlayer.Count;
+        GameManager.Instance.Reset();
         NetworkManagerUI.Instance.UpdateFinalScreenServerRpc();
         NetworkManagerUI.Instance.UpdateFinalResult(orderedPlayers);
     }

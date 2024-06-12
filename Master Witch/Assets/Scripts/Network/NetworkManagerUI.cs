@@ -211,9 +211,7 @@ namespace UI
         [ServerRpc(RequireOwnership = false)]
         public void UpdateToggleServerRpc(int playerID, bool toggleValue){
             UpdateToggleClientRpc(playerID, toggleValue);
-
             EndRound.Instance.CanNextRound();
-            
         }
 
         [ClientRpc]
@@ -225,7 +223,6 @@ namespace UI
         public void ActiveFinalPanelClientRpc(){
             finalPanel.SetActive(true);
             UpdateFinalScreenServerRpc();
-            
         }
 
         public void UpdateFinalResult(List<KeyValuePair<int, float>> orderPlayers)
@@ -236,6 +233,7 @@ namespace UI
                 textScore[i].text = item.Value.ToString();
                 i++;
             }
+            
         }
         
     }
