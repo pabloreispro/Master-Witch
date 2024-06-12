@@ -91,9 +91,11 @@ namespace UI
             switch (playerID)
             {
                 case 0:
+                   
                     textScore[0].text = score.ToString();
                     break;
                 case 1:
+                    
                     textScore[1].text = score.ToString();
                     break;
                 case 2:
@@ -203,7 +205,9 @@ namespace UI
         [ServerRpc(RequireOwnership = false)]
         public void UpdateToggleServerRpc(int playerID, bool toggleValue){
             UpdateToggleClientRpc(playerID, toggleValue);
+
             EndRound.Instance.CanNextRound();
+            
         }
 
         [ClientRpc]
@@ -231,6 +235,9 @@ namespace UI
                     break;
                 case 2:
                     namePlayerResult[2].text = name;
+                    break;
+                    case 3:
+                    namePlayerResult[3].text = name;
                     break;
                 default:
                     break;

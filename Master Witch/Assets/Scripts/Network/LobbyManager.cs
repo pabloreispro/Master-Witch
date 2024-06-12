@@ -50,6 +50,7 @@ namespace Network
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
             playerName = "Fulaninho" + Random.Range(1, 100);
+            
             //UIHandler.instance.mainPanelPlayerNameInput.text = nomePlayer;
             GameManager.Instance.GetInitialRecipe();
         }

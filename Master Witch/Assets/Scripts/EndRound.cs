@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using UI;
+using UnityEngine.Rendering;
+using System.Linq;
 
 public class EndRound : SingletonNetwork<EndRound>
 {
     NetworkVariable<int> timerCount = new NetworkVariable<int>();
+    public Dictionary<int, float> FinalScores = new Dictionary<int, float>();
 
     public override void OnNetworkSpawn(){
         timerCount.Value = 5;
@@ -23,7 +26,22 @@ public class EndRound : SingletonNetwork<EndRound>
     [ClientRpc]
     public void ReturnMarketClientRpc(){
         NetworkManagerUI.Instance.finalPanel.SetActive(false);
-        EliminationPlayer.Instance.ElimPlayer();
+        EliminationPlayer.Instance.PlayerElimination();
+    }
+
+    public void finishGame(){
+        //NetworkManagerUI.Instance.finalResult.SetActive(true);
+        foreach(var item in EliminationPlayer.Instance.scoresPlayers){
+            FinalScores[item.Key] = item.Value;
+        }
+        foreach(var item in EliminationPlayer.Instance.ElimPlayers){
+            FinalScores[item.Key] = item.Value;
+        }
+        foreach(var item in FinalScores){
+            NetworkManagerUI.Instance.UpdateFinalResult(item.Key);
+        }
+
+        //NetworkManagerUI.Instance.UpdateFinalResult();
     }
     public void CanNextRound(){
         int activeToggle = 0;
@@ -33,16 +51,12 @@ public class EndRound : SingletonNetwork<EndRound>
             }
         }
         if(activeToggle == GameManager.Instance.numberPlayer){
-            ReturnMarketServerRpc();
+            if(GameManager.Instance.numberPlayer>2){
+                ReturnMarketServerRpc();
+            }else{
+                finishGame();
+            }
             //StartCoroutine(TimeCounter());
-        }
-    }
-    IEnumerator TimeCounter()
-    {
-        while(timerCount.Value > 0)
-        {
-            yield return new WaitForSeconds(1f);
-            timerCount.Value -= 1;
         }
     }
 }
