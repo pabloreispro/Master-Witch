@@ -19,15 +19,15 @@ public class EndRound : SingletonNetwork<EndRound>
 
     [ServerRpc(RequireOwnership =false)]
     public void ReturnMarketServerRpc(){
+        ReturnMarketClientRpc();
         SceneManager.Instance.ChangeSceneServerRpc(true ,false);
         SceneManager.Instance.RepositionPlayerServerRpc();
-        ReturnMarketClientRpc();
-        GameManager.Instance.Reset();
     }
 
     [ClientRpc]
     public void ReturnMarketClientRpc(){
         NetworkManagerUI.Instance.finalPanel.SetActive(false);
+        GameManager.Instance.Reset();
         EliminationPlayer.Instance.PlayerElimination();
     }
     [ServerRpc(RequireOwnership =false)]

@@ -45,7 +45,7 @@ namespace UI
         [SerializeField] LobbyPlayerItem lobbyPlayerItemPrefab;
         [SerializeField] Transform playerList;
         [Header("Final HUD")]
-        [SerializeField] TextMeshProUGUI[] playerFinalScore;
+        public TextMeshProUGUI[] playerFinalScore;
         [SerializeField] TextMeshProUGUI[] textScore;
         public Toggle[] playerFinalCheck;
         public GameObject finalPanel;
@@ -196,7 +196,8 @@ namespace UI
 
         #endregion
         #endregion
-
+        
+        #region Final Game
         [ServerRpc(RequireOwnership =false)]
         public void UpdateFinalScreenServerRpc(){
             UpdateFinalScreenClientRpc();
@@ -235,6 +236,6 @@ namespace UI
             }
             
         }
-        
+        #endregion
     }
 }

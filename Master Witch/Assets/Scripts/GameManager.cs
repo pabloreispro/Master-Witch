@@ -215,6 +215,7 @@ public class GameManager : SingletonNetwork<GameManager>
         }
         for(int i=0; i<numberPlayer; i++){
             NetworkManagerUI.Instance.playerFinalCheck[i].isOn = false;
+            NetworkManagerUI.Instance.playerFinalScore[i].gameObject.SetActive(false);
         }
     }
 }
