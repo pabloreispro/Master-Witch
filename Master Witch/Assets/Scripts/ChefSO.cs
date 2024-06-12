@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-using static RecipeCondition;
-using static UnityEditor.Progress;
 
 namespace Game.SO
 {

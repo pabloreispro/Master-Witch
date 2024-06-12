@@ -115,7 +115,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
         {
             yield return new WaitForSeconds(1f);
             timeCount.Value -= 1;
-            ClockTimera();
+            ClockTimeraServerRpc();
         }
         ControllerScenes();
     }
@@ -130,8 +130,8 @@ public class SceneManager : SingletonNetwork<SceneManager>
             NetworkManagerUI.Instance.ActiveFinalPanelClientRpc();
         }
     }
-
-    public void ClockTimera()
+    [ServerRpc(RequireOwnership =false)]
+    public void ClockTimeraServerRpc()
     {
         currentTime = timeCount.Value;
 
