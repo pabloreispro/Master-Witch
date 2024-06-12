@@ -12,19 +12,23 @@ using JetBrains.Annotations;
 
 public class GameManager : SingletonNetwork<GameManager>
 {
+    const int CHEFS_AMOUNT = 3;
     GameState gameState;
     [SerializeField] FoodDatabaseSO foodDatabase;
     [SerializeField] Bench[] benches;
     [SerializeField] RecipeSO[] recipeDatabase;
+    [SerializeField] ChefSO[] chefsDatabase;
     public List<string> test;  
     public GameObject grid,horizontalGroupPrefab,imagePrefab;
     public Sprite plusSprite,equalsSprite,arrowSprite,benchOven,benchBoard,benchStove;
     Dictionary<int, float> ResultFinal = new Dictionary<int, float>();
     RecipeSO targetRecipe;
+    List<ChefSO> chefs;
     #region Properties
     public GameState GameState => gameState;
     public FoodDatabaseSO FoodDatabaseSO => foodDatabase;
     public RecipeSO TargetRecipe => targetRecipe;
+    public List<ChefSO> Chefs => chefs;
     #endregion
 
     public int numberPlayer;
@@ -119,8 +123,12 @@ public class GameManager : SingletonNetwork<GameManager>
             return foodDatabase.DefaultRecipe;
         }
     }
-
-    public void GetInitialRecipe()
+    public void InitializeGame()
+    {
+        GetInitialRecipe();
+        SelectChefs();
+    }
+    void GetInitialRecipe()
     {
         targetRecipe = recipeDatabase.ElementAt(Random.Range(0, recipeDatabase.Length));
         
@@ -129,7 +137,21 @@ public class GameManager : SingletonNetwork<GameManager>
             step.transform.SetParent(grid.transform);
         }
     }
-
+    void SelectChefs()
+    {
+        chefs = new List<ChefSO>();
+        for (int i = 0; i < CHEFS_AMOUNT; i++)
+        {
+            ChefSO chef = null;
+            while (chef == null)
+            {
+                chef = chefsDatabase[Random.Range(0, chefsDatabase.Length)];
+                if (chefs.Contains(chef))
+                    chef = null;
+            }
+            chefs.Add(chef);
+        }
+    }
     private IEnumerable<GameObject> ExtractRecipeSteps(RecipeSO recipe)
     {
         var ingredients = recipe.recipeConditions.FirstOrDefault(r => r.type == RecipeCondition.ConditionType.Food);
