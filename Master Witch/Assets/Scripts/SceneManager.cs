@@ -26,7 +26,11 @@ public class SceneManager : SingletonNetwork<SceneManager>
     public NetworkVariable<int> timeMarket = new NetworkVariable<int>();
     public TextMeshProUGUI texto;
 
-    // Start is called before the first frame update
+    public Transform clockHand; 
+    public float maxTime = 0;  
+    private float currentTime;
+
+    
     public void Start()
     {
         timeCount.OnValueChanged += (a,b) => texto.text = b.ToString();
@@ -68,6 +72,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     public void StartMarketServerRpc()
     {
         timeCount.Value = 30;
+        maxTime = timeCount.Value;
         StartCoroutine(TimeCounter());
     }
 
@@ -75,6 +80,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     public void StartMainServerRpc()
     {
         timeCount.Value = 100;
+        maxTime = timeCount.Value;
         StartCoroutine(TimeCounter());
     }
            
@@ -104,11 +110,12 @@ public class SceneManager : SingletonNetwork<SceneManager>
     
     IEnumerator TimeCounter()
     {
-        Debug.Log("Timer");
+        
         while(timeCount.Value > 0)
         {
             yield return new WaitForSeconds(1f);
             timeCount.Value -= 1;
+            ClockTimera();
         }
         ControllerScenes();
     }
@@ -122,6 +129,19 @@ public class SceneManager : SingletonNetwork<SceneManager>
         else if(prefabMain.activeSelf){
             NetworkManagerUI.Instance.ActiveFinalPanelClientRpc();
         }
+    }
+
+    public void ClockTimera()
+    {
+        currentTime = timeCount.Value;
+
+        if (currentTime <= 0)
+        {
+            currentTime = 0;
+        }
+
+        float angle = (currentTime / maxTime) * 360; 
+        clockHand.eulerAngles = new Vector3(0, 0, angle);
     }
 
     

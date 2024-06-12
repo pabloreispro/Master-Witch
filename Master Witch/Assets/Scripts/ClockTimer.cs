@@ -11,15 +11,18 @@ public class ClockTimer : MonoBehaviour
 
     void Start()
     {
+        maxTime = SceneManager.Instance.timeCount.Value;
         currentTime = maxTime; 
+        
     }
 
     void Update()
     {
         if (currentTime > 0)
         {
-            currentTime -= Time.deltaTime;
-            if (currentTime < 0)
+            currentTime = SceneManager.Instance.timeCount.Value;
+
+            if (currentTime <= 0)
             {
                 currentTime = 0;
             }
