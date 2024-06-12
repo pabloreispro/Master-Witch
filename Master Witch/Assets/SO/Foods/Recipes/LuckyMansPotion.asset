@@ -18,13 +18,7 @@ MonoBehaviour:
     type: 3}
   imageFood: {fileID: 0}
   timeProgress: 0
-  score: 150
   finishRecipe: 1
-  categoryModifier:
-    Animal: 0
-    Vegetal: 0
-    Fungi: 0
-    Mystical: 0
   recipeConditions:
   - type: 0
     benchType: 2
@@ -35,8 +29,9 @@ MonoBehaviour:
   - type: 1
     benchType: 2
     foods:
-    - {fileID: 11400000, guid: 06f0231a6e4ea364da5f7c222f60decd, type: 2}
+    - {fileID: 11400000, guid: b56403736821e7c4f99ecb4845a3f440, type: 2}
     - {fileID: 11400000, guid: 0421991de3889f045a52edad32d77781, type: 2}
     category: 0
     categoryPoints: 0
     isAllowed: 1
+  reviewConditions: []
