@@ -7,6 +7,8 @@ using UI;
 
 public class Chef : Interactable
 {
+    [SerializeField] ChefSO chefSO;
+
     // PROVISORIO
     public override void Drop(Player player)
     {
@@ -30,6 +32,9 @@ public class Chef : Interactable
     public void Review(RecipeData recipe, int playerID)
     {
         Debug.Log("2");
-        EliminationPlayer.Instance.GetPlayerScore(playerID, recipe);
+        var score = chefSO.ReviewRecipe(recipe);
+        Debug.Log($"Total score of {recipe.TargetFood.name} is {score}");
+        
+        EliminationPlayer.Instance.UpdadeScoresPlayers(playerID, score);
     }
 }

@@ -52,7 +52,7 @@ namespace Network
             playerName = "Fulaninho" + Random.Range(1, 100);
             
             //UIHandler.instance.mainPanelPlayerNameInput.text = nomePlayer;
-            GameManager.Instance.InitializeGame();
+            GameManager.Instance.GetInitialRecipe();
         }
 
         private void Update()
