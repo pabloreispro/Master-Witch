@@ -5,40 +5,60 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using static RecipeCondition;
+using static UnityEditor.Progress;
 
 namespace Game.SO
 {
     [CreateAssetMenu(fileName = "ChefSO", menuName = "Game/ChefSO")]
     public class ChefSO : ScriptableObject
     {
+        const float BASE_RECIPE_SCORE = 70;
+        const float FOOD_MATCH_SCORE = 10;
+        const float CATEGORY_MATCH_SCORE = 2.5f;
         int id;
         [SerializeField] GameObject prefab;
         [SerializeField] ReviewCondition[] conditions;
 
         public float ReviewRecipe(RecipeData recipe)
         {
-            float score = 0;
-            foreach (var item in recipe.UtilizedIngredients)
+            float score = recipe.TargetFood == GameManager.Instance.TargetRecipe ? BASE_RECIPE_SCORE : 0;
+            score += recipe.CalculateScore((food) =>
             {
-                float modifier = 1;
+                float foodScore = 0;
                 for (int i = 0; i < conditions.Length; i++)
                 {
                     switch (conditions[i].type)
                     {
                         case ReviewType.FoodPreference:
-                            if (conditions[i].foods.Contains(item.TargetFood))
+                            if (conditions[i].foods.Contains(food))
                             {
-                                modifier += conditions[i].preferenceModifier;
-                                Debug.Log($"Adding {conditions[i].preferenceModifier} modifier by food preference in {item.TargetFood.name}. Total {modifier}");
+                                if (conditions[i].isAllowed)
+                                {
+                                    foodScore += FOOD_MATCH_SCORE;
+                                    Debug.Log($"Adding {FOOD_MATCH_SCORE} score by food preference in {food.name}. Total {foodScore}");
+                                }
+                                else
+                                {
+                                    foodScore -= FOOD_MATCH_SCORE;
+                                    Debug.Log($"Removing {FOOD_MATCH_SCORE} score by food preference in {food.name}. Total {foodScore}");
+                                }
                             }
                             break;
                         case ReviewType.CategoryPreference:
-                            for (int j = 0; j < item.TargetFood.category.Length; j++)
+                            for (int j = 0; j < food.category.Length; j++)
                             {
-                                if (item.TargetFood.category[j] == conditions[i].category)
+                                if (food.category[j] == conditions[i].category)
                                 {
-                                    modifier += conditions[i].categoryModifier;
-                                    Debug.Log($"Adding {conditions[i].preferenceModifier} modifier by category preference in {item.TargetFood.name}. Total {modifier}");
+                                    if (conditions[i].isAllowed)
+                                    {
+                                        foodScore += CATEGORY_MATCH_SCORE;
+                                        Debug.Log($"Adding {CATEGORY_MATCH_SCORE} score by category preference in {food.name}. Total {foodScore}");
+                                    }
+                                    else
+                                    {
+                                        foodScore -= CATEGORY_MATCH_SCORE;
+                                        Debug.Log($"Removing {CATEGORY_MATCH_SCORE} score by category preference in {food.name}. Total {foodScore}");
+                                    }
                                 }
                             }
                             break;
@@ -46,9 +66,10 @@ namespace Game.SO
                             break;
                     }
                 }
-                score += item.TargetFood.score * modifier;
-                Debug.Log($"Adding {item.TargetFood.score * modifier} points to score by {item.TargetFood.name} recipe. Total {score}");
-            }
+                Debug.Log($"Returning {food.name} score. Total {foodScore}");
+                return foodScore;
+
+            });
             score += (recipe.TargetFood as RecipeSO).GetScore(recipe.UtilizedIngredients);
             return score;
         }
@@ -57,10 +78,9 @@ namespace Game.SO
     public class ReviewCondition
     {
         public ReviewType type;
+        public bool isAllowed;
         public List<FoodSO> foods = new List<FoodSO>();
-        public float preferenceModifier;
         public Category category;
-        public float categoryModifier;
     }
     public enum ReviewType
     {
@@ -87,12 +107,11 @@ namespace Game.SO
             var type = property.FindPropertyRelative("type");
 
             type.intValue = EditorGUI.Popup(typeRect, "Type", type.intValue, type.enumNames);
-
+            var isAllowed = property.FindPropertyRelative("isAllowed");
             switch ((ReviewType)type.intValue)
             {
                 case ReviewType.FoodPreference:
-                    var preferenceModifier = property.FindPropertyRelative("preferenceModifier");
-                    preferenceModifier.floatValue = EditorGUI.FloatField(secondRect, "Preference Modifier", preferenceModifier.floatValue);
+                    isAllowed.boolValue = EditorGUI.Toggle(secondRect, "Is Allowed", isAllowed.boolValue);
                     var food = property.FindPropertyRelative("foods");
                     EditorGUI.LabelField(thirdRect, "Food List");
                     var newPos = EditorGUI.PrefixLabel(thirdRect, GUIUtility.GetControlID(FocusType.Passive), label);
@@ -101,10 +120,9 @@ namespace Game.SO
                     EditorGUI.indentLevel--;
                     break;
                 case ReviewType.CategoryPreference:
+                    isAllowed.boolValue = EditorGUI.Toggle(secondRect, "Is Allowed", isAllowed.boolValue);
                     var category = property.FindPropertyRelative("category");
-                    category.intValue = EditorGUI.Popup(secondRect, "Category", category.intValue, category.enumNames);
-                    var categoryModifier = property.FindPropertyRelative("categoryModifier");
-                    categoryModifier.floatValue = EditorGUI.FloatField(thirdRect, "Category Modifier", categoryModifier.floatValue);
+                    category.intValue = EditorGUI.Popup(thirdRect, "Category", category.intValue, category.enumNames);
                     break;
                 default:
                     break;

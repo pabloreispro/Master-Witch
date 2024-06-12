@@ -1,4 +1,5 @@
 using Game.SO;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,5 +26,17 @@ public class RecipeData
         }
     }
 
-    
+    public float CalculateScore(Func<FoodSO, float> conditionAction)
+    {
+        if (conditionAction == null) return 0;
+        float score = conditionAction.Invoke(targetFood);
+        if (utilizedIngredients.Count > 0)
+        {
+            for (int i = 0; i < utilizedIngredients.Count; i++)
+            {
+                score += utilizedIngredients[i].CalculateScore(conditionAction);
+            }
+        }
+        return score;
+    }
 }

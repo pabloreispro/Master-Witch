@@ -19,10 +19,11 @@ public class GameManager : SingletonNetwork<GameManager>
     public GameObject grid,horizontalGroupPrefab,imagePrefab;
     public Sprite plusSprite,equalsSprite,arrowSprite,benchOven,benchBoard,benchStove;
     Dictionary<int, float> ResultFinal = new Dictionary<int, float>();
-
+    RecipeSO targetRecipe;
     #region Properties
     public GameState GameState => gameState;
     public FoodDatabaseSO FoodDatabaseSO => foodDatabase;
+    public RecipeSO TargetRecipe => targetRecipe;
     #endregion
 
     public int numberPlayer;
@@ -119,9 +120,9 @@ public class GameManager : SingletonNetwork<GameManager>
 
     public void GetInitialRecipe()
     {
-        RecipeSO initialRecipe = recipeDatabase.ElementAt(Random.Range(0, recipeDatabase.Length));
+        targetRecipe = recipeDatabase.ElementAt(Random.Range(0, recipeDatabase.Length));
         
-        foreach (var step in ExtractRecipeSteps(initialRecipe))
+        foreach (var step in ExtractRecipeSteps(targetRecipe))
         {
             step.transform.SetParent(grid.transform);
         }

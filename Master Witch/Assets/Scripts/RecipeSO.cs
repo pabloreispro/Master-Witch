@@ -8,9 +8,11 @@ namespace Game.SO {
 [CreateAssetMenu(fileName = "RecipeSO", menuName = "Game/RecipeSO")]
     public class RecipeSO : FoodSO
     {
+        const float FOOD_MATCH_SCORE = 5;
+        const float CATEGORY_MATCH_SCORE = 2.5f;
         public bool finishRecipe;
-        public CategoryModifier categoryModifier;
         public RecipeCondition[] recipeConditions;
+        public ReviewCondition[] reviewConditions;
         public bool CheckConditions(List<FoodSO> ingredients, BenchType benchType)
         {
             for (int i = 0; i < recipeConditions.Length; i++)
@@ -27,37 +29,49 @@ namespace Game.SO {
         public float GetScore(List<RecipeData> foods)
         {
             float score = 0;
-            foreach (var item in foods)
+            foreach (var food in foods)
             {
-                float modifier = 0;
-                for (int i = 0; i < item.TargetFood.category.Length; i++)
+                for (int i = 0; i < reviewConditions.Length; i++)
                 {
-                    switch (item.TargetFood.category[i])
+                    switch (reviewConditions[i].type)
                     {
-                        case Category.Animal:
-                            modifier += categoryModifier.Animal;
-                            Debug.Log($"Adding {categoryModifier.Animal} modifier by Animal category preference in {item.TargetFood.name} in the recipe {name}. Total {modifier}");
+                        case ReviewType.FoodPreference:
+                            if (reviewConditions[i].foods.Contains(food.TargetFood))
+                            {
+                                if (reviewConditions[i].isAllowed)
+                                {
+                                    score += FOOD_MATCH_SCORE;
+                                    Debug.Log($"Adding {FOOD_MATCH_SCORE} score by food preference in {food.TargetFood.name}. Total {score}");
+                                }
+                                else
+                                {
+                                    score -= FOOD_MATCH_SCORE;
+                                    Debug.Log($"Removing {FOOD_MATCH_SCORE} score by food preference in {food.TargetFood.name}. Total {score}");
+                                }
+                            }
                             break;
-                        case Category.Vegetal:
-                            modifier += categoryModifier.Vegetal;
-                            Debug.Log($"Adding {categoryModifier.Vegetal} modifier by Vegetal category preference in {item.TargetFood.name} in the recipe {name}. Total {modifier}");
-                            break;
-                        case Category.Fungi:
-                            modifier += categoryModifier.Fungi;
-                            Debug.Log($"Adding {categoryModifier.Fungi} modifier by Fungi category preference in {item.TargetFood.name} in the recipe {name}. Total {modifier}");
-                            break;
-                        case Category.Mystical:
-                            modifier += categoryModifier.Mystical;
-                            Debug.Log($"Adding {categoryModifier.Mystical} modifier by Mystical category preference in {item.TargetFood.name} in the recipe {name}. Total {modifier}");
+                        case ReviewType.CategoryPreference:
+                            for (int j = 0; j < food.TargetFood.category.Length; j++)
+                            {
+                                if (food.TargetFood.category[j] == reviewConditions[i].category)
+                                {
+                                    if (reviewConditions[i].isAllowed)
+                                    {
+                                        score += CATEGORY_MATCH_SCORE;
+                                        Debug.Log($"Adding {CATEGORY_MATCH_SCORE} score by category preference in {food.TargetFood.name}. Total {score}");
+                                    }
+                                    else
+                                    {
+                                        score -= CATEGORY_MATCH_SCORE;
+                                        Debug.Log($"Removing {CATEGORY_MATCH_SCORE} score by category preference in {food.TargetFood.name}. Total {score}");
+                                    }
+                                }
+                            }
                             break;
                         default:
                             break;
                     }
-                    var recipe = item.TargetFood as RecipeSO;
-                    if (recipe != null)
-                        score += recipe.GetScore(item.UtilizedIngredients);
                 }
-                score += item.TargetFood.score * modifier;
             }
             return score;
         }

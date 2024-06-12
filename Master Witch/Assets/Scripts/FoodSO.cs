@@ -10,6 +10,5 @@ namespace Game.SO{
         public GameObject foodPrefab;
         public Sprite imageFood;
         public float timeProgress;
-        public float score;
     }
 }
