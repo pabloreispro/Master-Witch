@@ -81,7 +81,6 @@ public class SceneManager : SingletonNetwork<SceneManager>
     {
         timeCount.Value = 100;
         maxTime = timeCount.Value;
-        RepositionPlayerServerRpc();
         StartCoroutine(TimeCounter());
     }
            
@@ -96,6 +95,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
         }
         else{
             StartMarketServerRpc();
+            
         }
         
     }
@@ -127,7 +127,6 @@ public class SceneManager : SingletonNetwork<SceneManager>
             RepositionPlayerServerRpc();
         }
         else if(prefabMain.activeSelf){
-            RepositionPlayerServerRpc();
             NetworkManagerUI.Instance.ActiveFinalPanelClientRpc();
         }
     }
