@@ -6,6 +6,7 @@ using Network;
 using Unity.Netcode;
 using UnityEngine;
 using UI;
+using Game.SO;
 
 public class EliminationPlayer : Singleton<EliminationPlayer>
 {
@@ -41,7 +42,19 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
             NetworkManagerUI.Instance.UpdatePlayerScore(Convert.ToInt32(item.Value), 0);
         }
     }
-
+    public void GetPlayerScore(int playerID, RecipeData recipe)
+    {
+        float score = 0;
+        foreach (var chef in GameManager.Instance.Chefs)
+        {
+            var chefScore = chef.ReviewRecipe(recipe);
+            Debug.Log($"Total score of {recipe.TargetFood.name} by {chef.name} is {chefScore}");
+            score += chefScore;
+        }
+        score /= GameManager.Instance.Chefs.Count;
+        Debug.Log($"Total score for Player {playerID} is {score}");
+        UpdadeScoresPlayers(playerID, score);
+    }
     public void UpdadeScoresPlayers(int playerID, float score){
         scoresPlayers[playerID] = score;
         NetworkManagerUI.Instance.UpdatePlayerScore(playerID, score);
