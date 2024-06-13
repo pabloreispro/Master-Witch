@@ -197,12 +197,7 @@ namespace UI
         #endregion
         #endregion
 
-        [ServerRpc(RequireOwnership =false)]
-        public void UpdateFinalScreenServerRpc(){
-            UpdateFinalScreenClientRpc();
-        }
-        [ClientRpc]
-        public void UpdateFinalScreenClientRpc(){
+        public void UpdateFinalScreen(){
             for(int i = 0; i<GameManager.Instance.numberPlayer; i++){
                 playerFinalScore[i].gameObject.SetActive(true);
             }
@@ -211,18 +206,19 @@ namespace UI
         [ServerRpc(RequireOwnership = false)]
         public void UpdateToggleServerRpc(int playerID, bool toggleValue){
             UpdateToggleClientRpc(playerID, toggleValue);
-            EndRound.Instance.CanNextRound();
         }
 
         [ClientRpc]
         public void UpdateToggleClientRpc(int playerID, bool toggleValue){
             playerFinalCheck[playerID].isOn = toggleValue;
+            EndRound.Instance.CanNextRound();
         }
 
         [ClientRpc]
-        public void ActiveFinalPanelClientRpc(){
-            finalPanel.SetActive(true);
-            UpdateFinalScreenServerRpc();
+        public void SetFinalPanelClientRpc(bool state){
+            finalPanel.SetActive(state);
+            
+            UpdateFinalScreen();
         }
 
         public void UpdateFinalResult(List<KeyValuePair<int, float>> orderPlayers)

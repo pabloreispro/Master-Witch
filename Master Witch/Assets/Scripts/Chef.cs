@@ -13,9 +13,7 @@ public class Chef : Interactable
         var tool = player.GetComponentInChildren<Tool>();
         if (tool?.ingredients.Count <= 0) return;
         base.Drop(player);
-        Debug.Log("1");
         Review(tool.ingredients[0], player.id);
-        Debug.Log("3");
         tool.DestroySelf();
         //player.StatusAssetServerRpc(false);
     }
@@ -29,7 +27,6 @@ public class Chef : Interactable
     }
     public void Review(RecipeData recipe, int playerID)
     {
-        Debug.Log("2");
         EliminationPlayer.Instance.GetPlayerScore(playerID, recipe);
     }
 }

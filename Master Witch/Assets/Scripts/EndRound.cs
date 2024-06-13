@@ -17,25 +17,17 @@ public class EndRound : SingletonNetwork<EndRound>
         timerCount.Value = 5;
     }
 
-    [ServerRpc(RequireOwnership =false)]
-    public void ReturnMarketServerRpc(){
-        SceneManager.Instance.ChangeSceneServerRpc(true ,false);
-        SceneManager.Instance.RepositionPlayerServerRpc();
-        ReturnMarketClientRpc();
+
+    public void ReturnMarket(){
+        NetworkManagerUI.Instance.SetFinalPanelClientRpc(false);
+        EliminationPlayer.Instance.PlayerElimination();
         GameManager.Instance.Reset();
+        SceneManager.Instance.ChangeSceneServerRpc(false,true);
+        SceneManager.Instance.RepositionPlayerServerRpc();
     }
 
-    [ClientRpc]
-    public void ReturnMarketClientRpc(){
-        NetworkManagerUI.Instance.finalPanel.SetActive(false);
-        EliminationPlayer.Instance.PlayerElimination();
-    }
-    [ServerRpc(RequireOwnership =false)]
-    public void finishGameServerRpc(){
-        finishGameClientRpc();
-    }
-    [ClientRpc]
-    public void finishGameClientRpc(){
+
+    public void finishGame(){
         //NetworkManagerUI.Instance.finalResult.SetActive(true);
         foreach(var item in EliminationPlayer.Instance.scoresPlayers){
             FinalScores[item.Key] = item.Value;
@@ -46,7 +38,7 @@ public class EndRound : SingletonNetwork<EndRound>
         var orderedPlayers = FinalScores.OrderByDescending(player => player.Value).ToList();
         GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.GetPlayer.Count;
         GameManager.Instance.Reset();
-        NetworkManagerUI.Instance.UpdateFinalScreenServerRpc();
+        NetworkManagerUI.Instance.UpdateFinalScreen();
         NetworkManagerUI.Instance.UpdateFinalResult(orderedPlayers);
     }
     public void CanNextRound(){
@@ -58,9 +50,9 @@ public class EndRound : SingletonNetwork<EndRound>
         }
         if(activeToggle == GameManager.Instance.numberPlayer){
             if(GameManager.Instance.numberPlayer>2){
-                ReturnMarketServerRpc();
+                ReturnMarket();
             }else{
-                finishGameServerRpc();
+                finishGame();
             }
             //StartCoroutine(TimeCounter());
         }

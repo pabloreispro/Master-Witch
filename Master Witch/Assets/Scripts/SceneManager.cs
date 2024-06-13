@@ -127,7 +127,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
             RepositionPlayerServerRpc();
         }
         else if(prefabMain.activeSelf){
-            NetworkManagerUI.Instance.ActiveFinalPanelClientRpc();
+            NetworkManagerUI.Instance.SetFinalPanelClientRpc(true);
         }
     }
     [ServerRpc(RequireOwnership =false)]

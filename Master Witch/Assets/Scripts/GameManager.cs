@@ -230,9 +230,9 @@ public class GameManager : SingletonNetwork<GameManager>
 
     public void Reset(){
         foreach(Interactable objectScene in FindObjectsOfType<Interactable>()){
-            if((objectScene as Tool).isHandTool)
+            if((objectScene as Tool) != null &&(objectScene as Tool).isHandTool)
                 objectScene.DestroySelf();
-            if((objectScene as Ingredient).isHandIngredient)
+            if((objectScene as Ingredient) != null &&(objectScene as Ingredient).isHandIngredient)
                 objectScene.DestroySelf();
         }
         for(int i=0; i<numberPlayer; i++){
