@@ -95,7 +95,6 @@ public class SceneManager : SingletonNetwork<SceneManager>
         }
         else{
             StartMarketServerRpc();
-            
         }
         
     }
@@ -128,6 +127,9 @@ public class SceneManager : SingletonNetwork<SceneManager>
         }
         else if(prefabMain.activeSelf){
             NetworkManagerUI.Instance.SetFinalPanelClientRpc(true);
+            foreach(var item in EliminationPlayer.Instance.scoresPlayers){
+                NetworkManagerUI.Instance.UpdatePlayerScore(item.Key, item.Value);
+            }
         }
     }
     [ServerRpc(RequireOwnership =false)]
@@ -149,7 +151,6 @@ public class SceneManager : SingletonNetwork<SceneManager>
     [ClientRpc]
     void UpdateClockHandClientRpc(float angle)
     {
-        
         clockHand.eulerAngles = new Vector3(0, 0, angle);
     }
 

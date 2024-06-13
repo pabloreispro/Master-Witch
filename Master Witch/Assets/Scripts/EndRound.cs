@@ -8,6 +8,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using Network;
 
+
 public class EndRound : SingletonNetwork<EndRound>
 {
     NetworkVariable<int> timerCount = new NetworkVariable<int>();
@@ -19,7 +20,7 @@ public class EndRound : SingletonNetwork<EndRound>
 
 
     public void ReturnMarket(){
-        NetworkManagerUI.Instance.SetFinalPanelClientRpc(false);
+        NetworkManagerUI.Instance.finalPanel.SetActive(false);
         EliminationPlayer.Instance.PlayerElimination();
         GameManager.Instance.Reset();
         SceneManager.Instance.ChangeSceneServerRpc(false,true);
