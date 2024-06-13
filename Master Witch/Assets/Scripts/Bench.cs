@@ -199,7 +199,7 @@ public class Bench : Interactable
                 interact.GetComponent<NetworkObject>().TrySetParent(this.transform);
             }
         }
-        else
+        else if(benchType != BenchType.Storage)
         {
             if((interact as Tool) != null)
             {

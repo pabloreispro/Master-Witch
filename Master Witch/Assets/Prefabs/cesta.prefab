@@ -26,17 +26,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 90077bcb88f0f1245b3ab1196da2bfed,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00288
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 90077bcb88f0f1245b3ab1196da2bfed,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.000070234535
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 90077bcb88f0f1245b3ab1196da2bfed,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0018173408
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 90077bcb88f0f1245b3ab1196da2bfed,
         type: 3}
@@ -120,17 +120,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 90077bcb88f0f1245b3ab1196da2bfed,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.21661341
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 90077bcb88f0f1245b3ab1196da2bfed,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.35443944
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 90077bcb88f0f1245b3ab1196da2bfed,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.234183
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 90077bcb88f0f1245b3ab1196da2bfed,
         type: 3}
@@ -231,8 +231,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.009511855, y: 0.0048083565, z: 0.0073051774}
-  m_Center: {x: -0.0012086888, y: 0.000054789034, z: 0.0018819206}
+  m_Size: {x: 0.01, y: 0.01, z: 0.01}
+  m_Center: {x: 0, y: 0.004, z: 0}
 --- !u!114 &8155941061766541824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,5 +268,4 @@ MonoBehaviour:
   tool: {fileID: 11400000, guid: 36bb32b95ef6ec140bc4378c700fcbd3, type: 2}
   typeObject: 0
   isHandTool: 1
-  foodFinish: {fileID: 0}
   ingredients: []
