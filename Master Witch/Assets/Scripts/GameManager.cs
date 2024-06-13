@@ -54,7 +54,6 @@ public class GameManager : SingletonNetwork<GameManager>
     [ServerRpc(RequireOwnership = false)]
     public void OnClientsReadyServerRpc()
     {
-        AnimationsController.Instance.TransitionSceneServerRpc();
         SceneManager.Instance.ChangeSceneServerRpc(true, false);
         NetworkManagerUI.Instance.OnGameStartedClientRpc();
         for (int i = 0; i < benches.Length; i++)
