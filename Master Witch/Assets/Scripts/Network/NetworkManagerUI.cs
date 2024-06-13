@@ -217,7 +217,9 @@ namespace UI
         [ClientRpc]
         public void SetFinalPanelClientRpc(bool state){
             finalPanel.SetActive(state);
-            
+            foreach(var item in EliminationPlayer.Instance.scoresPlayers){
+                UpdatePlayerScore(item.Key, item.Value);
+            }
             UpdateFinalScreen();
         }
 

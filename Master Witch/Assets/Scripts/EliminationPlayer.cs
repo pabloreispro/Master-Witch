@@ -57,7 +57,6 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
     }
     public void UpdadeScoresPlayers(int playerID, float score){
         scoresPlayers[playerID] = score;
-        NetworkManagerUI.Instance.UpdatePlayerScore(playerID, score);
     }
     public void PlayerElimination(){
         var player = scoresPlayers.Aggregate((l,r) => l.Value<r.Value ? l : r); 
