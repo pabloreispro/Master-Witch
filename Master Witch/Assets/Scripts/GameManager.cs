@@ -59,6 +59,7 @@ public class GameManager : SingletonNetwork<GameManager>
     public void OnClientsReadyServerRpc()
     {
         SceneManager.Instance.ChangeSceneServerRpc(true, false);
+        SceneManager.Instance.StartMarket();
         NetworkManagerUI.Instance.OnGameStartedClientRpc();
         for (int i = 0; i < benches.Length; i++)
         {

@@ -68,16 +68,16 @@ public class SceneManager : SingletonNetwork<SceneManager>
         }
     }
 
-    [ServerRpc (RequireOwnership = false)]
-    public void StartMarketServerRpc()
+    
+    public void StartMarket()
     {
         timeCount.Value = 30;
         maxTime = timeCount.Value;
         StartCoroutine(TimeCounter());
     }
 
-    [ServerRpc (RequireOwnership = false)]
-    public void StartMainServerRpc()
+    
+    public void StartMain()
     {
         timeCount.Value = 100;
         maxTime = timeCount.Value;
@@ -89,13 +89,6 @@ public class SceneManager : SingletonNetwork<SceneManager>
     public void ChangeSceneServerRpc(bool a, bool b)
     {
         ChangeSceneClientRpc(sceneMarket.Value = a, sceneMain.Value = b);
-
-        if(prefabMain.activeSelf){
-            StartMainServerRpc();
-        }
-        else{
-            StartMarketServerRpc();
-        }
         
     }
     [ClientRpc]
