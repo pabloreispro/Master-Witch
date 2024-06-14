@@ -214,12 +214,6 @@ namespace UI
             EndRound.Instance.CanNextRound();
         }
 
-        [ClientRpc]
-        public void SetFinalPanelClientRpc(bool state){
-            finalPanel.SetActive(state);
-            
-            UpdateFinalScreen();
-        }
 
         public void UpdateFinalResult(List<KeyValuePair<int, float>> orderPlayers)
         {
