@@ -127,9 +127,6 @@ public class SceneManager : SingletonNetwork<SceneManager>
         }
         else if(prefabMain.activeSelf){
             NetworkManagerUI.Instance.SetFinalPanelClientRpc(true);
-            foreach(var item in EliminationPlayer.Instance.scoresPlayers){
-                NetworkManagerUI.Instance.UpdatePlayerScore(item.Key, item.Value);
-            }
         }
     }
     [ServerRpc(RequireOwnership =false)]
