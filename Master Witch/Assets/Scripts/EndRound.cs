@@ -23,8 +23,6 @@ public class EndRound : SingletonNetwork<EndRound>
         NetworkManagerUI.Instance.finalPanel.SetActive(false);
         EliminationPlayer.Instance.PlayerElimination();
         GameManager.Instance.Reset();
-        SceneManager.Instance.ChangeSceneServerRpc(false,true);
-        SceneManager.Instance.RepositionPlayerServerRpc();
     }
 
 
