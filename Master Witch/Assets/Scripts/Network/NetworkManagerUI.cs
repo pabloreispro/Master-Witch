@@ -226,12 +226,12 @@ namespace UI
         [ServerRpc(RequireOwnership = false)]
         public void UpdateToggleServerRpc(int playerID, bool toggleValue){
             UpdateToggleClientRpc(playerID, toggleValue);
-            EndRound.Instance.CanNextRoundServerRpc();
         }
 
         [ClientRpc]
         public void UpdateToggleClientRpc(int playerID, bool toggleValue){
             playerFinalCheck[playerID].isOn = toggleValue;
+            EndRound.Instance.CanNextRound();
         }
 
 

@@ -18,15 +18,12 @@ public class EndRound : SingletonNetwork<EndRound>
         nextRound.Value = false;
     }
     public void ReturnMarket(){
-        EliminationPlayer.Instance.PlayerElimination();
-        nextRound.Value = true;
-        DisablePanelClientRpc();
-    }
-
-    [ClientRpc]
-    public void DisablePanelClientRpc(){
         NetworkManagerUI.Instance.finalPanel.SetActive(false);
+        EliminationPlayer.Instance.PlayerElimination();
         GameManager.Instance.Reset();
+        if(IsServer){
+            nextRound.Value = true;
+        }
     }
 
 
@@ -43,8 +40,7 @@ public class EndRound : SingletonNetwork<EndRound>
         GameManager.Instance.Reset();
         NetworkManagerUI.Instance.UpdateFinalResult(orderedPlayers);
     }
-    [ServerRpc]
-    public void CanNextRoundServerRpc(){
+    public void CanNextRound(){
         int activeToggle = 0;
         for(int i=0; i<NetworkManagerUI.Instance.playerFinalCheck.Length; i++){
             if(NetworkManagerUI.Instance.playerFinalCheck[i].isOn){
