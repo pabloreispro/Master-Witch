@@ -103,26 +103,25 @@ public class TransitionController : SingletonNetwork<TransitionController>
 
     public IEnumerator TransitionMarketScene()
     {
+        if(EndRound.Instance.nextRound.Value){
+            ActivatePanelClientRpc(PanelType.SceneTransition, true);
 
-        ActivatePanelClientRpc(PanelType.SceneTransition, true);
+            PlayAnimationClientRpc(AnimatorType.SceneTransition,fadeIn.name);
+            yield return new WaitForSeconds(fadeIn.length);
 
-        PlayAnimationClientRpc(AnimatorType.SceneTransition,fadeIn.name);
-        yield return new WaitForSeconds(fadeIn.length);
+            SceneManager.Instance.ChangeSceneServerRpc(true,false);
+            SceneManager.Instance.RepositionPlayerServerRpc();
 
-        SceneManager.Instance.ChangeSceneServerRpc(true,false);
-        SceneManager.Instance.RepositionPlayerServerRpc();
-
-        PlayAnimationClientRpc(AnimatorType.SceneTransition,fadeOut.name);
-        yield return new WaitForSeconds(fadeOut.length);
-        ActivatePanelClientRpc(PanelType.SceneTransition, false);
-        
-        ActivatePanelClientRpc(PanelType.CountdownMarket, true);
-        PlayAnimationClientRpc(AnimatorType.CountdownMarket,countdownMarket.name);
-        yield return new WaitForSeconds(countdownMarket.length);
-        SceneManager.Instance.StartMarket();
-        ActivatePanelClientRpc(PanelType.CountdownMarket, false);
-        
-
+            PlayAnimationClientRpc(AnimatorType.SceneTransition,fadeOut.name);
+            yield return new WaitForSeconds(fadeOut.length);
+            ActivatePanelClientRpc(PanelType.SceneTransition, false);
+            
+            ActivatePanelClientRpc(PanelType.CountdownMarket, true);
+            PlayAnimationClientRpc(AnimatorType.CountdownMarket,countdownMarket.name);
+            yield return new WaitForSeconds(countdownMarket.length);
+            SceneManager.Instance.StartMarket();
+            ActivatePanelClientRpc(PanelType.CountdownMarket, false);
+        }
 
     }
 
