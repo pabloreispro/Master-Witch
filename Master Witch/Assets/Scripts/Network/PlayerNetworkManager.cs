@@ -53,7 +53,9 @@ namespace Network
             idList.Add(player, playerID);
             OnPlayerConnect();
             OnClientConnectedClientRpc(playerID, playerList.Keys.ToArray());
-            SignalClientReady(NetworkManager.Singleton.LocalClientId);
+            if(playerList.Count>=LobbyManager.Instance.JoinedLobby.Players.Count){
+                SignalClientReady(NetworkManager.Singleton.LocalClientId);
+            }
         }
         [ClientRpc]
         void OnClientConnectedClientRpc(ulong playerID, ulong[] keys)
