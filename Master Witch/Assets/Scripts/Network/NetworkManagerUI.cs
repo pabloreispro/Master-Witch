@@ -21,6 +21,7 @@ namespace UI
 {
     public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
     {
+        const string DEFAULT_PLAYER_NAME = "Mage ";
         [Header("HUDs")]
         [SerializeField] GameObject gameHUD;
         [SerializeField] GameObject networkHUD;
@@ -31,6 +32,7 @@ namespace UI
         [Header("Network HUD")]
         [SerializeField] TMP_InputField addressInputField;
         [SerializeField] TextMeshProUGUI lobbyCodeText;
+        [SerializeField] TMP_InputField playerNameIF;
         [SerializeField] Button hostButton;
         [SerializeField] Button clientButton;
         [SerializeField] Button startGameButton;
@@ -44,6 +46,7 @@ namespace UI
         [Header("   Lobby HUD")]
         [SerializeField] LobbyPlayerItem lobbyPlayerItemPrefab;
         [SerializeField] Transform playerList;
+        List<GameObject> lobbyList = new List<GameObject>();
         [Header("Final HUD")]
         [SerializeField] TextMeshProUGUI[] playerFinalScore;
         [SerializeField] TextMeshProUGUI[] textScore;
@@ -59,7 +62,11 @@ namespace UI
             startGameButton.onClick.AddListener(StartGame);
             disconnectButton.gameObject.SetActive(false);
         }
-
+        private void Start()
+        {
+            playerNameIF.text = DEFAULT_PLAYER_NAME + Random.Range(0, 999);
+            UpdatePlayerName(playerNameIF.text);
+        }
         public void EnableLobbyHUD(bool enabled = true)
         {
             lobbyHUD.SetActive(enabled);
@@ -145,15 +152,27 @@ namespace UI
         //{
         //    NetworkManager.DisconnectClient(OwnerClientId);
         //}
+        public void UpdatePlayerName(string name)
+        {
+            LobbyManager.Instance.UpdatePlayerName(name);
+        }
         #region Lobby
         public void UpdateLobbiesList() => ListLobbies();
         async void ListLobbies()
         {
             var lobbies = await LobbyManager.Instance.ListaLobbies();
+            if (lobbyList.Count > 0)
+            {
+                for (int i = 0; i < lobbyList.Count; i++)
+                {
+                    Destroy(lobbyList[i]);
+                }
+            }
             foreach (var lobby in lobbies)
             {
                 var item = Instantiate(lobbyItemPrefab, lobbiesHolder);
                 item.Initialize(lobby);
+                lobbyList.Add(item.gameObject);
             }
         }
         public void CreateLobby()

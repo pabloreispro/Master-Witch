@@ -48,8 +48,6 @@ namespace Network
 
             // Dispara uma rotina de login do usuario (de forma an�nima)
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-
-            playerName = "Fulaninho" + Random.Range(1, 100);
             
             //UIHandler.instance.mainPanelPlayerNameInput.text = nomePlayer;
             GameManager.Instance.InitializeGame();
@@ -260,6 +258,10 @@ namespace Network
                 if (joinedLobby.Data["RelayCode"].Value != "0")
                     GameManager.Instance.JoinRelay(joinedLobby.Data["RelayCode"].Value);
             }
+        }
+        public void UpdatePlayerName(string name)
+        {
+            playerName = name;
         }
         #endregion
         #region Relay Connection
