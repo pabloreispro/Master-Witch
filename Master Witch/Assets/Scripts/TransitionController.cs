@@ -103,7 +103,6 @@ public class TransitionController : SingletonNetwork<TransitionController>
 
     public IEnumerator TransitionMarketScene()
     {
-        
 
         ActivatePanelClientRpc(PanelType.SceneTransition, true);
 

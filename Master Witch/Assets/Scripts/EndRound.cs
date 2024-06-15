@@ -17,8 +17,7 @@ public class EndRound : SingletonNetwork<EndRound>
         NetworkManagerUI.Instance.finalPanel.SetActive(false);
         EliminationPlayer.Instance.PlayerElimination();
         GameManager.Instance.Reset();
-        if(IsServer)
-            StartCoroutine(TransitionController.Instance.TransitionMarketScene());
+            
     }
 
 
