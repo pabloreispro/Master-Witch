@@ -25,13 +25,6 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.L)){
-
-            foreach(var item in scoresPlayers){
-                Debug.Log("Player scores id: " + item.Key +" score: "+ item.Value);
-            }
-            foreach(var item in ElimPlayers){
-                Debug.Log("Player eliminados id: " + item.Key +" score: "+ item.Value);
-            }
         }
     }
 
@@ -53,6 +46,7 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
         }
         score /= GameManager.Instance.Chefs.Count;
         Debug.Log($"Total score for Player {playerID} is {score}");
+        NetworkManagerUI.Instance.UpdatePlayerScore(playerID, score);
         UpdadeScoresPlayers(playerID, score);
     }
     public void UpdadeScoresPlayers(int playerID, float score){

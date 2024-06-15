@@ -11,18 +11,14 @@ using Network;
 
 public class EndRound : SingletonNetwork<EndRound>
 {
-    NetworkVariable<int> timerCount = new NetworkVariable<int>();
     public Dictionary<int, float> FinalScores = new Dictionary<int, float>();
-
-    public override void OnNetworkSpawn(){
-        timerCount.Value = 5;
-    }
-
 
     public void ReturnMarket(){
         NetworkManagerUI.Instance.finalPanel.SetActive(false);
         EliminationPlayer.Instance.PlayerElimination();
         GameManager.Instance.Reset();
+        if(IsServer)
+            StartCoroutine(TransitionController.Instance.TransitionMarketScene());
     }
 
 
@@ -37,7 +33,6 @@ public class EndRound : SingletonNetwork<EndRound>
         var orderedPlayers = FinalScores.OrderByDescending(player => player.Value).ToList();
         GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.GetPlayer.Count;
         GameManager.Instance.Reset();
-        NetworkManagerUI.Instance.UpdateFinalScreen();
         NetworkManagerUI.Instance.UpdateFinalResult(orderedPlayers);
     }
     public void CanNextRound(){
@@ -48,7 +43,7 @@ public class EndRound : SingletonNetwork<EndRound>
             }
         }
         if(activeToggle == GameManager.Instance.numberPlayer){
-            if(GameManager.Instance.numberPlayer>2){
+            if(GameManager.Instance.numberPlayer>1){
                 ReturnMarket();
             }else{
                 finishGame();

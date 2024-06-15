@@ -103,6 +103,8 @@ public class TransitionController : SingletonNetwork<TransitionController>
 
     public IEnumerator TransitionMarketScene()
     {
+        
+
         ActivatePanelClientRpc(PanelType.SceneTransition, true);
 
         PlayAnimationClientRpc(AnimatorType.SceneTransition,fadeIn.name);
@@ -110,7 +112,7 @@ public class TransitionController : SingletonNetwork<TransitionController>
 
         SceneManager.Instance.ChangeSceneServerRpc(true,false);
         SceneManager.Instance.RepositionPlayerServerRpc();
-        
+
         PlayAnimationClientRpc(AnimatorType.SceneTransition,fadeOut.name);
         yield return new WaitForSeconds(fadeOut.length);
         ActivatePanelClientRpc(PanelType.SceneTransition, false);

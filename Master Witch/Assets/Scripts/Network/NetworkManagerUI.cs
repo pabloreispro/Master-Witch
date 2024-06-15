@@ -196,8 +196,9 @@ namespace UI
 
         #endregion
         #endregion
-
-        public void UpdateFinalScreen(){
+        [ClientRpc]
+        public void UpdateFinalScreenClientRpc(){
+            finalPanel.SetActive(true);
             for(int i = 0; i<GameManager.Instance.numberPlayer; i++){
                 playerFinalScore[i].gameObject.SetActive(true);
             }

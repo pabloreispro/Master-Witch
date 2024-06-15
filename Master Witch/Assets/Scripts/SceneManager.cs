@@ -72,7 +72,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     
     public void StartMarket()
     {
-        timeCount.Value = 5;
+        timeCount.Value = 30;
         maxTime = timeCount.Value;
         StartCoroutine(TimeCounter());
     }
@@ -80,7 +80,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     
     public void StartMain()
     {
-        timeCount.Value = 10;
+        timeCount.Value = 70;
         maxTime = timeCount.Value;
         StartCoroutine(TimeCounter());
     }
@@ -119,7 +119,8 @@ public class SceneManager : SingletonNetwork<SceneManager>
             StartCoroutine(TransitionController.Instance.TransitionMainScene());
         }
         else if(prefabMain.activeSelf){
-            StartCoroutine(TransitionController.Instance.TransitionMarketScene());
+            NetworkManagerUI.Instance.UpdateFinalScreenClientRpc();
+            
         }
     }
     [ServerRpc(RequireOwnership =false)]
