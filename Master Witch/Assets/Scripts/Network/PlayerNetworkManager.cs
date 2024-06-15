@@ -110,11 +110,11 @@ namespace Network
 
     void SignalClientReady(ulong clientId)
     {
+        Debug.Log("Chamou signal 1");
         readyClients.Add(clientId);
-        if (readyClients.Count >= LobbyManager.Instance.JoinedLobby.Players.Count)
-        {
-            GameManager.Instance.OnClientsReady();
-        }
+        Debug.Log("Chamou signal 2");
+        GameManager.Instance.OnClientsReady();
+        Debug.Log("Chamou signal 3");
     }
         void OnClientDisconnected(ulong playerID)
         {

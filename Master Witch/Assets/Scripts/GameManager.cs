@@ -58,6 +58,7 @@ public class GameManager : SingletonNetwork<GameManager>
 
     public void OnClientsReady()
     {
+        Debug.Log("Chamou OnClientReady");
         SceneManager.Instance.ChangeSceneServerRpc(true, false);
         SceneManager.Instance.StartMarket();
         NetworkManagerUI.Instance.OnGameStartedClientRpc();
