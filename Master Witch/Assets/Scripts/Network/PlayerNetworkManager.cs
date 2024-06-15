@@ -53,6 +53,7 @@ namespace Network
             idList.Add(player, playerID);
             OnPlayerConnect();
             OnClientConnectedClientRpc(playerID, playerList.Keys.ToArray());
+            SignalClientReady(NetworkManager.Singleton.LocalClientId);
         }
         [ClientRpc]
         void OnClientConnectedClientRpc(ulong playerID, ulong[] keys)
@@ -101,16 +102,16 @@ namespace Network
                         break;
                 }
             }
-           SignalClientReadyServerRpc(NetworkManager.Singleton.LocalClientId);
+           
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    void SignalClientReadyServerRpc(ulong clientId)
+
+    void SignalClientReady(ulong clientId)
     {
         readyClients.Add(clientId);
         if (readyClients.Count >= LobbyManager.Instance.JoinedLobby.Players.Count)
         {
-            GameManager.Instance.OnClientsReadyServerRpc();
+            GameManager.Instance.OnClientsReady();
         }
     }
         void OnClientDisconnected(ulong playerID)

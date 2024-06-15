@@ -55,8 +55,8 @@ public class GameManager : SingletonNetwork<GameManager>
         NetworkManagerUI.Instance.EnableHUD(false);
         await LobbyManager.Instance.StartHostRelay();
     }
-    [ServerRpc(RequireOwnership = false)]
-    public void OnClientsReadyServerRpc()
+
+    public void OnClientsReady()
     {
         SceneManager.Instance.ChangeSceneServerRpc(true, false);
         SceneManager.Instance.StartMarket();
