@@ -11,7 +11,8 @@ using TMPro;
 
 public class SceneManager : SingletonNetwork<SceneManager>
 {
-     
+    const int TIMER_MARKET = 30;
+    const int TIMER_MAIN = 100;
     [SerializeField]
     private GameObject prefabMarket, prefabMain;
     
@@ -72,7 +73,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     
     public void StartMarket()
     {
-        timeCount.Value = 30;
+        timeCount.Value = TIMER_MARKET;
         maxTime = timeCount.Value;
         StartCoroutine(TimeCounter());
     }
@@ -80,7 +81,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     
     public void StartMain()
     {
-        timeCount.Value = 70;
+        timeCount.Value = TIMER_MAIN;
         maxTime = timeCount.Value;
         StartCoroutine(TimeCounter());
     }
