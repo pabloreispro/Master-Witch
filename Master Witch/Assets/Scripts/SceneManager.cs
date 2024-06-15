@@ -120,7 +120,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
             StartCoroutine(TransitionController.Instance.TransitionMainScene());
         }
         else if(prefabMain.activeSelf){
-            NetworkManagerUI.Instance.UpdateFinalScreenClientRpc();
+            NetworkManagerUI.Instance.UpdateFinalRoundScreenClientRpc();
         }
     }
     [ServerRpc(RequireOwnership =false)]

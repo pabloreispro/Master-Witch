@@ -46,7 +46,7 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
         }
         score /= GameManager.Instance.Chefs.Count;
         Debug.Log($"Total score for Player {playerID} is {score}");
-        NetworkManagerUI.Instance.UpdatePlayerScore(playerID, score);
+        
         UpdadeScoresPlayers(playerID, score);
     }
     public void UpdadeScoresPlayers(int playerID, float score){

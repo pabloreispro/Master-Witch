@@ -71,11 +71,6 @@ public class GameManager : SingletonNetwork<GameManager>
         }
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void FinalGameServerRpc(){
-       
-        //NetworkManagerUI.Instance.OnGameFinalClientRpc();
-    }
     public void JoinRelay(string joinCode) => StartClientRelay(joinCode);
     async void StartClientRelay(string joinCode)
     {
@@ -230,7 +225,7 @@ public class GameManager : SingletonNetwork<GameManager>
         //yield return horizontalGroupPrefab; //string.Join(" + ", ingredients.foods.Select(f => f.name)) + " -> " + bench.benchType + " = " + recipe.name;
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void ReadyPlayersServerRpc(int playerID, bool isOn){
         AttToggleClientRpc(playerID, isOn);
         EndRound.Instance.CanNextRound();

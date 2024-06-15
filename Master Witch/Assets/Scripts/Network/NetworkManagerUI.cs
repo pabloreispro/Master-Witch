@@ -216,17 +216,20 @@ namespace UI
         #endregion
         #endregion
         [ClientRpc]
-        public void UpdateFinalScreenClientRpc(){
+        public void UpdateFinalRoundScreenClientRpc(){
             finalPanel.SetActive(true);
             for(int i = 0; i<GameManager.Instance.numberPlayer; i++){
                 playerFinalScore[i].gameObject.SetActive(true);
+                
+            }
+            foreach(var item in EliminationPlayer.Instance.scoresPlayers){
+                UpdatePlayerScore(item.Key, item.Value);
             }
         }
 
         public void UpdateToggle(int playerID, bool toggleValue){
             playerFinalCheck[playerID].isOn = toggleValue;
         }
-
 
         public void UpdateFinalResult(List<KeyValuePair<int, float>> orderPlayers)
         {
@@ -236,7 +239,6 @@ namespace UI
                 textScore[i].text = item.Value.ToString();
                 i++;
             }
-            
         }
         
     }
