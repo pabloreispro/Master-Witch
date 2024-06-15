@@ -52,6 +52,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
             
         }
     }
+
     [ClientRpc]
     void RefillBenchesClientRpc()
     {
@@ -71,7 +72,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     
     public void StartMarket()
     {
-        timeCount.Value = 30;
+        timeCount.Value = 5;
         maxTime = timeCount.Value;
         StartCoroutine(TimeCounter());
     }
@@ -79,7 +80,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     
     public void StartMain()
     {
-        timeCount.Value = 100;
+        timeCount.Value = 10;
         maxTime = timeCount.Value;
         StartCoroutine(TimeCounter());
     }
@@ -115,11 +116,10 @@ public class SceneManager : SingletonNetwork<SceneManager>
     public void ControllerScenes()
     {
         if(prefabMarket.activeSelf){
-            ChangeSceneServerRpc(false,true);
-            RepositionPlayerServerRpc();
+            StartCoroutine(TransitionController.Instance.TransitionMainScene());
         }
         else if(prefabMain.activeSelf){
-            
+            StartCoroutine(TransitionController.Instance.TransitionMarketScene());
         }
     }
     [ServerRpc(RequireOwnership =false)]
