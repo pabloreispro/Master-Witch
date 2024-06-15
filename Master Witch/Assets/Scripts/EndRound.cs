@@ -12,18 +12,15 @@ using Network;
 public class EndRound : SingletonNetwork<EndRound>
 {
     public Dictionary<int, float> FinalScores = new Dictionary<int, float>();
-    public NetworkVariable<bool> nextRound = new NetworkVariable<bool>();
+    public bool nextRound;
 
-    public override void OnNetworkSpawn(){
-        nextRound.Value = false;
-    }
+
     public void ReturnMarket(){
+        
         NetworkManagerUI.Instance.finalPanel.SetActive(false);
         EliminationPlayer.Instance.PlayerElimination();
         GameManager.Instance.Reset();
-        if(IsServer){
-            nextRound.Value = true;
-        }
+        StartCoroutine(TransitionController.Instance.TransitionMarketScene());
     }
 
 

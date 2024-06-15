@@ -80,7 +80,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     
     public void StartMain()
     {
-        timeCount.Value = 140;
+        timeCount.Value = 70;
         maxTime = timeCount.Value;
         StartCoroutine(TimeCounter());
     }
@@ -120,7 +120,6 @@ public class SceneManager : SingletonNetwork<SceneManager>
         }
         else if(prefabMain.activeSelf){
             NetworkManagerUI.Instance.UpdateFinalScreenClientRpc();
-            StartCoroutine(TransitionController.Instance.TransitionMarketScene());
         }
     }
     [ServerRpc(RequireOwnership =false)]
