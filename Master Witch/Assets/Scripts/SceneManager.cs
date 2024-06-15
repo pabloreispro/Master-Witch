@@ -80,7 +80,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     
     public void StartMain()
     {
-        timeCount.Value = 70;
+        timeCount.Value = 140;
         maxTime = timeCount.Value;
         StartCoroutine(TimeCounter());
     }
