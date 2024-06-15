@@ -16,11 +16,9 @@ public class EndRound : SingletonNetwork<EndRound>
 
 
     public void ReturnMarket(){
-        
-        NetworkManagerUI.Instance.finalPanel.SetActive(false);
         EliminationPlayer.Instance.PlayerElimination();
-        GameManager.Instance.Reset();
         StartCoroutine(TransitionController.Instance.TransitionMarketScene());
+        GameManager.Instance.OnReturnMarket();
     }
 
 

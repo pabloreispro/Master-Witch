@@ -28,7 +28,7 @@ public class ToggleState : SingletonNetwork<ToggleState>
 
     void OnToggleValueChanged(bool isOn)
     {        
-        NetworkManagerUI.Instance.UpdateToggleServerRpc(id, isOn);
+        GameManager.Instance.ReadyPlayersServerRpc(id, isOn);
     }
 
 }

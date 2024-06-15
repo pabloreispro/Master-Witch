@@ -223,14 +223,7 @@ namespace UI
             }
         }
 
-        [ServerRpc(RequireOwnership = false)]
-        public void UpdateToggleServerRpc(int playerID, bool toggleValue){
-            UpdateToggleClientRpc(playerID, toggleValue);
-            EndRound.Instance.CanNextRound();
-        }
-
-        [ClientRpc]
-        public void UpdateToggleClientRpc(int playerID, bool toggleValue){
+        public void UpdateToggle(int playerID, bool toggleValue){
             playerFinalCheck[playerID].isOn = toggleValue;
         }
 

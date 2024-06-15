@@ -229,6 +229,27 @@ public class GameManager : SingletonNetwork<GameManager>
         //yield return horizontalGroupPrefab; //string.Join(" + ", ingredients.foods.Select(f => f.name)) + " -> " + bench.benchType + " = " + recipe.name;
     }
 
+    [ServerRpc]
+    public void ReadyPlayersServerRpc(int playerID, bool isOn){
+        AttToggleClientRpc(playerID, isOn);
+        EndRound.Instance.CanNextRound();
+    }
+
+    [ClientRpc]
+    public void AttToggleClientRpc(int playerID, bool isOn){
+        NetworkManagerUI.Instance.UpdateToggle(playerID, isOn);
+    }
+
+    [ClientRpc]
+    public void OnReturnMarketClientRpc(){
+        NetworkManagerUI.Instance.finalPanel.SetActive(false);
+    }
+
+    public void OnReturnMarket(){
+        OnReturnMarketClientRpc();
+    }
+
+
     public void Reset(){
         foreach(Interactable objectScene in FindObjectsOfType<Interactable>()){
             if((objectScene as Tool) != null &&(objectScene as Tool).isHandTool)
