@@ -227,7 +227,10 @@ namespace UI
         public void UpdateToggle(int playerID, bool toggleValue){
             playerFinalCheck[playerID].isOn = toggleValue;
         }
-
+        [ClientRpc]
+        public void UpdadeScreenFinalClientRpc(){
+            UpdateFinalResult(EndRound.Instance.finishGame());
+        }
         public void UpdateFinalResult(List<KeyValuePair<int, float>> orderPlayers)
         {
             int i = 0;

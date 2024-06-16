@@ -21,7 +21,7 @@ public class EndRound : SingletonNetwork<EndRound>
     }
 
 
-    public void finishGame(){
+    public List<KeyValuePair<int, float>> finishGame(){
         //NetworkManagerUI.Instance.finalResult.SetActive(true);
         foreach(var item in EliminationPlayer.Instance.scoresPlayers){
             FinalScores[item.Key] = item.Value;
@@ -32,7 +32,7 @@ public class EndRound : SingletonNetwork<EndRound>
         var orderedPlayers = FinalScores.OrderByDescending(player => player.Value).ToList();
         GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.GetPlayer.Count;
         GameManager.Instance.Reset();
-        NetworkManagerUI.Instance.UpdateFinalResult(orderedPlayers);
+        return orderedPlayers;
     }
     
     public void CanNextRound(){
@@ -43,10 +43,10 @@ public class EndRound : SingletonNetwork<EndRound>
             }
         }
         if(activeToggle == GameManager.Instance.numberPlayer){
-            if(GameManager.Instance.numberPlayer>1){
+            if(GameManager.Instance.numberPlayer>2){
                 ReturnMarket();
             }else{
-                finishGame();
+                NetworkManagerUI.Instance.UpdadeScreenFinalClientRpc();
             }
             //StartCoroutine(TimeCounter());
         }
