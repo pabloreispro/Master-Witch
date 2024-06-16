@@ -67,6 +67,14 @@ namespace UI
             playerNameIF.text = DEFAULT_PLAYER_NAME + Random.Range(0, 999);
             UpdatePlayerName(playerNameIF.text);
         }
+
+        void Update(){
+            if(finalPanel.activeSelf){
+                    foreach(var item in EliminationPlayer.Instance.scoresPlayers){
+                    UpdatePlayerScoreServerRpc(item.Key, item.Value);
+                }
+            }
+        }
         public void EnableLobbyHUD(bool enabled = true)
         {
             lobbyHUD.SetActive(enabled);
@@ -90,7 +98,13 @@ namespace UI
             GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.GetPlayer.Count;
         }
 
-        public void UpdatePlayerScore(int playerID, float score)
+        [ServerRpc]
+        public void UpdatePlayerScoreServerRpc(int playerID, float score){
+            UpdatePlayerScoreClientRpc(playerID, score);
+        }
+        
+        [ClientRpc]
+        public void UpdatePlayerScoreClientRpc(int playerID, float score)
         {
             string name = "Player "+ playerID;//PlayerNetworkManager.Instance.GetPlayerByIndex(playerID).name;
 
@@ -217,9 +231,7 @@ namespace UI
             for(int i = 0; i<GameManager.Instance.numberPlayer; i++){
                 playerFinalScore[i].gameObject.SetActive(true);
             }
-            foreach(var item in EliminationPlayer.Instance.scoresPlayers){
-                UpdatePlayerScore(item.Key, item.Value);
-            }
+            
         }
 
         public void UpdateToggle(int playerID, bool toggleValue){

@@ -239,6 +239,7 @@ public class GameManager : SingletonNetwork<GameManager>
     [ClientRpc]
     public void OnReturnMarketClientRpc(){
         NetworkManagerUI.Instance.finalPanel.SetActive(false);
+        Reset();
     }
 
     public void OnReturnMarket(){
