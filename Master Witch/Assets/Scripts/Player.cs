@@ -37,7 +37,8 @@ public class Player : NetworkBehaviour
     public FoodSO getIngredient;
 
     [Header("Ingredient Hand")]
-    public GameObject assetIngredient;
+    public GameObject assetIngredient; 
+    public Transform boneBasket, boneItem;
     public NetworkVariable<bool> stateObjectIngrediente = new NetworkVariable<bool>();
     public bool isHand;
     public bool isHandBasket;

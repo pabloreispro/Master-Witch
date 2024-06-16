@@ -10,6 +10,7 @@ using Network;
 using Unity.VisualScripting;
 
 
+
 public class StorageController : SingletonNetwork<StorageController>
 {
     
@@ -89,7 +90,9 @@ public class StorageController : SingletonNetwork<StorageController>
         Debug.Log("index id: "+ itemIndex);
         var playerScene = PlayerNetworkManager.Instance.GetPlayer[playerID];
         Debug.Log("PlayerSCene: "+playerScene.id+" name: "+playerScene.name);
-        var objectSpawn = Instantiate(storageItems[itemIndex].foodPrefab, new Vector3(playerScene.assetIngredient.transform.position.x, 1.0f, playerScene.assetIngredient.transform.position.z), Quaternion.identity);
+        var objectSpawn = Instantiate(storageItems[itemIndex].foodPrefab, playerScene.boneItem);
+        objectSpawn.transform.localPosition = Vector3.zero;
+        objectSpawn.transform.localRotation = Quaternion.identity;
         objectSpawn.GetComponent<NetworkObject>().Spawn();
         objectSpawn.GetComponent<NetworkObject>().TrySetParent(playerScene.transform);  
         bench.RemoveIngredient(storageItems[itemIndex]);

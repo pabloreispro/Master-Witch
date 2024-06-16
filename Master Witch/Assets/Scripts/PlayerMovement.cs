@@ -58,13 +58,7 @@ public class PlayerMovement : Player
             
             AnimationController();
             
-            if(GetComponentInChildren<Interactable>()!=null){
-                isHand = true;
-                GetComponentInChildren<Interactable>().gameObject.transform.position = assetIngredient.transform.position;
-                GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = false;
-            }else{
-                isHand = false;
-            }
+            
             
             RaycastPlayer();
             MovementPlayer();

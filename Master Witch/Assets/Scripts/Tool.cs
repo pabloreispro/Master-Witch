@@ -28,21 +28,35 @@ public class Tool : Interactable
     {
         if(!isHandTool){
             if(IsServer){
-                var objectSpawn = Instantiate(tool.prefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
-                objectSpawn.GetComponent<NetworkObject>().Spawn();
-                objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
-            }
-            if(this.tool.benchType == BenchType.Basket)
-            {
-                player.isHandBasket = true;
-                player.ChangeState(PlayerState.IdleBasket);
+                if(this.tool.benchType == BenchType.Basket)
+                {
+                    var objectSpawn = Instantiate(tool.prefab, player.boneBasket);
+                    objectSpawn.transform.localPosition = Vector3.zero;
+                    objectSpawn.transform.localRotation = Quaternion.identity;
+                    objectSpawn.GetComponent<NetworkObject>().Spawn();
+                    objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
+                    player.isHandBasket = true;
+                    player.ChangeState(PlayerState.IdleBasket);
+                }
+                else
+                {
+                    var objectSpawn = Instantiate(tool.prefab, player.boneItem);
+                    objectSpawn.transform.localPosition = Vector3.zero;
+                    objectSpawn.transform.localRotation = Quaternion.identity;
+                    objectSpawn.GetComponent<NetworkObject>().Spawn();
+                    objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.boneItem);
+                    player.ChangeState(PlayerState.IdleItem);
+                }
+                
             }
             
-        }else{
-            this.GetComponent<NetworkObject>().TrySetParent(player.transform);
+            
+        }
+        else{
+            this.GetComponent<NetworkObject>().TrySetParent(player.boneItem);
         }
         player.isHand = true;
-        player.ChangeState(PlayerState.IdleItem);
+        
         //player.StatusAssetServerRpc(true);
         //player.ChangeMeshHandToolServerRpc();
     }

@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1417858687
+  GlobalObjectIdHash: 2192514020
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -163,6 +163,8 @@ MonoBehaviour:
   interact: {fileID: 0}
   getIngredient: {fileID: 0}
   assetIngredient: {fileID: 0}
+  boneBasket: {fileID: 5036678625001063478}
+  boneItem: {fileID: 8738457841452863685}
   stateObjectIngrediente:
     m_InternalValue: 0
   isHand: 0
@@ -256,6 +258,18 @@ MonoBehaviour:
 --- !u!23 &3117581706672708694 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -5852065695108901431, guid: 7228e517d8e0f1948b0dc8cf0213b443,
+    type: 3}
+  m_PrefabInstance: {fileID: 399317656172448159}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5036678625001063478 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4643010884758572457, guid: 7228e517d8e0f1948b0dc8cf0213b443,
+    type: 3}
+  m_PrefabInstance: {fileID: 399317656172448159}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8738457841452863685 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8993570057237109082, guid: 7228e517d8e0f1948b0dc8cf0213b443,
     type: 3}
   m_PrefabInstance: {fileID: 399317656172448159}
   m_PrefabAsset: {fileID: 0}

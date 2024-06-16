@@ -150,8 +150,8 @@ public class Bench : Interactable
                 var recipeData = new RecipeData(targetRecipe, toolInBench.ingredients);
                 toolInBench.ingredients.Clear();
                 toolInBench.ingredients.Add(recipeData);
-                toolInBench.transform.position = player.assetIngredient.transform.position;
-                toolInBench.GetComponent<NetworkObject>().TrySetParent(player.transform);
+                //toolInBench.transform.position = player.assetIngredient.transform.position;
+                toolInBench.GetComponent<NetworkObject>().TrySetParent(player.boneItem);
             }
             Reset();
         }
@@ -159,10 +159,10 @@ public class Bench : Interactable
             player.isHand = true;
             player.ChangeState(PlayerState.IdleItem);
             if(this.GetComponentInChildren<Ingredient>()!=null)
-                this.GetComponentInChildren<Ingredient>().GetComponent<NetworkObject>().TrySetParent(player.transform);
+                this.GetComponentInChildren<Ingredient>().GetComponent<NetworkObject>().TrySetParent(player.boneItem);
             if(toolInBench!=null)
             {
-                toolInBench.GetComponentInChildren<NetworkObject>().TrySetParent(player.transform);
+                toolInBench.GetComponentInChildren<NetworkObject>().TrySetParent(player.boneItem);
                 toolInBench=null;
             }
             Reset();
