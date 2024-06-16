@@ -16,8 +16,9 @@ public class EndRound : SingletonNetwork<EndRound>
 
 
     public void ReturnMarket(){
-        StartCoroutine(TransitionController.Instance.TransitionMarketScene());
         GameManager.Instance.OnReturnMarket();
+        StartCoroutine(TransitionController.Instance.TransitionMarketScene());
+        
     }
 
 
@@ -31,7 +32,7 @@ public class EndRound : SingletonNetwork<EndRound>
         }
         var orderedPlayers = FinalScores.OrderByDescending(player => player.Value).ToList();
         GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.GetPlayer.Count;
-        GameManager.Instance.Reset();
+        
         return orderedPlayers;
     }
     

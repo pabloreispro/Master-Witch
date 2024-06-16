@@ -246,6 +246,7 @@ public class GameManager : SingletonNetwork<GameManager>
     [ClientRpc]
     public void OnPlayerEliminatedClientRpc(int playerID){
         Debug.Log("Player eliminado é: "+ playerID);
+        Reset();
         foreach (Player player in FindObjectsOfType<Player>())
         {
             if (player.id == playerID)
@@ -271,6 +272,9 @@ public class GameManager : SingletonNetwork<GameManager>
         }
         for(int i=0; i<numberPlayer; i++){
             NetworkManagerUI.Instance.playerFinalCheck[i].isOn = false;
+        }
+        foreach(StorageController store in FindObjectsOfType<StorageController>()){
+            store.storageItems.Clear();
         }
     }
 }
