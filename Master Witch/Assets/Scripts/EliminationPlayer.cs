@@ -70,7 +70,7 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
         {
             if (player.id == playerID)
             {
-                player.gameObject.SetActive(false);
+                player.GetComponent<NetworkObject>().gameObject.SetActive(false);
             }
         }
         //PlayerNetworkManager.Instance.GetPlayerByIndex(playerID).gameObject.SetActive(false);
