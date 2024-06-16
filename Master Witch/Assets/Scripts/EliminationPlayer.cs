@@ -54,6 +54,7 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
  
     public void PlayerElimination(){
         var player = scoresPlayers.Aggregate((l,r) => l.Value<r.Value ? l : r); 
+        Debug.Log("Player Eliminado e: "+player.Key);
         OnPlayerEliminatedClientRpc(player.Key);
         ElimPlayers.Add(player.Key, player.Value);
         scoresPlayers.Remove(player.Key);
