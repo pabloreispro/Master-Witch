@@ -91,14 +91,8 @@ namespace UI
             EliminationPlayer.Instance.AddScoresPlayers();
             GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.GetPlayer.Count;
         }
-
-        [ServerRpc(RequireOwnership = false)]
-        public void UpdatePlayerScoreServerRpc(int playerID, float score){
-            UpdatePlayerScoreClientRpc(playerID, score);
-        }
         
-        [ClientRpc]
-        public void UpdatePlayerScoreClientRpc(int playerID, float score)
+        public void UpdatePlayerScore(int playerID, float score)
         {
             string name = "Player "+ playerID;//PlayerNetworkManager.Instance.GetPlayerByIndex(playerID).name;
 
@@ -219,13 +213,15 @@ namespace UI
 
         #endregion
         #endregion
-        [ClientRpc]
-        public void UpdateFinalRoundScreenClientRpc(){
+
+        public void UpdateFinalRoundScreen(){
             finalPanel.SetActive(true);
             for(int i = 0; i<GameManager.Instance.numberPlayer; i++){
                 playerFinalScore[i].gameObject.SetActive(true);
             }
-            
+            foreach(var item in EliminationPlayer.Instance.scoresPlayers){
+                UpdatePlayerScore(item.Key, item.Value);
+            }
         }
 
         public void UpdateToggle(int playerID, bool toggleValue){

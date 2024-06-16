@@ -26,14 +26,6 @@ public class ToggleState : SingletonNetwork<ToggleState>
         }
     }
 
-    void Update(){
-        if(NetworkManagerUI.Instance.finalPanel.activeSelf){
-            foreach(var item in EliminationPlayer.Instance.scoresPlayers){
-                NetworkManagerUI.Instance.UpdatePlayerScoreServerRpc(item.Key, item.Value);
-            }
-        }
-    }
-
     void OnToggleValueChanged(bool isOn)
     {        
         GameManager.Instance.ReadyPlayersServerRpc(id, isOn);

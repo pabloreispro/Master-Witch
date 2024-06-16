@@ -54,7 +54,7 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
  
     public void PlayerElimination(){
         var player = scoresPlayers.Aggregate((l,r) => l.Value<r.Value ? l : r); 
-        Debug.Log("Player Eliminado e: "+player.Key);
+        Debug.Log("Player Eliminado no server e: "+player.Key);
         OnPlayerEliminatedClientRpc(player.Key);
         ElimPlayers.Add(player.Key, player.Value);
         scoresPlayers.Remove(player.Key);
@@ -64,7 +64,14 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
     [ClientRpc]
     public void OnPlayerEliminatedClientRpc(int playerID){
         Debug.Log("Player eliminado é: "+ playerID);
-        PlayerNetworkManager.Instance.GetPlayerByIndex(playerID).gameObject.SetActive(false);
+        foreach (Player player in FindObjectsOfType<Player>())
+        {
+            if (player.id == playerID)
+            {
+                player.gameObject.SetActive(false);
+            }
+        }
+        //PlayerNetworkManager.Instance.GetPlayerByIndex(playerID).gameObject.SetActive(false);
     }
 
     public void Reset(){
