@@ -88,15 +88,11 @@ namespace UI
             networkHUD.SetActive(false);
             EliminationPlayer.Instance.AddScoresPlayers();
             GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.GetPlayer.Count;
-            NetworkManager.SpawnManager.GetLocalPlayerObject().name = LobbyManager.Instance.playerName;
         }
-        [ClientRpc]
-        public void OnGameFinalClientRpc(){
-            finalPanel.gameObject.SetActive(true);
-        }
+
         public void UpdatePlayerScore(int playerID, float score)
         {
-            string name = PlayerNetworkManager.Instance.GetPlayerByIndex(playerID).name;
+            string name = "Player "+ playerID;//PlayerNetworkManager.Instance.GetPlayerByIndex(playerID).name;
 
             switch (playerID)
             {
@@ -220,7 +216,6 @@ namespace UI
             finalPanel.SetActive(true);
             for(int i = 0; i<GameManager.Instance.numberPlayer; i++){
                 playerFinalScore[i].gameObject.SetActive(true);
-                
             }
             foreach(var item in EliminationPlayer.Instance.scoresPlayers){
                 UpdatePlayerScore(item.Key, item.Value);

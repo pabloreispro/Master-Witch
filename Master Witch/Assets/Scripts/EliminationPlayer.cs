@@ -25,6 +25,10 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.L)){
+            foreach(var item in scoresPlayers){
+                Debug.Log("Hud Player final: "+ item.Key+" score: "+item.Value);
+                PlayerElimination();
+            }
         }
     }
 
@@ -46,9 +50,9 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
         }
         score /= GameManager.Instance.Chefs.Count;
         Debug.Log($"Total score for Player {playerID} is {score}");
-        
         UpdadeScoresPlayers(playerID, score);
     }
+
     public void UpdadeScoresPlayers(int playerID, float score){
         scoresPlayers[playerID] = score;
     }
@@ -63,6 +67,7 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
 
     [ClientRpc]
     public void OnPlayerEliminatedClientRpc(int playerID){
+        Debug.Log("Player eliminado é: "+ playerID);
         PlayerNetworkManager.Instance.GetPlayerByIndex(playerID).gameObject.SetActive(false);
     }
 
