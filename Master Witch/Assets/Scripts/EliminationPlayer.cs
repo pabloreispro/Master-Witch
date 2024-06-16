@@ -25,7 +25,7 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.L)){
-            EndRound.Instance.CanNextRoundServerRpc();
+            //EndRound.Instance.CanNextRoundServerRpc();
         }
     }
 

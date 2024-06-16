@@ -230,7 +230,7 @@ public class GameManager : SingletonNetwork<GameManager>
     [ServerRpc(RequireOwnership = false)]
     public void ReadyPlayersServerRpc(int playerID, bool isOn){
         AttToggleClientRpc(playerID, isOn);
-        
+        EndRound.Instance.CanNextRound();
     }
 
     [ClientRpc]
