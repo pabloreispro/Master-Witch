@@ -69,7 +69,7 @@ namespace UI
         }
 
         void Update(){
-            if(finalPanel.activeSelf && IsOwner){
+            if(finalPanel.activeSelf){
                 foreach(var item in EliminationPlayer.Instance.scoresPlayers){
                     UpdatePlayerScoreServerRpc(item.Key, item.Value);
                 }
@@ -98,7 +98,7 @@ namespace UI
             GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.GetPlayer.Count;
         }
 
-        [ServerRpc]
+        [ServerRpc(RequireOwnership = false)]
         public void UpdatePlayerScoreServerRpc(int playerID, float score){
             UpdatePlayerScoreClientRpc(playerID, score);
         }
