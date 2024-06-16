@@ -24,7 +24,9 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.L)){
+            EndRound.Instance.CanNextRoundServerRpc();
+        }
     }
 
 

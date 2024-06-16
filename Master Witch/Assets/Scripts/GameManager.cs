@@ -230,7 +230,7 @@ public class GameManager : SingletonNetwork<GameManager>
     [ServerRpc(RequireOwnership = false)]
     public void ReadyPlayersServerRpc(int playerID, bool isOn){
         AttToggleClientRpc(playerID, isOn);
-        EndRound.Instance.CanNextRound();
+        
     }
 
     [ClientRpc]
@@ -241,7 +241,7 @@ public class GameManager : SingletonNetwork<GameManager>
     [ClientRpc]
     public void OnReturnMarketClientRpc(){
         NetworkManagerUI.Instance.finalPanel.SetActive(false);
-        Reset();
+        //Reset();
     }
 
     public void OnReturnMarket(){

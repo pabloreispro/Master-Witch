@@ -35,7 +35,8 @@ public class EndRound : SingletonNetwork<EndRound>
         GameManager.Instance.Reset();
         NetworkManagerUI.Instance.UpdateFinalResult(orderedPlayers);
     }
-    public void CanNextRound(){
+    [ServerRpc(RequireOwnership = false)]
+    public void CanNextRoundServerRpc(){
         int activeToggle = 0;
         for(int i=0; i<NetworkManagerUI.Instance.playerFinalCheck.Length; i++){
             if(NetworkManagerUI.Instance.playerFinalCheck[i].isOn){
