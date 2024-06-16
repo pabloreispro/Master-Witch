@@ -21,14 +21,6 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.L)){
-            //EndRound.Instance.CanNextRoundServerRpc();
-        }
-    }
-
 
     public void AddScoresPlayers(){
         foreach(var item in PlayerNetworkManager.Instance.GetID){
@@ -51,7 +43,7 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
     }
 
     public void UpdadeScoresPlayers(int playerID, float score){
-        scoresPlayers[playerID] = score;
+        scoresPlayers[playerID] += score;
     }
 
     public int PlayerElimination(){
@@ -59,7 +51,6 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
         Debug.Log("Player Eliminado no server e: "+player.Key);
         ElimPlayers.Add(player.Key, player.Value);
         scoresPlayers.Remove(player.Key);
-        GameManager.Instance.numberPlayer--;
         return player.Key;
     }
 

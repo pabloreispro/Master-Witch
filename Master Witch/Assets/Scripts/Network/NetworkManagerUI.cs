@@ -48,7 +48,7 @@ namespace UI
         [SerializeField] Transform playerList;
         List<GameObject> lobbyList = new List<GameObject>();
         [Header("Final HUD")]
-        [SerializeField] TextMeshProUGUI[] playerFinalScore;
+        public TextMeshProUGUI[] playerFinalScore;
         [SerializeField] TextMeshProUGUI[] textScore;
         public Toggle[] playerFinalCheck;
         public GameObject finalPanel;

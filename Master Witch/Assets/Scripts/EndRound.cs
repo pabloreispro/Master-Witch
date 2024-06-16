@@ -44,7 +44,7 @@ public class EndRound : SingletonNetwork<EndRound>
             }
         }
         if(activeToggle == GameManager.Instance.numberPlayer){
-            if(GameManager.Instance.numberPlayer>2){
+            if(GameManager.Instance.numberPlayer>1){
                 ReturnMarket();
             }else{
                 NetworkManagerUI.Instance.UpdadeScreenFinalClientRpc();
