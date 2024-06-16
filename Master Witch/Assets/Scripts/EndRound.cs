@@ -12,8 +12,8 @@ using Network;
 public class EndRound : SingletonNetwork<EndRound>
 {
     public Dictionary<int, float> FinalScores = new Dictionary<int, float>();
-    public bool nextRound;
 
+    public bool finalGame;
 
     public void ReturnMarket(){
         GameManager.Instance.OnReturnMarket();
@@ -44,8 +44,12 @@ public class EndRound : SingletonNetwork<EndRound>
             }
         }
         if(activeToggle == GameManager.Instance.numberPlayer){
-            if(GameManager.Instance.numberPlayer>1){
-                ReturnMarket();
+            if(GameManager.Instance.numberPlayer>2){
+                if(!finalGame){
+                    ReturnMarket();
+                }else{
+                    GameManager.Instance.EndGame();
+                }
             }else{
                 NetworkManagerUI.Instance.UpdadeScreenFinalClientRpc();
             }

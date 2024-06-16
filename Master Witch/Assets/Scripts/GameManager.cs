@@ -262,6 +262,7 @@ public class GameManager : SingletonNetwork<GameManager>
                 player.GetComponent<NetworkObject>().gameObject.SetActive(false);
             }
         }
+        numberPlayer--;
         //PlayerNetworkManager.Instance.GetPlayerByIndex(playerID).gameObject.SetActive(false);
     }
 
@@ -270,7 +271,14 @@ public class GameManager : SingletonNetwork<GameManager>
         OnPlayerEliminatedClientRpc(EliminationPlayer.Instance.PlayerElimination());
     }
 
+    public void EndGame(){
+        EndGameClientRpc();
+    }
 
+    [ClientRpc]
+    void EndGameClientRpc(){
+        
+    }
     public void Reset(){
         foreach(Interactable objectScene in FindObjectsOfType<Interactable>()){
             if((objectScene as Tool) != null &&(objectScene as Tool).isHandTool)

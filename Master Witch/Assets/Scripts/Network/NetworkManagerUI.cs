@@ -17,6 +17,7 @@ using Unity.VisualScripting;
 using System.Runtime.InteropServices;
 using System.Linq;
 
+
 namespace UI
 {
     public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
@@ -233,6 +234,9 @@ namespace UI
         }
         public void UpdateFinalResult(List<KeyValuePair<int, float>> orderPlayers)
         {
+            for(int j=0; j<GameManager.Instance.numberPlayer; j++){
+                playerFinalScore[j].gameObject.SetActive(true);
+            }
             int i = 0;
             foreach(var item in orderPlayers){
                 playerFinalScore[i].text = PlayerNetworkManager.Instance.GetPlayerByIndex(item.Key).name;
