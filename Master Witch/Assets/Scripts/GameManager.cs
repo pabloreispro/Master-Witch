@@ -50,7 +50,11 @@ public class GameManager : SingletonNetwork<GameManager>
         
     }
 
-    
+    void Update(){
+        if(NetworkManagerUI.Instance.finalPanel.activeSelf){
+            EndRound.Instance.CanNextRoundServerRpc();
+        }
+    }
     
     public async void HostRelay()
     {
@@ -226,11 +230,16 @@ public class GameManager : SingletonNetwork<GameManager>
         yield return step;
         //yield return horizontalGroupPrefab; //string.Join(" + ", ingredients.foods.Select(f => f.name)) + " -> " + bench.benchType + " = " + recipe.name;
     }
-
+    public int activeToggle = 0;
     [ServerRpc(RequireOwnership = false)]
     public void ReadyPlayersServerRpc(int playerID, bool isOn){
         AttToggleClientRpc(playerID, isOn);
-        EndRound.Instance.CanNextRound();
+        activeToggle = 0;
+        for(int i=0; i<NetworkManagerUI.Instance.playerFinalCheck.Length; i++){
+            if(NetworkManagerUI.Instance.playerFinalCheck[i].isOn){
+                activeToggle++;
+            }
+        }
     }
 
     [ClientRpc]
