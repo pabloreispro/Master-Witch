@@ -50,12 +50,7 @@ public class GameManager : SingletonNetwork<GameManager>
         
     }
 
-    void Update(){
-        if(NetworkManagerUI.Instance.finalPanel.activeSelf){
-            EndRound.Instance.CanNextRoundServerRpc();
-        }
-    }
-    
+
     public async void HostRelay()
     {
         NetworkManagerUI.Instance.EnableHUD(false);
@@ -230,16 +225,11 @@ public class GameManager : SingletonNetwork<GameManager>
         yield return step;
         //yield return horizontalGroupPrefab; //string.Join(" + ", ingredients.foods.Select(f => f.name)) + " -> " + bench.benchType + " = " + recipe.name;
     }
-    public int activeToggle = 0;
+
     [ServerRpc(RequireOwnership = false)]
     public void ReadyPlayersServerRpc(int playerID, bool isOn){
         AttToggleClientRpc(playerID, isOn);
-        activeToggle = 0;
-        for(int i=0; i<NetworkManagerUI.Instance.playerFinalCheck.Length; i++){
-            if(NetworkManagerUI.Instance.playerFinalCheck[i].isOn){
-                activeToggle++;
-            }
-        }
+        EndRound.Instance.CanNextRound();
     }
 
     [ClientRpc]
@@ -253,8 +243,22 @@ public class GameManager : SingletonNetwork<GameManager>
         //Reset();
     }
 
+    [ClientRpc]
+    public void OnPlayerEliminatedClientRpc(int playerID){
+        Debug.Log("Player eliminado é: "+ playerID);
+        foreach (Player player in FindObjectsOfType<Player>())
+        {
+            if (player.id == playerID)
+            {
+                player.GetComponent<NetworkObject>().gameObject.SetActive(false);
+            }
+        }
+        //PlayerNetworkManager.Instance.GetPlayerByIndex(playerID).gameObject.SetActive(false);
+    }
+
     public void OnReturnMarket(){
         OnReturnMarketClientRpc();
+        OnPlayerEliminatedClientRpc(EliminationPlayer.Instance.PlayerElimination());
     }
 
 
