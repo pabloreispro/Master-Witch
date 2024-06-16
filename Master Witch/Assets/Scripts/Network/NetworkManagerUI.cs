@@ -69,8 +69,8 @@ namespace UI
         }
 
         void Update(){
-            if(finalPanel.activeSelf){
-                    foreach(var item in EliminationPlayer.Instance.scoresPlayers){
+            if(finalPanel.activeSelf && IsOwner){
+                foreach(var item in EliminationPlayer.Instance.scoresPlayers){
                     UpdatePlayerScoreServerRpc(item.Key, item.Value);
                 }
             }
