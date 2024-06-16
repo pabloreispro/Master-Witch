@@ -176,6 +176,7 @@ public class GameManager : SingletonNetwork<GameManager>
                 var item = Instantiate(imagePrefab, step.transform);
                 var image = item.GetComponent<Image>();
                 image.sprite = ingredient.imageFood; 
+                image.preserveAspect = true;
 
                 
                 if (i < ingredients.foods.Count - 1)
@@ -183,6 +184,7 @@ public class GameManager : SingletonNetwork<GameManager>
                     var plus = Instantiate(imagePrefab, step.transform);
                     var plusImage = plus.GetComponent<Image>();
                     plusImage.sprite = plusSprite;
+                    plusImage.preserveAspect = true;
                 }
             }
         }
@@ -193,6 +195,7 @@ public class GameManager : SingletonNetwork<GameManager>
             var arrow = Instantiate(imagePrefab, step.transform);
             var arrowImage = arrow.GetComponent<Image>();
             arrowImage.sprite = arrowSprite; 
+            arrowImage.preserveAspect = true;
 
             var benchItem = Instantiate(imagePrefab, step.transform);
             var benchImage = benchItem.GetComponent<Image>();
@@ -200,14 +203,17 @@ public class GameManager : SingletonNetwork<GameManager>
             if(bench.benchType == BenchType.Oven)
             {
                 benchImage.sprite = benchOven; 
+                benchImage.preserveAspect = true;
             }
             else if (bench.benchType == BenchType.Stove)
             {
                 benchImage.sprite = benchStove;
+                benchImage.preserveAspect = true;
             }
             else
             {
                 benchImage.sprite = benchBoard;
+                benchImage.preserveAspect = true;
             }
             
         }
@@ -216,11 +222,13 @@ public class GameManager : SingletonNetwork<GameManager>
         var equals = Instantiate(imagePrefab, step.transform);
         var equalsImage = equals.GetComponent<Image>();
         equalsImage.sprite = equalsSprite;
+        equalsImage.preserveAspect = true;
 
         
         var result = Instantiate(imagePrefab, step.transform);
         var resultImage = result.GetComponent<Image>();
         resultImage.sprite = recipe.imageFood; 
+        resultImage.preserveAspect = true;
 
         yield return step;
         //yield return horizontalGroupPrefab; //string.Join(" + ", ingredients.foods.Select(f => f.name)) + " -> " + bench.benchType + " = " + recipe.name;

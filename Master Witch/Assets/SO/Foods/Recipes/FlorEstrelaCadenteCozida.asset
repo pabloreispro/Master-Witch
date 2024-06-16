@@ -16,14 +16,9 @@ MonoBehaviour:
   category: 01000000
   foodPrefab: {fileID: 3920217010996556338, guid: f52fd811ced5fc948908b6d5c6a12744,
     type: 3}
-  imageFood: {fileID: 0}
+  imageFood: {fileID: 21300000, guid: 784aa36c9b9ebf54484c782f814f856d, type: 3}
   timeProgress: 0
-  score: 0
-  categoryModifier:
-    Animal: 0
-    Vegetal: 0
-    Fungi: 0
-    Mystical: 0
+  finishRecipe: 0
   recipeConditions:
   - type: 0
     benchType: 1
@@ -38,3 +33,4 @@ MonoBehaviour:
     category: 0
     categoryPoints: 0
     isAllowed: 1
+  reviewConditions: []
