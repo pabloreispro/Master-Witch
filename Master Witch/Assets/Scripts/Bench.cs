@@ -142,7 +142,6 @@ public class Bench : Interactable
         //if (player != targetPlayer) return;
         if (endProgress)
         {
-            
             if(targetRecipe.finishRecipe){
                 player.GetComponentInChildren<Tool>().ingredients.Add(new RecipeData(targetRecipe, toolInBench.ingredients));
                 toolInBench.DestroySelf();
@@ -150,7 +149,7 @@ public class Bench : Interactable
                 var recipeData = new RecipeData(targetRecipe, toolInBench.ingredients);
                 toolInBench.ingredients.Clear();
                 toolInBench.ingredients.Add(recipeData);
-                toolInBench.transform.position = player.assetIngredient.transform.position;
+                //toolInBench.transform.position = player.assetIngredient.transform.position;
                 toolInBench.GetComponent<NetworkObject>().TrySetParent(player.transform);
             }
             Reset();
