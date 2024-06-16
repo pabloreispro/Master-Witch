@@ -244,11 +244,8 @@ public class GameManager : SingletonNetwork<GameManager>
     }
 
     [ClientRpc]
-    public void OnPlayerEliminatedClientRpc(int playerID, float score){
+    public void OnPlayerEliminatedClientRpc(int playerID){
         Debug.Log("Player eliminado é: "+ playerID);
-        EliminationPlayer.Instance.ElimPlayers.Add(playerID, score);
-        EliminationPlayer.Instance.scoresPlayers.Remove(playerID);
-        numberPlayer--;
         Reset();
         foreach (Player player in FindObjectsOfType<Player>())
         {
@@ -262,8 +259,7 @@ public class GameManager : SingletonNetwork<GameManager>
 
     public void OnReturnMarket(){
         OnReturnMarketClientRpc();
-        var player = EliminationPlayer.Instance.PlayerElimination();
-        OnPlayerEliminatedClientRpc(player.Key, player.Value);
+        OnPlayerEliminatedClientRpc(EliminationPlayer.Instance.PlayerElimination());
     }
 
 

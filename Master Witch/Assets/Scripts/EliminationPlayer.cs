@@ -54,10 +54,13 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
         scoresPlayers[playerID] = score;
     }
 
-    public KeyValuePair<int, float> PlayerElimination(){
+    public int PlayerElimination(){
         var player = scoresPlayers.Aggregate((l,r) => l.Value<r.Value ? l : r); 
         Debug.Log("Player Eliminado no server e: "+player.Key);
-        return player;
+        ElimPlayers.Add(player.Key, player.Value);
+        scoresPlayers.Remove(player.Key);
+        GameManager.Instance.numberPlayer--;
+        return player.Key;
     }
 
     
