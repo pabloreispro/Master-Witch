@@ -35,12 +35,14 @@ public class Tool : Interactable
             if(this.tool.benchType == BenchType.Basket)
             {
                 player.isHandBasket = true;
+                player.ChangeState(PlayerState.IdleBasket);
             }
             
         }else{
             this.GetComponent<NetworkObject>().TrySetParent(player.transform);
         }
         player.isHand = true;
+        player.ChangeState(PlayerState.IdleItem);
         //player.StatusAssetServerRpc(true);
         //player.ChangeMeshHandToolServerRpc();
     }

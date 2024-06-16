@@ -132,12 +132,15 @@ public class PlayerMovement : Player
             transform.rotation = Quaternion.Slerp(transform.rotation, r, speed);
             
             if(isHand && isHandBasket){currentState = PlayerState.WalkingBasket;}
-            else if(isHand && !isHandBasket){currentState = PlayerState.WalkingInteract;}
+            else if(isHand && !isHandBasket){currentState = PlayerState.WalkingItem;}
             else currentState =  PlayerState.Walking; 
         }
         else 
         {
-            currentState = PlayerState.Idle;
+            if(isHand && isHandBasket){currentState = PlayerState.IdleBasket;}
+            else if(isHand && !isHandBasket){currentState = PlayerState.IdleItem;}
+            else currentState =  PlayerState.Idle;
+            
         }
 
         controller.Move(move* Time.deltaTime * speedPlayer);
@@ -165,7 +168,6 @@ public class PlayerMovement : Player
                         interact.PickServerRpc(NetworkObjectId);
                 }
                 interact.DropServerRpc(NetworkObjectId);
-                currentState = PlayerState.Interact;
                 
             }
             else
@@ -195,20 +197,22 @@ public class PlayerMovement : Player
         {
             case PlayerState.Idle:
                 animator.SetBool("IsWalking", false);
-                animator.SetBool("IsWalkingInteract", false);
-                animator.SetBool("IsWalkingBasket", false);
+                animator.SetBool("IdleItem", false);
             break;
             case PlayerState.IdleBasket:
-
+                animator.SetBool("IdleBasket", true);
             break;
+            case PlayerState.IdleItem:
+                animator.SetBool("IdleItem", true);
+                break;
             case PlayerState.Interact:
                 animator.SetTrigger("Interact");
             break;
             case PlayerState.Walking:
                 animator.SetBool("IsWalking", true);
             break;
-            case PlayerState.WalkingInteract:
-                animator.SetBool("IsWalkingInteract", true);
+            case PlayerState.WalkingItem:
+                animator.SetBool("IsWalkingItem", true);
             break;
             case PlayerState.WalkingBasket:
                 animator.SetBool("IsWalkingBasket", true);

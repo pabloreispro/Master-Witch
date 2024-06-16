@@ -157,6 +157,7 @@ public class Bench : Interactable
         }
         if(benchType == BenchType.General){
             player.isHand = true;
+            player.ChangeState(PlayerState.IdleItem);
             if(this.GetComponentInChildren<Ingredient>()!=null)
                 this.GetComponentInChildren<Ingredient>().GetComponent<NetworkObject>().TrySetParent(player.transform);
             if(toolInBench!=null)

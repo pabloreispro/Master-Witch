@@ -14,9 +14,10 @@ public enum PlayerState
 {
     Idle,
     IdleBasket,
+    IdleItem,
     Interact,
     Walking,
-    WalkingInteract,
+    WalkingItem,
     WalkingBasket,
     PuttingBasket
 }
@@ -28,7 +29,6 @@ public class Player : NetworkBehaviour
 
     [Header("Info Player")]
     public int id;
-    string name;
     [SerializeField] MeshRenderer hatRenderer;
 
     
@@ -98,6 +98,11 @@ public class Player : NetworkBehaviour
         {
             this.GetComponentInChildren<Tool>().ingredients.Add(new RecipeData(ingredient));
         }
+    }
+
+    public void ChangeState(PlayerState newState)
+    {
+        currentState = newState;
     }
 
     public void OnConnected(Material newMaterial, int id)
