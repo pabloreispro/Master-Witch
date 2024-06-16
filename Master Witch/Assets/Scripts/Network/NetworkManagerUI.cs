@@ -68,13 +68,7 @@ namespace UI
             UpdatePlayerName(playerNameIF.text);
         }
 
-        void Update(){
-            if(finalPanel.activeSelf){
-                foreach(var item in EliminationPlayer.Instance.scoresPlayers){
-                    UpdatePlayerScoreServerRpc(item.Key, item.Value);
-                }
-            }
-        }
+        
         public void EnableLobbyHUD(bool enabled = true)
         {
             lobbyHUD.SetActive(enabled);

@@ -24,12 +24,7 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.L)){
-            foreach(var item in scoresPlayers){
-                Debug.Log("Hud Player final: "+ item.Key+" score: "+item.Value);
-                PlayerElimination();
-            }
-        }
+        
     }
 
 
@@ -56,8 +51,8 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
     public void UpdadeScoresPlayers(int playerID, float score){
         scoresPlayers[playerID] = score;
     }
-    
-    public void PlayerElimination(){
+    [ServerRpc(RequireOwnership = false)]
+    public void PlayerEliminationServerRpc(){
         var player = scoresPlayers.Aggregate((l,r) => l.Value<r.Value ? l : r); 
         OnPlayerEliminatedClientRpc(player.Key);
         ElimPlayers.Add(player.Key, player.Value);
