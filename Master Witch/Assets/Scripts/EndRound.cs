@@ -32,7 +32,7 @@ public class EndRound : SingletonNetwork<EndRound>
         }
         var orderedPlayers = FinalScores.OrderByDescending(player => player.Value).ToList();
         GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.GetPlayer.Count;
-        
+        finalGame = true;
         return orderedPlayers;
     }
     
