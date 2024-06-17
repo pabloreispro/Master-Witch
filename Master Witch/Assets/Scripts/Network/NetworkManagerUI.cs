@@ -230,6 +230,7 @@ namespace UI
         }
         [ClientRpc]
         public void UpdadeScreenFinalClientRpc(){
+            EndRound.Instance.finalGame = true;
             UpdateFinalResult(EndRound.Instance.finishGame());
         }
         public void UpdateFinalResult(List<KeyValuePair<int, float>> orderPlayers)
