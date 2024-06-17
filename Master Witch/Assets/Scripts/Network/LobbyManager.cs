@@ -230,6 +230,8 @@ namespace Network
             {
                 await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
                 NetworkManagerUI.Instance.EnableLobbyHUD(false);
+                joinedLobby = null;
+                CancelInvoke();
             }
             catch (LobbyServiceException e)
             {

@@ -196,7 +196,7 @@ namespace UI
 
         public void UpdateLobbyInfo(Lobby lobby)
         {
-            lobbyCodeText.text = $"Lobby Code: {lobby.LobbyCode}";
+            lobbyCodeText.text = $"{lobby.LobbyCode}";
             ListPlayers(lobby.Players);
         }
         void ListPlayers(List<Unity.Services.Lobbies.Models.Player> players)
