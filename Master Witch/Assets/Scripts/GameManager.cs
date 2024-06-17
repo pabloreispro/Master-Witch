@@ -150,6 +150,10 @@ public class GameManager : SingletonNetwork<GameManager>
             chefs.Add(chef);
         }
     }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
     private IEnumerable<GameObject> ExtractRecipeSteps(RecipeSO recipe)
     {
         var ingredients = recipe.recipeConditions.FirstOrDefault(r => r.type == RecipeCondition.ConditionType.Food);
