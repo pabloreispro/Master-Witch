@@ -19,6 +19,7 @@ public class GameManager : SingletonNetwork<GameManager>
     [SerializeField] RecipeSO[] recipeDatabase;
     [SerializeField] ChefSO[] chefsDatabase;
     public List<string> test;  
+    public Text RecipeText;
     public GameObject grid,horizontalGroupPrefab,imagePrefab;
     public Sprite plusSprite,equalsSprite,arrowSprite,benchOven,benchBoard,benchStove;
     Dictionary<int, float> ResultFinal = new Dictionary<int, float>();
@@ -128,6 +129,7 @@ public class GameManager : SingletonNetwork<GameManager>
     void GetInitialRecipe()
     {
         targetRecipe = recipeDatabase.ElementAt(Random.Range(0, recipeDatabase.Length));
+        RecipeText.text = targetRecipe.name;
         
         foreach (var step in ExtractRecipeSteps(targetRecipe))
         {

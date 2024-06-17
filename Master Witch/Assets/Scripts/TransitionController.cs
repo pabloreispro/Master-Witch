@@ -11,20 +11,25 @@ public static class AnimatorType
     public const int SceneTransition = 0;
     public const int CountdownMarket = 1;
     public const int CountdownMain = 2;
+    public const int RecipeName = 3;
+    public const int RecipeSteps = 4;
+    
 }
 public static class PanelType
 {
     public const int SceneTransition = 0;
     public const int CountdownMarket = 1;
     public const int CountdownMain = 2;
+    public const int RecipeName = 3;
+    public const int RecipeSteps = 4;
     
 }
 
 public class TransitionController : SingletonNetwork<TransitionController>
 {
-    public Animator animatorSceneTransition, animatorCountdownMarket, animatorCountdownMain;
+    public Animator animatorSceneTransition, animatorCountdownMarket, animatorCountdownMain,animatorRN,animatorRS;
     public AnimationClip fadeIn,fadeOut,countdownMarket,countdownMain;
-    public GameObject transitionPanel,countdownMarketPanel,countdownMainPanel;
+    public GameObject transitionPanel,countdownMarketPanel,countdownMainPanel, recipeNamePanel, recipeStepsPanel;
 
     #region Gets 
     Animator GetAnimator(int animatorType)
@@ -39,11 +44,18 @@ public class TransitionController : SingletonNetwork<TransitionController>
 
             case AnimatorType.CountdownMain:
                 return animatorCountdownMain;  
-                
+
+            case AnimatorType.RecipeName:
+                return animatorRN;
+
+            case AnimatorType.RecipeSteps:
+                return animatorRS;
+
             default:
                 return null;
         }
     }
+
     GameObject GetPanel(int panelType)
     {
         switch (panelType)
@@ -56,6 +68,12 @@ public class TransitionController : SingletonNetwork<TransitionController>
 
             case PanelType.CountdownMain:
                 return countdownMainPanel;
+
+            case PanelType.RecipeName:
+                return recipeNamePanel;
+
+            case PanelType.RecipeSteps:
+                return recipeStepsPanel;
 
             default:
                 return null;
