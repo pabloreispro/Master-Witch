@@ -198,11 +198,16 @@ public class PlayerMovement : Player
             case PlayerState.Idle:
                 animator.SetBool("IsWalking", false);
                 animator.SetBool("IdleItem", false);
+                animator.SetBool("IdleBasket", false);
             break;
             case PlayerState.IdleBasket:
+                animator.SetBool("IsWalkingBasket", false);
+                animator.SetBool("PutInBasket",false);
                 animator.SetBool("IdleBasket", true);
+                
             break;
             case PlayerState.IdleItem:
+                animator.SetBool("IsWalkingItem", false);
                 animator.SetBool("IdleItem", true);
                 break;
             case PlayerState.Interact:
@@ -218,7 +223,7 @@ public class PlayerMovement : Player
                 animator.SetBool("IsWalkingBasket", true);
             break;
             case PlayerState.PuttingBasket:
-                animator.SetTrigger("PutInBasket");
+                animator.SetBool("PutInBasket",true);
             break;
             
         }

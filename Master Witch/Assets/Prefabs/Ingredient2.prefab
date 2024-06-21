@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 7215296140735246990}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.66, y: 1, z: -0.14}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.69948, y: 0.69948, z: 0.69948}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3622579867
+  GlobalObjectIdHash: 3154133550
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -141,3 +141,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   food: {fileID: 11400000, guid: 412a53c78a1f44aee88eae4afff78863, type: 2}
   isHandIngredient: 1
+  typeObject: 0
+  itensUsed: []

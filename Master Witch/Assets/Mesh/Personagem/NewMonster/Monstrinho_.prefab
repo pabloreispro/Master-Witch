@@ -256,7 +256,7 @@ MonoBehaviour:
   interact: {fileID: 0}
   getIngredient: {fileID: 0}
   assetIngredient: {fileID: 2712832298599414515}
-  boneBasket: {fileID: 5036678625001063478}
+  boneBasket: {fileID: 9151488602138170599}
   boneItem: {fileID: 8738457841452863685}
   stateObjectIngrediente:
     m_InternalValue: 0
@@ -340,13 +340,6 @@ MonoBehaviour:
     TransitionDuration: 0.05
     TriggerNameHash: -662453572
     TransitionIndex: 1
-  - IsCrossFadeExit: 0
-    Layer: 0
-    OriginatingState: -1779576224
-    DestinationState: 1309933906
-    TransitionDuration: 0.1
-    TriggerNameHash: -681203107
-    TransitionIndex: 0
   m_Animator: {fileID: -6478921826064568150}
 --- !u!23 &3117581706672708694 stripped
 MeshRenderer:
@@ -354,15 +347,15 @@ MeshRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 399317656172448159}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5036678625001063478 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4643010884758572457, guid: 7228e517d8e0f1948b0dc8cf0213b443,
-    type: 3}
-  m_PrefabInstance: {fileID: 399317656172448159}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8738457841452863685 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8993570057237109082, guid: 7228e517d8e0f1948b0dc8cf0213b443,
+    type: 3}
+  m_PrefabInstance: {fileID: 399317656172448159}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &9151488602138170599 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -393441341217432200, guid: 7228e517d8e0f1948b0dc8cf0213b443,
     type: 3}
   m_PrefabInstance: {fileID: 399317656172448159}
   m_PrefabAsset: {fileID: 0}
