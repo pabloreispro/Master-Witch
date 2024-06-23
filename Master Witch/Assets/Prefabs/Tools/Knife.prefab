@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 373188794559825294}
   - component: {fileID: 7707948871800068562}
   m_Layer: 0
-  m_Name: Board
+  m_Name: Knife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3263229443
+  GlobalObjectIdHash: 1719629928
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -91,7 +91,6 @@ MonoBehaviour:
   tool: {fileID: 11400000, guid: ffeaeaab6620e4486b10e377b77dd167, type: 2}
   typeObject: 0
   isHandTool: 1
-  foodFinish: {fileID: 0}
   ingredients: []
 --- !u!1001 &8964386675541474707
 PrefabInstance:
@@ -104,17 +103,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 650d6ca03f80c4ad2bd8fdcedcc60874,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 100
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 650d6ca03f80c4ad2bd8fdcedcc60874,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 100
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 650d6ca03f80c4ad2bd8fdcedcc60874,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 100
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 650d6ca03f80c4ad2bd8fdcedcc60874,
         type: 3}
@@ -166,6 +165,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 650d6ca03f80c4ad2bd8fdcedcc60874,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 650d6ca03f80c4ad2bd8fdcedcc60874,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -7081269536714464383, guid: 9697f46fd8bf64565a2524c872cefbec,
+        type: 3}
+    - target: {fileID: -7511558181221131132, guid: 650d6ca03f80c4ad2bd8fdcedcc60874,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: -2813467912831258332, guid: 9697f46fd8bf64565a2524c872cefbec,
+        type: 3}
+    - target: {fileID: -7511558181221131132, guid: 650d6ca03f80c4ad2bd8fdcedcc60874,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: -6629797300637803691, guid: 9697f46fd8bf64565a2524c872cefbec,
+        type: 3}
+    - target: {fileID: -7511558181221131132, guid: 650d6ca03f80c4ad2bd8fdcedcc60874,
+        type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2721783431657287601, guid: 9697f46fd8bf64565a2524c872cefbec,
+        type: 3}
+    - target: {fileID: -5754084199372789682, guid: 650d6ca03f80c4ad2bd8fdcedcc60874,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 6336385459743012416, guid: 9697f46fd8bf64565a2524c872cefbec,
+        type: 3}
     - target: {fileID: 919132149155446097, guid: 650d6ca03f80c4ad2bd8fdcedcc60874,
         type: 3}
       propertyPath: m_Name
