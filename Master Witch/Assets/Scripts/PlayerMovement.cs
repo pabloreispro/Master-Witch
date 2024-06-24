@@ -58,13 +58,13 @@ public class PlayerMovement : Player
             
             AnimationController();
             
-            if(GetComponentInChildren<Interactable>()!=null){
+           /* if(GetComponentInChildren<Interactable>()!=null){
                 isHand = true;
                 GetComponentInChildren<Interactable>().gameObject.transform.position = assetIngredient.transform.position;
                 GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = false;
             }else{
                 isHand = false;
-            }
+            }*/
             
             RaycastPlayer();
             MovementPlayer();
@@ -186,8 +186,9 @@ public class PlayerMovement : Player
         else
         {
             if(interact != null){
-                currentState = PlayerState.Interact;
+                Debug.Log("Pegando cesta");
                 interact.PickServerRpc(NetworkObjectId);
+                //currentState = PlayerState.Interact;
             }
         }
     }

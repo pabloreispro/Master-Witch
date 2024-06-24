@@ -32,19 +32,23 @@ public class Tool : Interactable
             {
                 if(this.tool.benchType == BenchType.Basket)
                 {
-                    /*Debug.Log("Entrei no if");
+                    
+
+                    
 
                     var i = Instantiate(tool.prefab,player.boneBasket);
                     i.transform.localScale = Vector3.one;
                     i.transform.localRotation = Quaternion.identity;
-                    i.transform.localPosition = Vector3.zero;*/
-                    var objectSpawn = Instantiate(tool.prefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
+                    i.transform.localPosition = Vector3.zero;
+                    
+                    /*var objectSpawn = Instantiate(tool.prefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
                     objectSpawn.GetComponent<NetworkObject>().Spawn();
-                    objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
+                    objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);*/
+                    
                     player.isHandBasket = true;
                     player.isHand = true;
                     player.ChangeState(PlayerState.Interact);
-                    //player.ChangeState(PlayerState.IdleBasket);
+                    
                     
                 }
                 else
