@@ -248,6 +248,4 @@ public class Bench : Interactable
             storage.Initialize(toolInBench.foodList);
         }
     }
-
-    
 }

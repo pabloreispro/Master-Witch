@@ -110,6 +110,7 @@ public class Player : NetworkBehaviour
     {
         hatRenderer.material = newMaterial;
         this.id = id;
+
     }
 
     
