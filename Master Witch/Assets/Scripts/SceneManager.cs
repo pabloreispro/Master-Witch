@@ -11,34 +11,32 @@ using TMPro;
 
 public class SceneManager : SingletonNetwork<SceneManager>
 {
-    const int TIMER_MARKET = 600;
-    const int TIMER_MAIN = 100;
+    const int TIMER_MARKET = 10;
+    const int TIMER_MAIN = 10;
+
     [SerializeField]
     private GameObject prefabMarket, prefabMain;
     
     public List<Transform> spawnPlayersMarket = new List<Transform>();
-
-    public List<Transform> spawnBasket = new List<Transform>();
     public List<Transform> spawnPlayersMain = new List<Transform>();
+    public List<Transform> spawnBasket = new List<Transform>();
+    
     public NetworkVariable<bool> sceneMarket = new NetworkVariable<bool>();
     public NetworkVariable<bool> sceneMain = new NetworkVariable<bool>();
     public NetworkVariable<int> timeCount = new NetworkVariable<int>();
-    public NetworkVariable<int> timeMain = new NetworkVariable<int>();
-    public NetworkVariable<int> timeMarket = new NetworkVariable<int>();
-    public TextMeshProUGUI texto;
+    public NetworkVariable<bool> isMovementAllowed = new NetworkVariable<bool>(false);
+    
+    
 
     public Transform clockHand; 
     public float maxTime = 0;  
     private float currentTime;
 
     
-    public void Start()
-    {
-        timeCount.OnValueChanged += (a,b) => texto.text = b.ToString();
-    }
+    
 
     [ServerRpc (RequireOwnership = false)]
-    public void RepositionPlayerServerRpc()
+    public void RepositionPlayersMainSceneServerRpc()
     {
         RefillBenchesClientRpc();
         for (int i = 0; i < PlayerNetworkManager.Instance.GetPlayer.Values.ToList().Count; i++)
@@ -53,6 +51,17 @@ public class SceneManager : SingletonNetwork<SceneManager>
             
         }
     }
+
+    [ServerRpc (RequireOwnership = false)]
+    public void RepositionPlayersMarketSceneServerRpc()
+    {
+        for (int i = 0; i < PlayerNetworkManager.Instance.GetPlayer.Values.ToList().Count; i++)
+        {
+            var player = PlayerNetworkManager.Instance.GetPlayer.Values.ToList().ElementAt(i);
+            player.RepositionServerRpc(spawnPlayersMarket.ElementAt(i).position);
+        }
+    }
+
 
     [ClientRpc]
     void RefillBenchesClientRpc()
@@ -126,14 +135,8 @@ public class SceneManager : SingletonNetwork<SceneManager>
     [ServerRpc(RequireOwnership =false)]
     public void ClockTimeraServerRpc()
     {
-        currentTime = timeCount.Value;
-
-        if (currentTime <= 0)
-        {
-            currentTime = 0;
-        }
-
-        float angle = (currentTime / maxTime) * 360; 
+    
+        float angle = (Mathf.Max(0, timeCount.Value) / maxTime) * 360; 
         clockHand.eulerAngles = new Vector3(0, 0, angle);
 
         UpdateClockHandClientRpc(angle);

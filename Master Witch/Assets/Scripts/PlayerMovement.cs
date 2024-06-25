@@ -67,7 +67,13 @@ public class PlayerMovement : Player
             }*/
             
             RaycastPlayer();
-            MovementPlayer();
+
+            if(SceneManager.Instance.isMovementAllowed.Value)
+            {
+                MovementPlayer();
+            }
+            else currentState =  PlayerState.Idle;
+            
             VerifyStorage();
             
         }

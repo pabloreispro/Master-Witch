@@ -97,12 +97,14 @@ public class TransitionController : SingletonNetwork<TransitionController>
     
     public IEnumerator TransitionMainScene()
     {
+        SceneManager.Instance.isMovementAllowed.Value = false;
+        
         ActivatePanelClientRpc(PanelType.SceneTransition, true);
         PlayAnimationClientRpc(AnimatorType.SceneTransition, fadeIn.name);
         yield return new WaitForSeconds(fadeIn.length);
 
         SceneManager.Instance.ChangeSceneServerRpc(false,true);
-        SceneManager.Instance.RepositionPlayerServerRpc();
+        SceneManager.Instance.RepositionPlayersMainSceneServerRpc();
 
         PlayAnimationClientRpc(AnimatorType.SceneTransition, fadeOut.name);
         yield return new WaitForSeconds(fadeOut.length);
@@ -112,19 +114,21 @@ public class TransitionController : SingletonNetwork<TransitionController>
         PlayAnimationClientRpc(AnimatorType.CountdownMain,countdownMain.name);
         yield return new WaitForSeconds(countdownMain.length);
         SceneManager.Instance.StartMain();
+        SceneManager.Instance.isMovementAllowed.Value = true;
         ActivatePanelClientRpc(PanelType.CountdownMain, false);
         
     }
 
     public IEnumerator TransitionMarketScene()
     {
+        SceneManager.Instance.isMovementAllowed.Value = false;
         ActivatePanelClientRpc(PanelType.SceneTransition, true);
 
         PlayAnimationClientRpc(AnimatorType.SceneTransition,fadeIn.name);
         yield return new WaitForSeconds(fadeIn.length);
 
         SceneManager.Instance.ChangeSceneServerRpc(true,false);
-        SceneManager.Instance.RepositionPlayerServerRpc();
+        SceneManager.Instance.RepositionPlayersMarketSceneServerRpc();
 
         PlayAnimationClientRpc(AnimatorType.SceneTransition,fadeOut.name);
         yield return new WaitForSeconds(fadeOut.length);
@@ -139,6 +143,7 @@ public class TransitionController : SingletonNetwork<TransitionController>
         PlayAnimationClientRpc(AnimatorType.CountdownMarket,countdownMarket.name);
         yield return new WaitForSeconds(countdownMarket.length);
         SceneManager.Instance.StartMarket();
+        SceneManager.Instance.isMovementAllowed.Value = true;
         ActivatePanelClientRpc(PanelType.CountdownMarket, false);
         
 
