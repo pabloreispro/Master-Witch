@@ -195,8 +195,10 @@ public class Bench : Interactable
                 player.GetComponentInChildren<Ingredient>().DestroySelf();
             }
             else if((interact as Ingredient)!=null){
-                interact.gameObject.transform.position = auxObject.transform.position;
-                interact.GetComponent<NetworkObject>().TrySetParent(this.transform);
+                if(!GetComponentInChildren<Ingredient>()){
+                    interact.gameObject.transform.position = auxObject.transform.position;
+                    interact.GetComponent<NetworkObject>().TrySetParent(this.transform);
+                }
             }
         }
         else if(benchType != BenchType.Storage)
