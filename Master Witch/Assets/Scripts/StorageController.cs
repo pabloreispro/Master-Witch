@@ -92,7 +92,9 @@ public class StorageController : SingletonNetwork<StorageController>
         Debug.Log("PlayerSCene: "+playerScene.id+" name: "+playerScene.name);
         var objectSpawn = Instantiate(storageItems[itemIndex].foodPrefab, new Vector3(playerScene.assetIngredient.transform.position.x, 1.0f, playerScene.assetIngredient.transform.position.z), Quaternion.identity);
         objectSpawn.GetComponent<NetworkObject>().Spawn();
-        objectSpawn.GetComponent<NetworkObject>().TrySetParent(playerScene.transform);  
+        objectSpawn.GetComponent<NetworkObject>().TrySetParent(playerScene.transform); 
+        playerScene.ChangeState(PlayerState.Interact);
+        playerScene.isHand.Value = true; 
         bench.RemoveIngredient(storageItems[itemIndex]);
         
     }
