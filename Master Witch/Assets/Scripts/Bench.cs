@@ -199,10 +199,8 @@ public class Bench : Interactable
                 player.isHand.Value = false;
             }
             else if((interact as Ingredient)!=null){
-                if(!GetComponentInChildren<Ingredient>()){
-                    interact.gameObject.transform.position = auxObject.transform.position;
-                    interact.GetComponent<NetworkObject>().TrySetParent(this.transform);
-                }
+                interact.gameObject.transform.position = auxObject.transform.position;
+                interact.GetComponent<NetworkObject>().TrySetParent(this.transform);
             }
         }
         else if(benchType != BenchType.Storage)
