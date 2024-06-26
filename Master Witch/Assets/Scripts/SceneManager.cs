@@ -11,7 +11,7 @@ using TMPro;
 
 public class SceneManager : SingletonNetwork<SceneManager>
 {
-    const int TIMER_MARKET = 10;
+    const int TIMER_MARKET = 500;
     const int TIMER_MAIN = 100;
 
     [SerializeField]
@@ -44,6 +44,8 @@ public class SceneManager : SingletonNetwork<SceneManager>
             var player = PlayerNetworkManager.Instance.GetPlayer.Values.ToList().ElementAt(i);
             //player.bench.ElementAt(i).ingredients.AddRange(player.ingredientsBasket);
             if(player.GetComponentInChildren<Tool>() != null){
+                player.GetComponentInChildren<Tool>().gameObject.GetComponent<SynchronizedObject>().enabled = false;
+                player.GetComponentInChildren<Tool>().gameObject.GetComponent<FollowTransform>().enabled = false;
                 player.GetComponentInChildren<Tool>().gameObject.transform.position = spawnBasket.ElementAt(i).transform.position;
                 player.GetComponentInChildren<Tool>().GetComponentInChildren<NetworkObject>().TrySetParent(spawnBasket.ElementAt(i).transform);
                 player.RepositionServerRpc(spawnPlayersMain.ElementAt(i).position); 

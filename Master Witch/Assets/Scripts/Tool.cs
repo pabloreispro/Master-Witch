@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 using Game.SO;
 using System;
+using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 
 public class Tool : Interactable
 {
@@ -32,19 +33,27 @@ public class Tool : Interactable
             {
                 if(this.tool.benchType == BenchType.Basket)
                 {
+                    GameObject objectSpawn = Instantiate(tool.prefab, player.boneBasket.position, player.boneBasket.rotation);
+                    objectSpawn.GetComponent<Collider>().enabled = false;
+                    // Obtém ou adiciona o componente NetworkObject
+                    NetworkObject networkObject = objectSpawn.GetComponent<NetworkObject>();
                     
+
+                    // Spawna o objeto na rede
+                    networkObject.Spawn();
+                    networkObject.TrySetParent(player.transform);
+
+                    // Adiciona ou obtém o componente FollowTransform para seguir o boneBasket
+                    FollowTransform followTransform = objectSpawn.GetComponent<FollowTransform>();
+                    if (followTransform == null)
+                    {
+                        followTransform = objectSpawn.AddComponent<FollowTransform>();
+                    }
+                    followTransform.targetTransform = player.boneBasket;
 
                     
 
-                    var i = Instantiate(tool.prefab,player.boneBasket);
-                    i.transform.localScale = Vector3.one;
-                    i.transform.localRotation = Quaternion.identity;
-                    i.transform.localPosition = Vector3.zero;
-                    
-                    /*var objectSpawn = Instantiate(tool.prefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
-                    objectSpawn.GetComponent<NetworkObject>().Spawn();
-                    objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);*/
-                    
+                    // Configurações adicionais do jogador
                     player.isHandBasket = true;
                     player.isHand = true;
                     player.ChangeState(PlayerState.Interact);
