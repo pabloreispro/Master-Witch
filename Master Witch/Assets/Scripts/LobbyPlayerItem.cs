@@ -7,9 +7,11 @@ namespace UI.Network {
     public class LobbyPlayerItem : MonoBehaviour
     {
         [SerializeField] TextMeshProUGUI playerName;
-        public void Initialize(Unity.Services.Lobbies.Models.Player player)
+        [SerializeField] GameObject hostIcon;
+        public void Initialize(Unity.Services.Lobbies.Models.Player player, bool isHost)
         {
             playerName.text = player.Data["PlayerName"].Value;
+            hostIcon.SetActive(isHost);
         }
     }
 }

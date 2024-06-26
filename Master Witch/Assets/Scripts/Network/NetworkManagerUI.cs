@@ -34,6 +34,8 @@ namespace UI
         [SerializeField] TMP_InputField addressInputField;
         [SerializeField] TextMeshProUGUI lobbyCodeText;
         [SerializeField] TMP_InputField playerNameIF;
+        [SerializeField] GameObject noLobbiesText;
+        [SerializeField] Button updateLobbyListBT;
         [SerializeField] Button hostButton;
         [SerializeField] Button clientButton;
         [SerializeField] Button startGameButton;
@@ -41,10 +43,11 @@ namespace UI
         [Header("   Lobby List HUD")]
         [SerializeField] LobbyItemUI lobbyItemPrefab;
         [SerializeField] TMP_InputField lobbyCode;
-        [SerializeField] TMP_InputField lobbyName;
+        [SerializeField] TMP_InputField newLobbyName;
         [SerializeField] Toggle publicityToggle;
         [SerializeField] Transform lobbiesHolder;
         [Header("   Lobby HUD")]
+        [SerializeField] TextMeshProUGUI lobbyName;
         [SerializeField] LobbyPlayerItem lobbyPlayerItemPrefab;
         [SerializeField] Transform playerList;
         List<GameObject> lobbyList = new List<GameObject>();
@@ -95,7 +98,7 @@ namespace UI
         
         public void UpdatePlayerScore(int playerID, float score)
         {
-            string name = "Player "+ playerID;//PlayerNetworkManager.Instance.GetPlayerByIndex(playerID).name;
+            string name = LobbyManager.Instance.JoinedLobby.Players[playerID].Data["PlayerName"].Value;
 
             switch (playerID)
             {
@@ -156,9 +159,16 @@ namespace UI
             LobbyManager.Instance.UpdatePlayerName(name);
         }
         #region Lobby
-        public void UpdateLobbiesList() => ListLobbies();
+        public void UpdateLobbiesList()
+        {
+            updateLobbyListBT.interactable = false;
+            ListLobbies();
+            Invoke(nameof(EnableUpdateButton), 3f);
+        }
+        void EnableUpdateButton() => updateLobbyListBT.interactable = true;
         async void ListLobbies()
         {
+            noLobbiesText.SetActive(false);
             var lobbies = await LobbyManager.Instance.ListaLobbies();
             if (lobbyList.Count > 0)
             {
@@ -173,10 +183,11 @@ namespace UI
                 item.Initialize(lobby);
                 lobbyList.Add(item.gameObject);
             }
+            noLobbiesText.SetActive(lobbies.Count == 0);
         }
         public void CreateLobby()
         {
-            LobbyManager.Instance.CreateLobby(lobbyName.text, publicityToggle.isOn, "Main");
+            LobbyManager.Instance.CreateLobby(newLobbyName.text, publicityToggle.isOn, "Main");
         }
         public void JoinLobby()
         {
@@ -196,6 +207,7 @@ namespace UI
 
         public void UpdateLobbyInfo(Lobby lobby)
         {
+            lobbyName.text = lobby.Name;
             lobbyCodeText.text = $"{lobby.LobbyCode}";
             ListPlayers(lobby.Players);
         }
@@ -208,7 +220,7 @@ namespace UI
             foreach (var player in players)
             {
                 var pHud = Instantiate(lobbyPlayerItemPrefab, playerList);
-                pHud.Initialize(player);
+                pHud.Initialize(player, players.IndexOf(player) == 0);
             }
         }
 
