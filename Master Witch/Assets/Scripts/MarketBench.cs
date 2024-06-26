@@ -9,7 +9,7 @@ public class MarketBench : Interactable
     
     public override void Pick(Player player)
     {
-        if(player.isHand == true && player.GetComponentInChildren<Tool>().tool == tool)
+        if(player.isHand.Value == true && player.GetComponentInChildren<Tool>().tool == tool)
         {
            player.AddItemBasket(food); 
         }

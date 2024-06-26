@@ -155,7 +155,7 @@ public class Bench : Interactable
             Reset();
         }
         if(benchType == BenchType.General){
-            player.isHand = true;
+            player.isHand.Value = true;
             player.ChangeState(PlayerState.IdleItem);
             if(this.GetComponentInChildren<Ingredient>()!=null)
                 this.GetComponentInChildren<Ingredient>().GetComponent<NetworkObject>().TrySetParent(player.transform);
@@ -179,8 +179,8 @@ public class Bench : Interactable
         if(benchType == BenchType.TrashBin)
         {
             interact.DestroySelf();  
-            player.isHand=false;
-            player.isHandBasket = false;
+            player.isHand.Value=false;
+            player.isHandBasket.Value = false;
         }
         else if(benchType == BenchType.General){
             if((interact as Tool) != null){
@@ -213,14 +213,14 @@ public class Bench : Interactable
                         endProgress = false;
                         progress();
                     }
-                    player.isHand = false;
+                    player.isHand.Value = false;
                 }
             }
             if((interact as Ingredient) != null){
                 endProgress = false;
                 AddIngredient((interact as Ingredient).food);
                 interact.DestroySelf();
-                player.isHand = false;
+                player.isHand.Value = false;
             }
         }
     }

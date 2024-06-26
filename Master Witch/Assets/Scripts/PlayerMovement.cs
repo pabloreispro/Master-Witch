@@ -56,7 +56,7 @@ public class PlayerMovement : Player
     {
         if(IsOwner == true){
             
-            AnimationController();
+            //AnimationController();
             
            /* if(GetComponentInChildren<Interactable>()!=null){
                 isHand = true;
@@ -72,7 +72,7 @@ public class PlayerMovement : Player
             {
                 MovementPlayer();
             }
-            else currentState =  PlayerState.Idle;
+            else ChangeState(PlayerState.Idle);
             
             VerifyStorage();
             
@@ -137,15 +137,15 @@ public class PlayerMovement : Player
             Quaternion r = Quaternion.LookRotation(move);
             transform.rotation = Quaternion.Slerp(transform.rotation, r, speed);
             
-            if(isHand && isHandBasket){currentState = PlayerState.WalkingBasket;}
-            else if(isHand && !isHandBasket){currentState = PlayerState.WalkingItem;}
-            else currentState =  PlayerState.Walking; 
+            if(isHand.Value && isHandBasket.Value){ChangeState(PlayerState.WalkingBasket);}
+            else if(isHand.Value && !isHandBasket.Value){ChangeState(PlayerState.WalkingItem);}
+            else ChangeState(PlayerState.Walking); 
         }
         else 
         {
-            if(isHand && isHandBasket){currentState = PlayerState.IdleBasket;}
-            else if(isHand && !isHandBasket){currentState = PlayerState.IdleItem;}
-            else currentState =  PlayerState.Idle;
+            if(isHand.Value && isHandBasket.Value){ChangeState(PlayerState.IdleBasket);}
+            else if(isHand.Value && !isHandBasket.Value){ChangeState(PlayerState.IdleItem);}
+            else ChangeState(PlayerState.Idle);
             
         }
 
@@ -160,13 +160,13 @@ public class PlayerMovement : Player
         }
     }
     public void PickDropObject(){
-        if(isHand)
+        if(isHand.Value)
         {
             if(interact == null)
             {
                 this.GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = true;
                 this.GetComponentInChildren<Interactable>().GetComponent<NetworkObject>().TryRemoveParent();
-                isHand = false;
+                isHand.Value = false;
             }
             else if (interact.GetType() == typeof(Bench))
             {
@@ -181,7 +181,7 @@ public class PlayerMovement : Player
                 if(this.GetComponentInChildren<Tool>().tool.benchType == BenchType.Basket)
                 {
                     interact.PickServerRpc(NetworkObjectId);
-                    currentState = PlayerState.PuttingBasket;
+                    ChangeState(PlayerState.PuttingBasket);
                 }
                 else
                 {
@@ -198,43 +198,7 @@ public class PlayerMovement : Player
             }
         }
     }
-    public void AnimationController()
-    {
-        switch(currentState)
-        {
-            case PlayerState.Idle:
-                animator.SetBool("IsWalking", false);
-                animator.SetBool("IdleItem", false);
-                animator.SetBool("IdleBasket", false);
-            break;
-            case PlayerState.IdleBasket:
-                animator.SetBool("IsWalkingBasket", false);
-                animator.SetBool("PutInBasket",false);
-                animator.SetBool("IdleBasket", true);
-                
-            break;
-            case PlayerState.IdleItem:
-                animator.SetBool("IsWalkingItem", false);
-                animator.SetBool("IdleItem", true);
-                break;
-            case PlayerState.Interact:
-                animator.SetTrigger("Interact");
-            break;
-            case PlayerState.Walking:
-                animator.SetBool("IsWalking", true);
-            break;
-            case PlayerState.WalkingItem:
-                animator.SetBool("IsWalkingItem", true);
-            break;
-            case PlayerState.WalkingBasket:
-                animator.SetBool("IsWalkingBasket", true);
-            break;
-            case PlayerState.PuttingBasket:
-                animator.SetBool("PutInBasket",true);
-            break;
-            
-        }
-    }
+    
 
     
 }

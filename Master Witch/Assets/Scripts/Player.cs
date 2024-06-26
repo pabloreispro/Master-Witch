@@ -26,7 +26,7 @@ public class Player : NetworkBehaviour
      [Header("Animation Configs")]
     public PlayerState currentState;
     public Animator animator;
-
+    public TestAnimator a;
     [Header("Info Player")]
     public int id;
     [SerializeField] MeshRenderer hatRenderer;
@@ -40,8 +40,8 @@ public class Player : NetworkBehaviour
     public GameObject assetIngredient; 
     public Transform boneBasket, boneItem;
     public NetworkVariable<bool> stateObjectIngrediente = new NetworkVariable<bool>();
-    public bool isHand;
-    public bool isHandBasket;
+    public NetworkVariable<bool> isHand = new NetworkVariable<bool>();
+    public NetworkVariable<bool> isHandBasket = new NetworkVariable<bool>();
 
     public List<Bench> bench = new List<Bench>();
     [Header("Basket Config")]
@@ -89,8 +89,8 @@ public class Player : NetworkBehaviour
         transform.rotation = Quaternion.Euler(0f,180f,0f);
         GetComponent<PlayerMovement>().controller.enabled = true;
         //StatusAssetServerRpc(false);
-        isHand = false;
-        isHandBasket = false;
+        isHand.Value = false;
+        isHandBasket.Value = false;
     }
 
     public void AddItemBasket(FoodSO ingredient)
@@ -104,12 +104,71 @@ public class Player : NetworkBehaviour
     public void ChangeState(PlayerState newState)
     {
         currentState = newState;
+        ChangeStateClientRpc(newState);
+        AnimationController();
+    }
+
+    [ClientRpc]
+    private void ChangeStateClientRpc(PlayerState newState)
+    {
+       
+        currentState = newState;
+        AnimationController();
+    }
+
+    public void AnimationController()
+    {
+        switch(currentState)
+        {
+            case PlayerState.Idle:
+                animator.SetBool("IsWalking", false);
+                animator.SetBool("IdleItem", false);
+                animator.SetBool("IdleBasket", false);
+            break;
+            case PlayerState.IdleBasket:
+                animator.SetBool("IsWalkingBasket", false);
+                animator.SetBool("PutInBasket",false);
+                animator.SetBool("IdleBasket", true);
+                
+            break;
+            case PlayerState.IdleItem:
+                animator.SetBool("IsWalkingItem", false);
+                animator.SetBool("IdleItem", true);
+                break;
+            case PlayerState.Interact:
+                a.SetTrigger("Interact");
+            break;
+            case PlayerState.Walking:
+                animator.SetBool("IsWalking", true);
+            break;
+            case PlayerState.WalkingItem:
+                animator.SetBool("IsWalkingItem", true);
+            break;
+            case PlayerState.WalkingBasket:
+                animator.SetBool("IsWalkingBasket", true);
+            break;
+            case PlayerState.PuttingBasket:
+                animator.SetBool("PutInBasket",true);
+            break;
+            
+        }
     }
 
     public void OnConnected(Material newMaterial, int id)
     {
         hatRenderer.material = newMaterial;
         this.id = id;
+
+    }
+
+    [ClientRpc]
+    public void SetBasketHandClientRpc(NetworkObjectReference tool)
+    {
+        if(tool.TryGet(out NetworkObject basket) )
+        {
+            FollowTransform followTransform = basket.GetComponent<FollowTransform>();
+            followTransform.targetTransform = boneBasket;
+        }
 
     }
 

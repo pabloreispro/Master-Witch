@@ -35,30 +35,19 @@ public class Tool : Interactable
                 {
                     GameObject objectSpawn = Instantiate(tool.prefab, player.boneBasket.position, player.boneBasket.rotation);
                     objectSpawn.GetComponent<Collider>().enabled = false;
-                    // Obtém ou adiciona o componente NetworkObject
-                    NetworkObject networkObject = objectSpawn.GetComponent<NetworkObject>();
                     
-
-                    // Spawna o objeto na rede
+                    NetworkObject networkObject = objectSpawn.GetComponent<NetworkObject>();
                     networkObject.Spawn();
                     networkObject.TrySetParent(player.transform);
 
-                    // Adiciona ou obtém o componente FollowTransform para seguir o boneBasket
-                    FollowTransform followTransform = objectSpawn.GetComponent<FollowTransform>();
-                    if (followTransform == null)
-                    {
-                        followTransform = objectSpawn.AddComponent<FollowTransform>();
-                    }
-                    followTransform.targetTransform = player.boneBasket;
+        
+                    player.SetBasketHandClientRpc(objectSpawn);
 
-                    
 
-                    // Configurações adicionais do jogador
-                    player.isHandBasket = true;
-                    player.isHand = true;
+                    player.isHandBasket.Value = true;
+                    player.isHand.Value = true;
                     player.ChangeState(PlayerState.Interact);
-                    
-                    
+                      
                 }
                 else
                 {
@@ -67,7 +56,7 @@ public class Tool : Interactable
                     objectSpawn.GetComponent<NetworkObject>().Spawn();
                     objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
 
-                    player.isHand = true;
+                    player.isHand.Value = true;
                     player.ChangeState(PlayerState.Interact);
                     //player.ChangeState(PlayerState.IdleItem);
                 }
@@ -77,7 +66,7 @@ public class Tool : Interactable
         }
         else{
             this.GetComponent<NetworkObject>().TrySetParent(player.transform);
-            player.isHand = true;
+            player.isHand.Value = true;
             player.ChangeState(PlayerState.Interact);
             //player.ChangeState(PlayerState.IdleItem);
         }

@@ -19,7 +19,7 @@ public class Ingredient : Interactable
         }else{
             player.GetComponentInChildren<Tool>().ingredients.Add(new RecipeData(food));
         }
-        player.isHand = true;
+        player.isHand.Value = true;
         player.ChangeState(PlayerState.IdleItem);
     }
 }
