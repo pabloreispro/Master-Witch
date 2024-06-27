@@ -44,9 +44,13 @@ public class SceneManager : SingletonNetwork<SceneManager>
             var player = PlayerNetworkManager.Instance.GetPlayer.Values.ToList().ElementAt(i);
             //player.bench.ElementAt(i).ingredients.AddRange(player.ingredientsBasket);
             if(player.GetComponentInChildren<Tool>() != null){
-                player.GetComponentInChildren<Tool>().gameObject.GetComponent<FollowTransform>().targetTransform = null;
-                player.GetComponentInChildren<Tool>().gameObject.transform.position = new Vector3(spawnBasket.ElementAt(i).transform.position.x,spawnBasket.ElementAt(i).transform.position.y+20,spawnBasket.ElementAt(i).transform.position.z);
+                var basket =  player.GetComponentInChildren<Tool>().gameObject;
+                basket.GetComponent<FollowTransform>().targetTransform = null;
+                basket.transform.position = new Vector3(spawnBasket.ElementAt(i).transform.position.x,spawnBasket.ElementAt(i).transform.position.y+20,spawnBasket.ElementAt(i).transform.position.z);
+                basket.transform.rotation = Quaternion.identity;
+                
                 player.GetComponentInChildren<Tool>().GetComponentInChildren<NetworkObject>().TrySetParent(spawnBasket.ElementAt(i).transform);
+                
                 player.RepositionServerRpc(spawnPlayersMain.ElementAt(i).position); 
             }
             
