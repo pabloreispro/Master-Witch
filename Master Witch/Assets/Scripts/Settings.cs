@@ -19,10 +19,9 @@ public class Settings : MonoBehaviour
     void Start()
     {
         resolutions.AddRange(Screen.resolutions);
-        resolutions.Reverse();
         resolutionsDropdown.ClearOptions();
         currentResolutionIndex = 0;
-        for (int i = Screen.resolutions.Length - 1; i > 0; i++)
+        for (int i = 0; i < Screen.resolutions.Length; i++)
         {
             var res = Screen.resolutions[i];
             //Filter for the resolution with the highest refresh hate
