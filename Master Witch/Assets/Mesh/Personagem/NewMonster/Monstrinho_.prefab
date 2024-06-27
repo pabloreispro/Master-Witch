@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  animator: {fileID: 0}
+  animator: {fileID: -6478921826064568150}
   a: {fileID: 7139182526516293599}
   id: 0
   hatRenderer: {fileID: 3117581706672708694}
@@ -261,8 +261,10 @@ MonoBehaviour:
   boneItem: {fileID: 6514612741364929256}
   stateObjectIngrediente:
     m_InternalValue: 0
-  isHand: 0
-  isHandBasket: 0
+  isHand:
+    m_InternalValue: 0
+  isHandBasket:
+    m_InternalValue: 0
   bench: []
   basketMax: 5
   speed: 15

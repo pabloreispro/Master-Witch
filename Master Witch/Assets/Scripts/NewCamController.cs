@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class NewCamController : Singleton<NewCamController>
+public class NewCamController : SingletonNetwork<NewCamController>
 {
     private Transform initialPosition;
     public Transform target; 
 
     [Header("Movement Configs")]
     [SerializeField] private float speedMovement;
-    [SerializeField] private float minXHorizontal;
-    [SerializeField] private float maxXHorizontal;
+    public NetworkVariable<float> minXHorizontal;
+    public NetworkVariable<float> maxXHorizontal;
     
     [Header("Rotation Configs")]
 
@@ -46,7 +47,7 @@ public class NewCamController : Singleton<NewCamController>
 
     void FollowTarget()
     {
-        float boundX = Mathf.Clamp(target.position.x, minXHorizontal, maxXHorizontal);
+        float boundX = Mathf.Clamp(target.position.x, minXHorizontal.Value, maxXHorizontal.Value);
         Vector3 targetPosition = new Vector3(boundX, transform.position.y, transform.position.z);
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, speedMovement * Time.deltaTime);
 

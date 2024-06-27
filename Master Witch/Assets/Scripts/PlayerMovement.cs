@@ -58,12 +58,12 @@ public class PlayerMovement : Player
             
             //AnimationController();
             
-            if(GetComponentInChildren<Interactable>()!=null){
+            /*if(GetComponentInChildren<Interactable>()!=null){
                 isHand.Value = true;
                 
             }else{
                 isHand.Value = false;
-            }
+            }*/
             
             RaycastPlayer();
 
