@@ -22,7 +22,7 @@ public class Settings : MonoBehaviour
         resolutions.Reverse();
         resolutionsDropdown.ClearOptions();
         currentResolutionIndex = 0;
-        for (int i = Screen.resolutions.Length; i > 0; i++)
+        for (int i = Screen.resolutions.Length - 1; i > 0; i++)
         {
             var res = Screen.resolutions[i];
             //Filter for the resolution with the highest refresh hate
