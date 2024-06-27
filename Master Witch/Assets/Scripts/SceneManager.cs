@@ -50,9 +50,9 @@ public class SceneManager : SingletonNetwork<SceneManager>
                 basket.transform.rotation = Quaternion.identity;
                 
                 player.GetComponentInChildren<Tool>().GetComponentInChildren<NetworkObject>().TrySetParent(spawnBasket.ElementAt(i).transform);
-                
-                player.RepositionServerRpc(spawnPlayersMain.ElementAt(i).position); 
             }
+
+            player.RepositionServerRpc(spawnPlayersMain.ElementAt(i).position); 
             
         }
     }

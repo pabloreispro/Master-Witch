@@ -124,6 +124,9 @@ public class Player : NetworkBehaviour
                 animator.SetBool("IsWalking", false);
                 animator.SetBool("IdleItem", false);
                 animator.SetBool("IdleBasket", false);
+                animator.SetBool("IsWalkingBasket", false);
+                animator.SetBool("IsWalkingItem", false);
+                animator.SetBool("PutInBasket",false);
             break;
             case PlayerState.IdleBasket:
                 animator.SetBool("IsWalkingBasket", false);
