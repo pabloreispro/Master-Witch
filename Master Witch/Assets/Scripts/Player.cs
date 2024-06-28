@@ -174,6 +174,16 @@ public class Player : NetworkBehaviour
         }
 
     }
+    [ClientRpc]
+    public void SetItemHandClientRpc(NetworkObjectReference item)
+    {
+        if(item.TryGet(out NetworkObject obj) )
+        {
+            FollowTransform followTransform = obj.GetComponent<FollowTransform>();
+            followTransform.targetTransform = boneItem;
+        }
+
+    }
 
     
 

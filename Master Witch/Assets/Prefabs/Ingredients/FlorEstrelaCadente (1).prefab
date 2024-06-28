@@ -90,6 +90,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1732002588972343051}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 212d600ea41078a48a58c8a7f623c304,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -806866136842125333}
   m_SourcePrefab: {fileID: 100100000, guid: 212d600ea41078a48a58c8a7f623c304, type: 3}
 --- !u!1 &3920217010996556338 stripped
 GameObject:
@@ -109,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 683344484
+  GlobalObjectIdHash: 1389374761
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -132,6 +136,7 @@ MonoBehaviour:
   food: {fileID: 11400000, guid: fe4ce7c6f223e8647ac2a46b45001f61, type: 2}
   isHandIngredient: 1
   typeObject: 0
+  itensUsed: []
 --- !u!65 &1732002588972343051
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -153,6 +158,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.008806843, y: 0.0008291323, z: 0.024627477}
   m_Center: {x: -0.0001846236, y: -0.000060286857, z: 0.0123412665}
+--- !u!114 &-806866136842125333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3920217010996556338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36936f1f8b00fd54daa7debff453e2b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTransform: {fileID: 0}
 --- !u!4 &4408100675013372040 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 212d600ea41078a48a58c8a7f623c304,

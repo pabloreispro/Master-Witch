@@ -33,6 +33,10 @@ public class Tool : Interactable
             {
                 if(this.tool.benchType == BenchType.Basket)
                 {
+                    player.isHandBasket.Value = true;
+                    player.isHand.Value = true;
+                    player.ChangeState(PlayerState.Interact);
+
                     GameObject objectSpawn = Instantiate(tool.prefab, player.boneBasket.position, player.boneBasket.rotation);
                     objectSpawn.GetComponent<Collider>().enabled = false;
                     
@@ -44,35 +48,38 @@ public class Tool : Interactable
                     player.SetBasketHandClientRpc(objectSpawn);
 
 
-                    player.isHandBasket.Value = true;
-                    player.isHand.Value = true;
-                    player.ChangeState(PlayerState.Interact);
+                    
                       
                 }
                 else
                 {
-
-                    var objectSpawn = Instantiate(tool.prefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
-                    objectSpawn.GetComponent<NetworkObject>().Spawn();
-                    objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
-
                     player.isHand.Value = true;
                     player.ChangeState(PlayerState.Interact);
-                    //player.ChangeState(PlayerState.IdleItem);
+
+                    var objectSpawn = Instantiate(tool.prefab, player.boneItem.position, player.boneItem.rotation);
+                    objectSpawn.GetComponent<Collider>().enabled = false;
+
+                    NetworkObject networkObject = objectSpawn.GetComponent<NetworkObject>();
+                    networkObject.Spawn();
+                    networkObject.TrySetParent(player.transform);
+
+                    player.SetItemHandClientRpc(objectSpawn);
+
                 }
                 
             }
                 
         }
         else{
-            this.GetComponent<NetworkObject>().TrySetParent(player.transform);
             player.isHand.Value = true;
             player.ChangeState(PlayerState.Interact);
-            //player.ChangeState(PlayerState.IdleItem);
+
+            var item = this.gameObject;
+            item.GetComponent<Collider>().enabled = false;
+            item.GetComponent<NetworkObject>().TrySetParent(player.transform);
+
+            player.SetItemHandClientRpc(item);
         }
         
-        
-        //player.StatusAssetServerRpc(true);
-        //player.ChangeMeshHandToolServerRpc();
     }
 }

@@ -14,8 +14,11 @@ public class Ingredient : Interactable
     public override void Pick(Player player)
     {
         if(isHandIngredient){
+            this.GetComponent<Collider>().enabled = false;
             this.GetComponent<NetworkObject>().TrySetParent(player.transform);
-            this.GetComponent<NetworkObject>().transform.position = player.assetIngredient.transform.position;
+            this.GetComponent<NetworkObject>().transform.position = player.boneItem.transform.position;
+            this.GetComponent<FollowTransform>().targetTransform = player.boneItem.transform;
+            player.SetItemHandClientRpc(gameObject);
         }else{
             player.GetComponentInChildren<Tool>().ingredients.Add(new RecipeData(food));
         }

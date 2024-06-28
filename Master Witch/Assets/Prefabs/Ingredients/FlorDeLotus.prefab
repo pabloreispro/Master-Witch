@@ -184,6 +184,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5105010536528060174}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: efe29264d83ea6f4da4db51ffd90f4a5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8150088773103916882}
   m_SourcePrefab: {fileID: 100100000, guid: efe29264d83ea6f4da4db51ffd90f4a5, type: 3}
 --- !u!1 &8076492628560701170 stripped
 GameObject:
@@ -224,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 823892130
+  GlobalObjectIdHash: 3007670109
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -247,6 +251,20 @@ MonoBehaviour:
   food: {fileID: 11400000, guid: 7ec1735b58c22194abdba7b6f68be8ca, type: 2}
   isHandIngredient: 1
   typeObject: 0
+  itensUsed: []
+--- !u!114 &8150088773103916882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8076492628560701170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36936f1f8b00fd54daa7debff453e2b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTransform: {fileID: 0}
 --- !u!4 &8889727353892879432 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: efe29264d83ea6f4da4db51ffd90f4a5,

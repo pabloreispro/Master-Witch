@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 1141093384159630438}
   - component: {fileID: 4832281834948549868}
   - component: {fileID: 3566323534735089191}
+  - component: {fileID: -784865155599141457}
   m_Layer: 0
   m_Name: Busen
   m_TagString: Untagged
@@ -151,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1924624856
+  GlobalObjectIdHash: 734883964
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -175,3 +176,16 @@ MonoBehaviour:
   typeObject: 0
   isHandTool: 1
   ingredients: []
+--- !u!114 &-784865155599141457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2551360757952880508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36936f1f8b00fd54daa7debff453e2b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTransform: {fileID: 0}

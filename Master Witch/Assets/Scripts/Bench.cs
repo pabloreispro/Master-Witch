@@ -149,8 +149,9 @@ public class Bench : Interactable
                 var recipeData = new RecipeData(targetRecipe, toolInBench.ingredients);
                 toolInBench.ingredients.Clear();
                 toolInBench.ingredients.Add(recipeData);
-                toolInBench.transform.position = player.assetIngredient.transform.position;
+                toolInBench.transform.position = player.boneItem.transform.position;
                 toolInBench.GetComponent<NetworkObject>().TrySetParent(player.transform);
+                player.SetItemHandClientRpc(toolInBench.gameObject);
             }
             Reset();
         }
@@ -158,10 +159,18 @@ public class Bench : Interactable
             player.isHand.Value = true;
             player.ChangeState(PlayerState.Interact);
             if(this.GetComponentInChildren<Ingredient>()!=null)
-                this.GetComponentInChildren<Ingredient>().GetComponent<NetworkObject>().TrySetParent(player.transform);
+            {
+                this.GetComponentInChildren<Ingredient>().gameObject.transform.position = player.boneItem.transform.position;
+                this.GetComponentInChildren<Ingredient>().gameObject.GetComponent<FollowTransform>().targetTransform = player.boneItem.transform;
+                this.GetComponentInChildren<Ingredient>().GetComponent<NetworkObject>().TrySetParent(player.transform);               
+                player.SetItemHandClientRpc(GetComponentInChildren<Ingredient>().gameObject);
+            }
             if(toolInBench!=null)
             {
+                toolInBench.transform.position = player.boneItem.transform.position;
                 toolInBench.GetComponentInChildren<NetworkObject>().TrySetParent(player.transform);
+                toolInBench.GetComponent<FollowTransform>().targetTransform = player.boneItem.transform;
+                player.SetItemHandClientRpc(toolInBench.gameObject);
                 toolInBench=null;
             }
             Reset();
@@ -185,6 +194,7 @@ public class Bench : Interactable
         else if(benchType == BenchType.General){
             if((interact as Tool) != null){
                 if(toolInBench == null){
+                    
                     PositionBench(interact);
                     player.isHand.Value = false;
                 }else{
@@ -199,8 +209,8 @@ public class Bench : Interactable
                 player.isHand.Value = false;
             }
             else if((interact as Ingredient)!=null){
-                interact.gameObject.transform.position = auxObject.transform.position;
-                interact.GetComponent<NetworkObject>().TrySetParent(this.transform);
+                PositionBench(interact);
+                player.isHand.Value = false;
             }
         }
         else if(benchType != BenchType.Storage)
@@ -209,6 +219,7 @@ public class Bench : Interactable
             {
                 if ((interact as Tool).tool.benchType == benchType)
                 {
+                    interact.GetComponent<FollowTransform>().targetTransform = null;
                     PositionBench(interact);
                     if(toolInBench.ingredients.Count > 0){
                         endProgress = false;
@@ -227,12 +238,15 @@ public class Bench : Interactable
     }
 
     public void PositionBench(Interactable interact){
+        interact.GetComponent<FollowTransform>().targetTransform = null;
+        interact.gameObject.transform.rotation = Quaternion.identity;
         interact.gameObject.transform.position = auxObject.transform.position;
         if(interact as Tool){
             toolInBench = interact.GetComponent<Tool>();
         }
         interact.GetComponent<NetworkObject>().TrySetParent(this.transform);
     }
+    
     
     public void StorageInitialize(){
         StoreServerRpc();

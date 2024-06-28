@@ -164,7 +164,9 @@ public class PlayerMovement : Player
             if(interact == null)
             {
                 this.GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = true;
-                this.GetComponentInChildren<Interactable>().GetComponent<NetworkObject>().TryRemoveParent();
+                var obj = this.GetComponentInChildren<Interactable>().GetComponent<NetworkObject>();
+                obj.GetComponent<FollowTransform>().targetTransform = null;
+                obj.TryRemoveParent();
                 isHand.Value = false;
             }
             else if (interact.GetType() == typeof(Bench))
