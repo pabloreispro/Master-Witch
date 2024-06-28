@@ -168,8 +168,10 @@ namespace UI
         void EnableUpdateButton() => updateLobbyListBT.interactable = true;
         async void ListLobbies()
         {
+            Debug.Log("List");
             noLobbiesText.SetActive(false);
-            var lobbies = await LobbyManager.Instance.ListaLobbies();
+            var lobbies = new List<Lobby>();
+            lobbies = await LobbyManager.Instance.ListaLobbies();
             if (lobbyList.Count > 0)
             {
                 for (int i = 0; i < lobbyList.Count; i++)

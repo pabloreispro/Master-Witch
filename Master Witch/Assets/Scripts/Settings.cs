@@ -3,15 +3,24 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class Settings : MonoBehaviour
 {
+    #region Constants
     const string FIRST_PLAY = "FirstPlay";
     const string MASTER_VOLUME = "MasterVolume";
     const string MUSIC_VOLUME = "MusicVolume";
     const string EFFECTS_VOLUME = "EffectsVolume";
+    const float DEFAULT_MASTER_VOLUME = 1f;
+    const float DEFAULT_MUSIC_VOLUME = 0.7f;
+    const float DEFAULT_EFFECTS_VOLUME = 0.7f;
+    #endregion
     [SerializeField] AudioMixer audioMixer;
     [SerializeField] TMP_Dropdown resolutionsDropdown;
+    [SerializeField] Slider masterVolumeSlider;
+    [SerializeField] Slider musicVolumeSlider;
+    [SerializeField] Slider effectVolumeSlider;
     List<Resolution> resolutions = new List<Resolution>();
     int currentResolutionIndex;
 
@@ -49,27 +58,28 @@ public class Settings : MonoBehaviour
             {
                 currentResolutionIndex = resolutions.Count - 1;
                 SetResolution(currentResolutionIndex);
+                masterVolumeSlider.value = DEFAULT_MASTER_VOLUME;
+                musicVolumeSlider.value = DEFAULT_MUSIC_VOLUME;
+                effectVolumeSlider.value = DEFAULT_EFFECTS_VOLUME;
                 PlayerPrefs.SetInt(FIRST_PLAY, -1);
             }
+        }else
+        {
+            masterVolumeSlider.value = PlayerPrefs.GetFloat(MASTER_VOLUME);
+            musicVolumeSlider.value = PlayerPrefs.GetFloat(MUSIC_VOLUME);
+            effectVolumeSlider.value = PlayerPrefs.GetFloat(EFFECTS_VOLUME);
         }
 
     }
-    public void SetMasterVolume(float volume)
+    public void SetMasterVolume(float volume) => SetVolume(MASTER_VOLUME, volume);
+    public void SetMusicVolume(float volume) => SetVolume(MUSIC_VOLUME, volume);
+    public void SetEffectsVolume(float volume) => SetVolume(EFFECTS_VOLUME, volume);
+    void SetVolume(string tag, float value)
     {
-        var masterVolume = Mathf.Max(volume, 0.00001f);
-        audioMixer.SetFloat(MASTER_VOLUME, masterVolume);
+        var volume = Mathf.Log10(value) * 20;
+        audioMixer.SetFloat(tag, volume);
+        PlayerPrefs.SetFloat(tag, value);
     }
-    public void SetMusicVolume(float volume)
-    {
-        var musicVolume = Mathf.Max(volume, 0.00001f);
-        audioMixer.SetFloat(MUSIC_VOLUME, musicVolume);
-    }
-    public void SetEffectsVolume(float volume)
-    {
-        var sfxVolume = Mathf.Max(volume, 0.00001f);
-        audioMixer.SetFloat(EFFECTS_VOLUME, sfxVolume);
-    }
-
     public void SetFullscreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
