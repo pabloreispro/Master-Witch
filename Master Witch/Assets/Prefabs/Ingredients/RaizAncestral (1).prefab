@@ -184,6 +184,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2679828771646874686}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 95cd424fd12cb644db28adb460f9bc28,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7653623437267582532}
   m_SourcePrefab: {fileID: 100100000, guid: 95cd424fd12cb644db28adb460f9bc28, type: 3}
 --- !u!4 &5179948714290501406 stripped
 Transform:
@@ -253,3 +257,17 @@ MonoBehaviour:
   food: {fileID: 11400000, guid: 598c3399e7ccdbe479c9813145c43492, type: 2}
   isHandIngredient: 1
   typeObject: 0
+  itensUsed: []
+--- !u!114 &7653623437267582532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5523963209737211300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36936f1f8b00fd54daa7debff453e2b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTransform: {fileID: 0}

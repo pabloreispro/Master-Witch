@@ -247,7 +247,6 @@ public class Bench : Interactable
         interact.GetComponent<NetworkObject>().TrySetParent(this.transform);
     }
     
-    
     public void StorageInitialize(){
         StoreServerRpc();
         inventory.SetActive(true);

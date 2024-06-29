@@ -34,27 +34,30 @@ public class StorageController : SingletonNetwork<StorageController>
         
 
     }
+    public bool isActive = false;
     public void Initialize(List<FoodSO> ingredients)
     {
-        storageItems.Clear();
-        foreach (var item in slots)
-        {
-            item.interactable = false;
+        if(!isActive){
+            storageItems.Clear();
+            foreach (var item in slots)
+            {
+                item.interactable = false;
+            }
+            storageItems.AddRange(ingredients);
+            UpdateInventory();
         }
-        storageItems.AddRange(ingredients);
-        UpdateInventory();
+        //OnSlotSelected(0);
         //Active = true;
     }
 
-    public void OnSlotSelected(int slotIndex)
+    /*public void OnSlotSelected(int slotIndex)
     {
         if(storageItems.ElementAt(slotIndex) != null) 
         {
             slotSelected = storageItems.ElementAt(slotIndex);
             indexSlots = slotIndex;
         }
-        
-    }
+    }*/
 
     // Update is called once per frame
     void Update()
@@ -79,7 +82,8 @@ public class StorageController : SingletonNetwork<StorageController>
             Time.timeScale = 1;
             SetPlayerItemServerRpc(indexSlots, PlayerNetworkManager.Instance.GetID[player]);
             slotSelected = null;
-            //panelInventory.SetActive(false);
+            panelInventory.SetActive(false);
+            isActive = false;
         }
     }
 
@@ -93,7 +97,6 @@ public class StorageController : SingletonNetwork<StorageController>
         var objectSpawn = Instantiate(storageItems[itemIndex].foodPrefab, new Vector3(playerScene.assetIngredient.transform.position.x, 1.0f, playerScene.assetIngredient.transform.position.z), Quaternion.identity);
         objectSpawn.GetComponent<NetworkObject>().Spawn();
         objectSpawn.GetComponent<NetworkObject>().TrySetParent(playerScene.transform); 
-        playerScene.SetItemHandClientRpc(objectSpawn);
         playerScene.ChangeState(PlayerState.Interact);
         playerScene.isHand.Value = true; 
         bench.RemoveIngredient(storageItems[itemIndex]);
@@ -112,5 +115,15 @@ public class StorageController : SingletonNetwork<StorageController>
                 slots[i].image.sprite = storageItems[i].imageFood;
             }
         }
+        if(maxIndex!=0){
+            SelectButton(0);
+
+        }
+        isActive = true;
+    }
+
+    void SelectButton(int index){
+        slots[index].Select();
+
     }
 }

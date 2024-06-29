@@ -90,6 +90,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5127261347234972914}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d580aecb2da2a884889a9f51ca48b104,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3233912742866935095}
   m_SourcePrefab: {fileID: 100100000, guid: d580aecb2da2a884889a9f51ca48b104, type: 3}
 --- !u!4 &2737066988267359424 stripped
 Transform:
@@ -138,6 +142,7 @@ MonoBehaviour:
   food: {fileID: 11400000, guid: a837fcd40fde543169a03671d1a74e5b, type: 2}
   isHandIngredient: 1
   typeObject: 0
+  itensUsed: []
 --- !u!65 &5127261347234972914
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -159,6 +164,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.010904897, y: 0.007472873, z: 0.013633189}
   m_Center: {x: 0.00032058381, y: -0.00024282369, z: 0.0068066507}
+--- !u!114 &3233912742866935095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3366391518325610106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36936f1f8b00fd54daa7debff453e2b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTransform: {fileID: 0}
 --- !u!1001 &4764247097465291160
 PrefabInstance:
   m_ObjectHideFlags: 0

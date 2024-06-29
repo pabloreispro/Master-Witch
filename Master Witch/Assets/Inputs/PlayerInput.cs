@@ -142,6 +142,78 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""NavegationStorage"",
+            ""id"": ""377c1eeb-3378-4c20-80de-3281d033389e"",
+            ""actions"": [
+                {
+                    ""name"": ""Navegation"",
+                    ""type"": ""Value"",
+                    ""id"": ""38793c5d-41cb-4f48-83a8-b5b318f8ad92"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""a170acb7-48d4-4972-9f70-bbb88718e06f"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navegation"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""e123bca5-5658-4872-b5a6-eb87502926db"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navegation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""eedc9c89-7829-4ae5-baca-5e2df4c695bf"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navegation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""56d2a2f2-479a-4b2e-bcde-36b2b914a386"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navegation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""9611f9c7-b666-419e-becd-0297a1d996be"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navegation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -153,6 +225,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_PlayerInteract = asset.FindActionMap("PlayerInteract", throwIfNotFound: true);
         m_PlayerInteract_Interaction = m_PlayerInteract.FindAction("Interaction", throwIfNotFound: true);
         m_PlayerInteract_Selected = m_PlayerInteract.FindAction("Selected", throwIfNotFound: true);
+        // NavegationStorage
+        m_NavegationStorage = asset.FindActionMap("NavegationStorage", throwIfNotFound: true);
+        m_NavegationStorage_Navegation = m_NavegationStorage.FindAction("Navegation", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -310,6 +385,52 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public PlayerInteractActions @PlayerInteract => new PlayerInteractActions(this);
+
+    // NavegationStorage
+    private readonly InputActionMap m_NavegationStorage;
+    private List<INavegationStorageActions> m_NavegationStorageActionsCallbackInterfaces = new List<INavegationStorageActions>();
+    private readonly InputAction m_NavegationStorage_Navegation;
+    public struct NavegationStorageActions
+    {
+        private @PlayerInput m_Wrapper;
+        public NavegationStorageActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Navegation => m_Wrapper.m_NavegationStorage_Navegation;
+        public InputActionMap Get() { return m_Wrapper.m_NavegationStorage; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(NavegationStorageActions set) { return set.Get(); }
+        public void AddCallbacks(INavegationStorageActions instance)
+        {
+            if (instance == null || m_Wrapper.m_NavegationStorageActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_NavegationStorageActionsCallbackInterfaces.Add(instance);
+            @Navegation.started += instance.OnNavegation;
+            @Navegation.performed += instance.OnNavegation;
+            @Navegation.canceled += instance.OnNavegation;
+        }
+
+        private void UnregisterCallbacks(INavegationStorageActions instance)
+        {
+            @Navegation.started -= instance.OnNavegation;
+            @Navegation.performed -= instance.OnNavegation;
+            @Navegation.canceled -= instance.OnNavegation;
+        }
+
+        public void RemoveCallbacks(INavegationStorageActions instance)
+        {
+            if (m_Wrapper.m_NavegationStorageActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(INavegationStorageActions instance)
+        {
+            foreach (var item in m_Wrapper.m_NavegationStorageActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_NavegationStorageActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public NavegationStorageActions @NavegationStorage => new NavegationStorageActions(this);
     public interface IPlayerControlActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -318,5 +439,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         void OnInteraction(InputAction.CallbackContext context);
         void OnSelected(InputAction.CallbackContext context);
+    }
+    public interface INavegationStorageActions
+    {
+        void OnNavegation(InputAction.CallbackContext context);
     }
 }
