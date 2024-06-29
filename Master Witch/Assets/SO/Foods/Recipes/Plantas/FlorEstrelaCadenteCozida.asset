@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
+  m_Name: FlorEstrelaCadenteCozida
+  m_EditorClassIdentifier: 
+  foodID: 7
+  category: 01000000
+  foodPrefab: {fileID: 3920217010996556338, guid: f52fd811ced5fc948908b6d5c6a12744,
+    type: 3}
+  imageFood: {fileID: 21300000, guid: 784aa36c9b9ebf54484c782f814f856d, type: 3}
+  timeProgress: 5
+  finishRecipe: 0
+  recipeConditions:
+  - type: 0
+    benchType: 1
+    foods: []
+    category: 0
+    categoryPoints: 0
+    isAllowed: 0
+  - type: 1
+    benchType: 0
+    foods:
+    - {fileID: 11400000, guid: fe4ce7c6f223e8647ac2a46b45001f61, type: 2}
+    category: 0
+    categoryPoints: 0
+    isAllowed: 1
+  reviewConditions: []

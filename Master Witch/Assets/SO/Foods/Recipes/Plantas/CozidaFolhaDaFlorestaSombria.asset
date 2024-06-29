@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
+  m_Name: CozidaFolhaDaFlorestaSombria
+  m_EditorClassIdentifier: 
+  foodID: 24
+  category: 
+  foodPrefab: {fileID: 0}
+  imageFood: {fileID: 21300000, guid: 7980eb3b31d33b54bbba352e20f2d9bf, type: 3}
+  timeProgress: 10
+  finishRecipe: 0
+  recipeConditions:
+  - type: 0
+    benchType: 1
+    foods: []
+    category: 0
+    categoryPoints: 0
+    isAllowed: 0
+  - type: 1
+    benchType: 1
+    foods:
+    - {fileID: 11400000, guid: ca7d2b2f34ee2b7489c3d89ec6067b0a, type: 2}
+    category: 0
+    categoryPoints: 0
+    isAllowed: 1
+  reviewConditions: []
