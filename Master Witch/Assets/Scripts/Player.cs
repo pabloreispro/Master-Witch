@@ -29,6 +29,8 @@ public class Player : NetworkBehaviour
     public Animator animator;
     public TestAnimator a;
     public VisualEffect footstepsVFX;
+    public NetworkVariable<bool> isMoving = new NetworkVariable<bool>(false,NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Owner);
+    
     [Header("Info Player")]
     public int id;
     [SerializeField] MeshRenderer hatRenderer;
@@ -59,6 +61,7 @@ public class Player : NetworkBehaviour
     }
     void Start()
     {
+        isMoving.OnValueChanged += (a,b)=>footstepsVFX.SetBool("isMoving",isMoving.Value);
         animator = GetComponent<Animator>();
         
         foreach (Bench item in FindObjectsOfType<Bench>() )
@@ -186,6 +189,13 @@ public class Player : NetworkBehaviour
         }
 
     }
+
+   
+        
+    
+    
+        
+    
 
     
 
