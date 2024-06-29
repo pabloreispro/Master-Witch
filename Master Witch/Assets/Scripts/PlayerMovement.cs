@@ -71,7 +71,8 @@ public class PlayerMovement : Player
             {
                 MovementPlayer();
             }
-            else ChangeState(PlayerState.Idle);
+            else 
+            {ChangeState(PlayerState.Idle); footstepsVFX.SetBool("isMoving",false);}
             
             VerifyStorage();
             
@@ -139,13 +140,15 @@ public class PlayerMovement : Player
             if(isHand.Value && isHandBasket.Value){ChangeState(PlayerState.WalkingBasket);}
             else if(isHand.Value && !isHandBasket.Value){ChangeState(PlayerState.WalkingItem);}
             else ChangeState(PlayerState.Walking); 
+
+            footstepsVFX.SetBool("isMoving",true);
         }
         else 
         {
             if(isHand.Value && isHandBasket.Value){ChangeState(PlayerState.IdleBasket);}
             else if(isHand.Value && !isHandBasket.Value){ChangeState(PlayerState.IdleItem);}
             else ChangeState(PlayerState.Idle);
-            
+            footstepsVFX.SetBool("isMoving",false);
         }
 
         controller.Move(move* Time.deltaTime * speedPlayer);

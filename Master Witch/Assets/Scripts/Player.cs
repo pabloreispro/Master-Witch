@@ -8,6 +8,7 @@ using Game.SO;
 using Network;
 using System;
 using UI;
+using UnityEngine.VFX;
 
 
 public enum PlayerState
@@ -27,6 +28,7 @@ public class Player : NetworkBehaviour
     public PlayerState currentState;
     public Animator animator;
     public TestAnimator a;
+    public VisualEffect footstepsVFX;
     [Header("Info Player")]
     public int id;
     [SerializeField] MeshRenderer hatRenderer;
