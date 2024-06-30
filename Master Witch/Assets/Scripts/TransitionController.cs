@@ -5,6 +5,7 @@ using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class AnimatorType
 {
@@ -120,9 +121,19 @@ public class TransitionController : SingletonNetwork<TransitionController>
         ActivatePanelClientRpc(PanelType.CountdownMain, false);
         
     }
-
+    [ClientRpc]
+    public void RClientRpc()
+    {
+        var r = recipeInitialPanel.GetComponentsInChildren<HorizontalLayoutGroup>();
+        foreach (HorizontalLayoutGroup layoutGroup in r)
+        {
+            Destroy(layoutGroup.gameObject);
+        }
+    }
     public IEnumerator TransitionMarketScene()
     {
+        RClientRpc();
+        GameManager.Instance.InitializeGameClientRpc();
         SceneManager.Instance.isMovementAllowed.Value = false;
         ActivatePanelClientRpc(PanelType.SceneTransition, true);
 

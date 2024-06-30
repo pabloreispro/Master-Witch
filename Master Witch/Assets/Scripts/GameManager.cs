@@ -120,7 +120,8 @@ public class GameManager : SingletonNetwork<GameManager>
             return foodDatabase.DefaultRecipe;
         }
     }
-    public void InitializeGame()
+    [ClientRpc]
+    public void InitializeGameClientRpc()
     {
         GetInitialRecipe();
         SelectChefs();

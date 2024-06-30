@@ -50,7 +50,7 @@ namespace Network
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             
             //UIHandler.instance.mainPanelPlayerNameInput.text = nomePlayer;
-            GameManager.Instance.InitializeGame();
+            //GameManager.Instance.InitializeGame();
         }
 
         private void Update()
