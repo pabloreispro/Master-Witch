@@ -11,8 +11,8 @@ using TMPro;
 
 public class SceneManager : SingletonNetwork<SceneManager>
 {
-    const int TIMER_MARKET = 10;
-    const int TIMER_MAIN = 10;
+    const int TIMER_MARKET = 30;
+    const int TIMER_MAIN = 150;
 
     [SerializeField]
     private GameObject prefabMarket, prefabMain;
