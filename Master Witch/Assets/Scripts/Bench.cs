@@ -8,6 +8,7 @@ using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 public enum BenchType {Oven, Stove, Board, Storage, Basket, TrashBin, General}
 public class Bench : Interactable
@@ -31,7 +32,10 @@ public class Bench : Interactable
     public float timer;
     public float timerProgress;
     public float auxTimer;
-
+    public NetworkVariable<bool> isPreparingBusen = new NetworkVariable<bool>(false);
+    public NetworkVariable<bool> isPreparingAlmof = new NetworkVariable<bool>(false);
+    public VisualEffect smokeBusenVFX,smokeAlmofVFX;
+    public ParticleSystem fire;
     [Header("UI")]
     public Slider slider;
     public GameObject inventory;
@@ -42,6 +46,10 @@ public class Bench : Interactable
 
     private void Start()
     {
+        if(isPreparingBusen != null){isPreparingBusen.OnValueChanged += (a,b)=>smokeBusenVFX.SetBool("isPreparing",isPreparingBusen.Value);}
+        
+        if(isPreparingAlmof != null){isPreparingAlmof.OnValueChanged += (a,b)=>smokeAlmofVFX.SetBool("isPreparing",isPreparingAlmof.Value);}
+
         storage = GetComponent<StorageController>();
         if(!SpecialBench){
             multiBenchSpecial = 1;
@@ -66,13 +74,41 @@ public class Bench : Interactable
         }
         if (startProgress)
         {
-            timer += Time.deltaTime * multiBenchSpecial;
-            slider.value = timer;
-            if (timer >= timerProgress)
+            if(benchType == BenchType.Stove)
             {
-                startProgress = false;
-                OnEndProgress();
+                timer += Time.deltaTime * multiBenchSpecial;
+                slider.value = timer;
+                isPreparingBusen.Value = true;
+                if (timer >= timerProgress)
+                {
+                    startProgress = false;
+                    isPreparingBusen.Value = false;
+                    OnEndProgress();
+                }
             }
+            else if(benchType == BenchType.Oven)
+            {
+                timer += Time.deltaTime * multiBenchSpecial;
+                slider.value = timer;
+                isPreparingAlmof.Value = true;
+                if (timer >= timerProgress)
+                {
+                    startProgress = false;
+                    isPreparingAlmof.Value = false;
+                    OnEndProgress();
+                }
+            }
+            else
+            {
+                timer += Time.deltaTime * multiBenchSpecial;
+                slider.value = timer;
+                if (timer >= timerProgress)
+                {
+                    startProgress = false;
+                    OnEndProgress();
+                }
+            }
+            
         }
     }
     public void progress()
@@ -140,24 +176,27 @@ public class Bench : Interactable
     public override void Pick(Player player)
     {
         //if (player != targetPlayer) return;
+        player.isHand.Value = true;
+        player.ChangeState(PlayerState.Interact);
         if (endProgress)
         {
             if(targetRecipe.finishRecipe){
                 player.GetComponentInChildren<Tool>().ingredients.Add(new RecipeData(targetRecipe, toolInBench.ingredients));
                 toolInBench.DestroySelf();
+                Debug.Log("1");
             }else{
                 var recipeData = new RecipeData(targetRecipe, toolInBench.ingredients);
                 toolInBench.ingredients.Clear();
                 toolInBench.ingredients.Add(recipeData);
                 toolInBench.transform.position = player.boneItem.transform.position;
+                toolInBench.gameObject.GetComponent<FollowTransform>().targetTransform = player.boneItem.transform;
                 toolInBench.GetComponent<NetworkObject>().TrySetParent(player.transform);
                 player.SetItemHandClientRpc(toolInBench.gameObject);
+                Debug.Log("2");
             }
             Reset();
         }
         if(benchType == BenchType.General){
-            player.isHand.Value = true;
-            player.ChangeState(PlayerState.Interact);
             if(this.GetComponentInChildren<Ingredient>()!=null)
             {
                 this.GetComponentInChildren<Ingredient>().gameObject.transform.position = player.boneItem.transform.position;

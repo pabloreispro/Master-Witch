@@ -97,6 +97,7 @@ public class StorageController : SingletonNetwork<StorageController>
         var objectSpawn = Instantiate(storageItems[itemIndex].foodPrefab, new Vector3(playerScene.assetIngredient.transform.position.x, 1.0f, playerScene.assetIngredient.transform.position.z), Quaternion.identity);
         objectSpawn.GetComponent<NetworkObject>().Spawn();
         objectSpawn.GetComponent<NetworkObject>().TrySetParent(playerScene.transform); 
+        playerScene.SetItemHandClientRpc(objectSpawn);
         playerScene.ChangeState(PlayerState.Interact);
         playerScene.isHand.Value = true; 
         bench.RemoveIngredient(storageItems[itemIndex]);

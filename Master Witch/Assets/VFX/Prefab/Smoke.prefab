@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2783000726161432863
+--- !u!1 &6235974637216837097
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2190041858827779813}
-  - component: {fileID: 4704349826447437137}
-  - component: {fileID: 3059104251606471142}
+  - component: {fileID: 7037032197782234536}
+  - component: {fileID: 90693046196306221}
+  - component: {fileID: 8133366558230761485}
   m_Layer: 0
-  m_Name: FootStepsVFX
+  m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2190041858827779813
+--- !u!4 &7037032197782234536
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2783000726161432863}
+  m_GameObject: {fileID: 6235974637216837097}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 6.852591e-25, y: -1, z: -0, w: 3.9939815e-24}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!2083052967 &4704349826447437137
+--- !u!2083052967 &90693046196306221
 VisualEffect:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2783000726161432863}
+  m_GameObject: {fileID: 6235974637216837097}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: 057d3048321263a4ebf5b233db739d2d, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: a562e2c1111d0474e98fccd61f6e389d, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
@@ -70,18 +70,15 @@ VisualEffect:
     m_NamedObject:
       m_Array: []
     m_Bool:
-      m_Array:
-      - m_Value: 0
-        m_Name: isMoving
-        m_Overridden: 1
---- !u!73398921 &3059104251606471142
+      m_Array: []
+--- !u!73398921 &8133366558230761485
 VFXRenderer:
   serializedVersion: 1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2783000726161432863}
+  m_GameObject: {fileID: 6235974637216837097}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0

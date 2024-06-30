@@ -53,6 +53,7 @@ public class Tool : Interactable
                 }
                 else
                 {
+                    Debug.Log("euuu tenteeeei");
                     player.isHand.Value = true;
                     player.ChangeState(PlayerState.Interact);
 
