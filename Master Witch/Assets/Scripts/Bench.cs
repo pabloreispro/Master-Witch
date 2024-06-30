@@ -34,7 +34,8 @@ public class Bench : Interactable
     public float auxTimer;
     public NetworkVariable<bool> isPreparingBusen = new NetworkVariable<bool>(false);
     public NetworkVariable<bool> isPreparingAlmof = new NetworkVariable<bool>(false);
-    public VisualEffect smokeBusenVFX,smokeAlmofVFX;
+    public NetworkVariable<bool> isPreparingBoard = new NetworkVariable<bool>(false);
+    public VisualEffect smokeBusenVFX,smokeAlmofVFX,smokeBoardVFX,fireBusenVFX;
     public ParticleSystem fire;
     [Header("UI")]
     public Slider slider;
@@ -46,9 +47,13 @@ public class Bench : Interactable
 
     private void Start()
     {
-        if(isPreparingBusen != null){isPreparingBusen.OnValueChanged += (a,b)=>smokeBusenVFX.SetBool("isPreparing",isPreparingBusen.Value);}
-        
+        if(isPreparingBusen != null)
+        {
+            isPreparingBusen.OnValueChanged += (a,b)=>smokeBusenVFX.SetBool("isPreparing",isPreparingBusen.Value);
+            isPreparingBusen.OnValueChanged += (a,b)=>fireBusenVFX.SetBool("isPreparing",isPreparingBusen.Value);
+        }
         if(isPreparingAlmof != null){isPreparingAlmof.OnValueChanged += (a,b)=>smokeAlmofVFX.SetBool("isPreparing",isPreparingAlmof.Value);}
+        if(isPreparingBoard != null){isPreparingBoard.OnValueChanged += (a,b)=>smokeBoardVFX.SetBool("isPreparing",isPreparingBoard.Value);}
 
         storage = GetComponent<StorageController>();
         if(!SpecialBench){
@@ -95,6 +100,18 @@ public class Bench : Interactable
                 {
                     startProgress = false;
                     isPreparingAlmof.Value = false;
+                    OnEndProgress();
+                }
+            }
+            else if(benchType == BenchType.Board)
+            {
+                timer += Time.deltaTime * multiBenchSpecial;
+                slider.value = timer;
+                isPreparingBoard.Value = true;
+                if (timer >= timerProgress)
+                {
+                    startProgress = false;
+                    isPreparingBoard.Value = false;
                     OnEndProgress();
                 }
             }
