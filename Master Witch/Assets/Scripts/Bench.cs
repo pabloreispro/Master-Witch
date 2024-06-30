@@ -182,7 +182,7 @@ public class Bench : Interactable
     {
         //ingredients.Clear();
         //ingredients.Add(targetRecipe);
-        slider.gameObject.SetActive(false);
+        
         endProgress = true;
     }
     public void SetPlayer(Player player)
@@ -197,6 +197,7 @@ public class Bench : Interactable
         player.ChangeState(PlayerState.Interact);
         if (endProgress)
         {
+            slider.gameObject.SetActive(false);
             if(targetRecipe.finishRecipe){
                 player.GetComponentInChildren<Tool>().ingredients.Add(new RecipeData(targetRecipe, toolInBench.ingredients));
                 toolInBench.DestroySelf();
