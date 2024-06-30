@@ -52,11 +52,13 @@ namespace UI
         [SerializeField] Transform playerList;
         List<GameObject> lobbyList = new List<GameObject>();
         [Header("Final HUD")]
+        public GameObject[] playerUI;
         public TextMeshProUGUI[] playerFinalScore;
         [SerializeField] TextMeshProUGUI[] textScore;
         public Toggle[] playerFinalCheck;
         public GameObject finalPanel;
-        public GameObject finalResult;
+        public GameObject ResultPanel;
+
         private void Awake()
         {
             networkHUD.SetActive(true);
@@ -232,7 +234,7 @@ namespace UI
         public void UpdateFinalRoundScreenClientRpc(){
             finalPanel.SetActive(true);
             for(int i = 0; i<GameManager.Instance.numberPlayer; i++){
-                playerFinalScore[i].gameObject.SetActive(true);
+                playerUI[i].gameObject.SetActive(true);
             }
             foreach(var item in EliminationPlayer.Instance.scoresPlayers){
                 UpdatePlayerScore(item.Key, item.Value);
@@ -242,19 +244,24 @@ namespace UI
         public void UpdateToggle(int playerID, bool toggleValue){
             playerFinalCheck[playerID].isOn = toggleValue;
         }
+
         [ClientRpc]
         public void UpdadeScreenFinalClientRpc(){
             EndRound.Instance.finalGame = true;
             UpdateFinalResult(EndRound.Instance.finishGame());
         }
+
         public void UpdateFinalResult(List<KeyValuePair<int, float>> orderPlayers)
         {
+            ResultPanel.SetActive(true);
+
             for(int j=0; j<GameManager.Instance.numberPlayer; j++){
-                playerFinalScore[j].gameObject.SetActive(true);
+                playerUI[j].gameObject.SetActive(true);
+                playerFinalCheck[j].isOn = false;
             }
             int i = 0;
             foreach(var item in orderPlayers){
-                playerFinalScore[i].text = PlayerNetworkManager.Instance.GetPlayerByIndex(item.Key).name;
+                playerFinalScore[i].text = LobbyManager.Instance.JoinedLobby.Players[item.Key].Data["PlayerName"].Value;
                 textScore[i].text = item.Value.ToString();
                 i++;
             }

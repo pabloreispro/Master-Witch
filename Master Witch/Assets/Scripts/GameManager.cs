@@ -294,7 +294,7 @@ public class GameManager : SingletonNetwork<GameManager>
         }
         for(int i=0; i<numberPlayer; i++){
             NetworkManagerUI.Instance.playerFinalCheck[i].isOn = false;
-            NetworkManagerUI.Instance.playerFinalScore[i].gameObject.SetActive(false);
+            NetworkManagerUI.Instance.playerUI[i].gameObject.SetActive(false);
         }
         foreach(StorageController store in FindObjectsOfType<StorageController>()){
             store.storageItems.Clear();

@@ -51,7 +51,11 @@ public class EndRound : SingletonNetwork<EndRound>
                     GameManager.Instance.EndGame();
                 }
             }else{
-                NetworkManagerUI.Instance.UpdadeScreenFinalClientRpc();
+                if(!finalGame){
+                    NetworkManagerUI.Instance.UpdadeScreenFinalClientRpc();
+                }else{
+                    GameManager.Instance.EndGame();
+                }
             }
             //StartCoroutine(TimeCounter());
         }
