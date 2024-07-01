@@ -322,6 +322,11 @@ namespace Network
                 throw;
             }
         }
+        public void CloseServer()
+        {
+            LobbyService.Instance.DeleteLobbyAsync(joinedLobby.Id);
+            NetworkManager.Singleton.Shutdown();
+        }
     }
     #endregion
 }

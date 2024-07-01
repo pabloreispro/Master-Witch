@@ -16,6 +16,7 @@ public class GameManager : SingletonNetwork<GameManager>
     GameState gameState;
     [SerializeField] FoodDatabaseSO foodDatabase;
     [SerializeField] Bench[] benches;
+    [SerializeField] MeshRenderer[] benchColorRenderer;
     [SerializeField] RecipeSO[] recipeDatabase;
     [SerializeField] ChefSO[] chefsDatabase;
     public List<string> test;  
@@ -24,6 +25,7 @@ public class GameManager : SingletonNetwork<GameManager>
     public Sprite plusSprite,equalsSprite,arrowSprite,benchOven,benchBoard,benchStove;
     Dictionary<int, float> ResultFinal = new Dictionary<int, float>();
     RecipeSO targetRecipe;
+    public float matchStartTime;
     List<ChefSO> chefs;
     #region Properties
     public GameState GameState => gameState;
@@ -279,11 +281,21 @@ public class GameManager : SingletonNetwork<GameManager>
 
     public void EndGame(){
         EndGameClientRpc();
+        LobbyManager.Instance.CloseServer();
     }
-
     [ClientRpc]
-    void EndGameClientRpc(){
-        
+    void EndGameClientRpc()
+    {
+        NetworkManagerUI.Instance.EnableMenu();
+    }
+    public void ChangeBenchColor(Material material, int playerIndex)
+    {
+        Material[] list = 
+        {
+            benchColorRenderer[playerIndex].material,
+            material
+        };
+        benchColorRenderer[playerIndex].materials = list;
     }
     public void Reset(){
         foreach(Interactable objectScene in FindObjectsOfType<Interactable>()){

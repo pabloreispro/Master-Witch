@@ -86,23 +86,26 @@ namespace Network
         {
             for (int i = 0; i < playerList.Count; i++)
             {
+                Material material = player1Mat;
                 switch (i)
                 {
                     case 0:
-                        playerList.ElementAt(i).Value.OnConnected(player1Mat, i);
+                        material = player1Mat;
                         break;
                     case 1:
-                        playerList.ElementAt(i).Value.OnConnected(player2Mat, i);
+                        material = player2Mat;
                         break;
                     case 2:
-                        playerList.ElementAt(i).Value.OnConnected(player3Mat, i);
+                        material = player3Mat;
                         break;
                     case 3:
-                        playerList.ElementAt(i).Value.OnConnected(player4Mat, i);
+                        material = player4Mat;
                         break;
                     default:
                         break;
                 }
+                playerList.ElementAt(i).Value.OnConnected(material, i);
+                GameManager.Instance.ChangeBenchColor(material, i);
             }
            
     }

@@ -30,6 +30,10 @@ namespace UI
         [SerializeField] GameObject createLobbyHUD;
         [SerializeField] GameObject joinLobbyHUD;
         [SerializeField] GameObject lobbyHUD;
+        [SerializeField] GameObject windowsHolder;
+        [Header("Tutorial HUD")]
+        int currentTutorial = 0;
+        [SerializeField] GameObject[] tutorialImages;
         [Header("Network HUD")]
         [SerializeField] TMP_InputField addressInputField;
         [SerializeField] TextMeshProUGUI lobbyCodeText;
@@ -89,6 +93,27 @@ namespace UI
             lobbyHUD.SetActive(enabled);
             networkOptionsHUD.SetActive(enabled);
         }
+        public void EnableMenu()
+        {
+            networkHUD.SetActive(true);
+            networkOptionsHUD.SetActive(true);
+            gameHUD.SetActive(false);
+            windowsHolder.SetActive(false);
+        }
+        public void NextTutorial()
+        {
+            if (currentTutorial >= tutorialImages.Length - 1) return;
+            tutorialImages[currentTutorial].SetActive(false);
+            currentTutorial++;
+            tutorialImages[currentTutorial].SetActive(true);
+        }
+        public void PreviousTutorial()
+        {
+            if (currentTutorial <= 0) return;
+            tutorialImages[currentTutorial].SetActive(false);
+            currentTutorial--;
+            tutorialImages[currentTutorial].SetActive(true);
+        }
         [ClientRpc]
         public void OnGameStartedClientRpc()
         {
@@ -101,29 +126,31 @@ namespace UI
         public void UpdatePlayerScore(int playerID, float score)
         {
             string name = LobbyManager.Instance.JoinedLobby.Players[playerID].Data["PlayerName"].Value;
+            playerFinalScore[playerID].text = name;
+            textScore[playerID].text = score.ToString("00.00");
 
-            switch (playerID)
-            {
+            //switch (playerID)
+            //{
                 
-                case 0:
-                    playerFinalScore[0].text = name;
-                    textScore[0].text = score.ToString();
-                    break;
-                case 1:
-                    playerFinalScore[1].text = name;
-                    textScore[1].text = score.ToString();
-                    break;
-                case 2:
-                    playerFinalScore[2].text = name;
-                    textScore[2].text = score.ToString();
-                    break;
-                case 3:
-                    playerFinalScore[3].text = name;
-                    textScore[3].text = score.ToString();
-                    break;
-                default:
-                    break;
-            }
+            //    case 0:
+            //        playerFinalScore[0].text = name;
+            //        textScore[0].text = score.ToString();
+            //        break;
+            //    case 1:
+            //        playerFinalScore[1].text = name;
+            //        textScore[1].text = score.ToString();
+            //        break;
+            //    case 2:
+            //        playerFinalScore[2].text = name;
+            //        textScore[2].text = score.ToString();
+            //        break;
+            //    case 3:
+            //        playerFinalScore[3].text = name;
+            //        textScore[3].text = score.ToString();
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
         #region Network
         public void StartGame()
@@ -170,7 +197,6 @@ namespace UI
         void EnableUpdateButton() => updateLobbyListBT.interactable = true;
         async void ListLobbies()
         {
-            Debug.Log("List");
             noLobbiesText.SetActive(false);
             var lobbies = new List<Lobby>();
             lobbies = await LobbyManager.Instance.ListaLobbies();

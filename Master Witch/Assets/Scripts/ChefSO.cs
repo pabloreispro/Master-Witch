@@ -10,7 +10,7 @@ namespace Game.SO
     [CreateAssetMenu(fileName = "ChefSO", menuName = "Game/ChefSO")]
     public class ChefSO : ScriptableObject
     {
-        const float BASE_RECIPE_SCORE = 70;
+        public const float BASE_RECIPE_SCORE = 70;
         const float FOOD_MATCH_SCORE = 10;
         const float CATEGORY_MATCH_SCORE = 2.5f;
         int id;
