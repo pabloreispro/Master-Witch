@@ -9,7 +9,7 @@ public class Ingredient : Interactable
     public FoodSO food;
     public bool isHandIngredient;
     public TypeObject typeObject;
-    public List<FoodSO> itensUsed = new List<FoodSO>();
+    public List<RecipeData> itensUsed = new List<RecipeData>();
 
     public override void Pick(Player player)
     {

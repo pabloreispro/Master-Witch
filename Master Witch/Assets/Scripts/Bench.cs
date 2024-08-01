@@ -15,23 +15,22 @@ public class Bench : Interactable
 {
     int playerID;
     Player targetPlayer;
-    public Player auxPlayer;
 
     [Header("Bench config")]
-    public Tool toolInBench;
+    //public Tool toolInBench;
     public RecipeSO targetRecipe;
     public BenchType benchType;
-    public GameObject auxObject;
-    public Transform positionBasket;
-    public int multiBenchSpecial;
-    public bool SpecialBench;
+    private GameObject auxObject;
+    private int multiBenchSpecial;
+    private bool SpecialBench;
+    public List<RecipeData> ingredients = new List<RecipeData>();
 
     [Header("Progress Recipe")]
     public bool endProgress;
-    public bool startProgress;
-    public float timer;
-    public float timerProgress;
-    public float auxTimer;
+    private bool startProgress;
+    private float timer;
+    private float timerProgress;
+    private float auxTimer;
     public NetworkVariable<bool> isPreparingBusen = new NetworkVariable<bool>(false);
     public NetworkVariable<bool> isPreparingAlmof = new NetworkVariable<bool>(false);
     public NetworkVariable<bool> isPreparingBoard = new NetworkVariable<bool>(false);
@@ -39,11 +38,22 @@ public class Bench : Interactable
     public ParticleSystem fire;
     [Header("UI")]
     public Slider slider;
-    public GameObject inventory;
+    //public GameObject inventory;
     public StorageController storage;
 
     
-
+    public List<FoodSO> foodList 
+    {
+        get
+        {
+            var list = new List<FoodSO>();
+            foreach (var item in ingredients)
+            {
+                list.Add(item.TargetFood);
+            }
+            return list;
+        }
+    }
 
     private void Start()
     {
@@ -61,7 +71,7 @@ public class Bench : Interactable
         }
     }
 
-    void Reset()
+    public void Reset()
     {
         endProgress = false;
         startProgress = false;
@@ -70,7 +80,7 @@ public class Bench : Interactable
         auxTimer = 0f;
     }
 
-    private void Update()
+    /*private void Update()
     {
         if(benchType == BenchType.Storage){
             toolInBench = this.GetComponentInChildren<Tool>();
@@ -127,12 +137,12 @@ public class Bench : Interactable
             }
             
         }
-    }
+    }*/
     public void progress()
     {
-        targetRecipe = GameManager.Instance.GetValidRecipe(toolInBench.foodList, benchType);
+        targetRecipe = GameManager.Instance.GetValidRecipe(foodList, benchType);
         startProgress = true;
-        foreach (FoodSO item in toolInBench.foodList)
+        foreach (FoodSO item in foodList)
         {
             auxTimer = item.timeProgress;
         }
@@ -145,21 +155,21 @@ public class Bench : Interactable
     public void AddIngredient(RecipeData recipeData)
     {
         timer = 0;
-        toolInBench.ingredients.Add(recipeData);
+        ingredients.Add(recipeData);
         Debug.Log($"{recipeData.TargetFood} {recipeData.UtilizedIngredients.Count}");
-        if (!endProgress && benchType != BenchType.General)
-            progress();
+        //if (!endProgress && benchType != BenchType.General)
+        //progress();
     }
 
 
     public FoodSO RemoveIngredient(FoodSO ingredient)
     {
         FoodSO aux = null;
-        for (int i = 0; i < toolInBench.ingredients.Count; i++)
+        for (int i = 0; i < ingredients.Count; i++)
         {
-            if (toolInBench.ingredients[i].TargetFood == ingredient)
+            if (ingredients[i].TargetFood == ingredient)
             {
-                aux = toolInBench.ingredients[i].TargetFood;
+                aux = ingredients[i].TargetFood;
                 RemoveIngredientServerRpc(i);
             }
         }
@@ -169,14 +179,14 @@ public class Bench : Interactable
     void RemoveIngredientServerRpc(int recipeSlot)
     {
         Debug.Log(recipeSlot);
-        toolInBench.ingredients.RemoveAt(recipeSlot);
+        ingredients.RemoveAt(recipeSlot);
         RemoveIngredientClientRpc(recipeSlot);
     }
     [ClientRpc]
     void RemoveIngredientClientRpc(int recipeSlot)
     {
         if (IsServer) return;
-        toolInBench.ingredients.RemoveAt(recipeSlot);
+        ingredients.RemoveAt(recipeSlot);
     }
     public void OnEndProgress()
     {
@@ -190,7 +200,7 @@ public class Bench : Interactable
         targetPlayer = player;
     }
 
-    public override void Pick(Player player)
+    /*public override void Pick(Player player)
     {
         //if (player != targetPlayer) return;
         player.isHand.Value = true;
@@ -233,12 +243,12 @@ public class Bench : Interactable
             Reset();
         }
 
-    }
+    }*/
     public void GetPlayer(Player player)
     {
         
     }
-    public override void Drop(Player player)
+    /*public override void Drop(Player player)
     {
         var interact = player.GetComponentInChildren<Interactable>();
         //if (player != targetPlayer) return;
@@ -270,7 +280,7 @@ public class Bench : Interactable
                 player.isHand.Value = false;
             }
         }
-        else if(benchType != BenchType.Storage)
+        if(benchType != BenchType.Storage)
         {
             if((interact as Tool) != null)
             {
@@ -292,19 +302,19 @@ public class Bench : Interactable
                 player.isHand.Value = false;
             }
         }
-    }
+    }*/
 
     public void PositionBench(Interactable interact){
         interact.GetComponent<FollowTransform>().targetTransform = null;
         interact.gameObject.transform.rotation = Quaternion.identity;
         interact.gameObject.transform.position = auxObject.transform.position;
-        if(interact as Tool){
+        /*if(interact as Tool){
             toolInBench = interact.GetComponent<Tool>();
-        }
+        }*/
         interact.GetComponent<NetworkObject>().TrySetParent(this.transform);
     }
     
-    public void StorageInitialize(){
+    /*public void StorageInitialize(){
         StoreServerRpc();
         inventory.SetActive(true);
     }
@@ -321,5 +331,5 @@ public class Bench : Interactable
         if(toolInBench!=null){
             storage.Initialize(toolInBench.foodList);
         }
-    }
+    }*/
 }

@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class TrashBin : Bench
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Drop(Player player)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        var interact = player.GetComponentInChildren<Interactable>();
+        interact.DestroySelf();  
+        player.isHand.Value = false;
+        player.isHandBasket.Value = false;
     }
 }

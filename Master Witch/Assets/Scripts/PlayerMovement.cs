@@ -28,14 +28,13 @@ public class PlayerMovement : Player
     public int numberOfRays = 10;
 
 
-    Bench storage;
+    Storage benchStorage;
 
 
     public override void OnNetworkSpawn()
     {
-       base.OnNetworkSpawn();
+        base.OnNetworkSpawn();
         controller.enabled = true;
-        
     }
     
     void Awake()
@@ -80,14 +79,12 @@ public class PlayerMovement : Player
     }
 
     public void VerifyStorage(){
-        if ((interact as Bench) != null && (interact as Bench).benchType == BenchType.Storage)
+        if ((interact as Storage) != null)
         {
-            storage = (interact as Bench);
-            storage.storage.player = this;
-            storage.StorageInitialize();
-        }else if(storage!=null){
-            storage.storage.player = null;
-            storage.StorageDisable();
+            benchStorage = (interact as Storage);
+            benchStorage.player = this;
+        }else if(benchStorage!=null){
+            benchStorage.player = null;
         }
     }
 
@@ -164,13 +161,25 @@ public class PlayerMovement : Player
     public void PickDropObject(){
         if(isHand.Value)
         {
-            if(interact == null)
-            {
+            if(interact == null){
                 this.GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = true;
                 var obj = this.GetComponentInChildren<Interactable>().GetComponent<NetworkObject>();
                 obj.GetComponent<FollowTransform>().targetTransform = null;
                 obj.TryRemoveParent();
                 isHand.Value = false;
+            }
+            /*else if(this.GetComponentInChildren<Tool>().tool.benchType == BenchType.Basket)
+            {
+                interact.PickServerRpc(NetworkObjectId);
+                ChangeState(PlayerState.PuttingBasket);
+            }*/
+            else
+            {
+                interact.DropServerRpc(NetworkObjectId); 
+            }
+            /*if(interact == null)
+            {
+                
             }
             else if (interact.GetType() == typeof(Bench))
             {
@@ -191,13 +200,13 @@ public class PlayerMovement : Player
                 {
                    interact.DropServerRpc(NetworkObjectId); 
                 }
-            }
+            }*/
         }
         else
         {
             if(interact != null){
-                
                 interact.PickServerRpc(NetworkObjectId);
+                //this.GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = false;
                 ChangeState(PlayerState.Interact);
             }
         }
