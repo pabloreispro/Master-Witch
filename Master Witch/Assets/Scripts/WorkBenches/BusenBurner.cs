@@ -3,8 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using Unity.VisualScripting;
+using UnityEditor;
 public class BusenBurner : Bench
 {
+    //public NetworkVariable<bool> isPreparing = new NetworkVariable<bool>();
+    private void Start()
+    {
+        isPreparing.OnValueChanged += (a,b) => visualEffect[0].SetBool("isPreparing", isPreparing.Value);
+        isPreparing.OnValueChanged += (a,b) => visualEffect[1].SetBool("isPreparing", isPreparing.Value);
+    }
     public override void Pick(Player player)
     {
         if (endProgress)
@@ -15,12 +22,6 @@ public class BusenBurner : Bench
             objectSpawn.GetComponent<NetworkObject>().Spawn();
             objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
             player.GetComponentInChildren<Ingredient>().itensUsed.Add(recipeData);
-            /*toolInBench.ingredients.Clear();
-            toolInBench.ingredients.Add(recipeData);
-            toolInBench.transform.position = player.boneItem.transform.position;
-            toolInBench.gameObject.GetComponent<FollowTransform>().targetTransform = player.boneItem.transform;
-            toolInBench.GetComponent<NetworkObject>().TrySetParent(player.transform);
-            player.SetItemHandClientRpc(toolInBench.gameObject);*/
             Reset();
         }
     }
@@ -29,6 +30,7 @@ public class BusenBurner : Bench
         var interact = player.GetComponentInChildren<Ingredient>();
         endProgress = false;
         AddIngredient(interact.food);
+        progress();
         interact.DestroySelf();
         player.isHand.Value = false;
     }

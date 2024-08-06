@@ -51,6 +51,7 @@ public class Player : NetworkBehaviour
     [Header("Basket Config")]
     public int basketMax;
 
+    public bool isPressingInterect;
     
     public override void OnNetworkSpawn()
     {
