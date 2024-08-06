@@ -21,27 +21,16 @@ public class Storage : Bench
 
     void Start()
     {
+        PanelPosition();
+    }
+
+
+    void PanelPosition(){
         mainCamera = Camera.main;
         Vector3 lookDir = panelInventory.transform.position - mainCamera.transform.position ;
         
         panelInventory.transform.rotation = Quaternion.LookRotation(lookDir);
     }
-
-    void Update()
-    {
-        if(IsOwner){
-            
-            if(Input.GetKeyDown(KeyCode.Q))
-            {
-                Initialize();
-                //Time.timeScale = 1;
-                //panelInventory.SetActive(false);
-                //Active = false;
-            }
-        }
-    }
-
-    
 
     public override void Drop(Player player)
     {
@@ -93,6 +82,7 @@ public class Storage : Bench
             //ingredients.AddRange(ingredients);
             UpdateInventory();
             panelInventory.SetActive(true);
+            PanelPosition();
         }else{
             panelInventory.SetActive(false);
         }
@@ -123,5 +113,18 @@ public class Storage : Bench
     void SelectButton(int index){
         slots[index].Select();
 
+    }
+
+    [ServerRpc (RequireOwnership = false)]
+    public void RepositionServerRpc(Vector3 pos)
+    {
+        RepositionClientRpc(pos);
+    }
+    [ClientRpc]
+    public void RepositionClientRpc(Vector3 pos)
+    {
+        transform.position = pos;
+        transform.rotation = Quaternion.identity;
+        //transform.rotation = Quaternion.Euler(0f,180f,0f);
     }
 }

@@ -44,6 +44,7 @@ public class PlayerMovement : Player
         playerInput.PlayerControl.Enable();
         playerInput.PlayerInteract.Enable();
         playerInput.PlayerInteract.Interaction.performed += Interact;
+        playerInput.PlayerInteract.Storage.performed += InteractStorage;
         //inputs para buttons 
         //na funcao precisa colocar InputAction.CallbackContext context
         //e o context funciona como um ativador
@@ -149,6 +150,16 @@ public class PlayerMovement : Player
         }
 
         controller.Move(move* Time.deltaTime * speedPlayer);
+    }
+
+    void InteractStorage(InputAction.CallbackContext context){
+        if(IsOwner && interact as Storage){
+            if(context.performed){
+
+                interact.GetComponent<Storage>().Initialize();
+                
+            }
+        }
     }
 
     void Interact(InputAction.CallbackContext context){

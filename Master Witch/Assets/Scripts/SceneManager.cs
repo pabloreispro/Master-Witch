@@ -20,6 +20,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     public List<Transform> spawnPlayersMarket = new List<Transform>();
     public List<Transform> spawnPlayersMain = new List<Transform>();
     public List<Transform> spawnBasket = new List<Transform>();
+    public List<Storage> benchStorage = new List<Storage>();
     
     public NetworkVariable<bool> sceneMarket = new NetworkVariable<bool>();
     public NetworkVariable<bool> sceneMain = new NetworkVariable<bool>();
@@ -42,16 +43,17 @@ public class SceneManager : SingletonNetwork<SceneManager>
         for (int i = 0; i < PlayerNetworkManager.Instance.GetPlayer.Values.ToList().Count; i++)
         {
             var player = PlayerNetworkManager.Instance.GetPlayer.Values.ToList().ElementAt(i);
+            var bench = benchStorage.ElementAt(i);
             //player.bench.ElementAt(i).ingredients.AddRange(player.ingredientsBasket);
-            if(player.GetComponentInChildren<Tool>() != null){
+            /*if(player.GetComponentInChildren<Tool>() != null){
                 var basket =  player.GetComponentInChildren<Tool>().gameObject;
                 basket.GetComponent<FollowTransform>().targetTransform = null;
                 basket.transform.position = new Vector3(spawnBasket.ElementAt(i).transform.position.x,spawnBasket.ElementAt(i).transform.position.y+20,spawnBasket.ElementAt(i).transform.position.z);
                 basket.transform.rotation = Quaternion.identity;
-                
+                9
                 player.GetComponentInChildren<Tool>().GetComponentInChildren<NetworkObject>().TrySetParent(spawnBasket.ElementAt(i).transform);
-            }
-
+            }*/
+            bench.RepositionServerRpc(spawnBasket.ElementAt(i).position);
             player.RepositionServerRpc(spawnPlayersMain.ElementAt(i).position); 
             
         }
@@ -77,9 +79,9 @@ public class SceneManager : SingletonNetwork<SceneManager>
             var player = PlayerNetworkManager.Instance.GetPlayer.Values.ToList().ElementAt(i);
             //Debug.Log($"{player.NetworkObjectId}, {player.ingredientsBasket.Count}");
             //player.bench.ElementAt(i).ingredients.AddRange(player.ingredientsBasket);
-            if(player.GetComponentInChildren<Tool>() != null){
+            /*if(player.GetComponentInChildren<Tool>() != null){
                 player.GetComponentInChildren<Tool>().GetComponentInChildren<NetworkObject>().TrySetParent(spawnBasket.ElementAt(i).transform);
-            }
+            }*/
 
         }
     }

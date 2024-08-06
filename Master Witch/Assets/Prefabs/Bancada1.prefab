@@ -534,19 +534,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea988620642f45aab9762c965773f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  auxPlayer: {fileID: 0}
   targetRecipe: {fileID: 0}
   benchType: 0
-  auxObject: {fileID: 3751768490784798295}
-  positionBasket: {fileID: 0}
-  multiBenchSpecial: 0
-  SpecialBench: 0
   ingredients: []
   endProgress: 0
-  startProgress: 0
-  timer: 0
-  timerProgress: 0
-  auxTimer: 0
   isPreparingBusen:
     m_InternalValue: 0
   isPreparingAlmof:
@@ -965,6 +956,7 @@ Transform:
   - {fileID: 6165176367674304034}
   - {fileID: 404378932700188730}
   - {fileID: 7505475927394659469}
+  - {fileID: 9152484638071733827}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2736697097362317317
@@ -1725,19 +1717,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f28092806282d46a19363150713dfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  auxPlayer: {fileID: 0}
   targetRecipe: {fileID: 0}
   benchType: 0
-  auxObject: {fileID: 5534182003895046013}
-  positionBasket: {fileID: 0}
-  multiBenchSpecial: 0
-  SpecialBench: 0
   ingredients: []
   endProgress: 0
-  startProgress: 0
-  timer: 0
-  timerProgress: 0
-  auxTimer: 0
   isPreparingBusen:
     m_InternalValue: 0
   isPreparingAlmof:
@@ -1871,19 +1854,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f28092806282d46a19363150713dfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  auxPlayer: {fileID: 0}
   targetRecipe: {fileID: 0}
   benchType: 0
-  auxObject: {fileID: 5671859642757814178}
-  positionBasket: {fileID: 0}
-  multiBenchSpecial: 0
-  SpecialBench: 0
   ingredients: []
   endProgress: 0
-  startProgress: 0
-  timer: 0
-  timerProgress: 0
-  auxTimer: 0
   isPreparingBusen:
     m_InternalValue: 0
   isPreparingAlmof:
@@ -1980,6 +1954,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5020319042124050192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9152484638071733827}
+  m_Layer: 0
+  m_Name: PositionStorage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9152484638071733827
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5020319042124050192}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 11.34, y: 0.3979947, z: -2.61}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7778074732808527276}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5523701220297965427
 GameObject:
   m_ObjectHideFlags: 0
@@ -3283,19 +3288,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea988620642f45aab9762c965773f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  auxPlayer: {fileID: 0}
   targetRecipe: {fileID: 0}
   benchType: 2
-  auxObject: {fileID: 2843739555119892251}
-  positionBasket: {fileID: 0}
-  multiBenchSpecial: 0
-  SpecialBench: 0
   ingredients: []
   endProgress: 0
-  startProgress: 0
-  timer: 0
-  timerProgress: 0
-  auxTimer: 0
   isPreparingBusen:
     m_InternalValue: 0
   isPreparingAlmof:
@@ -3524,19 +3520,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea988620642f45aab9762c965773f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  auxPlayer: {fileID: 0}
   targetRecipe: {fileID: 0}
   benchType: 1
-  auxObject: {fileID: 6471171222776427178}
-  positionBasket: {fileID: 0}
-  multiBenchSpecial: 0
-  SpecialBench: 0
   ingredients: []
   endProgress: 0
-  startProgress: 0
-  timer: 0
-  timerProgress: 0
-  auxTimer: 0
   isPreparingBusen:
     m_InternalValue: 0
   isPreparingAlmof:
@@ -3592,6 +3579,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Storage
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719945440469705589, guid: 3542d4dc71fe54ce4a54adc6f75d5a8d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2012023050350956474, guid: 3542d4dc71fe54ce4a54adc6f75d5a8d,
         type: 3}

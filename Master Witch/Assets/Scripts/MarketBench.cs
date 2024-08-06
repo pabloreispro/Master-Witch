@@ -10,7 +10,6 @@ public class MarketBench : Interactable
     
     public override void Pick(Player player)
     {
-
         if(player.isHand.Value == false )
         {
             //player.AddItemBasket(food); 

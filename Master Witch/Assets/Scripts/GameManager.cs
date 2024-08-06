@@ -65,13 +65,13 @@ public class GameManager : SingletonNetwork<GameManager>
         Debug.Log("Chamou OnClientReady");
         StartCoroutine(TransitionController.Instance.TransitionMarketScene());
         NetworkManagerUI.Instance.OnGameStartedClientRpc();
-        for (int i = 0; i < benches.Length; i++)
+        /*for (int i = 0; i < benches.Length; i++)
         {
             var player = PlayerNetworkManager.Instance.GetPlayerByIndex(i);
             if (player != null)
                 benches[i].SetPlayer(player);
             else break;
-        }
+        }*/
     }
 
     public void JoinRelay(string joinCode) => StartClientRelay(joinCode);

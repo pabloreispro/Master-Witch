@@ -116,6 +116,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Storage"",
+                    ""type"": ""Button"",
+                    ""id"": ""88cb4def-f42b-4b0b-a2bb-3569eeb1d03b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -138,6 +147,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Selected"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""582a5e06-5a35-4503-bb4c-d677c4034732"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Storage"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -225,6 +245,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_PlayerInteract = asset.FindActionMap("PlayerInteract", throwIfNotFound: true);
         m_PlayerInteract_Interaction = m_PlayerInteract.FindAction("Interaction", throwIfNotFound: true);
         m_PlayerInteract_Selected = m_PlayerInteract.FindAction("Selected", throwIfNotFound: true);
+        m_PlayerInteract_Storage = m_PlayerInteract.FindAction("Storage", throwIfNotFound: true);
         // NavegationStorage
         m_NavegationStorage = asset.FindActionMap("NavegationStorage", throwIfNotFound: true);
         m_NavegationStorage_Navegation = m_NavegationStorage.FindAction("Navegation", throwIfNotFound: true);
@@ -337,12 +358,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IPlayerInteractActions> m_PlayerInteractActionsCallbackInterfaces = new List<IPlayerInteractActions>();
     private readonly InputAction m_PlayerInteract_Interaction;
     private readonly InputAction m_PlayerInteract_Selected;
+    private readonly InputAction m_PlayerInteract_Storage;
     public struct PlayerInteractActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerInteractActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Interaction => m_Wrapper.m_PlayerInteract_Interaction;
         public InputAction @Selected => m_Wrapper.m_PlayerInteract_Selected;
+        public InputAction @Storage => m_Wrapper.m_PlayerInteract_Storage;
         public InputActionMap Get() { return m_Wrapper.m_PlayerInteract; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -358,6 +381,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Selected.started += instance.OnSelected;
             @Selected.performed += instance.OnSelected;
             @Selected.canceled += instance.OnSelected;
+            @Storage.started += instance.OnStorage;
+            @Storage.performed += instance.OnStorage;
+            @Storage.canceled += instance.OnStorage;
         }
 
         private void UnregisterCallbacks(IPlayerInteractActions instance)
@@ -368,6 +394,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Selected.started -= instance.OnSelected;
             @Selected.performed -= instance.OnSelected;
             @Selected.canceled -= instance.OnSelected;
+            @Storage.started -= instance.OnStorage;
+            @Storage.performed -= instance.OnStorage;
+            @Storage.canceled -= instance.OnStorage;
         }
 
         public void RemoveCallbacks(IPlayerInteractActions instance)
@@ -439,6 +468,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         void OnInteraction(InputAction.CallbackContext context);
         void OnSelected(InputAction.CallbackContext context);
+        void OnStorage(InputAction.CallbackContext context);
     }
     public interface INavegationStorageActions
     {
