@@ -156,14 +156,15 @@ public class PlayerMovement : Player
 
     void Interact(InputAction.CallbackContext context){
         if(IsOwner){
-            if(context.started){
-                PickDropObject();
-            }
+            
             if(context.performed){
-                isPressingInterect = true;
+                PickDropObject();
+                interact.GetComponent<Bench>().isPreparing.Value = true;
                 Debug.Log("Botao pressionado");
-            }else{
-                isPressingInterect = false;
+            }
+            if(context.canceled){
+                //isPressingInterect = false;
+                interact.GetComponent<Bench>().isPreparing.Value = false;
             }
         }
     }

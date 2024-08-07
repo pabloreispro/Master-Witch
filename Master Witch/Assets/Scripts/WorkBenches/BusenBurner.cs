@@ -6,17 +6,16 @@ using Unity.VisualScripting;
 using UnityEditor;
 public class BusenBurner : Bench
 {
-    //public NetworkVariable<bool> isPreparing = new NetworkVariable<bool>();
     private void Start()
     {
         isPreparing.OnValueChanged += (a,b) => visualEffect[0].SetBool("isPreparing", isPreparing.Value);
         isPreparing.OnValueChanged += (a,b) => visualEffect[1].SetBool("isPreparing", isPreparing.Value);
     }
+    
     public override void Pick(Player player)
     {
         if (endProgress)
         {
-            slider.gameObject.SetActive(false);
             var recipeData = new RecipeData(targetRecipe, ingredients);
             var objectSpawn = Instantiate(recipeData.TargetFood.foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
             objectSpawn.GetComponent<NetworkObject>().Spawn();

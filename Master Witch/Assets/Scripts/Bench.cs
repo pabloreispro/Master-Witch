@@ -22,6 +22,7 @@ public class Bench : Interactable
     public BenchType benchType;
     private GameObject auxObject;
     public List<RecipeData> ingredients = new List<RecipeData>();
+    public NetworkVariable<bool> isPerformed = new NetworkVariable<bool>();
 
     [Header("Progress Recipe")]
     public bool endProgress;
@@ -62,11 +63,10 @@ public class Bench : Interactable
 
     private void Update()
     {
-        if (startProgress)
+        if (isPreparing.Value)
         {
             timer += Time.deltaTime;
             slider.value = timer;
-            isPreparing.Value = true;
             if (timer >= timerProgress)
             {
                 startProgress = false;
@@ -77,9 +77,7 @@ public class Bench : Interactable
     }
     public void progress()
     {
-        
         targetRecipe = GameManager.Instance.GetValidRecipe(foodList, benchType);
-        startProgress = true;
         foreach (FoodSO item in foodList)
         {
             auxTimer = item.timeProgress;
@@ -126,8 +124,7 @@ public class Bench : Interactable
     }
     public void OnEndProgress()
     {
-        //ingredients.Clear();
-        //ingredients.Add(targetRecipe);
+        slider.gameObject.SetActive(false);
         
         endProgress = true;
     }
@@ -142,6 +139,5 @@ public class Bench : Interactable
         interact.gameObject.transform.position = auxObject.transform.position;
         interact.GetComponent<NetworkObject>().TrySetParent(this.transform);
     }
-    
     
 }
