@@ -22,7 +22,7 @@ public class Bench : Interactable
     public BenchType benchType;
     private GameObject auxObject;
     public List<RecipeData> ingredients = new List<RecipeData>();
-    public NetworkVariable<bool> isPerformed = new NetworkVariable<bool>();
+    public bool isPerformed;
 
     [Header("Progress Recipe")]
     public bool endProgress;

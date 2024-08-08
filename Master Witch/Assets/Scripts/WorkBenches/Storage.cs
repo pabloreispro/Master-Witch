@@ -34,12 +34,14 @@ public class Storage : Bench
 
     public override void Drop(Player player)
     {
+
         var interact = player.GetComponentInChildren<Ingredient>();
         if(ingredients.Count < 4){
             AddIngredient(interact.food);
             interact.DestroySelf();
             player.isHand.Value = false;
         }
+        
     }
 
     public void SelectedIngredient(int indexSlots){

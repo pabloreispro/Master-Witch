@@ -27,8 +27,6 @@ public class PlayerMovement : Player
     public float distanciaMaxima = 2.0f;
     public int numberOfRays = 10;
     Storage benchStorage;
-    
-
 
     public override void OnNetworkSpawn()
     {
@@ -43,7 +41,7 @@ public class PlayerMovement : Player
         playerInput.PlayerControl.Enable();
         playerInput.PlayerInteract.Enable();
         playerInput.PlayerInteract.Interaction.started += Interact;
-        playerInput.PlayerInteract.Interaction.performed += Interact;
+        //playerInput.PlayerInteract.Interaction.performed += Interact;
         playerInput.PlayerInteract.Interaction.canceled += Interact;
         playerInput.PlayerInteract.Storage.started += InteractStorage;
         //inputs para buttons 
@@ -147,24 +145,30 @@ public class PlayerMovement : Player
     void InteractStorage(InputAction.CallbackContext context){
         if(IsOwner && interact as Storage){
             if(context.started){
-
                 interact.GetComponent<Storage>().Initialize();
-                
             }
         }
     }
 
     void Interact(InputAction.CallbackContext context){
         if(IsOwner){
-            
-            if(context.performed){
+            if(context.started){
                 PickDropObject();
-                interact.GetComponent<Bench>().isPreparing.Value = true;
-                Debug.Log("Botao pressionado");
+                _ButtonInteraction();
             }
             if(context.canceled){
-                //isPressingInterect = false;
-                interact.GetComponent<Bench>().isPreparing.Value = false;
+                if(interact as Bench)
+                    (interact as Bench).isPreparing.Value = false;
+            }
+        }
+    }
+    private void _ButtonInteraction(){
+        if(interact != null && !isHand.Value){
+            (interact as Bench).isPreparing.Value = true; 
+            if(!(interact as Bench).isPerformed){
+                (interact as Bench).isPreparing.Value = false; 
+                Debug.Log("Botao start");
+                return;
             }
         }
     }
