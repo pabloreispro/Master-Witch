@@ -153,12 +153,11 @@ public class PlayerMovement : Player
     void Interact(InputAction.CallbackContext context){
         if(IsOwner){
             if(context.started){
-                PickDropObject();
+                _PickDropObject();
                 _ButtonInteraction();
             }
             if(context.canceled){
-                if(interact as Bench)
-                    (interact as Bench).isPreparing.Value = false;
+                (interact as Bench).isPreparing.Value = false;
             }
         }
     }
@@ -172,7 +171,7 @@ public class PlayerMovement : Player
             }
         }
     }
-    public void PickDropObject(){
+    private void _PickDropObject(){
         if(isHand.Value)
         {
             if(interact == null){

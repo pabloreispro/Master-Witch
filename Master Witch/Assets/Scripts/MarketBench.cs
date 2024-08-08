@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.SO;
 using Unity.Netcode;
-public class MarketBench : Interactable
+public class MarketBench : Bench
 {
     public FoodSO food;
     public ToolsSO tool;
