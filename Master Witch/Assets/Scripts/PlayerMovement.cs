@@ -164,11 +164,14 @@ public class PlayerMovement : Player
     private void _ButtonInteraction(){
         if(interact != null && !isHand.Value){
             (interact as Bench).isPreparing.Value = true; 
-            if(!(interact as Bench).isPerformed){
-                (interact as Bench).isPreparing.Value = false; 
-                Debug.Log("Botao start");
-                return;
-            }
+            Invoke("_ClickedButton", 0.5f);
+        }
+    }
+    private void _ClickedButton(){
+        if(!(interact as Bench).isPerformed){
+            (interact as Bench).isPreparing.Value = false; 
+            Debug.Log("Botao start");
+            return;
         }
     }
     private void _PickDropObject(){
