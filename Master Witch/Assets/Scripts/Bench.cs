@@ -20,16 +20,15 @@ public class Bench : Interactable
     //public Tool toolInBench;
     public RecipeSO targetRecipe;
     public BenchType benchType;
-    private GameObject auxObject;
+    private GameObject _auxObject;
     public List<RecipeData> ingredients = new List<RecipeData>();
     public bool isPerformed;
 
     [Header("Progress Recipe")]
     public bool endProgress;
-    public bool startProgress;
-    public float timer;
-    private float timerProgress;
-    private float auxTimer;
+    private float _timer;
+    private float _timerProgress;
+    private float _auxTimer;
     public NetworkVariable<bool> isPreparing = new NetworkVariable<bool>(false);
     public VisualEffect[] visualEffect;
     public ParticleSystem particleSystemBench;
@@ -55,21 +54,20 @@ public class Bench : Interactable
     public void Reset()
     {
         endProgress = false;
-        startProgress = false;
-        timer = 0f;
-        timerProgress = 0;
-        auxTimer = 0f;
+        _timer = 0f;
+        isPreparing.Value = false;
+        _timerProgress = 0;
+        _auxTimer = 0f;
     }
 
     private void Update()
     {
         if (isPreparing.Value)
         {
-            timer += Time.deltaTime;
-            slider.value = timer;
-            if (timer >= timerProgress)
+            _timer += Time.deltaTime;
+            slider.value = _timer;
+            if (_timer >= _timerProgress)
             {
-                startProgress = false;
                 isPreparing.Value = false;
                 OnEndProgress();
             }
@@ -80,17 +78,17 @@ public class Bench : Interactable
         targetRecipe = GameManager.Instance.GetValidRecipe(foodList, benchType);
         foreach (FoodSO item in foodList)
         {
-            auxTimer = item.timeProgress;
+            _auxTimer = item.timeProgress;
         }
-        timerProgress += auxTimer;
+        _timerProgress += _auxTimer;
         slider.gameObject.SetActive(true);
-        slider.maxValue = timerProgress;
+        slider.maxValue = _timerProgress;
     }
 
     public void AddIngredient(FoodSO ingredient) => AddIngredient(new RecipeData(ingredient));
     public void AddIngredient(RecipeData recipeData)
     {
-        timer = 0;
+        _timer = 0;
         ingredients.Add(recipeData);
         Debug.Log($"{recipeData.TargetFood} {recipeData.UtilizedIngredients.Count}");
     }
@@ -136,7 +134,7 @@ public class Bench : Interactable
     public void PositionBench(Interactable interact){
         interact.GetComponent<FollowTransform>().targetTransform = null;
         interact.gameObject.transform.rotation = Quaternion.identity;
-        interact.gameObject.transform.position = auxObject.transform.position;
+        interact.gameObject.transform.position = _auxObject.transform.position;
         interact.GetComponent<NetworkObject>().TrySetParent(this.transform);
     }
     

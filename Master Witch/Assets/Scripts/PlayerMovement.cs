@@ -19,14 +19,14 @@ public class PlayerMovement : Player
    
 
     [Header("Movement Configs")]
-    public PlayerInput playerInput;
-    public float speed;
+    private PlayerInput _playerInput;
+    public float speedRotation;
     public float speedPlayer;
     public CharacterController controller;
     bool groundedPlayer;
     public float distanciaMaxima = 2.0f;
     public int numberOfRays = 10;
-    Storage benchStorage;
+    private Storage _benchStorage;
 
     public override void OnNetworkSpawn()
     {
@@ -37,13 +37,12 @@ public class PlayerMovement : Player
     void Awake()
     {
         controller = GetComponent<CharacterController>();
-        playerInput = new PlayerInput();
-        playerInput.PlayerControl.Enable();
-        playerInput.PlayerInteract.Enable();
-        playerInput.PlayerInteract.Interaction.started += Interact;
-        //playerInput.PlayerInteract.Interaction.performed += Interact;
-        playerInput.PlayerInteract.Interaction.canceled += Interact;
-        playerInput.PlayerInteract.Storage.started += InteractStorage;
+        _playerInput = new PlayerInput();
+        _playerInput.PlayerControl.Enable();
+        _playerInput.PlayerInteract.Enable();
+        _playerInput.PlayerInteract.Interaction.started += _Interact;
+        _playerInput.PlayerInteract.Interaction.canceled += _Interact;
+        _playerInput.PlayerInteract.Storage.started += _InteractStorage;
         //inputs para buttons 
         //na funcao precisa colocar InputAction.CallbackContext context
         //e o context funciona como um ativador
@@ -55,31 +54,31 @@ public class PlayerMovement : Player
     {
         if(IsOwner == true){
             
-            RaycastPlayer();
+            _RaycastPlayer();
 
             if(SceneManager.Instance.isMovementAllowed.Value)
             {
-                MovementPlayer();
+                _MovementPlayer();
             }
             else 
             {ChangeState(PlayerState.Idle); isMoving.Value=false;}
             
-            VerifyStorage();
+            _VerifyStorage();
             
         }
     }
 
-    public void VerifyStorage(){
+    private void _VerifyStorage(){
         if ((interact as Storage) != null)
         {
-            benchStorage = (interact as Storage);
-            benchStorage.player = this;
-        }else if(benchStorage!=null){
-            benchStorage.player = null;
+            _benchStorage = (interact as Storage);
+            _benchStorage.player = this;
+        }else if(_benchStorage!=null){
+            _benchStorage.player = null;
         }
     }
 
-    public void RaycastPlayer(){
+    private void _RaycastPlayer(){
         float angleStep = 60.0f / (numberOfRays - 1); 
 
         for (int i = 0; i < numberOfRays; i++)
@@ -108,8 +107,8 @@ public class PlayerMovement : Player
         }
     }
 
-    void MovementPlayer(){
-        Vector2 inputVector = playerInput.PlayerControl.Movement.ReadValue<Vector2>();
+    private void _MovementPlayer(){
+        Vector2 inputVector = _playerInput.PlayerControl.Movement.ReadValue<Vector2>();
         
         Vector3 move = new Vector3(inputVector.x, 0, inputVector.y).normalized;
         
@@ -123,7 +122,7 @@ public class PlayerMovement : Player
         if(inputVector!=new Vector2(0,0)){
             
             Quaternion r = Quaternion.LookRotation(move);
-            transform.rotation = Quaternion.Slerp(transform.rotation, r, speed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, r, speedRotation);
             
             if(isHand.Value && isHandBasket.Value){ChangeState(PlayerState.WalkingBasket);}
             else if(isHand.Value && !isHandBasket.Value){ChangeState(PlayerState.WalkingItem);}
@@ -142,7 +141,7 @@ public class PlayerMovement : Player
         controller.Move(move* Time.deltaTime * speedPlayer);
     }
 
-    void InteractStorage(InputAction.CallbackContext context){
+    private void _InteractStorage(InputAction.CallbackContext context){
         if(IsOwner && interact as Storage){
             if(context.started){
                 interact.GetComponent<Storage>().Initialize();
@@ -150,7 +149,7 @@ public class PlayerMovement : Player
         }
     }
 
-    void Interact(InputAction.CallbackContext context){
+    private void _Interact(InputAction.CallbackContext context){
         if(IsOwner){
             if(context.started){
                 _PickDropObject();
@@ -170,7 +169,6 @@ public class PlayerMovement : Player
     private void _ClickedButton(){
         if(!(interact as Bench).isPerformed){
             (interact as Bench).isPreparing.Value = false; 
-            Debug.Log("Botao start");
             return;
         }
     }
