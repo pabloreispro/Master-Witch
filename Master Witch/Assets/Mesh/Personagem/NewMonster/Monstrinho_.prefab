@@ -257,6 +257,8 @@ MonoBehaviour:
   animator: {fileID: -6478921826064568150}
   a: {fileID: 7139182526516293599}
   footstepsVFX: {fileID: 3334103944379582053}
+  isMoving:
+    m_InternalValue: 0
   id: 0
   hatRenderer: {fileID: 3117581706672708694}
   interact: {fileID: 0}
@@ -272,7 +274,8 @@ MonoBehaviour:
     m_InternalValue: 0
   bench: []
   basketMax: 5
-  speed: 15
+  isPressingInterect: 0
+  speedRotation: 5
   speedPlayer: 7
   controller: {fileID: 0}
   distanciaMaxima: 1.5
