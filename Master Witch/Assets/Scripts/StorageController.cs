@@ -100,7 +100,6 @@ public class StorageController : SingletonNetwork<StorageController>
         objectSpawn.GetComponent<Collider>().enabled = false;
         playerScene.SetItemHandClientRpc(objectSpawn);
         playerScene.ChangeState(PlayerState.Interact);
-        playerScene.isHand.Value = true; 
         bench.RemoveIngredient(storageItems[itemIndex]);
         
     }

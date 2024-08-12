@@ -11,18 +11,18 @@ public class Ingredient : Interactable
     public TypeObject typeObject;
     public List<RecipeData> itensUsed = new List<RecipeData>();
 
+    private void Start() {
+         this.GetComponent<Collider>().enabled = false;
+    }
+
     public override void Pick(Player player)
     {
-        if(isHandIngredient){
-            this.GetComponent<Collider>().enabled = false;
-            this.GetComponent<NetworkObject>().TrySetParent(player.transform);
-            this.GetComponent<NetworkObject>().transform.position = player.boneItem.transform.position;
-            this.GetComponent<FollowTransform>().targetTransform = player.boneItem.transform;
-            player.SetItemHandClientRpc(gameObject);
-        }else{
-            player.GetComponentInChildren<Tool>().ingredients.Add(new RecipeData(food));
-        }
-        player.isHand.Value = true;
+
+        this.GetComponent<Collider>().enabled = false;
+        this.GetComponent<NetworkObject>().TrySetParent(player.transform);
+        this.GetComponent<NetworkObject>().transform.position = player.boneItem.transform.position;
+        this.GetComponent<FollowTransform>().targetTransform = player.boneItem.transform;
+        player.SetItemHandClientRpc(gameObject);
         player.ChangeState(PlayerState.Interact);
     }
 }

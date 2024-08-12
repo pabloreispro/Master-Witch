@@ -19,7 +19,7 @@ public class MarketBench : Bench
             objectSpawn.GetComponent<Collider>().enabled = false;
             player.SetItemHandClientRpc(objectSpawn);
             player.ChangeState(PlayerState.Interact);
-            player.isHand.Value = true; 
+
         }
     }
 

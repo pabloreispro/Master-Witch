@@ -31,6 +31,5 @@ public class BusenBurner : Bench
         AddIngredient(interact.food);
         progress();
         interact.DestroySelf();
-        player.isHand.Value = false;
     }
 }

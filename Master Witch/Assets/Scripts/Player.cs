@@ -77,6 +77,17 @@ public class Player : NetworkBehaviour
         
     }
 
+    private void Update() {
+        _VerifyHand();
+    }
+
+    private void _VerifyHand(){
+        if(GetComponentInChildren<Interactable>()){
+            isHand.Value = true;
+        }else{
+            isHand.Value = false;
+        }
+    }
     
 
     
@@ -95,7 +106,6 @@ public class Player : NetworkBehaviour
         transform.rotation = Quaternion.Euler(0f,180f,0f);
         GetComponent<PlayerMovement>().controller.enabled = true;
         //StatusAssetServerRpc(false);
-        isHand.Value = false;
         isHandBasket.Value = false;
     }
 

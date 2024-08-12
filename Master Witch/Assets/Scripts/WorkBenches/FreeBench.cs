@@ -25,7 +25,6 @@ public class FreeBench : Bench
     {
         var interact = player.GetComponentInChildren<Interactable>();
         PositionBench(interact);
-        player.isHand.Value = false;
         
     }
 }

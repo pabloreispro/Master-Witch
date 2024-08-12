@@ -8,7 +8,6 @@ public class TrashBin : Bench
     {
         var interact = player.GetComponentInChildren<Interactable>();
         interact.DestroySelf();  
-        player.isHand.Value = false;
         player.isHandBasket.Value = false;
     }
 }

@@ -39,7 +39,6 @@ public class Storage : Bench
         if(ingredients.Count < 4){
             AddIngredient(interact.food);
             interact.DestroySelf();
-            player.isHand.Value = false;
         }
         
     }
@@ -68,7 +67,6 @@ public class Storage : Bench
         objectSpawn.GetComponent<Collider>().enabled = false;
         playerScene.SetItemHandClientRpc(objectSpawn);
         playerScene.ChangeState(PlayerState.Interact);
-        playerScene.isHand.Value = true; 
         RemoveIngredient(ingredients[itemIndex].TargetFood);
         
     }

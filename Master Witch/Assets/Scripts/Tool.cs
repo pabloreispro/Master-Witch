@@ -34,7 +34,6 @@ public class Tool : Interactable
                 if(this.tool.benchType == BenchType.Basket)
                 {
                     player.isHandBasket.Value = true;
-                    player.isHand.Value = true;
                     player.ChangeState(PlayerState.Interact);
 
                     GameObject objectSpawn = Instantiate(tool.prefab, player.boneBasket.position, player.boneBasket.rotation);
@@ -54,7 +53,6 @@ public class Tool : Interactable
                 else
                 {
                     Debug.Log("euuu tenteeeei");
-                    player.isHand.Value = true;
                     player.ChangeState(PlayerState.Interact);
 
                     var objectSpawn = Instantiate(tool.prefab, player.boneItem.position, player.boneItem.rotation);
@@ -72,7 +70,6 @@ public class Tool : Interactable
                 
         }
         else{
-            player.isHand.Value = true;
             player.ChangeState(PlayerState.Interact);
 
             var item = this.gameObject;

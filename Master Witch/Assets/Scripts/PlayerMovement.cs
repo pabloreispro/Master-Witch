@@ -23,7 +23,6 @@ public class PlayerMovement : Player
     public float speedRotation;
     public float speedPlayer;
     public CharacterController controller;
-    bool groundedPlayer;
     public float distanciaMaxima = 2.0f;
     public int numberOfRays = 10;
     private Storage _benchStorage;
@@ -180,7 +179,6 @@ public class PlayerMovement : Player
                 var obj = this.GetComponentInChildren<Interactable>().GetComponent<NetworkObject>();
                 obj.GetComponent<FollowTransform>().targetTransform = null;
                 obj.TryRemoveParent();
-                isHand.Value = false;
             }
             else
             {

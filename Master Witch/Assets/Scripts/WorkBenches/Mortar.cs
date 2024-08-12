@@ -29,6 +29,5 @@ public class Mortar : Bench
         AddIngredient(interact.food);
         progress();
         interact.DestroySelf();
-        player.isHand.Value = false;
     }
 }

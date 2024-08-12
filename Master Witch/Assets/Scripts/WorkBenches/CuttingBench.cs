@@ -28,6 +28,5 @@ public class CuttingBench : Bench
         AddIngredient(interact.food);
         progress();
         interact.DestroySelf();
-        player.isHand.Value = false;
     }
 }
