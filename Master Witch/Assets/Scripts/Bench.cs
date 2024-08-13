@@ -86,6 +86,7 @@ public class Bench : Interactable
         _timerProgress += _auxTimer;
         slider.gameObject.SetActive(true);
         slider.maxValue = _timerProgress;
+        Debug.Log("O Tempo para fazer o ingrediente e de: "+_timerProgress);
     }
 
     public void AddIngredient(FoodSO ingredient) => AddIngredient(new RecipeData(ingredient));

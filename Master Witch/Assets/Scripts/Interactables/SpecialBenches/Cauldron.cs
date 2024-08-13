@@ -5,11 +5,23 @@ using Unity.Netcode;
 
 public class Cauldron : Bench
 {
-    private ToolsSO toolInBench;
+    public List<ToolsSO> _toolInBench = new();
+    private float _timerWood;
 
     private void FixedUpdate() {
-        if(toolInBench!=null && ingredients.Count > 0){
+        _Special();
+    }
+
+    private void _Special(){
+        if(_toolInBench.Count>0 && ingredients.Count > 0){
             isPreparing.Value = true;
+            _timerWood += Time.deltaTime;
+            if(_timerWood >= 5){
+                _toolInBench.RemoveAt(_toolInBench.Count-1);
+                _timerWood = 0;
+            }
+        }else{
+            isPreparing.Value = false;
         }
     }
 
@@ -21,8 +33,7 @@ public class Cauldron : Bench
             var objectSpawn = Instantiate(recipeData.TargetFood.foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
             objectSpawn.GetComponent<NetworkObject>().Spawn();
             objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
-            player.GetComponentInChildren<Ingredient>().itensUsed.Add(recipeData);
-            toolInBench = null;
+            player.GetComponentInChildren<Ingredient>().itensUsed.Add(recipeData);            
             Reset();
         }
     }
@@ -30,14 +41,15 @@ public class Cauldron : Bench
     public override void Drop(Player player)
     {
         var interact = player.GetComponentInChildren<Interactable>();
+        
         switch(interact){
             case Ingredient:
                 endProgress = false;
                 AddIngredient((interact as Ingredient).food);
                 progress();
             break;
-            case Tool:
-                toolInBench = (interact as Tool).tool;
+            case Tool:         
+                _toolInBench.Add((interact as Tool).tool);
             break;
         }
         interact.DestroySelf();
