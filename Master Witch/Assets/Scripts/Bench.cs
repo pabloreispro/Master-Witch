@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 
-public enum BenchType {Oven, Stove, Board, Storage, Basket, TrashBin, General}
+public enum BenchType {BusenBurner, Cutting, Mortar, Alembic, Cauldron, Furnace, MysteriousFountain, Refrigeration, Well}
 public class Bench : Interactable
 {
     int playerID;

@@ -208,12 +208,12 @@ public class GameManager : SingletonNetwork<GameManager>
             var benchItem = Instantiate(imagePrefab, step.transform);
             var benchImage = benchItem.GetComponent<Image>();
 
-            if(bench.benchType == BenchType.Oven)
+            if(bench.benchType == BenchType.Mortar)
             {
                 benchImage.sprite = benchOven; 
                 benchImage.preserveAspect = true;
             }
-            else if (bench.benchType == BenchType.Stove)
+            else if (bench.benchType == BenchType.BusenBurner)
             {
                 benchImage.sprite = benchStove;
                 benchImage.preserveAspect = true;
@@ -299,7 +299,7 @@ public class GameManager : SingletonNetwork<GameManager>
     }
     public void Reset(){
         foreach(Interactable objectScene in FindObjectsOfType<Interactable>()){
-            if((objectScene as Tool) != null &&(objectScene as Tool).isHandTool)
+            if((objectScene as Tool) != null )//&&(objectScene as Tool).isHandTool
                 objectScene.DestroySelf();
             if((objectScene as Ingredient) != null &&(objectScene as Ingredient).isHandIngredient)
                 objectScene.DestroySelf();

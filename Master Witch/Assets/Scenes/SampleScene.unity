@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08023343, g: 0.099622905, b: 0.30101418, a: 1}
+  m_IndirectSpecularColor: {r: 0.08040641, g: 0.09978241, b: 0.3010325, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11137,6 +11137,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1365465346}
   m_CullTransparentMesh: 1
+--- !u!1 &1366812245 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5054546930242261087, guid: 010d67ac3e0926d409e937d25bfe4b51,
+    type: 3}
+  m_PrefabInstance: {fileID: 4599330954522170815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1366812251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366812245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de41176c8509145298620a8e279e2865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetRecipe: {fileID: 0}
+  benchType: 0
+  ingredients: []
+  isPerformed: 0
+  workBench: 0
+  endProgress: 0
+  isPreparing:
+    m_InternalValue: 0
+  visualEffect: []
+  particleSystemBench: {fileID: 0}
+  slider: {fileID: 0}
+  tool: {fileID: 11400000, guid: 813d9da60a22742b9b5f0c9b888a489b, type: 2}
 --- !u!1 &1368025605
 GameObject:
   m_ObjectHideFlags: 0
@@ -17055,6 +17085,7 @@ MonoBehaviour:
   benchType: 0
   ingredients: []
   isPerformed: 0
+  workBench: 0
   endProgress: 0
   isPreparing:
     m_InternalValue: 0
@@ -23225,10 +23256,15 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 3610463463
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7878707893288996077, guid: 010d67ac3e0926d409e937d25bfe4b51, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5054546930242261087, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1366812251}
   m_SourcePrefab: {fileID: 100100000, guid: 010d67ac3e0926d409e937d25bfe4b51, type: 3}
 --- !u!1 &4624160303794569969
 GameObject:

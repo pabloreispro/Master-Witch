@@ -6,7 +6,6 @@ using Unity.Netcode;
 public class MarketBench : Bench
 {
     public FoodSO food;
-    public ToolsSO tool;
     
     public override void Pick(Player player)
     {

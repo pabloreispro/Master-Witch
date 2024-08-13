@@ -9,11 +9,24 @@ using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 public class Tool : Interactable
 {
     public ToolsSO tool;
-    public TypeObject typeObject;
-    public bool isHandTool;
-    public List<RecipeData> ingredients = new List<RecipeData>();
+    private void Start() {
+         this.GetComponent<Collider>().enabled = false;
+    }
     
-    public List<FoodSO> foodList 
+    public override void Pick(Player player)
+    {
+        this.GetComponent<Collider>().enabled = false;
+        this.GetComponent<NetworkObject>().TrySetParent(player.transform);
+        this.GetComponent<NetworkObject>().transform.position = player.boneItem.transform.position;
+        this.GetComponent<FollowTransform>().targetTransform = player.boneItem.transform;
+        player.SetItemHandClientRpc(gameObject);
+        player.ChangeState(PlayerState.Interact);
+    }
+    //public TypeObject typeObject;
+    //public bool isHandTool;
+    //public List<RecipeData> ingredients = new List<RecipeData>();
+
+    /*public List<FoodSO> foodList 
     {
         get
         {
@@ -24,8 +37,8 @@ public class Tool : Interactable
             }
             return list;
         }
-    }
-    public override void Pick(Player player)
+    }*/
+    /*public override void Pick(Player player)
     {
         if(!isHandTool)
         {
@@ -79,5 +92,5 @@ public class Tool : Interactable
             player.SetItemHandClientRpc(item);
         }
         
-    }
+    }*/
 }

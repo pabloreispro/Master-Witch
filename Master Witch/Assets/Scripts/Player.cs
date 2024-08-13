@@ -65,13 +65,13 @@ public class Player : NetworkBehaviour
         isMoving.OnValueChanged += (a,b)=>footstepsVFX.SetBool("isMoving",isMoving.Value);
         animator = GetComponent<Animator>();
         
-        foreach (Bench item in FindObjectsOfType<Bench>() )
+        /*foreach (Bench item in FindObjectsOfType<Bench>() )
         {
             if(item.benchType == BenchType.Storage )
             {
                 bench.Add(item);
             }
-        }
+        }*/
 
         bench.Sort((a, b) => string.Compare(a.name, b.name, StringComparison.Ordinal));
         
@@ -109,13 +109,13 @@ public class Player : NetworkBehaviour
         isHandBasket.Value = false;
     }
 
-    public void AddItemBasket(FoodSO ingredient)
+    /*public void AddItemBasket(FoodSO ingredient)
     {
         if(this.GetComponentInChildren<Tool>().ingredients.Count < basketMax)
         {
             this.GetComponentInChildren<Tool>().ingredients.Add(new RecipeData(ingredient));
         }
-    }
+    }*/
 
     public void ChangeState(PlayerState newState)
     {
