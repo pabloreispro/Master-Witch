@@ -5,7 +5,6 @@ using Unity.Netcode;
 
 public class Cauldron : Bench
 {
-    [SerializeField]
     private ToolsSO toolInBench;
 
     private void FixedUpdate() {
@@ -23,6 +22,7 @@ public class Cauldron : Bench
             objectSpawn.GetComponent<NetworkObject>().Spawn();
             objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
             player.GetComponentInChildren<Ingredient>().itensUsed.Add(recipeData);
+            toolInBench = null;
             Reset();
         }
     }
@@ -30,12 +30,15 @@ public class Cauldron : Bench
     public override void Drop(Player player)
     {
         var interact = player.GetComponentInChildren<Interactable>();
-        if(interact as Ingredient){
-            endProgress = false;
-            AddIngredient((interact as Ingredient).food);
-            progress();
-        }else{
-            toolInBench = (interact as Tool).tool;
+        switch(interact){
+            case Ingredient:
+                endProgress = false;
+                AddIngredient((interact as Ingredient).food);
+                progress();
+            break;
+            case Tool:
+                toolInBench = (interact as Tool).tool;
+            break;
         }
         interact.DestroySelf();
     }

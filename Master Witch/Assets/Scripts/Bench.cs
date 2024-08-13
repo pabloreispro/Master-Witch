@@ -60,6 +60,7 @@ public class Bench : Interactable
         isPreparing.Value = false;
         _timerProgress = 0;
         _auxTimer = 0f;
+        ingredients.Clear();
     }
 
     private void Update()
