@@ -11,7 +11,7 @@ public class CuttingBench : Bench
     
     public override void Pick(Player player)
     {
-        if (endProgress)
+        if (endProgress && player.isHand.Value == false)
         {
             var recipeData = new RecipeData(targetRecipe, ingredients);
             var objectSpawn = Instantiate(recipeData.TargetFood.foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);

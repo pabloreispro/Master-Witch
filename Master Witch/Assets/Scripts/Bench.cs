@@ -22,6 +22,7 @@ public class Bench : Interactable
     public BenchType benchType;
     private GameObject _auxObject;
     public List<RecipeData> ingredients = new List<RecipeData>();
+    public float timerMultiply;
     public bool isPerformed;
     public bool workBench;
 
@@ -65,7 +66,7 @@ public class Bench : Interactable
     {
         if (isPreparing.Value && workBench)
         {
-            _timer += Time.deltaTime;
+            _timer += Time.deltaTime * timerMultiply;
             slider.value = _timer;
             if (_timer >= _timerProgress)
             {
