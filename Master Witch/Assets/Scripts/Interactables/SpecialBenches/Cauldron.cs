@@ -43,13 +43,13 @@ public class Cauldron : Bench
         var interact = player.GetComponentInChildren<Interactable>();
         
         switch(interact){
-            case Ingredient:
+            case Ingredient i:
                 endProgress = false;
-                AddIngredient((interact as Ingredient).food);
+                AddIngredient(i.food);
                 progress();
             break;
-            case Tool:         
-                _toolInBench.Add((interact as Tool).tool);
+            case Tool t when t.tool.benchType == benchType:         
+                _toolInBench.Add(t.tool);
             break;
         }
         interact.DestroySelf();
