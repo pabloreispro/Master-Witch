@@ -6,7 +6,6 @@ using Unity.Netcode;
 public class Cauldron : Bench
 {
     public List<ToolsSO> _toolInBench = new();
-    private float _timerWood;
 
     private void FixedUpdate() {
         _Special();
@@ -15,11 +14,6 @@ public class Cauldron : Bench
     private void _Special(){
         if(_toolInBench.Count>0 && ingredients.Count > 0){
             isPreparing.Value = true;
-            _timerWood += Time.deltaTime;
-            if(_timerWood >= 5){
-                _toolInBench.RemoveAt(_toolInBench.Count-1);
-                _timerWood = 0;
-            }
         }else{
             isPreparing.Value = false;
         }
@@ -33,7 +27,8 @@ public class Cauldron : Bench
             var objectSpawn = Instantiate(recipeData.TargetFood.foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
             objectSpawn.GetComponent<NetworkObject>().Spawn();
             objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
-            player.GetComponentInChildren<Ingredient>().itensUsed.Add(recipeData);            
+            player.GetComponentInChildren<Ingredient>().itensUsed.Add(recipeData);   
+            _toolInBench.Clear();         
             Reset();
         }
     }

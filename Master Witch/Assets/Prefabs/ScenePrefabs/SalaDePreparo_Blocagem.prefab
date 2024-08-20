@@ -500,6 +500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetRecipe: {fileID: 0}
   benchType: 4
+  _auxObject: {fileID: 0}
   ingredients: []
   timerMultiply: 1.5
   isPerformed: 0
@@ -510,7 +511,7 @@ MonoBehaviour:
   visualEffect: []
   particleSystemBench: {fileID: 0}
   slider: {fileID: 3793305854560219778}
-  toolInBench: {fileID: 0}
+  _toolInBench: []
 --- !u!114 &5231269452042439588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,7 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 889537800
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -1007,7 +1008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4009731080
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -2728,7 +2729,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetRecipe: {fileID: 0}
-  benchType: 0
+  benchType: 7
+  _auxObject: {fileID: 0}
   ingredients: []
   timerMultiply: 0
   isPerformed: 0
@@ -2751,7 +2753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3791306173
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -3590,7 +3592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 649905446
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -4365,7 +4367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 292961816
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -4963,7 +4965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2040431413
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -6144,7 +6146,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetRecipe: {fileID: 0}
-  benchType: 0
+  benchType: 5
+  _auxObject: {fileID: 0}
   ingredients: []
   timerMultiply: 0
   isPerformed: 0
@@ -6155,6 +6158,7 @@ MonoBehaviour:
   visualEffect: []
   particleSystemBench: {fileID: 0}
   slider: {fileID: 5203562444055190333}
+  _toolInBench: []
 --- !u!114 &5081912086010644177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6167,7 +6171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1230693315
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -6355,7 +6359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1846914159
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -6961,7 +6965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3530599965
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -7808,7 +7812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3997782481
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -9154,6 +9158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetRecipe: {fileID: 0}
   benchType: 4
+  _auxObject: {fileID: 0}
   ingredients: []
   timerMultiply: 1.5
   isPerformed: 0
@@ -9164,7 +9169,7 @@ MonoBehaviour:
   visualEffect: []
   particleSystemBench: {fileID: 0}
   slider: {fileID: 2289585395189601617}
-  toolInBench: {fileID: 0}
+  _toolInBench: []
 --- !u!114 &7066685227131757164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9177,7 +9182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3282089
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -9611,7 +9616,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetRecipe: {fileID: 0}
-  benchType: 0
+  benchType: 6
+  _auxObject: {fileID: 0}
   ingredients: []
   timerMultiply: 0
   isPerformed: 0
@@ -9655,7 +9661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3801322136
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -10483,7 +10489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2580692739
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -11721,6 +11727,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetRecipe: {fileID: 0}
   benchType: 0
+  _auxObject: {fileID: 0}
   ingredients: []
   timerMultiply: 0
   isPerformed: 0
@@ -11743,7 +11750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1874093567
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -12526,7 +12533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 250863687
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -12568,7 +12575,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetRecipe: {fileID: 0}
-  benchType: 0
+  benchType: 13
+  _auxObject: {fileID: 0}
   ingredients: []
   timerMultiply: 0
   isPerformed: 0
@@ -14085,6 +14093,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetRecipe: {fileID: 0}
   benchType: 4
+  _auxObject: {fileID: 0}
   ingredients: []
   timerMultiply: 1.5
   isPerformed: 0
@@ -14095,7 +14104,7 @@ MonoBehaviour:
   visualEffect: []
   particleSystemBench: {fileID: 0}
   slider: {fileID: 1245882985710823071}
-  toolInBench: {fileID: 0}
+  _toolInBench: []
 --- !u!114 &5749299209375729601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14108,7 +14117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 775680196
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -15092,7 +15101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetRecipe: {fileID: 0}
-  benchType: 0
+  benchType: 8
+  _auxObject: {fileID: 0}
   ingredients: []
   timerMultiply: 0
   isPerformed: 0
@@ -15115,7 +15125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1598098537
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -15445,7 +15455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3507165311
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -17342,6 +17352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetRecipe: {fileID: 0}
   benchType: 4
+  _auxObject: {fileID: 0}
   ingredients: []
   timerMultiply: 1.5
   isPerformed: 0
@@ -17352,7 +17363,7 @@ MonoBehaviour:
   visualEffect: []
   particleSystemBench: {fileID: 0}
   slider: {fileID: 1846867062519925796}
-  toolInBench: {fileID: 0}
+  _toolInBench: []
 --- !u!114 &7895824260057509992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17365,7 +17376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2654411125
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -19026,7 +19037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1132464238
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -21466,7 +21477,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetRecipe: {fileID: 0}
-  benchType: 0
+  benchType: 9
+  _auxObject: {fileID: 0}
   ingredients: []
   timerMultiply: 0
   isPerformed: 0
@@ -21510,7 +21522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3995843764
+  GlobalObjectIdHash: 3877718766
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -23351,12 +23363,12 @@ PrefabInstance:
     - target: {fileID: 579685627254158806, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2067128451
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 1083044793812951297, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2240740257
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 1994204414615314825, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
@@ -23406,7 +23418,7 @@ PrefabInstance:
     - target: {fileID: 4141016209730275273, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3812831504
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 4597256103464842324, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
@@ -23426,17 +23438,17 @@ PrefabInstance:
     - target: {fileID: 5676704053817384816, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3896347522
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 6133146704998085135, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3614168896
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 6439336759017774621, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2429496085
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 6745441591254611595, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
@@ -23446,7 +23458,7 @@ PrefabInstance:
     - target: {fileID: 6799683405722919967, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2446559434
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 7453066896498279678, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
@@ -23540,12 +23552,12 @@ PrefabInstance:
     - target: {fileID: 579685627254158806, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 4068226709
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 1083044793812951297, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3442678124
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 1994204414615314825, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
@@ -23595,7 +23607,7 @@ PrefabInstance:
     - target: {fileID: 4141016209730275273, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1628845441
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 4597256103464842324, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
@@ -23615,17 +23627,17 @@ PrefabInstance:
     - target: {fileID: 5676704053817384816, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2844014670
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 6133146704998085135, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2691228547
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 6439336759017774621, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3387288294
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 6745441591254611595, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
@@ -23635,7 +23647,7 @@ PrefabInstance:
     - target: {fileID: 6799683405722919967, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3215345910
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 7453066896498279678, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
@@ -24137,107 +24149,42 @@ PrefabInstance:
     - target: {fileID: 579685627254158806, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3858421017
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 1083044793812951297, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2183474024
-      objectReference: {fileID: 0}
-    - target: {fileID: 1994204414615314825, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 4030962493
-      objectReference: {fileID: 0}
-    - target: {fileID: 2261550201157006619, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 520995419
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 2592693184288117183, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: m_Name
       value: Bancada1
       objectReference: {fileID: 0}
-    - target: {fileID: 2644806467675013933, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: m_Name
-      value: Storage0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2920127468809629666, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 966322824
-      objectReference: {fileID: 0}
-    - target: {fileID: 3343766100357492979, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 2949270594
-      objectReference: {fileID: 0}
-    - target: {fileID: 3482556429646521465, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3770338360599468415, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3907756719993198344, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4141016209730275273, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1894649707
-      objectReference: {fileID: 0}
-    - target: {fileID: 4597256103464842324, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 3771607384
-      objectReference: {fileID: 0}
-    - target: {fileID: 4959429303048762603, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 2249951936
-      objectReference: {fileID: 0}
-    - target: {fileID: 5450570327722363921, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 3982957763
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 5676704053817384816, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1326249736
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 6133146704998085135, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 308515900
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 6439336759017774621, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 4185708888
-      objectReference: {fileID: 0}
-    - target: {fileID: 6745441591254611595, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 3686809779
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 6799683405722919967, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 564517505
-      objectReference: {fileID: 0}
-    - target: {fileID: 7453066896498279678, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 1609612150
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 7778074732808527276, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
@@ -24289,36 +24236,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7925804626673951335, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7977157758476103301, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.00186
-      objectReference: {fileID: 0}
-    - target: {fileID: 7977157758476103301, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.00087
-      objectReference: {fileID: 0}
-    - target: {fileID: 7977157758476103301, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.01262
-      objectReference: {fileID: 0}
-    - target: {fileID: 8194335396849915566, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8196190498793849669, guid: f891502decefb5e47884b6ec955c1bd4,
-        type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 1897648046
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24341,12 +24258,12 @@ PrefabInstance:
     - target: {fileID: 579685627254158806, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2637516683
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 1083044793812951297, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3610463463
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 1994204414615314825, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
@@ -24396,7 +24313,7 @@ PrefabInstance:
     - target: {fileID: 4141016209730275273, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1314283346
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 4597256103464842324, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
@@ -24416,17 +24333,17 @@ PrefabInstance:
     - target: {fileID: 5676704053817384816, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3766966567
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 6133146704998085135, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2370438904
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 6439336759017774621, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2491095138
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 6745441591254611595, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
@@ -24436,7 +24353,7 @@ PrefabInstance:
     - target: {fileID: 6799683405722919967, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 685100561
+      value: 3877718766
       objectReference: {fileID: 0}
     - target: {fileID: 7453066896498279678, guid: f891502decefb5e47884b6ec955c1bd4,
         type: 3}

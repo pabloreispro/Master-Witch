@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 
-public enum BenchType {BusenBurner, Cutting, Mortar, Alembic, Cauldron, Furnace, MysteriousFountain, Refrigeration, Well}
+public enum BenchType {BusenBurner, Cutting, Mortar, Alembic, Cauldron, Furnace, MysteriousFountain, Refrigeration, Well, Book, Table, Market, Storage, Tool, Trash, Free}
 public class Bench : Interactable
 {
     int playerID;
@@ -20,7 +20,7 @@ public class Bench : Interactable
     //public Tool toolInBench;
     public RecipeSO targetRecipe;
     public BenchType benchType;
-    private GameObject _auxObject;
+    public GameObject _auxObject;
     public List<RecipeData> ingredients = new List<RecipeData>();
     public float timerMultiply;
     public bool isPerformed;
