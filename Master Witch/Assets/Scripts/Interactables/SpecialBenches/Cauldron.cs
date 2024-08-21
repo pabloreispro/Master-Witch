@@ -35,18 +35,19 @@ public class Cauldron : Bench
 
     public override void Drop(Player player)
     {
-        var interact = player.GetComponentInChildren<Interactable>();
-        
-        switch(interact){
-            case Ingredient i:
-                endProgress = false;
-                AddIngredient(i.food);
-                progress();
-            break;
-            case Tool t when t.tool.benchType == benchType:         
-                _toolInBench.Add(t.tool);
-            break;
+        if(_toolInBench.Count < 2){
+            var interact = player.GetComponentInChildren<Interactable>();
+            switch(interact){
+                case Ingredient i:
+                    endProgress = false;
+                    AddIngredient(i.food);
+                    progress();
+                break;
+                case Tool t when t.tool.benchType == benchType:         
+                    _toolInBench.Add(t.tool);
+                break;
+            }
+            interact.DestroySelf();
         }
-        interact.DestroySelf();
     }
 }

@@ -38,8 +38,6 @@ public class Bench : Interactable
     [Header("UI")]
     public Slider slider;
     
-
-    
     public List<FoodSO> foodList 
     {
         get
@@ -127,12 +125,7 @@ public class Bench : Interactable
     public void OnEndProgress()
     {
         slider.gameObject.SetActive(false);
-        
         endProgress = true;
-    }
-    public void SetPlayer(Player player)
-    {
-        targetPlayer = player;
     }
 
     public void PositionBench(Interactable interact){
