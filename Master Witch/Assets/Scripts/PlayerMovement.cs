@@ -125,9 +125,8 @@ public class PlayerMovement : Player
             
             if(isHand.Value && isHandBasket.Value){ChangeState(PlayerState.WalkingBasket);}
             else if(isHand.Value && !isHandBasket.Value){ChangeState(PlayerState.WalkingItem);}
-            else ChangeState(PlayerState.Walking); 
-
-             isMoving.Value=true;
+            else ChangeState(PlayerState.Walking);
+            isMoving.Value=true;
         }
         else 
         {

@@ -7,8 +7,6 @@ using Unity.Netcode;
 public class Ingredient : Interactable
 {
     public FoodSO food;
-    public bool isHandIngredient;
-    public TypeObject typeObject;
     public List<RecipeData> itensUsed = new List<RecipeData>();
 
     private void Start() {
