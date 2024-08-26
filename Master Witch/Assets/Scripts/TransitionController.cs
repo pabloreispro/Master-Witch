@@ -101,6 +101,7 @@ public class TransitionController : SingletonNetwork<TransitionController>
         SceneManager.Instance.isMovementAllowed.Value = false;
         NewCamController.Instance.minXHorizontal.Value = -20;
         NewCamController.Instance.maxXHorizontal.Value = 20;
+        NewCamController.Instance.minZ.Value = -20;
 
         ActivatePanelClientRpc(PanelType.SceneTransition, true);
         PlayAnimationClientRpc(AnimatorType.SceneTransition, fadeIn.name);
