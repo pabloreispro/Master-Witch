@@ -12,6 +12,8 @@ public class NewCamController : SingletonNetwork<NewCamController>
     [SerializeField] private float speedMovement;
     public NetworkVariable<float> minXHorizontal;
     public NetworkVariable<float> maxXHorizontal;
+    public NetworkVariable<float> minZ;
+    public NetworkVariable<float> maxZ;
     
     [Header("Rotation Configs")]
 
@@ -48,7 +50,8 @@ public class NewCamController : SingletonNetwork<NewCamController>
     void FollowTarget()
     {
         float boundX = Mathf.Clamp(target.position.x, minXHorizontal.Value, maxXHorizontal.Value);
-        Vector3 targetPosition = new Vector3(boundX, transform.position.y, transform.position.z);
+        float boundZ = Mathf.Clamp(target.position.z, minZ.Value, maxZ.Value);
+        Vector3 targetPosition = new Vector3(boundX, transform.position.y, boundZ);
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, speedMovement * Time.deltaTime);
 
         transform.position = smoothedPosition;
