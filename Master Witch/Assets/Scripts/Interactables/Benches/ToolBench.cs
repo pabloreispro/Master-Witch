@@ -19,7 +19,6 @@ public class ToolBench : Bench
             objectSpawn.GetComponent<Collider>().enabled = false;
             player.SetItemHandClientRpc(objectSpawn);
             player.ChangeState(PlayerState.Interact);
-
         }
     }
 }
