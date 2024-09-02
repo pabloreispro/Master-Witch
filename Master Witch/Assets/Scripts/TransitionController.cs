@@ -98,6 +98,7 @@ public class TransitionController : SingletonNetwork<TransitionController>
     
     public IEnumerator TransitionMainScene()
     {
+        /*
         SceneManager.Instance.isMovementAllowed.Value = false;
         NewCamController.Instance.minXHorizontal.Value = -20;
         NewCamController.Instance.maxXHorizontal.Value = 20;
@@ -106,20 +107,22 @@ public class TransitionController : SingletonNetwork<TransitionController>
         ActivatePanelClientRpc(PanelType.SceneTransition, true);
         PlayAnimationClientRpc(AnimatorType.SceneTransition, fadeIn.name);
         yield return new WaitForSeconds(fadeIn.length);
-
+        */
         SceneManager.Instance.ChangeSceneServerRpc(false,true);
         SceneManager.Instance.RepositionPlayersMainSceneServerRpc();
-
+        /*
         PlayAnimationClientRpc(AnimatorType.SceneTransition, fadeOut.name);
         yield return new WaitForSeconds(fadeOut.length);
         ActivatePanelClientRpc(PanelType.SceneTransition, false);
 
         ActivatePanelClientRpc(PanelType.CountdownMain, true);
         PlayAnimationClientRpc(AnimatorType.CountdownMain,countdownMain.name);
-        yield return new WaitForSeconds(countdownMain.length);
+        yield return new WaitForSeconds(countdownMain.length);*/
         SceneManager.Instance.StartMain();
         SceneManager.Instance.isMovementAllowed.Value = true;
-        ActivatePanelClientRpc(PanelType.CountdownMain, false);
+        //ActivatePanelClientRpc(PanelType.CountdownMain, false);
+
+        yield return new WaitForSeconds(0);
         
     }
     [ClientRpc]
@@ -133,18 +136,18 @@ public class TransitionController : SingletonNetwork<TransitionController>
     }
     public IEnumerator TransitionMarketScene()
     {
-        RClientRpc();
+        //RClientRpc();
         GameManager.Instance.InitializeGameClientRpc();
-        SceneManager.Instance.isMovementAllowed.Value = false;
+        /*SceneManager.Instance.isMovementAllowed.Value = false;
         ActivatePanelClientRpc(PanelType.SceneTransition, true);
 
         PlayAnimationClientRpc(AnimatorType.SceneTransition,fadeIn.name);
-        yield return new WaitForSeconds(fadeIn.length);
+        yield return new WaitForSeconds(fadeIn.length);*/
 
         SceneManager.Instance.ChangeSceneServerRpc(true,false);
         SceneManager.Instance.RepositionPlayersMarketSceneServerRpc();
 
-        PlayAnimationClientRpc(AnimatorType.SceneTransition,fadeOut.name);
+        /*PlayAnimationClientRpc(AnimatorType.SceneTransition,fadeOut.name);
         yield return new WaitForSeconds(fadeOut.length);
         ActivatePanelClientRpc(PanelType.SceneTransition, false);
         
@@ -155,10 +158,12 @@ public class TransitionController : SingletonNetwork<TransitionController>
 
         ActivatePanelClientRpc(PanelType.CountdownMarket, true);
         PlayAnimationClientRpc(AnimatorType.CountdownMarket,countdownMarket.name);
-        yield return new WaitForSeconds(countdownMarket.length);
+        yield return new WaitForSeconds(countdownMarket.length);*/
         SceneManager.Instance.StartMarket();
         SceneManager.Instance.isMovementAllowed.Value = true;
-        ActivatePanelClientRpc(PanelType.CountdownMarket, false);
+        //ActivatePanelClientRpc(PanelType.CountdownMarket, false);
+
+        yield return new WaitForSeconds(0);
         
 
     }

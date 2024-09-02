@@ -21,6 +21,8 @@ public class NewCamController : SingletonNetwork<NewCamController>
     [SerializeField] private float minAngle;
     [SerializeField] private float maxAngle;
 
+    public Vector3 offset;
+
     void Start()
     {
         initialPosition = this.transform;
@@ -29,7 +31,7 @@ public class NewCamController : SingletonNetwork<NewCamController>
     {
         if (target != null)
         {
-            LookAtTarget();
+            //LookAtTarget();
             FollowTarget(); 
         }
         else
@@ -49,9 +51,9 @@ public class NewCamController : SingletonNetwork<NewCamController>
 
     void FollowTarget()
     {
-        float boundX = Mathf.Clamp(target.position.x, minXHorizontal.Value, maxXHorizontal.Value);
-        float boundZ = Mathf.Clamp(target.position.z, minZ.Value, maxZ.Value);
-        Vector3 targetPosition = new Vector3(boundX, transform.position.y, boundZ);
+        //float boundX = Mathf.Clamp(target.position.x, minXHorizontal.Value, maxXHorizontal.Value);
+        //float boundZ = Mathf.Clamp(target.position.z, minZ.Value, maxZ.Value);
+        Vector3 targetPosition = target.position + offset;
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, speedMovement * Time.deltaTime);
 
         transform.position = smoothedPosition;

@@ -11,7 +11,7 @@ using TMPro;
 
 public class SceneManager : SingletonNetwork<SceneManager>
 {
-    const int TIMER_MARKET = 30;
+    public int TIMER_MARKET = 150;
     public const int TIMER_MAIN = 150;
 
     [SerializeField]
