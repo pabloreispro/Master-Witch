@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08043665, g: 0.09983989, b: 0.30127284, a: 1}
+  m_IndirectSpecularColor: {r: 0.08040641, g: 0.09978241, b: 0.3010325, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -17056,6 +17056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c58fbef724a4a159fefefc7767064e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerState: {fileID: 0}
   targetRecipe: {fileID: 0}
   benchType: 0
   _auxObject: {fileID: 0}
@@ -18404,6 +18405,11 @@ PrefabInstance:
       propertyPath: prefabMain
       value: 
       objectReference: {fileID: 4761971955683914838}
+    - target: {fileID: 3567374289657433202, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
+      propertyPath: TIMER_MARKET
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 3567374289657433202, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
         type: 3}
       propertyPath: prefabMarket
