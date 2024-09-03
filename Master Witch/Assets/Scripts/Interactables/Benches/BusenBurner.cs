@@ -6,10 +6,33 @@ using Unity.VisualScripting;
 using UnityEditor;
 public class BusenBurner : Bench
 {
+    public const float TIMER_MULTI = 10;
+    public NetworkVariable<float> timeBusen = new();
     private void Start()
     {
         isPreparing.OnValueChanged += (a,b) => visualEffect[0].SetBool("isPreparing", isPreparing.Value);
         isPreparing.OnValueChanged += (a,b) => visualEffect[1].SetBool("isPreparing", isPreparing.Value);
+    }
+
+    private void FixedUpdate()
+    {
+        if(playerState !=null && ingredients.Count > 0){
+            if(playerState.buttonPressed){
+                timeBusen.Value = timeBusen.Value + Time.deltaTime * TIMER_MULTI;
+            }else if(timeBusen.Value >= 0){
+                timeBusen.Value = timeBusen.Value - Time.deltaTime * TIMER_MULTI;
+            }
+            if(90<=timeBusen.Value && timeBusen.Value<=100){
+                isPreparing.Value = false;
+                playerState.buttonPressed = false;
+            }
+            else if(75<=timeBusen.Value && timeBusen.Value <= 90){
+                isPreparing.Value = true;
+            }else{
+                isPreparing.Value = false;
+            }
+        }
+        
     }
     
     public override void Pick(Player player)

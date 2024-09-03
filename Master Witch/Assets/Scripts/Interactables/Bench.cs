@@ -14,8 +14,7 @@ public enum BenchType {BusenBurner, Cutting, Mortar, Alembic, Cauldron, Furnace,
 public class Bench : Interactable
 {
     int playerID;
-    Player targetPlayer;
-
+    public PlayerMovement playerState;
     [Header("Bench config")]
     //public Tool toolInBench;
     public RecipeSO targetRecipe;

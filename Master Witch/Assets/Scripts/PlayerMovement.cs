@@ -26,6 +26,7 @@ public class PlayerMovement : Player
     public float distanciaMaxima = 2.0f;
     public int numberOfRays = 10;
     private Storage _benchStorage;
+    public bool buttonPressed;
 
     public override void OnNetworkSpawn()
     {
@@ -96,6 +97,9 @@ public class PlayerMovement : Player
                 if (tempInteract != null)
                 {
                     interact = tempInteract;
+                    if(interact as Bench){
+                        (interact as Bench).playerState = this;
+                    }
                     break;
                 }
             }
@@ -151,10 +155,12 @@ public class PlayerMovement : Player
         if(IsOwner){
             if(context.started){
                 _PickDropObject();
-                _ButtonInteraction();
+                //_ButtonInteraction();
+                buttonPressed = true;
             }
             if(context.canceled){
-                (interact as Bench).isPreparing.Value = false;
+                buttonPressed = false;
+                //(interact as Bench).isPreparing.Value = false;
             }
         }
     }
