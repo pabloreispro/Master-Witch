@@ -44,13 +44,13 @@ namespace UI
         [SerializeField] Button clientButton;
         [SerializeField] Button startGameButton;
         [SerializeField] Button disconnectButton;
-        [Header("   Lobby List HUD")]
+        [Header("Lobby List HUD")]
         [SerializeField] LobbyItemUI lobbyItemPrefab;
         [SerializeField] TMP_InputField lobbyCode;
         [SerializeField] TMP_InputField newLobbyName;
         [SerializeField] Toggle publicityToggle;
         [SerializeField] Transform lobbiesHolder;
-        [Header("   Lobby HUD")]
+        [Header("Lobby HUD")]
         [SerializeField] TextMeshProUGUI lobbyName;
         [SerializeField] LobbyPlayerItem lobbyPlayerItemPrefab;
         [SerializeField] Transform playerList;
@@ -62,6 +62,11 @@ namespace UI
         public Toggle[] playerFinalCheck;
         public GameObject finalPanel;
         public GameObject ResultPanel;
+        [Header("Game HUD")]
+        public GameObject recipeSteps,horizontalGroupPrefab,imagePrefab;
+        public Sprite plusSprite,equalsSprite,arrowSprite,benchOven,benchBoard,benchStove;
+        public TextMeshProUGUI recipeName;
+
 
         private void Awake()
         {

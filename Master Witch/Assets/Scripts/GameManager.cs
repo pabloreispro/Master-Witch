@@ -19,10 +19,9 @@ public class GameManager : SingletonNetwork<GameManager>
     [SerializeField] MeshRenderer[] benchColorRenderer;
     [SerializeField] RecipeSO[] recipeDatabase;
     [SerializeField] ChefSO[] chefsDatabase;
-    public List<string> test;  
+  
     public Text RecipeText;
-    public GameObject grid,horizontalGroupPrefab,imagePrefab;
-    public Sprite plusSprite,equalsSprite,arrowSprite,benchOven,benchBoard,benchStove;
+    
     Dictionary<int, float> ResultFinal = new Dictionary<int, float>();
     RecipeSO targetRecipe;
     public float matchStartTime;
@@ -122,20 +121,29 @@ public class GameManager : SingletonNetwork<GameManager>
             return foodDatabase.DefaultRecipe;
         }
     }
-    [ClientRpc]
-    public void InitializeGameClientRpc()
+
+    [ServerRpc]
+    public void InitializeGameServerRpc()
     {
-        GetInitialRecipe();
+        int recipeIndex = Random.Range(0, recipeDatabase.Length); 
+        InitializeGameClientRpc(recipeIndex); 
+    }
+
+    [ClientRpc]
+    public void InitializeGameClientRpc(int recipeIndex)
+    {
+        GetInitialRecipe(recipeIndex);
         SelectChefs();
     }
-    void GetInitialRecipe()
+
+    void GetInitialRecipe(int recipeIndex)
     {
-        targetRecipe = recipeDatabase.ElementAt(Random.Range(0, recipeDatabase.Length));
-        RecipeText.text = targetRecipe.name;
+        targetRecipe = recipeDatabase.ElementAt(recipeIndex);
+        NetworkManagerUI.Instance.recipeName.text = targetRecipe.name;
         
         foreach (var step in ExtractRecipeSteps(targetRecipe))
         {
-            step.transform.SetParent(grid.transform);
+            step.transform.SetParent(NetworkManagerUI.Instance.recipeSteps.transform);
         }
     }
     void SelectChefs()
@@ -174,14 +182,14 @@ public class GameManager : SingletonNetwork<GameManager>
                 }
             }
         }
-        var step = Instantiate(horizontalGroupPrefab);
+        var step = Instantiate(NetworkManagerUI.Instance.horizontalGroupPrefab);
         
         if (ingredients != null && ingredients.foods != null)
         {
             for (int i = 0; i < ingredients.foods.Count; i++)
             {
                 var ingredient = ingredients.foods[i];
-                var item = Instantiate(imagePrefab, step.transform);
+                var item = Instantiate(NetworkManagerUI.Instance.imagePrefab, step.transform);
                 var image = item.GetComponent<Image>();
                 image.sprite = ingredient.imageFood; 
                 image.preserveAspect = true;
@@ -189,9 +197,9 @@ public class GameManager : SingletonNetwork<GameManager>
                 
                 if (i < ingredients.foods.Count - 1)
                 {
-                    var plus = Instantiate(imagePrefab, step.transform);
+                    var plus = Instantiate(NetworkManagerUI.Instance.imagePrefab, step.transform);
                     var plusImage = plus.GetComponent<Image>();
-                    plusImage.sprite = plusSprite;
+                    plusImage.sprite = NetworkManagerUI.Instance.plusSprite;
                     plusImage.preserveAspect = true;
                 }
             }
@@ -200,40 +208,40 @@ public class GameManager : SingletonNetwork<GameManager>
         
         if (bench != null)
         {
-            var arrow = Instantiate(imagePrefab, step.transform);
+            var arrow = Instantiate(NetworkManagerUI.Instance.imagePrefab, step.transform);
             var arrowImage = arrow.GetComponent<Image>();
-            arrowImage.sprite = arrowSprite; 
+            arrowImage.sprite = NetworkManagerUI.Instance.arrowSprite; 
             arrowImage.preserveAspect = true;
 
-            var benchItem = Instantiate(imagePrefab, step.transform);
+            var benchItem = Instantiate(NetworkManagerUI.Instance.imagePrefab, step.transform);
             var benchImage = benchItem.GetComponent<Image>();
 
             if(bench.benchType == BenchType.Mortar)
             {
-                benchImage.sprite = benchOven; 
+                benchImage.sprite = NetworkManagerUI.Instance.benchOven; 
                 benchImage.preserveAspect = true;
             }
             else if (bench.benchType == BenchType.BusenBurner)
             {
-                benchImage.sprite = benchStove;
+                benchImage.sprite = NetworkManagerUI.Instance.benchStove;
                 benchImage.preserveAspect = true;
             }
             else
             {
-                benchImage.sprite = benchBoard;
+                benchImage.sprite = NetworkManagerUI.Instance.benchBoard;
                 benchImage.preserveAspect = true;
             }
             
         }
 
         
-        var equals = Instantiate(imagePrefab, step.transform);
+        var equals = Instantiate(NetworkManagerUI.Instance.imagePrefab, step.transform);
         var equalsImage = equals.GetComponent<Image>();
-        equalsImage.sprite = equalsSprite;
+        equalsImage.sprite = NetworkManagerUI.Instance.equalsSprite;
         equalsImage.preserveAspect = true;
 
         
-        var result = Instantiate(imagePrefab, step.transform);
+        var result = Instantiate(NetworkManagerUI.Instance.imagePrefab, step.transform);
         var resultImage = result.GetComponent<Image>();
         resultImage.sprite = recipe.imageFood; 
         resultImage.preserveAspect = true;

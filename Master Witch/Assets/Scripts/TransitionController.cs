@@ -137,7 +137,7 @@ public class TransitionController : SingletonNetwork<TransitionController>
     public IEnumerator TransitionMarketScene()
     {
         //RClientRpc();
-        GameManager.Instance.InitializeGameClientRpc();
+        GameManager.Instance.InitializeGameServerRpc();
         /*SceneManager.Instance.isMovementAllowed.Value = false;
         ActivatePanelClientRpc(PanelType.SceneTransition, true);
 
