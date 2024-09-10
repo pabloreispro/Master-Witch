@@ -9,6 +9,19 @@ public class Mortar : Bench
     {
         isPreparing.OnValueChanged += (a,b) => visualEffect[0].SetBool("isPreparing", isPreparing.Value);
     }
+
+    private void FixedUpdate()
+    {
+        if(playerState !=null && ingredients.Count > 0){
+            if(playerState.buttonPressed){
+                Debug.Log("Mortar");
+                isPreparing.Value = true;
+            }else{
+                isPreparing.Value = false;
+            }
+        }
+        
+    }
     
     public override void Pick(Player player)
     {

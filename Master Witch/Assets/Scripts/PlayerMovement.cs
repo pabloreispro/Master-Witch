@@ -64,6 +64,8 @@ public class PlayerMovement : Player
             {ChangeState(PlayerState.Idle); isMoving.Value=false;}
             
             _VerifyStorage();
+
+            (interact as Bench).playerState = this;
             
         }
     }
@@ -97,9 +99,9 @@ public class PlayerMovement : Player
                 if (tempInteract != null)
                 {
                     interact = tempInteract;
-                    if(interact as Bench){
-                        (interact as Bench).playerState = this;
-                    }
+                    
+                    
+                    
                     break;
                 }
             }
@@ -155,25 +157,11 @@ public class PlayerMovement : Player
         if(IsOwner){
             if(context.started){
                 _PickDropObject();
-                //_ButtonInteraction();
                 buttonPressed = true;
             }
             if(context.canceled){
                 buttonPressed = false;
-                //(interact as Bench).isPreparing.Value = false;
             }
-        }
-    }
-    private void _ButtonInteraction(){
-        if(interact != null && !isHand.Value){
-            (interact as Bench).isPreparing.Value = true; 
-            Invoke("_ClickedButton", 0.5f);
-        }
-    }
-    private void _ClickedButton(){
-        if(!(interact as Bench).isPerformed){
-            (interact as Bench).isPreparing.Value = false; 
-            return;
         }
     }
     private void _PickDropObject(){

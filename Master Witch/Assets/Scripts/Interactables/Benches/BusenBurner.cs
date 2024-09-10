@@ -18,6 +18,7 @@ public class BusenBurner : Bench
     {
         if(playerState !=null && ingredients.Count > 0){
             if(playerState.buttonPressed){
+                Debug.Log("Busen");
                 timeBusen.Value = timeBusen.Value + Time.deltaTime * TIMER_MULTI;
             }else if(timeBusen.Value >= 0){
                 timeBusen.Value = timeBusen.Value - Time.deltaTime * TIMER_MULTI;

@@ -8,6 +8,24 @@ public class CuttingBench : Bench
     {
         isPreparing.OnValueChanged += (a,b) => visualEffect[0].SetBool("isPreparing", isPreparing.Value);
     }
+
+    private void FixedUpdate()
+    {
+        if(playerState !=null && ingredients.Count > 0){
+            if(playerState.buttonPressed){
+                isPreparing.Value = true;
+                Debug.Log("Cutting");
+                Invoke("_ClickedButton", 0.5f);
+            }else{
+                isPreparing.Value = false;
+            }
+        }
+    }
+
+    private void _ClickedButton(){
+        isPreparing.Value = false;
+        return;
+    }
     
     public override void Pick(Player player)
     {
