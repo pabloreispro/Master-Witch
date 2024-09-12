@@ -234,6 +234,54 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""UIController"",
+            ""id"": ""693c978c-f72b-4b4e-91c2-b14fce461a34"",
+            ""actions"": [
+                {
+                    ""name"": ""DisplayRecipe"",
+                    ""type"": ""Button"",
+                    ""id"": ""d99fc393-657b-4983-995b-c86d8d08bedd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SuspendRecipe"",
+                    ""type"": ""Button"",
+                    ""id"": ""202cb826-ddd5-4836-8655-ae60c5d02eb7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""be4557d3-4e83-420f-ab95-f303a5e3b6b7"",
+                    ""path"": ""<Keyboard>/#(K)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DisplayRecipe"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""39b2a527-5953-4fe3-a026-b0bfd4550db5"",
+                    ""path"": ""<Keyboard>/#(I)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SuspendRecipe"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -249,6 +297,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // NavegationStorage
         m_NavegationStorage = asset.FindActionMap("NavegationStorage", throwIfNotFound: true);
         m_NavegationStorage_Navegation = m_NavegationStorage.FindAction("Navegation", throwIfNotFound: true);
+        // UIController
+        m_UIController = asset.FindActionMap("UIController", throwIfNotFound: true);
+        m_UIController_DisplayRecipe = m_UIController.FindAction("DisplayRecipe", throwIfNotFound: true);
+        m_UIController_SuspendRecipe = m_UIController.FindAction("SuspendRecipe", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -460,6 +512,60 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public NavegationStorageActions @NavegationStorage => new NavegationStorageActions(this);
+
+    // UIController
+    private readonly InputActionMap m_UIController;
+    private List<IUIControllerActions> m_UIControllerActionsCallbackInterfaces = new List<IUIControllerActions>();
+    private readonly InputAction m_UIController_DisplayRecipe;
+    private readonly InputAction m_UIController_SuspendRecipe;
+    public struct UIControllerActions
+    {
+        private @PlayerInput m_Wrapper;
+        public UIControllerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @DisplayRecipe => m_Wrapper.m_UIController_DisplayRecipe;
+        public InputAction @SuspendRecipe => m_Wrapper.m_UIController_SuspendRecipe;
+        public InputActionMap Get() { return m_Wrapper.m_UIController; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIControllerActions set) { return set.Get(); }
+        public void AddCallbacks(IUIControllerActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIControllerActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIControllerActionsCallbackInterfaces.Add(instance);
+            @DisplayRecipe.started += instance.OnDisplayRecipe;
+            @DisplayRecipe.performed += instance.OnDisplayRecipe;
+            @DisplayRecipe.canceled += instance.OnDisplayRecipe;
+            @SuspendRecipe.started += instance.OnSuspendRecipe;
+            @SuspendRecipe.performed += instance.OnSuspendRecipe;
+            @SuspendRecipe.canceled += instance.OnSuspendRecipe;
+        }
+
+        private void UnregisterCallbacks(IUIControllerActions instance)
+        {
+            @DisplayRecipe.started -= instance.OnDisplayRecipe;
+            @DisplayRecipe.performed -= instance.OnDisplayRecipe;
+            @DisplayRecipe.canceled -= instance.OnDisplayRecipe;
+            @SuspendRecipe.started -= instance.OnSuspendRecipe;
+            @SuspendRecipe.performed -= instance.OnSuspendRecipe;
+            @SuspendRecipe.canceled -= instance.OnSuspendRecipe;
+        }
+
+        public void RemoveCallbacks(IUIControllerActions instance)
+        {
+            if (m_Wrapper.m_UIControllerActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIControllerActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIControllerActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIControllerActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIControllerActions @UIController => new UIControllerActions(this);
     public interface IPlayerControlActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -473,5 +579,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     public interface INavegationStorageActions
     {
         void OnNavegation(InputAction.CallbackContext context);
+    }
+    public interface IUIControllerActions
+    {
+        void OnDisplayRecipe(InputAction.CallbackContext context);
+        void OnSuspendRecipe(InputAction.CallbackContext context);
     }
 }
