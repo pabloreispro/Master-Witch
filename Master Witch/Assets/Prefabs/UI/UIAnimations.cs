@@ -19,7 +19,7 @@ public class UIAnimations : MonoBehaviour
     public void Suspend(InputAction.CallbackContext context)
     {
         if (context.performed)
-        recipeStepsTransform.DOAnchorPosY(395, 5).OnComplete(()=> 
+        recipeStepsTransform.DOAnchorPosY(395, 3).OnComplete(()=> 
         {
             b.SetActive(false); 
             a.SetActive(true);
@@ -29,7 +29,7 @@ public class UIAnimations : MonoBehaviour
     public void Display(InputAction.CallbackContext context)
     {
         if(context.performed)
-        recipeStepsTransform.DOAnchorPosY(-442.5f,5).OnComplete(()=>
+        recipeStepsTransform.DOAnchorPosY(-442.5f,3).OnComplete(()=>
         {
             b.SetActive(true); 
             a.SetActive(false);
@@ -39,8 +39,6 @@ public class UIAnimations : MonoBehaviour
     
     public void StartButtonPulse(Transform interactButton)
     {
-        interactButton.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 1f) 
-        .SetEase(Ease.InOutSine) 
-        .SetLoops(-1, LoopType.Yoyo); 
+        interactButton.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 1f).SetEase(Ease.InOutCubic).SetLoops(-1, LoopType.Yoyo); 
     }
 }
