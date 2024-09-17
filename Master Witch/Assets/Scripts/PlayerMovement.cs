@@ -16,8 +16,6 @@ using UI;
 
 public class PlayerMovement : Player
 {
-   
-
     [Header("Movement Configs")]
     private PlayerInput _playerInput;
     public float speedRotation;
@@ -64,8 +62,6 @@ public class PlayerMovement : Player
             {ChangeState(PlayerState.Idle); isMoving.Value=false;}
             
             _VerifyStorage();
-
-            (interact as Bench).playerState = this;
             
         }
     }
@@ -99,9 +95,7 @@ public class PlayerMovement : Player
                 if (tempInteract != null)
                 {
                     interact = tempInteract;
-                    
-                    
-                    
+                    (interact as Bench)._player = this;
                     break;
                 }
             }

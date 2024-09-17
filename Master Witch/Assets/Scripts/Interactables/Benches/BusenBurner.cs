@@ -16,24 +16,32 @@ public class BusenBurner : Bench
 
     private void FixedUpdate()
     {
-        if(playerState !=null && ingredients.Count > 0){
-            if(playerState.buttonPressed){
+        if(_player !=null && ingredients.Count > 0){
+            if(_player.buttonPressed){
                 Debug.Log("Busen");
                 timeBusen.Value = timeBusen.Value + Time.deltaTime * TIMER_MULTI;
             }else if(timeBusen.Value >= 0){
                 timeBusen.Value = timeBusen.Value - Time.deltaTime * TIMER_MULTI;
             }
-            if(90<=timeBusen.Value && timeBusen.Value<=100){
-                isPreparing.Value = false;
-                playerState.buttonPressed = false;
-            }
-            else if(75<=timeBusen.Value && timeBusen.Value <= 90){
-                isPreparing.Value = true;
-            }else{
-                isPreparing.Value = false;
+
+            switch(timeBusen.Value)
+            {
+                case >= 90 and <= 100:
+                    isPreparing.Value = false;
+                    _player.buttonPressed = false;
+                    _player = null;
+                    break;
+
+                case >= 75 and < 90:
+                    isPreparing.Value = true;
+                    break;
+
+                default:
+                    isPreparing.Value = false;
+                    _player = null;
+                    break;
             }
         }
-        
     }
     
     public override void Pick(Player player)
@@ -50,6 +58,7 @@ public class BusenBurner : Bench
     }
     public override void Drop(Player player)
     {
+        
         var interact = player.GetComponentInChildren<Ingredient>();
         endProgress = false;
         AddIngredient(interact.food);

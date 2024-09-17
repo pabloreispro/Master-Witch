@@ -12,12 +12,13 @@ public class Mortar : Bench
 
     private void FixedUpdate()
     {
-        if(playerState !=null && ingredients.Count > 0){
-            if(playerState.buttonPressed){
+        if(_player !=null && ingredients.Count > 0){
+            if(_player.buttonPressed){
                 Debug.Log("Mortar");
                 isPreparing.Value = true;
             }else{
                 isPreparing.Value = false;
+                _player = null;
             }
         }
         

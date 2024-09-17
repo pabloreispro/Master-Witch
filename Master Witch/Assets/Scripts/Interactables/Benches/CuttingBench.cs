@@ -11,13 +11,14 @@ public class CuttingBench : Bench
 
     private void FixedUpdate()
     {
-        if(playerState !=null && ingredients.Count > 0){
-            if(playerState.buttonPressed){
+        if(_player !=null && ingredients.Count > 0){
+            if(_player.buttonPressed){
                 isPreparing.Value = true;
                 Debug.Log("Cutting");
                 Invoke("_ClickedButton", 0.5f);
             }else{
                 isPreparing.Value = false;
+                _player = null;
             }
         }
     }
