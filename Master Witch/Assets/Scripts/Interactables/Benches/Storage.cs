@@ -34,13 +34,11 @@ public class Storage : Bench
 
     public override void Drop(Player player)
     {
-
         var interact = player.GetComponentInChildren<Ingredient>();
         if(ingredients.Count < 4){
             AddIngredient(interact.food);
             interact.DestroySelf();
         }
-        
     }
 
     public void SelectedIngredient(int indexSlots){
@@ -48,9 +46,10 @@ public class Storage : Bench
             UpdateInventory();
             Time.timeScale = 1;
             SetPlayerItemServerRpc(indexSlots, PlayerNetworkManager.Instance.GetID[player]);
+            ingredients.RemoveAt(indexSlots);
             slotSelected = null;
-            panelInventory.SetActive(false);
             isActive = false;
+            panelInventory.SetActive(false);
         }
     }
 
@@ -67,8 +66,7 @@ public class Storage : Bench
         objectSpawn.GetComponent<Collider>().enabled = false;
         playerScene.SetItemHandClientRpc(objectSpawn);
         playerScene.ChangeState(PlayerState.Interact);
-        RemoveIngredient(ingredients[itemIndex].TargetFood);
-        
+        //RemoveIngredient(ingredients[itemIndex].TargetFood);
     }
 
     public void Initialize()
