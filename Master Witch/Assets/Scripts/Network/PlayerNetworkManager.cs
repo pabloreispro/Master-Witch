@@ -105,7 +105,7 @@ namespace Network
                         break;
                 }
                 playerList.ElementAt(i).Value.OnConnected(material, i);
-                GameManager.Instance.ChangeBenchColor(material, i);
+                //GameManager.Instance.ChangeBenchColor(material, i);
             }
            
     }
