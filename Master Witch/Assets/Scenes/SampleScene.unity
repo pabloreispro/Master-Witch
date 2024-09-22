@@ -4095,6 +4095,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 7266624142310898008}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &548218537 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8980686254140448721, guid: 010d67ac3e0926d409e937d25bfe4b51,
+    type: 3}
+  m_PrefabInstance: {fileID: 4599330954522170815}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &553146215
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12367,6 +12373,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1461729087}
   m_CullTransparentMesh: 1
+--- !u!4 &1479372573 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6209054199458973616, guid: 010d67ac3e0926d409e937d25bfe4b51,
+    type: 3}
+  m_PrefabInstance: {fileID: 4599330954522170815}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1494403744
 GameObject:
   m_ObjectHideFlags: 0
@@ -13070,6 +13082,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!4 &1540719521 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7156492723511202718, guid: 010d67ac3e0926d409e937d25bfe4b51,
+    type: 3}
+  m_PrefabInstance: {fileID: 4599330954522170815}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1554928948
 GameObject:
   m_ObjectHideFlags: 0
@@ -15899,6 +15917,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1954703551}
   m_CullTransparentMesh: 1
+--- !u!4 &1954851514 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5322070876012514303, guid: 010d67ac3e0926d409e937d25bfe4b51,
+    type: 3}
+  m_PrefabInstance: {fileID: 4599330954522170815}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1957446346
 GameObject:
   m_ObjectHideFlags: 0
@@ -19409,7 +19433,7 @@ PrefabInstance:
         type: 3}
       propertyPath: spawnBasket.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1540719521}
     - target: {fileID: 3567374289657433202, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
         type: 3}
       propertyPath: spawnBasket.Array.data[1]
@@ -19419,7 +19443,7 @@ PrefabInstance:
         type: 3}
       propertyPath: spawnBasket.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 548218537}
     - target: {fileID: 3567374289657433202, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
         type: 3}
       propertyPath: spawnBasket.Array.data[3]
@@ -19449,7 +19473,7 @@ PrefabInstance:
         type: 3}
       propertyPath: spawnPlayersMain.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1954851514}
     - target: {fileID: 3567374289657433202, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
         type: 3}
       propertyPath: spawnPlayersMain.Array.data[1]
@@ -19459,7 +19483,7 @@ PrefabInstance:
         type: 3}
       propertyPath: spawnPlayersMain.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1479372573}
     - target: {fileID: 3567374289657433202, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
         type: 3}
       propertyPath: spawnPlayersMain.Array.data[3]
