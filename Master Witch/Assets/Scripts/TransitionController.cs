@@ -98,12 +98,13 @@ public class TransitionController : SingletonNetwork<TransitionController>
     
     public IEnumerator TransitionMainScene()
     {
+        
+        //SceneManager.Instance.isMovementAllowed.Value = false;
+        NewCamController.Instance.minXHorizontal.Value = -46;
+        NewCamController.Instance.maxXHorizontal.Value = 46;
+        NewCamController.Instance.minZ.Value = -35.5f;
+        NewCamController.Instance.maxZ.Value = 1;
         /*
-        SceneManager.Instance.isMovementAllowed.Value = false;
-        NewCamController.Instance.minXHorizontal.Value = -20;
-        NewCamController.Instance.maxXHorizontal.Value = 20;
-        NewCamController.Instance.minZ.Value = -20;
-
         ActivatePanelClientRpc(PanelType.SceneTransition, true);
         PlayAnimationClientRpc(AnimatorType.SceneTransition, fadeIn.name);
         yield return new WaitForSeconds(fadeIn.length);

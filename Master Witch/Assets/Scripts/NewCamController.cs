@@ -51,9 +51,9 @@ public class NewCamController : SingletonNetwork<NewCamController>
 
     void FollowTarget()
     {
-        //float boundX = Mathf.Clamp(target.position.x, minXHorizontal.Value, maxXHorizontal.Value);
-        //float boundZ = Mathf.Clamp(target.position.z, minZ.Value, maxZ.Value);
-        Vector3 targetPosition = target.position + offset;
+        float boundX = Mathf.Clamp(target.position.x + offset.x, minXHorizontal.Value, maxXHorizontal.Value);
+        float boundZ = Mathf.Clamp(target.position.z + offset.z, minZ.Value, maxZ.Value);
+        Vector3 targetPosition = new Vector3(boundX,target.position.y+offset.y, boundZ);
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, speedMovement * Time.deltaTime);
 
         transform.position = smoothedPosition;

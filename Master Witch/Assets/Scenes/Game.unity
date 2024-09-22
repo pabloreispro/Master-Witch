@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08023343, g: 0.099622905, b: 0.30101418, a: 1}
+  m_IndirectSpecularColor: {r: 0.08043665, g: 0.09983989, b: 0.30127284, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -316,13 +316,13 @@ MonoBehaviour:
   target: {fileID: 0}
   speedMovement: 5
   minXHorizontal:
-    m_InternalValue: 0
+    m_InternalValue: -7
   maxXHorizontal:
-    m_InternalValue: 0
+    m_InternalValue: 7
   minZ:
-    m_InternalValue: -9.5
+    m_InternalValue: -26
   maxZ:
-    m_InternalValue: 9.5
+    m_InternalValue: -1
   speedRotation: 5
   minAngle: 25
   maxAngle: 55
@@ -3250,7 +3250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -15035,11 +15035,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MarketScene
       objectReference: {fileID: 0}
-    - target: {fileID: 9110003991338779502, guid: 4f410631c4953df4286ca33b0001708b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18768,7 +18763,7 @@ PrefabInstance:
     - target: {fileID: 3567374289657433202, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
         type: 3}
       propertyPath: TIMER_MARKET
-      value: 15
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 3567374289657433202, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
         type: 3}
@@ -23299,6 +23294,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 131994777827110300, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 177377708998991737, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -23313,6 +23313,11 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2097510012
+      objectReference: {fileID: 0}
+    - target: {fileID: 534533470595312765, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 786266742916276033, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
@@ -23333,6 +23338,21 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1616031249
+      objectReference: {fileID: 0}
+    - target: {fileID: 1119819773408519645, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1187631439604279698, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1279006844962479031, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1392579847540116700, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
@@ -23359,6 +23379,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SalaDePreparo_Blocagem
       objectReference: {fileID: 0}
+    - target: {fileID: 1771721702911432288, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2122263631019826732, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -23368,6 +23393,21 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3268697811
+      objectReference: {fileID: 0}
+    - target: {fileID: 3379118781996214614, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517484432993621820, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3536517607642883353, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3744921254793114226, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
@@ -23414,6 +23454,11 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 3507165311
       objectReference: {fileID: 0}
+    - target: {fileID: 5227453108127695100, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5231269452042439588, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -23429,6 +23474,11 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 500973324
       objectReference: {fileID: 0}
+    - target: {fileID: 5635233722535117085, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5711541667765945330, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -23439,6 +23489,11 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 775680196
       objectReference: {fileID: 0}
+    - target: {fileID: 5892231758401359186, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5950209745309643437, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -23448,6 +23503,11 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 250863687
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303511439721974963, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6479071326989113796, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
@@ -23479,6 +23539,11 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 134249788
       objectReference: {fileID: 0}
+    - target: {fileID: 6889380685323666707, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7066685227131757164, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -23493,6 +23558,11 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3822645997
+      objectReference: {fileID: 0}
+    - target: {fileID: 7503112512876412498, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7597817304677466985, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
@@ -23554,6 +23624,11 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 2654411125
       objectReference: {fileID: 0}
+    - target: {fileID: 7971251230884102067, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8207193859486970867, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -23578,6 +23653,11 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1598098537
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148099183992015256, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
