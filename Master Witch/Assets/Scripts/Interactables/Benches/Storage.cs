@@ -8,6 +8,7 @@ using System;
 using Unity.Netcode;
 using Network;
 using Unity.VisualScripting;
+
 public class Storage : Bench
 {
     public Button[] slots;

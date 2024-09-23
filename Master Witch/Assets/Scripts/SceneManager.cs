@@ -55,8 +55,8 @@ public class SceneManager : SingletonNetwork<SceneManager>
             }*/
             bench.RepositionServerRpc(spawnBasket.ElementAt(i).position);
             player.RepositionServerRpc(spawnPlayersMain.ElementAt(i).position); 
-            
         }
+        
     }
 
     [ServerRpc (RequireOwnership = false)]

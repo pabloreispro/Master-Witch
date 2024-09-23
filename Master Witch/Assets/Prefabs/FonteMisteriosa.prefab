@@ -525,9 +525,9 @@ GameObject:
   - component: {fileID: 7391083445360947604}
   - component: {fileID: 1355944449520871212}
   - component: {fileID: 5989046051007099989}
+  - component: {fileID: 6479255043669902101}
   - component: {fileID: 7040398458340400489}
   - component: {fileID: 5513017724553811674}
-  - component: {fileID: 6479255043669902101}
   m_Layer: 0
   m_Name: FonteMisteriosa
   m_TagString: Untagged
@@ -631,6 +631,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.3710527, y: 10.837874, z: 4.8907957}
   m_Center: {x: -0.9719987, y: 5.011065, z: 0.002781272}
+--- !u!114 &6479255043669902101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532490835861260971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 540743050
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &7040398458340400489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -689,26 +709,6 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &6479255043669902101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5532490835861260971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3877718766
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1 &5880966703086993216
 GameObject:
   m_ObjectHideFlags: 0
