@@ -9508,6 +9508,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142683681}
   m_CullTransparentMesh: 1
+--- !u!1 &1148300621 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2922995940297648574, guid: 4f410631c4953df4286ca33b0001708b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1846070037}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1148300625
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148300621}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1034878958065774682, guid: 4914a083418c1654a85ba6fd40b2f71e, type: 3}
 --- !u!1 &1168824664
 GameObject:
   m_ObjectHideFlags: 0
@@ -15160,6 +15188,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MarketScene
       objectReference: {fileID: 0}
+    - target: {fileID: 9110003991338779502, guid: 4f410631c4953df4286ca33b0001708b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6315408181724420730, guid: 4f410631c4953df4286ca33b0001708b, type: 3}
     - {fileID: 4904425781941327220, guid: 4f410631c4953df4286ca33b0001708b, type: 3}
@@ -15191,7 +15224,11 @@ PrefabInstance:
     - {fileID: 122997209770336161, guid: 4f410631c4953df4286ca33b0001708b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2922995940297648574, guid: 4f410631c4953df4286ca33b0001708b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1148300625}
   m_SourcePrefab: {fileID: 100100000, guid: 4f410631c4953df4286ca33b0001708b, type: 3}
 --- !u!1 &1846070038 stripped
 GameObject:
