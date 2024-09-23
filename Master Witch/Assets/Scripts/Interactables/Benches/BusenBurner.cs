@@ -53,6 +53,7 @@ public class BusenBurner : Bench
             objectSpawn.GetComponent<NetworkObject>().Spawn();
             objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
             player.GetComponentInChildren<Ingredient>().itensUsed.Add(recipeData);
+            player.SetItemHandClientRpc(objectSpawn);
             Reset();
         }
     }

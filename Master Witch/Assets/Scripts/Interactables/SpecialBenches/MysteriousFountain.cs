@@ -28,6 +28,7 @@ public class MysteriousFountain : Bench
             objectSpawn.GetComponent<NetworkObject>().Spawn();
             objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
             player.GetComponentInChildren<Ingredient>().itensUsed.Add(recipeData);    
+            player.SetItemHandClientRpc(objectSpawn);
             _toolInBench.Clear();         
             Reset();
         }

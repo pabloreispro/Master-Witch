@@ -17,7 +17,6 @@ public class WoodStock : Bench
             objectSpawn.GetComponent<Collider>().enabled = false;
             player.SetItemHandClientRpc(objectSpawn);
             player.ChangeState(PlayerState.Interact);
-
         }
     }
 }
