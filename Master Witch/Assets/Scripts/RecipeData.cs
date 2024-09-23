@@ -10,12 +10,15 @@ public class RecipeData
 {
     [SerializeField] FoodSO targetFood;
     [SerializeField] List<RecipeData> utilizedIngredients = new List<RecipeData>();
+    FoodModifiers foodModifiers;
     public FoodSO TargetFood => targetFood;
     public List<RecipeData> UtilizedIngredients => utilizedIngredients;
+    public FoodModifiers FoodModifiers => foodModifiers;
 
     public RecipeData(FoodSO targetFood)
     {
         this.targetFood = targetFood;
+        foodModifiers = targetFood.Modifiers;
     }
     public RecipeData(FoodSO targetFood, List<RecipeData> utilizedIngredients)
     {
@@ -24,6 +27,23 @@ public class RecipeData
         {
             this.utilizedIngredients.Add(item);
         }
+        //Igneous
+        float igneousValue = 0;
+        for (int i = 0; i < utilizedIngredients.Count; i++)
+            igneousValue += utilizedIngredients[i].foodModifiers.IgneousValue;
+        igneousValue /= utilizedIngredients.Count;
+        //Poisonous
+        float poisonousValue = 0;
+        for (int i = 0; i < utilizedIngredients.Count; i++)
+            poisonousValue += utilizedIngredients[i].foodModifiers.PoisonousValue;
+        poisonousValue /= utilizedIngredients.Count;
+        //Curative
+        float curativeValue = 0;
+        for (int i = 0; i < utilizedIngredients.Count; i++)
+            curativeValue += utilizedIngredients[i].foodModifiers.CurativeValue;
+        curativeValue /= utilizedIngredients.Count;
+
+        foodModifiers = new FoodModifiers(igneousValue, poisonousValue, curativeValue);
     }
 
     public float CalculateScore(Func<FoodSO, float> conditionAction)

@@ -86,6 +86,13 @@ public class Bench : Interactable
         Debug.Log("O Tempo para fazer o ingrediente e de: "+_timerProgress);
     }
 
+    public void AddIngredient(Ingredient ingredient)
+    {
+        if (ingredient.itemsUsed.Count <= 0 || ingredient.itemsUsed == null) 
+            AddIngredient(new RecipeData(ingredient.food));
+        else
+            AddIngredient(new RecipeData(ingredient.food, ingredient.itemsUsed));
+    }
     public void AddIngredient(FoodSO ingredient) => AddIngredient(new RecipeData(ingredient));
     public void AddIngredient(RecipeData recipeData)
     {

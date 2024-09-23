@@ -37,7 +37,7 @@ public class Storage : Bench
     {
         var interact = player.GetComponentInChildren<Ingredient>();
         if(ingredients.Count < 4){
-            AddIngredient(interact.food);
+            AddIngredient(interact);
             interact.DestroySelf();
         }
     }

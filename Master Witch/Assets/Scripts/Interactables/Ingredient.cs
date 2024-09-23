@@ -7,7 +7,7 @@ using Unity.Netcode;
 public class Ingredient : Interactable
 {
     public FoodSO food;
-    public List<RecipeData> itensUsed = new List<RecipeData>();
+    public List<RecipeData> itemsUsed = new List<RecipeData>();
 
     private void Start() {
          this.GetComponent<Collider>().enabled = false;

@@ -12,9 +12,10 @@ namespace Game.SO
     {
         public const float BASE_RECIPE_SCORE = 70;
         const float FOOD_MATCH_SCORE = 10;
-        const float CATEGORY_MATCH_SCORE = 2.5f;
+        const float MODIFIER_MATCH_SCORE = 2.5f;
         int id;
         [SerializeField] GameObject prefab;
+        public FoodModifiers foodModifiers;
         [SerializeField] ReviewCondition[] conditions;
 
         public float ReviewRecipe(RecipeData recipe)
@@ -42,24 +43,24 @@ namespace Game.SO
                                 }
                             }
                             break;
-                        case ReviewType.CategoryPreference:
-                            for (int j = 0; j < food.category.Length; j++)
-                            {
-                                if (food.category[j] == conditions[i].category)
-                                {
-                                    if (conditions[i].isAllowed)
-                                    {
-                                        foodScore += CATEGORY_MATCH_SCORE;
-                                        Debug.Log($"Adding {CATEGORY_MATCH_SCORE} score by category preference in {food.name}. Total {foodScore}");
-                                    }
-                                    else
-                                    {
-                                        foodScore -= CATEGORY_MATCH_SCORE;
-                                        Debug.Log($"Removing {CATEGORY_MATCH_SCORE} score by category preference in {food.name}. Total {foodScore}");
-                                    }
-                                }
-                            }
-                            break;
+                        //case ReviewType.CategoryPreference:
+                        //for (int j = 0; j < food.category.Length; j++)
+                        //{
+                        //    if (food.category[j] == conditions[i].category)
+                        //    {
+                        //        if (conditions[i].isAllowed)
+                        //        {
+                        //            foodScore += CATEGORY_MATCH_SCORE;
+                        //            Debug.Log($"Adding {CATEGORY_MATCH_SCORE} score by category preference in {food.name}. Total {foodScore}");
+                        //        }
+                        //        else
+                        //        {
+                        //            foodScore -= CATEGORY_MATCH_SCORE;
+                        //            Debug.Log($"Removing {CATEGORY_MATCH_SCORE} score by category preference in {food.name}. Total {foodScore}");
+                        //        }
+                        //    }
+                        //}
+                        //    break;
                         default:
                             break;
                     }
@@ -68,7 +69,17 @@ namespace Game.SO
                 return foodScore;
 
             });
-            score += (recipe.TargetFood as RecipeSO).GetScore(recipe.UtilizedIngredients);
+            var igneousScore = recipe.FoodModifiers.IgneousValue * foodModifiers.IgneousValue * MODIFIER_MATCH_SCORE;
+            score += igneousScore;
+            Debug.Log($"Adding {igneousScore} to {recipe.TargetFood.name}, chef modifier: {foodModifiers.IgneousValue}, recipe modifier: {recipe.FoodModifiers.IgneousValue}");
+            var poisonousScore = recipe.FoodModifiers.PoisonousValue * foodModifiers.PoisonousValue * MODIFIER_MATCH_SCORE;
+            score += poisonousScore;
+            Debug.Log($"Adding {poisonousScore} to {recipe.TargetFood.name}, chef modifier: {foodModifiers.PoisonousValue}, recipe modifier: {recipe.FoodModifiers.PoisonousValue}");
+            var curativeScore = recipe.FoodModifiers.CurativeValue * foodModifiers.CurativeValue * MODIFIER_MATCH_SCORE;
+            score += curativeScore;
+            Debug.Log($"Adding {curativeScore} to {recipe.TargetFood.name}, chef modifier: {foodModifiers.CurativeValue}, recipe modifier: {recipe.FoodModifiers.CurativeValue}");
+
+            //score += (recipe.TargetFood as RecipeSO).GetScore(recipe.UtilizedIngredients);
             return score;
         }
     }
@@ -78,12 +89,12 @@ namespace Game.SO
         public ReviewType type;
         public bool isAllowed;
         public List<FoodSO> foods = new List<FoodSO>();
-        public Category category;
+        //public Category category;
     }
     public enum ReviewType
     {
         FoodPreference,
-        CategoryPreference,
+        //CategoryPreference,
     }
     #region Editor
 #if UNITY_EDITOR
@@ -117,11 +128,11 @@ namespace Game.SO
                     EditorGUI.PropertyField(newPos, food, true);
                     EditorGUI.indentLevel--;
                     break;
-                case ReviewType.CategoryPreference:
-                    isAllowed.boolValue = EditorGUI.Toggle(secondRect, "Is Allowed", isAllowed.boolValue);
-                    var category = property.FindPropertyRelative("category");
-                    category.intValue = EditorGUI.Popup(thirdRect, "Category", category.intValue, category.enumNames);
-                    break;
+                //case ReviewType.CategoryPreference:
+                //    isAllowed.boolValue = EditorGUI.Toggle(secondRect, "Is Allowed", isAllowed.boolValue);
+                //    var category = property.FindPropertyRelative("category");
+                //    category.intValue = EditorGUI.Popup(thirdRect, "Category", category.intValue, category.enumNames);
+                //    break;
                 default:
                     break;
             }
@@ -142,8 +153,8 @@ namespace Game.SO
                         return EditorGUI.GetPropertyHeight(foods, true) + EditorGUIUtility.singleLineHeight * 3;
                     }
                     return base.GetPropertyHeight(property, label) * 3;
-                case ReviewType.CategoryPreference:
-                    return base.GetPropertyHeight(property, label) * 3;
+                //case ReviewType.CategoryPreference:
+                //    return base.GetPropertyHeight(property, label) * 3;
                 default:
                     return base.GetPropertyHeight(property, label) * 2;
             }

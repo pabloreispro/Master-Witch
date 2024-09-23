@@ -31,13 +31,13 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
     public void GetPlayerScore(int playerID, RecipeData recipe)
     {
         float score = ChefSO.BASE_RECIPE_SCORE;
-        //foreach (var chef in GameManager.Instance.Chefs)
-        //{
-        //    var chefScore = chef.ReviewRecipe(recipe);
-        //    Debug.Log($"Total score of {recipe.TargetFood.name} by {chef.name} is {chefScore}");
-        //    score += chefScore;
-        //}
-        //score /= GameManager.Instance.Chefs.Count;
+        foreach (var chef in GameManager.Instance.Chefs)
+        {
+            var chefScore = chef.ReviewRecipe(recipe);
+            Debug.Log($"Total score of {recipe.TargetFood.name} by {chef.name} is {chefScore}");
+            score += chefScore;
+        }
+        score /= GameManager.Instance.Chefs.Count;
         var matchTime = GameManager.Instance.matchStartTime + SceneManager.TIMER_MAIN / 2;
         var startTime = Mathf.Max(Time.time - matchTime, 0);
         score += Mathf.Lerp(30, 0, startTime / (SceneManager.TIMER_MAIN / 2));

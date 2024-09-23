@@ -26,7 +26,7 @@ public class RefrigerationChamber : Bench
             var objectSpawn = Instantiate(recipeData.TargetFood.foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
             objectSpawn.GetComponent<NetworkObject>().Spawn();
             objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
-            player.GetComponentInChildren<Ingredient>().itensUsed.Add(recipeData);  
+            player.GetComponentInChildren<Ingredient>().itemsUsed.Add(recipeData);  
             player.SetItemHandClientRpc(objectSpawn); 
             _toolInBench.Clear();         
             Reset();
@@ -40,7 +40,7 @@ public class RefrigerationChamber : Bench
             switch(interact){
                 case Ingredient i:
                     endProgress = false;
-                    AddIngredient(i.food);
+                    AddIngredient(i);
                     progress();
                 break;
                 case Tool t when t.tool.benchType == benchType:         

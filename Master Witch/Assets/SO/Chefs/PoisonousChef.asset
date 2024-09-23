@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1f9d7c05dddce5499a5b849e2fcbf95, type: 3}
-  m_Name: VegetalChef
+  m_Name: PoisonousChef
   m_EditorClassIdentifier: 
   prefab: {fileID: 0}
+  foodModifiers:
+    igneousValue: 0
+    poisonousValue: 0
+    curativeValue: 0
   conditions:
-  - type: 1
+  - type: 0
     isAllowed: 1
     foods:
     - {fileID: 11400000, guid: fe4ce7c6f223e8647ac2a46b45001f61, type: 2}
-    category: 0
