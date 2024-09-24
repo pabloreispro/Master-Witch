@@ -5,6 +5,18 @@ using Unity.Netcode;
 public class Alembic : Bench
 {
     public List<ToolsSO> _toolInBench = new();
+
+    private void FixedUpdate() {
+        _Special();
+    }
+
+    private void _Special(){
+        if(_toolInBench.Count>0 && ingredients.Count > 0){
+            isPreparing.Value = true;
+        }else{
+            isPreparing.Value = false;
+        }
+    }
    public override void Pick(Player player)
     {
         if (endProgress && player.isHand.Value == false)

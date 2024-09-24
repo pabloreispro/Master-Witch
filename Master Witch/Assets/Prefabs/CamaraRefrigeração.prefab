@@ -355,9 +355,9 @@ GameObject:
   - component: {fileID: 8416076102266138603}
   - component: {fileID: 3936190617877682638}
   - component: {fileID: 7422390379248920993}
+  - component: {fileID: 8084786975922945158}
   - component: {fileID: 359484766056202689}
   - component: {fileID: 1994016746517470341}
-  - component: {fileID: 8084786975922945158}
   m_Layer: 0
   m_Name: "CamaraRefrigera\xE7\xE3o"
   m_TagString: Untagged
@@ -373,7 +373,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4228871679207637815}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 49.632183, y: -0.37306187, z: -12.6322}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -455,6 +455,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.84086, y: 2.5702422, z: 2.84086}
   m_Center: {x: -0, y: 1.8004812, z: 0}
+--- !u!114 &8084786975922945158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4228871679207637815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3877718766
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &359484766056202689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,15 +492,15 @@ MonoBehaviour:
   benchType: 7
   _auxObject: {fileID: 0}
   ingredients: []
-  timerMultiply: 0
+  timerMultiply: 1.5
   isPerformed: 0
-  workBench: 0
+  workBench: 1
   endProgress: 0
   isPreparing:
     m_InternalValue: 0
   visualEffect: []
   particleSystemBench: {fileID: 0}
-  slider: {fileID: 9019915145718935313}
+  slider: {fileID: 0}
   _toolInBench: []
 --- !u!114 &1994016746517470341
 MonoBehaviour:
@@ -512,26 +532,6 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &8084786975922945158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4228871679207637815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3877718766
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1 &4497305949029464335
 GameObject:
   m_ObjectHideFlags: 0
