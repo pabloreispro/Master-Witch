@@ -138,7 +138,7 @@ public class TransitionController : SingletonNetwork<TransitionController>
     public IEnumerator TransitionMarketScene()
     {
         //RClientRpc();
-        GameManager.Instance.InitializeGameServerRpc();
+        //GameManager.Instance.InitializeGameServerRpc();
         /*SceneManager.Instance.isMovementAllowed.Value = false;
         ActivatePanelClientRpc(PanelType.SceneTransition, true);
 
@@ -164,10 +164,10 @@ public class TransitionController : SingletonNetwork<TransitionController>
         SceneManager.Instance.isMovementAllowed.Value = true;
         //ActivatePanelClientRpc(PanelType.CountdownMarket, false);
 
-        yield return new WaitForSeconds(0);
-        
+        yield return new WaitForSeconds(0); 
 
     }
+    
 
     
 }

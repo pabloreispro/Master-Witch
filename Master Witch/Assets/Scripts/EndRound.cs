@@ -17,7 +17,7 @@ public class EndRound : SingletonNetwork<EndRound>
 
     public void ReturnMarket(){
         GameManager.Instance.OnReturnMarket();
-        StartCoroutine(TransitionController.Instance.TransitionMarketScene());
+        NewCamController.Instance.Intro();
         
     }
 

@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using DG.Tweening;
+using System.Net.Security;
+using UI;
 
 public class NewCamController : SingletonNetwork<NewCamController>
 {
     private Transform initialPosition;
+    private Quaternion initialRotation;
     public Transform target; 
-
+    public bool finishIntro;
+    public DialogueSystem dialogueSystem;
     [Header("Movement Configs")]
     [SerializeField] private float speedMovement;
     public NetworkVariable<float> minXHorizontal;
@@ -26,18 +31,23 @@ public class NewCamController : SingletonNetwork<NewCamController>
     void Start()
     {
         initialPosition = this.transform;
+        initialRotation = this.transform.rotation;
     }
     void LateUpdate()
     {
-        if (target != null)
+        if(finishIntro)
         {
-            //LookAtTarget();
-            FollowTarget(); 
+            if (target != null)
+            {
+                //LookAtTarget();
+                FollowTarget(); 
+            }
+            else
+            {
+                transform.position = initialPosition.position;
+            }
         }
-        else
-        {
-            transform.position = initialPosition.position;
-        }
+        
     }
 
     void LookAtTarget()
@@ -57,5 +67,51 @@ public class NewCamController : SingletonNetwork<NewCamController>
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, speedMovement * Time.deltaTime);
 
         transform.position = smoothedPosition;
+    }
+
+    public void Intro()
+    {
+        StartCoroutine(IntroCoroutine());
+    }
+
+    private IEnumerator IntroCoroutine()
+    {
+        GameManager.Instance.InitializeGameServerRpc();
+        SceneManager.Instance.ChangeSceneServerRpc(false,true);
+        SceneManager.Instance.RepositionPlayersMarketSceneServerRpc();
+        
+        yield return transform.DOMoveY(7f, 5f);
+        yield return transform.DOLookAt(GameManager.Instance.chefsGO[0].transform.position, 5f).WaitForCompletion();
+        yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(1,1);
+        yield return new WaitForSeconds(1f); 
+        yield return StartCoroutine(dialogueSystem.StartDialogue(GameManager.Instance.chefsGO[0].GetComponent<Dialogue>().dialogueText));
+        yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(0,1);
+        yield return new WaitForSeconds(1f); 
+
+        yield return transform.DOMoveY(7f, 5f);
+        yield return transform.DOLookAt(GameManager.Instance.chefsGO[1].transform.position, 5f).WaitForCompletion();
+        yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(1,1);
+        yield return new WaitForSeconds(1f); 
+        yield return StartCoroutine(dialogueSystem.StartDialogue(GameManager.Instance.chefsGO[1].GetComponent<Dialogue>().dialogueText));
+        yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(0,1);
+        yield return new WaitForSeconds(1f); 
+        
+        yield return transform.DOMoveY(7f, 5f);
+        yield return transform.DOLookAt(GameManager.Instance.chefsGO[2].transform.position, 5f).WaitForCompletion();
+        yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(1,1);
+        yield return new WaitForSeconds(1f); 
+        yield return StartCoroutine(dialogueSystem.StartDialogue(GameManager.Instance.chefsGO[2].GetComponent<Dialogue>().dialogueText));
+        yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(0,1);
+        yield return new WaitForSeconds(1f);
+        
+        yield return transform.DOMove(initialPosition.position, 1f);
+        yield return transform.DORotateQuaternion(initialRotation, 1f);
+        finishIntro = true;
+        
+        NetworkManagerUI.Instance.clock.active = true;
+        NetworkManagerUI.Instance.recipeSteps.active = true;
+        StartCoroutine(TransitionController.Instance.TransitionMarketScene());
+
+        
     }
 }

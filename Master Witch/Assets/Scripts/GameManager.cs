@@ -19,13 +19,16 @@ public class GameManager : SingletonNetwork<GameManager>
     [SerializeField] MeshRenderer[] benchColorRenderer;
     [SerializeField] RecipeSO[] recipeDatabase;
     [SerializeField] ChefSO[] chefsDatabase;
+    [SerializeField] Transform[] chefsSpawn;
   
     public Text RecipeText;
     
     Dictionary<int, float> ResultFinal = new Dictionary<int, float>();
     RecipeSO targetRecipe;
     public float matchStartTime;
-    List<ChefSO> chefs;
+    public List<ChefSO> chefs;
+    public List<GameObject> chefsGO;
+    
     #region Properties
     public GameState GameState => gameState;
     public FoodDatabaseSO FoodDatabaseSO => foodDatabase;
@@ -62,7 +65,7 @@ public class GameManager : SingletonNetwork<GameManager>
     public void OnClientsReady()
     {
         Debug.Log("Chamou OnClientReady");
-        StartCoroutine(TransitionController.Instance.TransitionMarketScene());
+        NewCamController.Instance.Intro();
         NetworkManagerUI.Instance.OnGameStartedClientRpc();
         /*for (int i = 0; i < benches.Length; i++)
         {
@@ -127,6 +130,7 @@ public class GameManager : SingletonNetwork<GameManager>
     {
         int recipeIndex = Random.Range(0, recipeDatabase.Length); 
         InitializeGameClientRpc(recipeIndex); 
+        
     }
 
     [ClientRpc]
@@ -134,6 +138,7 @@ public class GameManager : SingletonNetwork<GameManager>
     {
         GetInitialRecipe(recipeIndex);
         SelectChefs();
+        
     }
 
     void GetInitialRecipe(int recipeIndex)
@@ -159,6 +164,7 @@ public class GameManager : SingletonNetwork<GameManager>
                     chef = null;
             }
             chefs.Add(chef);
+            chefsGO.Add(Instantiate(chef.prefab,chefsSpawn[i]));
         }
     }
     public void QuitGame()
@@ -264,6 +270,14 @@ public class GameManager : SingletonNetwork<GameManager>
     [ClientRpc]
     public void OnReturnMarketClientRpc(){
         NetworkManagerUI.Instance.finalPanel.SetActive(false);
+        NetworkManagerUI.Instance.clock.active = false;
+        NetworkManagerUI.Instance.recipeSteps.active = false;
+
+        var r = NetworkManagerUI.Instance.recipeSteps.GetComponentsInChildren<HorizontalLayoutGroup>();
+        foreach (HorizontalLayoutGroup layoutGroup in r)
+        {
+            Destroy(layoutGroup.gameObject);
+        }
         //Reset();
     }
 

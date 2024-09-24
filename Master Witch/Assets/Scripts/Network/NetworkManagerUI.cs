@@ -63,7 +63,7 @@ namespace UI
         public GameObject finalPanel;
         public GameObject ResultPanel;
         [Header("Game HUD")]
-        public GameObject recipeSteps,horizontalGroupPrefab,imagePrefab;
+        public GameObject recipeSteps,dialogueBox,clock,horizontalGroupPrefab,imagePrefab;
         public Sprite plusSprite,equalsSprite,arrowSprite,benchOven,benchBoard,benchStove;
         public TextMeshProUGUI recipeName;
 

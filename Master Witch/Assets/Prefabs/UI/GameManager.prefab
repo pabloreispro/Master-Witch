@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3567374289657433202}
   - component: {fileID: 942298446794193733}
   - component: {fileID: 6831813918528109112}
+  - component: {fileID: 6943736661385976556}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -48,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1314637769
+  GlobalObjectIdHash: 1532575283
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -74,24 +75,26 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  benchColorRenderer:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   recipeDatabase:
-  - {fileID: 11400000, guid: 949ab9a304c4c44459d74872665fb2b2, type: 2}
+  - {fileID: 11400000, guid: 2daf1f50797ca5b429dcf35fda6d45ef, type: 2}
+  - {fileID: 11400000, guid: a91e6e10915b0844ea93023b6c9bd9a1, type: 2}
   chefsDatabase:
   - {fileID: 11400000, guid: bcc609bf0ea885c4c84947552613d14c, type: 2}
   - {fileID: 11400000, guid: b0fcf4ec4e7d9764eaffafd809ddbd74, type: 2}
   - {fileID: 11400000, guid: 00b26d30f16dbef4daad0cc7d963cc92, type: 2}
-  test: []
-  grid: {fileID: 0}
-  horizontalGroupPrefab: {fileID: 1821107427591836465, guid: 9940ec75e496b284988a2658b59d5c4b,
-    type: 3}
-  imagePrefab: {fileID: 911401809229847434, guid: 0814bbb9413c5be4cb570aa82b450c65,
-    type: 3}
-  plusSprite: {fileID: 21300000, guid: 1ef15014abfa9384db61d9be6f9e2642, type: 3}
-  equalsSprite: {fileID: 21300000, guid: 398cde1a9879380438b7b8f35416f0b7, type: 3}
-  arrowSprite: {fileID: 21300000, guid: 1d494a21502fe27428e9231f30772bc9, type: 3}
-  benchOven: {fileID: 21300000, guid: 1d30dbd8b4bdcac4abdb906b2acf175e, type: 3}
-  benchBoard: {fileID: 21300000, guid: 34697c879f3c5b146aaeace601c57f4c, type: 3}
-  benchStove: {fileID: 21300000, guid: 5ec2bc1125180b64eb80fd831a3b116f, type: 3}
+  chefsSpawn:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  RecipeText: {fileID: 0}
+  matchStartTime: 0
+  chefs: []
+  chefsGO: []
   numberPlayer: 0
 --- !u!114 &3567374289657433202
 MonoBehaviour:
@@ -105,9 +108,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3bb42a8962f3e2459f83fdd9fdc8a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TIMER_MARKET: 50
   prefabMarket: {fileID: 0}
   prefabMain: {fileID: 0}
   spawnPlayersMarket:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  spawnPlayersMain:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -117,7 +126,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  spawnPlayersMain:
+  benchStorage:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -128,11 +137,8 @@ MonoBehaviour:
     m_InternalValue: 0
   timeCount:
     m_InternalValue: 0
-  timeMain:
+  isMovementAllowed:
     m_InternalValue: 0
-  timeMarket:
-    m_InternalValue: 0
-  texto: {fileID: 0}
   clockHand: {fileID: 0}
   maxTime: 0
 --- !u!114 &942298446794193733
@@ -159,4 +165,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac4316d11e096b34da069c7bc753eb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextRound: 0
+  finalGame: 0
+--- !u!114 &6943736661385976556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7467926850842336177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5111f13384a97d2428028bd6442ca5ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueText: {fileID: 0}
+  typingSpeed: 0.1
