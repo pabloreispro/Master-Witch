@@ -95,7 +95,8 @@ public class PlayerMovement : Player
                 if (tempInteract != null)
                 {
                     interact = tempInteract;
-                    (interact as Bench)._player = this;
+                    if(interact as Bench)
+                        (interact as Bench)._player = this;
                     break;
                 }
             }
