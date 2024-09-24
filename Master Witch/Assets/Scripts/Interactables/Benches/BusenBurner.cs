@@ -4,10 +4,13 @@ using UnityEngine;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEngine.UI;
 public class BusenBurner : Bench
 {
     public const float TIMER_MULTI = 10;
     public NetworkVariable<float> timeBusen = new();
+    public Slider tempSlider;
+    public Image backgroundSliderTemp;
     private void Start()
     {
         isPreparing.OnValueChanged += (a,b) => visualEffect[0].SetBool("isPreparing", isPreparing.Value);
@@ -23,21 +26,24 @@ public class BusenBurner : Bench
             }else if(timeBusen.Value >= 0){
                 timeBusen.Value = timeBusen.Value - Time.deltaTime * TIMER_MULTI;
             }
-
+            tempSlider.value = timeBusen.Value;
             switch(timeBusen.Value)
             {
                 case >= 90 and <= 100:
                     isPreparing.Value = false;
                     _player.buttonPressed = false;
+                    backgroundSliderTemp.color = Color.red;
                     _player = null;
                     break;
 
                 case >= 75 and < 90:
                     isPreparing.Value = true;
+                    backgroundSliderTemp.color = Color.green;
                     break;
 
                 default:
                     isPreparing.Value = false;
+                    backgroundSliderTemp.color = Color.blue;
                     _player = null;
                     break;
             }
