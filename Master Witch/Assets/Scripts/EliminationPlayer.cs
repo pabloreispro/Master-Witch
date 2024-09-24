@@ -37,7 +37,6 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
             Debug.Log($"Total score of {recipe.TargetFood.name} by {chef.name} is {chefScore}");
             score += chefScore;
         }
-        score /= GameManager.Instance.Chefs.Count;
         var matchTime = GameManager.Instance.matchStartTime + SceneManager.TIMER_MAIN / 2;
         var startTime = Mathf.Max(Time.time - matchTime, 0);
         score += Mathf.Lerp(30, 0, startTime / (SceneManager.TIMER_MAIN / 2));
