@@ -115,15 +115,15 @@ public class Storage : Bench
     }
 
     [ServerRpc (RequireOwnership = false)]
-    public void RepositionServerRpc(Vector3 pos)
+    public void RepositionServerRpc(Vector3 pos, Quaternion rot)
     {
-        RepositionClientRpc(pos);
+        RepositionClientRpc(pos, rot);
     }
     [ClientRpc]
-    public void RepositionClientRpc(Vector3 pos)
+    public void RepositionClientRpc(Vector3 pos, Quaternion rot)
     {
         transform.position = pos;
-        transform.rotation = Quaternion.identity;
+        transform.rotation = rot;
         //transform.rotation = Quaternion.Euler(0f,180f,0f);
     }
 }

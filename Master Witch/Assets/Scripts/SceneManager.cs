@@ -39,7 +39,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     public void RepositionStorageMainSceneServerRpc(){
         for(int i =0; i< spawnBasket.Count; i++){
             var bench = benchStorage.ElementAt(i);
-            bench.RepositionServerRpc(spawnBasket.ElementAt(i).position);
+            bench.RepositionServerRpc(spawnBasket.ElementAt(i).position, spawnBasket.ElementAt(i).rotation);
         }
     }
 
@@ -47,7 +47,8 @@ public class SceneManager : SingletonNetwork<SceneManager>
     public void RepositionStorageMarketSceneServerRpc(){
         for(int i =0; i< spawnBasketMarket.Count; i++){
             var bench = benchStorage.ElementAt(i);
-            bench.RepositionServerRpc(spawnBasketMarket.ElementAt(i).position);
+            bench.RepositionServerRpc(spawnBasketMarket.ElementAt(i).position, spawnBasketMarket.ElementAt(i).rotation);
+            
         }
     }
 
@@ -68,7 +69,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
                 9
                 player.GetComponentInChildren<Tool>().GetComponentInChildren<NetworkObject>().TrySetParent(spawnBasket.ElementAt(i).transform);
             }*/
-            bench.RepositionServerRpc(spawnBasket.ElementAt(i).position);
+            bench.RepositionServerRpc(spawnBasket.ElementAt(i).position, spawnBasket.ElementAt(i).rotation);
             player.RepositionServerRpc(spawnPlayersMain.ElementAt(i).position); 
         }
         
