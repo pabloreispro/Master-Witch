@@ -17,4 +17,8 @@ MonoBehaviour:
     igneousValue: 0
     poisonousValue: 0
     curativeValue: 0
-  conditions: []
+  conditions:
+  - type: 0
+    isAllowed: 0
+    foods:
+    - {fileID: 11400000, guid: c5325d35dd51c7f4d97843856ed668c2, type: 2}

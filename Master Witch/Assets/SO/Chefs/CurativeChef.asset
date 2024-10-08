@@ -18,7 +18,11 @@ MonoBehaviour:
     poisonousValue: 0
     curativeValue: 0
   conditions:
-  - type: 1
-    isAllowed: 1
+  - type: 0
+    isAllowed: 0
     foods:
-    - {fileID: 11400000, guid: fe4ce7c6f223e8647ac2a46b45001f61, type: 2}
+    - {fileID: 11400000, guid: 18f8dbfd8c392423f800d624744da673, type: 2}
+  - type: 0
+    isAllowed: 0
+    foods:
+    - {fileID: 11400000, guid: acb83edd11ef0734bb1004cf4a444e8d, type: 2}

@@ -84,7 +84,7 @@ public class NewCamController : SingletonNetwork<NewCamController>
         yield return transform.DOLookAt(GameManager.Instance.chefsGO[0].transform.position, 5f).WaitForCompletion();
         yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(1,1);
         yield return new WaitForSeconds(1f); 
-        yield return StartCoroutine(dialogueSystem.StartDialogue(GameManager.Instance.chefsGO[0].GetComponent<Dialogue>().dialogueText));
+        yield return StartCoroutine(dialogueSystem.StartDialogue(GameManager.Instance.chefsGO[0].GetComponent<Dialogue>().dialogueText[Random.Range(0,GameManager.Instance.chefsGO[0].GetComponent<Dialogue>().dialogueText.Count)]));
         yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(0,1);
         yield return new WaitForSeconds(1f); 
 
@@ -92,7 +92,7 @@ public class NewCamController : SingletonNetwork<NewCamController>
         yield return transform.DOLookAt(GameManager.Instance.chefsGO[1].transform.position, 5f).WaitForCompletion();
         yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(1,1);
         yield return new WaitForSeconds(1f); 
-        yield return StartCoroutine(dialogueSystem.StartDialogue(GameManager.Instance.chefsGO[1].GetComponent<Dialogue>().dialogueText));
+        yield return StartCoroutine(dialogueSystem.StartDialogue(GameManager.Instance.chefsGO[1].GetComponent<Dialogue>().dialogueText[Random.Range(0,GameManager.Instance.chefsGO[1].GetComponent<Dialogue>().dialogueText.Count)]));
         yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(0,1);
         yield return new WaitForSeconds(1f); 
         
@@ -100,7 +100,7 @@ public class NewCamController : SingletonNetwork<NewCamController>
         yield return transform.DOLookAt(GameManager.Instance.chefsGO[2].transform.position, 5f).WaitForCompletion();
         yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(1,1);
         yield return new WaitForSeconds(1f); 
-        yield return StartCoroutine(dialogueSystem.StartDialogue(GameManager.Instance.chefsGO[2].GetComponent<Dialogue>().dialogueText));
+        yield return StartCoroutine(dialogueSystem.StartDialogue(GameManager.Instance.chefsGO[2].GetComponent<Dialogue>().dialogueText[Random.Range(0,GameManager.Instance.chefsGO[2].GetComponent<Dialogue>().dialogueText.Count)]));
         yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(0,1);
         yield return new WaitForSeconds(1f);
         

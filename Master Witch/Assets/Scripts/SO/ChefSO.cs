@@ -16,7 +16,7 @@ namespace Game.SO
         int id;
         public GameObject prefab;
         public FoodModifiers foodModifiers;
-        [SerializeField] ReviewCondition[] conditions;
+        public ReviewCondition[] conditions; 
 
         public float ReviewRecipe(RecipeData recipe)
         {

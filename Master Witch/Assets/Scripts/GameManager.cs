@@ -164,7 +164,16 @@ public class GameManager : SingletonNetwork<GameManager>
                     chef = null;
             }
             chefs.Add(chef);
-            chefsGO.Add(Instantiate(chef.prefab,chefsSpawn[i]));
+            GameObject chefGO = Instantiate(chef.prefab,chefsSpawn[i]);
+            chefsGO.Add(chefGO);
+            
+            foreach (var reviewCondition in chef.conditions)
+            {
+                foreach (var foodPreference in reviewCondition.foods)
+                {
+                    chefGO.GetComponent<Dialogue>().dialogueText.Add(foodPreference.name);
+                }
+            }
         }
     }
     public void QuitGame()
