@@ -24,7 +24,11 @@ public class CuttingBench : Bench
     }
 
     private void _ClickedButton(){
+        
         isPreparing.Value = false;
+        if(_player!=null){
+           _player.buttonPressed = false;
+        }
         return;
     }
     
