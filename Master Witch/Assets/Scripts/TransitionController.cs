@@ -111,6 +111,7 @@ public class TransitionController : SingletonNetwork<TransitionController>
         */
         SceneManager.Instance.ChangeSceneServerRpc(false,true);
         SceneManager.Instance.RepositionPlayersMainSceneServerRpc();
+        SceneManager.Instance.RepositionStorageMainSceneServerRpc();
         /*
         PlayAnimationClientRpc(AnimatorType.SceneTransition, fadeOut.name);
         yield return new WaitForSeconds(fadeOut.length);
@@ -147,7 +148,7 @@ public class TransitionController : SingletonNetwork<TransitionController>
 
         SceneManager.Instance.ChangeSceneServerRpc(true,false);
         SceneManager.Instance.RepositionPlayersMarketSceneServerRpc();
-
+        SceneManager.Instance.RepositionStorageMarketSceneServerRpc();
         /*PlayAnimationClientRpc(AnimatorType.SceneTransition,fadeOut.name);
         yield return new WaitForSeconds(fadeOut.length);
         ActivatePanelClientRpc(PanelType.SceneTransition, false);

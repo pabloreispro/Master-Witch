@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08040641, g: 0.09978241, b: 0.3010325, a: 1}
+  m_IndirectSpecularColor: {r: 0.08023343, g: 0.099622905, b: 0.30101418, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3641,6 +3641,30 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1206033886639927704, guid: 786aed52e0b5eec4ca46ced728f79cf0,
     type: 3}
   m_PrefabInstance: {fileID: 402535149998417149}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &464290840 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4450051439508927765, guid: 4f410631c4953df4286ca33b0001708b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1846070037}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &464290841 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1358233607059537220, guid: 4f410631c4953df4286ca33b0001708b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1846070037}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &464290842 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1743873506539720500, guid: 4f410631c4953df4286ca33b0001708b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1846070037}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &464290843 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2373871767383834097, guid: 4f410631c4953df4286ca33b0001708b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1846070037}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &466340211
 GameObject:
@@ -19485,6 +19509,11 @@ PrefabInstance:
       objectReference: {fileID: 1350453195}
     - target: {fileID: 3567374289657433202, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
         type: 3}
+      propertyPath: spawnBasketMarket.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567374289657433202, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
       propertyPath: spawnPlayersMain.Array.data[0]
       value: 
       objectReference: {fileID: 1954851514}
@@ -19503,6 +19532,26 @@ PrefabInstance:
       propertyPath: spawnPlayersMain.Array.data[3]
       value: 
       objectReference: {fileID: 1298708897}
+    - target: {fileID: 3567374289657433202, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
+      propertyPath: spawnBasketMarket.Array.data[0]
+      value: 
+      objectReference: {fileID: 464290843}
+    - target: {fileID: 3567374289657433202, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
+      propertyPath: spawnBasketMarket.Array.data[1]
+      value: 
+      objectReference: {fileID: 464290842}
+    - target: {fileID: 3567374289657433202, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
+      propertyPath: spawnBasketMarket.Array.data[2]
+      value: 
+      objectReference: {fileID: 464290841}
+    - target: {fileID: 3567374289657433202, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
+      propertyPath: spawnBasketMarket.Array.data[3]
+      value: 
+      objectReference: {fileID: 464290840}
     - target: {fileID: 3567374289657433202, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
         type: 3}
       propertyPath: spawnPlayersMarket.Array.data[0]

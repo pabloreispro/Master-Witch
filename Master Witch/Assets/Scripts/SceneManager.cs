@@ -20,6 +20,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     public List<Transform> spawnPlayersMarket = new List<Transform>();
     public List<Transform> spawnPlayersMain = new List<Transform>();
     public List<Transform> spawnBasket = new List<Transform>();
+    public List<Transform> spawnBasketMarket = new List<Transform>();
     public List<Storage> benchStorage = new List<Storage>();
     
     public NetworkVariable<bool> sceneMarket = new NetworkVariable<bool>();
@@ -34,7 +35,21 @@ public class SceneManager : SingletonNetwork<SceneManager>
     private float currentTime;
 
     
-    
+    [ServerRpc]
+    public void RepositionStorageMainSceneServerRpc(){
+        for(int i =0; i< spawnBasket.Count; i++){
+            var bench = benchStorage.ElementAt(i);
+            bench.RepositionServerRpc(spawnBasket.ElementAt(i).position);
+        }
+    }
+
+    [ServerRpc]
+    public void RepositionStorageMarketSceneServerRpc(){
+        for(int i =0; i< spawnBasketMarket.Count; i++){
+            var bench = benchStorage.ElementAt(i);
+            bench.RepositionServerRpc(spawnBasketMarket.ElementAt(i).position);
+        }
+    }
 
     [ServerRpc (RequireOwnership = false)]
     public void RepositionPlayersMainSceneServerRpc()
