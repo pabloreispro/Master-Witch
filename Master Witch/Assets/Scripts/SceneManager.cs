@@ -11,7 +11,7 @@ using TMPro;
 
 public class SceneManager : SingletonNetwork<SceneManager>
 {
-    public int TIMER_MARKET = 50;
+    public int TIMER_MARKET = 5000;
     public const int TIMER_MAIN = 300;
 
     [SerializeField]
@@ -35,7 +35,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
     private float currentTime;
 
     
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void RepositionStorageMainSceneServerRpc(){
         for(int i =0; i< spawnBasket.Count; i++){
             var bench = benchStorage.ElementAt(i);
@@ -43,7 +43,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
         }
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void RepositionStorageMarketSceneServerRpc(){
         for(int i =0; i< spawnBasketMarket.Count; i++){
             var bench = benchStorage.ElementAt(i);

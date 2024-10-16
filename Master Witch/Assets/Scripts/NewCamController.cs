@@ -69,16 +69,21 @@ public class NewCamController : SingletonNetwork<NewCamController>
         transform.position = smoothedPosition;
     }
 
-    public void Intro()
+    [ClientRpc]
+    public void IntroClientRpc()
     {
         StartCoroutine(IntroCoroutine());
     }
 
-    private IEnumerator IntroCoroutine()
+    public IEnumerator IntroCoroutine()
     {
-        GameManager.Instance.InitializeGameServerRpc();
-        SceneManager.Instance.ChangeSceneServerRpc(false,true);
-        SceneManager.Instance.RepositionPlayersMarketSceneServerRpc();
+        if(IsServer)
+        {
+            GameManager.Instance.InitializeGameServerRpc();
+            SceneManager.Instance.ChangeSceneServerRpc(false,true);
+            SceneManager.Instance.RepositionPlayersMarketSceneServerRpc();
+        }
+        
         
         yield return transform.DOMoveY(7f, 5f);
         yield return transform.DOLookAt(GameManager.Instance.chefsGO[0].transform.position, 5f).WaitForCompletion();
