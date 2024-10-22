@@ -69,8 +69,7 @@ public class NewCamController : SingletonNetwork<NewCamController>
         transform.position = smoothedPosition;
     }
 
-    [ClientRpc]
-    public void IntroClientRpc()
+    public void IntroClient()
     {
         StartCoroutine(IntroCoroutine());
     }

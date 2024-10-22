@@ -16,6 +16,7 @@ using WebSocketSharp;
 using UnityEngine.UI;
 using UI;
 using static Cinemachine.CinemachineTriggerAction.ActionSettings;
+using System.ComponentModel.Design;
 
 namespace Network
 {
@@ -29,14 +30,12 @@ namespace Network
         private Lobby joinedLobby;
         private float temporizadorAtivacaoLobby;
         public string playerName;
-        bool isHost;
         #endregion
         #region Properties
         public Lobby JoinedLobby => joinedLobby;
         #endregion
         private async void Start()
         {
-
             // Dispara uma rotina de inicializa��o da API
             await UnityServices.InitializeAsync();
 
@@ -48,31 +47,17 @@ namespace Network
 
             // Dispara uma rotina de login do usuario (de forma an�nima)
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            
+            NetworkManager.Singleton.OnClientDisconnectCallback += OnPlayerDisconnected;
             //UIHandler.instance.mainPanelPlayerNameInput.text = nomePlayer;
             //GameManager.Instance.InitializeGame();
         }
-
-        private void Update()
-        {
-            ManterLobbyAtivo();
-        }
-
         #region Lobby Connection
         /* Mantem o Lobby atual sempre ativo --> evita o timeout de 3 segundos */
         /* A cada 15 segundos, manda um ping para o server da Unity  */
-        private async void ManterLobbyAtivo()
+        private async void SendHeartbeat()
         {
-            if (IsHost && joinedLobby != null)
-            {
-                temporizadorAtivacaoLobby -= Time.deltaTime;
-
-                if (temporizadorAtivacaoLobby < 0f)
-                {
-                    temporizadorAtivacaoLobby = 15f;
-                    await LobbyService.Instance.SendHeartbeatPingAsync(joinedLobby.Id);
-                }
-            }
+            if (NetworkManager.IsHost && joinedLobby != null)
+                await LobbyService.Instance.SendHeartbeatPingAsync(joinedLobby.Id);
         }
         public async void CreateLobby(string lobbyName, bool isPrivate, string gameMode)
         {
@@ -113,6 +98,7 @@ namespace Network
                 NetworkManagerUI.Instance.EnableLobbyHUD();
                 NetworkManagerUI.Instance.UpdateLobbyInfo(lobby);
                 InvokeRepeating(nameof(HandleLobbyUpdates), 1.1f, 2.5f);
+                InvokeRepeating(nameof(SendHeartbeat), 15f, 15f);
             }
             catch (LobbyServiceException e)
             {
@@ -226,16 +212,32 @@ namespace Network
         }
         public async void LeaveLobby()
         {
+            if (joinedLobby == null) return;
             try
             {
                 await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
-                NetworkManagerUI.Instance.EnableLobbyHUD(false);
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.LogError($"Erro ao sair do lobby: {e.Message}");
+            }
+            NetworkManagerUI.Instance.EnableLobbyHUD(false);
+            joinedLobby = null;
+            CancelInvoke();
+        }
+        public void ResetJoinedLobby() => joinedLobby = null;
+        public async void CloseLobby()
+        {
+            if (joinedLobby == null) return;
+            try
+            {
+                await LobbyService.Instance.DeleteLobbyAsync(joinedLobby.Id);
                 joinedLobby = null;
                 CancelInvoke();
             }
             catch (LobbyServiceException e)
             {
-                Debug.LogError(e);
+                Debug.LogError($"Erro ao deletar o lobby: {e.Message}");
             }
         }
         private void MostraInformacoesPlayers(Lobby lobby)
@@ -250,16 +252,16 @@ namespace Network
         async void HandleLobbyUpdates()
         {
             if (joinedLobby == null) return;
-            Debug.Log("Update");
             var lobby = await LobbyService.Instance.GetLobbyAsync(joinedLobby.Id);
             if (lobby.Players.Count != joinedLobby.Players.Count)
                 NetworkManagerUI.Instance.UpdateLobbyInfo(lobby);
             joinedLobby = lobby;
-            if (!isHost)
+            if (!NetworkManager.IsHost)
             {
                 if (joinedLobby.Data["RelayCode"].Value != "0")
                     GameManager.Instance.JoinRelay(joinedLobby.Data["RelayCode"].Value);
             }
+            Debug.Log($"Update {joinedLobby.Data["RelayCode"].Value}     Lobby: {joinedLobby?.Id}");
         }
         public void UpdatePlayerName(string name)
         {
@@ -322,10 +324,20 @@ namespace Network
                 throw;
             }
         }
-        public void CloseServer()
+#pragma warning disable UNT0006 // Incorrect message signature
+        private void OnPlayerDisconnected(ulong clientId)
+#pragma warning restore UNT0006 // Incorrect message signature
         {
-            LobbyService.Instance.DeleteLobbyAsync(joinedLobby.Id);
+            Debug.Log($"Player {clientId} desconectado.");
+            //// Verifica se o host foi desconectado
+            //if (clientId == NetworkManager.ServerClientId)
+            DisconnectFromServer();
+        }
+        public void DisconnectFromServer()
+        {
+            NetworkManagerUI.Instance.EnableMenu();
             NetworkManager.Singleton.Shutdown();
+            PlayerNetworkManager.Instance.ResetPlayerList();
         }
     }
     #endregion

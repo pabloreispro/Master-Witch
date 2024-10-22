@@ -17,7 +17,7 @@ public class EndRound : SingletonNetwork<EndRound>
 
     public void ReturnMarket(){
         GameManager.Instance.OnReturnMarket();
-        NewCamController.Instance.IntroClientRpc();
+        NewCamController.Instance.IntroClient();
         
     }
 

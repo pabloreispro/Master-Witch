@@ -65,8 +65,8 @@ public class GameManager : SingletonNetwork<GameManager>
     public void OnClientsReady()
     {
         Debug.Log("Chamou OnClientReady");
-        NewCamController.Instance.IntroClientRpc();
-        NetworkManagerUI.Instance.OnGameStartedClientRpc();
+        LobbyManager.Instance.CloseLobby();
+        OnGameStartedClientRpc();
         /*for (int i = 0; i < benches.Length; i++)
         {
             var player = PlayerNetworkManager.Instance.GetPlayerByIndex(i);
@@ -75,11 +75,22 @@ public class GameManager : SingletonNetwork<GameManager>
             else break;
         }*/
     }
-
+    [ClientRpc]
+    void OnGameStartedClientRpc()
+    {
+        NewCamController.Instance.IntroClient();
+        NetworkManagerUI.Instance.OnGameStartedClient();
+        ResetInfo();
+    }
+    void ResetInfo()
+    {
+        LobbyManager.Instance.ResetJoinedLobby();
+        EliminationPlayer.Instance.Reset();
+    }
     public void JoinRelay(string joinCode) => StartClientRelay(joinCode);
     async void StartClientRelay(string joinCode)
     {
-        if (IsHost) return;
+        if (NetworkManager.IsHost) return;
         NetworkManagerUI.Instance.EnableHUD(false);
         Debug.Log($"start relay {joinCode}");
         await LobbyManager.Instance.StartClientWithRelay(joinCode);
@@ -169,31 +180,38 @@ public class GameManager : SingletonNetwork<GameManager>
         InitializeChefsClientRpc(selectedChefsIndexes.ToArray());
     }
 
-[ClientRpc]
-public void InitializeChefsClientRpc(int[] chefIndexes)
-{
-    chefs = new List<ChefSO>();
-    chefsGO = new List<GameObject>();  
-
-    for (int i = 0; i < chefIndexes.Length; i++)
+    [ClientRpc]
+    public void InitializeChefsClientRpc(int[] chefIndexes)
     {
-        ChefSO chef = chefsDatabase[chefIndexes[i]];
-        chefs.Add(chef);
-
-        
-        GameObject chefGO = Instantiate(chef.prefab, chefsSpawn[i]);
-        chefsGO.Add(chefGO);
-
-        
-        foreach (var reviewCondition in chef.conditions)
+        if (chefsGO.Count > 0)
         {
-            foreach (var foodPreference in reviewCondition.foods)
+            for (int i = chefsGO.Count - 1; i >= 0; i--)
             {
-                chefGO.GetComponent<Dialogue>().dialogueText.Add(foodPreference.name);
+                Destroy(chefsGO[i]);
+            }
+        }
+        chefs = new List<ChefSO>();
+        chefsGO = new List<GameObject>();
+
+        for (int i = 0; i < chefIndexes.Length; i++)
+        {
+            ChefSO chef = chefsDatabase[chefIndexes[i]];
+            chefs.Add(chef);
+
+
+            GameObject chefGO = Instantiate(chef.prefab, chefsSpawn[i]);
+            chefsGO.Add(chefGO);
+
+
+            foreach (var reviewCondition in chef.conditions)
+            {
+                foreach (var foodPreference in reviewCondition.foods)
+                {
+                    chefGO.GetComponent<Dialogue>().dialogueText.Add(foodPreference.name);
+                }
             }
         }
     }
-}
     public void QuitGame()
     {
         Application.Quit();
@@ -330,7 +348,7 @@ public void InitializeChefsClientRpc(int[] chefIndexes)
 
     public void EndGame(){
         EndGameClientRpc();
-        LobbyManager.Instance.CloseServer();
+        LobbyManager.Instance.CloseLobby();
     }
     [ClientRpc]
     void EndGameClientRpc()

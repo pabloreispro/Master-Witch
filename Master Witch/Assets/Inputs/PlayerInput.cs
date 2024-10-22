@@ -256,6 +256,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GameMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""40d55604-0773-4cf4-bae6-28f81e056c6c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -280,6 +289,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""SuspendRecipe"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""090f1643-e7b8-49ae-b176-0466af7d5029"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GameMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -301,6 +321,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_UIController = asset.FindActionMap("UIController", throwIfNotFound: true);
         m_UIController_DisplayRecipe = m_UIController.FindAction("DisplayRecipe", throwIfNotFound: true);
         m_UIController_SuspendRecipe = m_UIController.FindAction("SuspendRecipe", throwIfNotFound: true);
+        m_UIController_GameMenu = m_UIController.FindAction("GameMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -518,12 +539,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IUIControllerActions> m_UIControllerActionsCallbackInterfaces = new List<IUIControllerActions>();
     private readonly InputAction m_UIController_DisplayRecipe;
     private readonly InputAction m_UIController_SuspendRecipe;
+    private readonly InputAction m_UIController_GameMenu;
     public struct UIControllerActions
     {
         private @PlayerInput m_Wrapper;
         public UIControllerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @DisplayRecipe => m_Wrapper.m_UIController_DisplayRecipe;
         public InputAction @SuspendRecipe => m_Wrapper.m_UIController_SuspendRecipe;
+        public InputAction @GameMenu => m_Wrapper.m_UIController_GameMenu;
         public InputActionMap Get() { return m_Wrapper.m_UIController; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -539,6 +562,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SuspendRecipe.started += instance.OnSuspendRecipe;
             @SuspendRecipe.performed += instance.OnSuspendRecipe;
             @SuspendRecipe.canceled += instance.OnSuspendRecipe;
+            @GameMenu.started += instance.OnGameMenu;
+            @GameMenu.performed += instance.OnGameMenu;
+            @GameMenu.canceled += instance.OnGameMenu;
         }
 
         private void UnregisterCallbacks(IUIControllerActions instance)
@@ -549,6 +575,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SuspendRecipe.started -= instance.OnSuspendRecipe;
             @SuspendRecipe.performed -= instance.OnSuspendRecipe;
             @SuspendRecipe.canceled -= instance.OnSuspendRecipe;
+            @GameMenu.started -= instance.OnGameMenu;
+            @GameMenu.performed -= instance.OnGameMenu;
+            @GameMenu.canceled -= instance.OnGameMenu;
         }
 
         public void RemoveCallbacks(IUIControllerActions instance)
@@ -584,5 +613,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         void OnDisplayRecipe(InputAction.CallbackContext context);
         void OnSuspendRecipe(InputAction.CallbackContext context);
+        void OnGameMenu(InputAction.CallbackContext context);
     }
 }

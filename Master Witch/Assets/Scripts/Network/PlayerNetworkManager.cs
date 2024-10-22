@@ -34,8 +34,10 @@ namespace Network
 
         public int GetPlayerIndexID(Player playerIndex)
         {
-            for(int i =0; i<playerList.Count; i++){
-                if(GetPlayerByIndex(i)==playerIndex){
+            for (int i = 0; i < playerList.Count; i++)
+            {
+                if (GetPlayerByIndex(i) == playerIndex)
+                {
                     return i;
                 }
             }
@@ -47,13 +49,14 @@ namespace Network
             if (!IsServer) return;
             Debug.Log("aqui");
             var player = NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>();
-            
+
             Debug.Log($"Connected id: {playerID}, NO ID: {player.NetworkObjectId}, NB ID {player.NetworkBehaviourId}");
             playerList.Add(playerID, player);
             idList.Add(player, playerID);
             OnPlayerConnect();
             OnClientConnectedClientRpc(playerID, playerList.Keys.ToArray());
-            if(playerList.Count>=LobbyManager.Instance.JoinedLobby.Players.Count){
+            if (playerList.Count >= LobbyManager.Instance.JoinedLobby.Players.Count)
+            {
                 SignalClientReady(NetworkManager.Singleton.LocalClientId);
             }
         }
@@ -107,18 +110,18 @@ namespace Network
                 playerList.ElementAt(i).Value.OnConnected(material, i);
                 //GameManager.Instance.ChangeBenchColor(material, i);
             }
-           
-    }
+
+        }
 
 
-    void SignalClientReady(ulong clientId)
-    {
-        Debug.Log("Chamou signal 1");
-        readyClients.Add(clientId);
-        Debug.Log("Chamou signal 2");
-        GameManager.Instance.OnClientsReady();
-        Debug.Log("Chamou signal 3");
-    }
+        void SignalClientReady(ulong clientId)
+        {
+            Debug.Log("Chamou signal 1");
+            readyClients.Add(clientId);
+            Debug.Log("Chamou signal 2");
+            GameManager.Instance.OnClientsReady();
+            Debug.Log("Chamou signal 3");
+        }
         void OnClientDisconnected(ulong playerID)
         {
             playerList.Remove(playerID);
@@ -127,8 +130,12 @@ namespace Network
         [ClientRpc]
         void OnClientDisconnectedClientRpc(ulong playerID)
         {
-            if(!IsServer)
+            if (!IsServer)
                 playerList.Remove(playerID);
+        }
+        public void ResetPlayerList()
+        {
+            playerList.Clear();
         }
     }
 }

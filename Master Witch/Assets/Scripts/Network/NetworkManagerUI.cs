@@ -27,6 +27,7 @@ namespace UI
         [SerializeField] GameObject gameHUD;
         [SerializeField] GameObject networkHUD;
         [SerializeField] GameObject networkOptionsHUD;
+        [SerializeField] GameObject mainLobbyHUD;
         [SerializeField] GameObject createLobbyHUD;
         [SerializeField] GameObject joinLobbyHUD;
         [SerializeField] GameObject lobbyHUD;
@@ -63,6 +64,7 @@ namespace UI
         public GameObject finalPanel;
         public GameObject ResultPanel;
         [Header("Game HUD")]
+        [SerializeField] GameObject gameMenuHUD;
         public GameObject recipeSteps,dialogueBox,clock,horizontalGroupPrefab,imagePrefab;
         public Sprite plusSprite,equalsSprite,arrowSprite,benchOven,benchBoard,benchStove;
         public TextMeshProUGUI recipeName;
@@ -83,11 +85,17 @@ namespace UI
             UpdatePlayerName(playerNameIF.text);
         }
 
-        
+        public void OpenGameMenu(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        {
+            if(obj.performed)
+                gameMenuHUD.SetActive(!gameMenuHUD.activeSelf);
+        }
+
         public void EnableLobbyHUD(bool enabled = true)
         {
             lobbyHUD.SetActive(enabled);
             networkOptionsHUD.SetActive(!enabled);
+            mainLobbyHUD.SetActive(!enabled);
             joinLobbyHUD.SetActive(false);
             createLobbyHUD.SetActive(false);
             if (enabled)
@@ -119,8 +127,7 @@ namespace UI
             currentTutorial--;
             tutorialImages[currentTutorial].SetActive(true);
         }
-        [ClientRpc]
-        public void OnGameStartedClientRpc()
+        public void OnGameStartedClient()
         {
             gameHUD.SetActive(true);
             networkHUD.SetActive(false);
