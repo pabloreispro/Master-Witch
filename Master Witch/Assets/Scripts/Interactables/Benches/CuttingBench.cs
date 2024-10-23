@@ -21,6 +21,7 @@ public class CuttingBench : Bench
                 _player = null;
             }
         }
+        
     }
 
     private void _ClickedButton(){
@@ -36,12 +37,8 @@ public class CuttingBench : Bench
     {
         if (endProgress && player.isHand.Value == false)
         {
-            var recipeData = new RecipeData(targetRecipe, ingredients);
-            var objectSpawn = Instantiate(recipeData.TargetFood.foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
-            objectSpawn.GetComponent<NetworkObject>().Spawn();
-            objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
-            player.GetComponentInChildren<Ingredient>().itemsUsed.Add(recipeData);
-            player.SetItemHandClientRpc(objectSpawn);
+            objectInBench.GetComponentInChildren<NetworkObject>().TrySetParent(player.transform);
+            player.SetItemHandClientRpc(objectInBench);
             Reset();
         }
     }
@@ -51,6 +48,6 @@ public class CuttingBench : Bench
         endProgress = false;
         AddIngredient(interact);
         progress();
-        interact.DestroySelf();
+        PositionBench(interact);
     }
 }

@@ -58,6 +58,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 8d6b9689b8b254649a3ebc476d91cca7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -6478536213147159724, guid: 3ffb15214f5ebc14da1d313a7bfe2bf4,
+        type: 3}
+    - target: {fileID: -5754084199372789682, guid: 8d6b9689b8b254649a3ebc476d91cca7,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -9196407856900212963, guid: 16c6bc848985c1e49942b616b19024d4,
+        type: 3}
     - target: {fileID: 919132149155446097, guid: 8d6b9689b8b254649a3ebc476d91cca7,
         type: 3}
       propertyPath: m_Name
@@ -225,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   food: {fileID: 11400000, guid: 377e8283f5a0751499021573f0b57497, type: 2}
-  itensUsed: []
+  itemsUsed: []
 --- !u!114 &23365786741472232
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ using UnityEngine.Experimental.AI;
 [System.Serializable]
 public class RecipeData
 {
-    [SerializeField] FoodSO targetFood;
+    [SerializeField] public FoodSO targetFood;
     [SerializeField] List<RecipeData> utilizedIngredients = new List<RecipeData>();
     FoodModifiers foodModifiers;
     public FoodSO TargetFood => targetFood;

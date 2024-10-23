@@ -19,7 +19,8 @@ public class Bench : Interactable
     //public Tool toolInBench;
     public RecipeSO targetRecipe;
     public BenchType benchType;
-    public GameObject _auxObject;
+    public Transform _auxObject;
+    public GameObject objectInBench;
     public List<RecipeData> ingredients = new List<RecipeData>();
     public float timerMultiply;
     public bool isPerformed;
@@ -58,6 +59,8 @@ public class Bench : Interactable
         _timerProgress = 0;
         _auxTimer = 0f;
         ingredients.Clear();
+        targetRecipe = null;
+        objectInBench = null;
     }
 
     private void Update()
@@ -130,15 +133,29 @@ public class Bench : Interactable
     }
     public void OnEndProgress()
     {
+        if(endProgress==false){
+            if(GetComponentInChildren<Ingredient>()!=null)
+                GetComponentInChildren<Ingredient>().DestroySelf();
+            var recipeData = new RecipeData(targetRecipe, ingredients);
+            var objectSpawn = Instantiate(recipeData.TargetFood.foodPrefab, new Vector3(_auxObject.position.x, 1.0f, _auxObject.position.z), Quaternion.identity);
+            objectSpawn.GetComponent<NetworkObject>().Spawn();
+            objectSpawn.GetComponentInChildren<NetworkObject>().TrySetParent(this.transform);
+            objectSpawn.gameObject.GetComponent<Rigidbody>().useGravity = false;
+            objectSpawn.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            objectInBench = objectSpawn;
+            GetComponentInChildren<Ingredient>().itemsUsed.Add(recipeData);
+        }
         slider.gameObject.SetActive(false);
         endProgress = true;
     }
 
     public void PositionBench(Interactable interact){
         interact.GetComponent<FollowTransform>().targetTransform = null;
-        interact.gameObject.transform.rotation = Quaternion.identity;
-        interact.gameObject.transform.position = _auxObject.transform.position;
         interact.GetComponent<NetworkObject>().TrySetParent(this.transform);
+        interact.gameObject.transform.rotation = Quaternion.identity;
+        interact.gameObject.transform.position = _auxObject.position;
+        interact.gameObject.GetComponent<Rigidbody>().useGravity = false;
+        interact.gameObject.GetComponent<Rigidbody>().isKinematic = true;
     }
     
 }
