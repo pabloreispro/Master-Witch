@@ -78,11 +78,12 @@ public class Player : NetworkBehaviour
     }
 
     private void Update() {
-        _VerifyHand();
+        _VerifyHandServerRpc();
     }
 
-    private void _VerifyHand(){
-        if(GetComponentInChildren<Interactable>()){
+    [ServerRpc (RequireOwnership = false)]
+    private void _VerifyHandServerRpc(){
+        if(this.GetComponentInChildren<Interactable>()){
             isHand.Value = true;
         }else{
             isHand.Value = false;

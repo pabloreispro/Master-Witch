@@ -164,7 +164,6 @@ public class TransitionController : SingletonNetwork<TransitionController>
         SceneManager.Instance.StartMarket();
         SceneManager.Instance.isMovementAllowed.Value = true;
         //ActivatePanelClientRpc(PanelType.CountdownMarket, false);
-
         yield return new WaitForSeconds(0); 
 
     }
