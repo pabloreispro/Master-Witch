@@ -635,6 +635,7 @@ Transform:
   m_Children:
   - {fileID: 5550961625882855225}
   - {fileID: 1485236518860181436}
+  - {fileID: 6105810552082468629}
   m_Father: {fileID: 7778074732808527276}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4141016209730275273
@@ -723,7 +724,8 @@ MonoBehaviour:
   _player: {fileID: 0}
   targetRecipe: {fileID: 0}
   benchType: 1
-  _auxObject: {fileID: 2843739555119892251}
+  _auxObject: {fileID: 6105810552082468629}
+  objectInBench: {fileID: 0}
   ingredients: []
   timerMultiply: 1
   isPerformed: 0
@@ -1250,6 +1252,7 @@ MonoBehaviour:
   targetRecipe: {fileID: 0}
   benchType: 2
   _auxObject: {fileID: 0}
+  objectInBench: {fileID: 0}
   ingredients: []
   timerMultiply: 1
   isPerformed: 1
@@ -1549,6 +1552,7 @@ MonoBehaviour:
   targetRecipe: {fileID: 0}
   benchType: 0
   _auxObject: {fileID: 0}
+  objectInBench: {fileID: 0}
   ingredients: []
   timerMultiply: 1
   isPerformed: 1
@@ -2660,6 +2664,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &4686813568110148339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6105810552082468629}
+  m_Layer: 0
+  m_Name: PositionIngredient
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6105810552082468629
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4686813568110148339}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0111, y: 0.01131, z: 0.00589}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 510636898106430077}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4741781812411139843
 GameObject:
   m_ObjectHideFlags: 0
@@ -2784,6 +2819,7 @@ MonoBehaviour:
   targetRecipe: {fileID: 0}
   benchType: 15
   _auxObject: {fileID: 5534182003895046013}
+  objectInBench: {fileID: 0}
   ingredients: []
   timerMultiply: 0
   isPerformed: 0
@@ -3007,6 +3043,7 @@ MonoBehaviour:
   targetRecipe: {fileID: 0}
   benchType: 15
   _auxObject: {fileID: 5671859642757814178}
+  objectInBench: {fileID: 0}
   ingredients: []
   timerMultiply: 0
   isPerformed: 0
@@ -4055,6 +4092,7 @@ MonoBehaviour:
   targetRecipe: {fileID: 0}
   benchType: 14
   _auxObject: {fileID: 0}
+  objectInBench: {fileID: 0}
   ingredients: []
   timerMultiply: 0
   isPerformed: 0
