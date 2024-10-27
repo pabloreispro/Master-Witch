@@ -28,7 +28,7 @@ public class GameManager : SingletonNetwork<GameManager>
     public float matchStartTime;
     public List<ChefSO> chefs;
     public List<GameObject> chefsGO;
-    
+    List<GameObject> recipeSteps = new List<GameObject>();
     #region Properties
     public GameState GameState => gameState;
     public FoodDatabaseSO FoodDatabaseSO => foodDatabase;
@@ -218,6 +218,15 @@ public class GameManager : SingletonNetwork<GameManager>
     }
     private IEnumerable<GameObject> ExtractRecipeSteps(RecipeSO recipe)
     {
+        if (recipeSteps.Count > 0)
+        {
+            for (int i = 0; i < recipeSteps.Count; i++)
+            {
+                Destroy(recipeSteps[i].gameObject);
+            }
+            recipeSteps.Clear();
+        }
+
         var ingredients = recipe.recipeConditions.FirstOrDefault(r => r.type == RecipeCondition.ConditionType.Food);
         var bench = recipe.recipeConditions.FirstOrDefault(r => r.type == RecipeCondition.ConditionType.BenchType);
         foreach (var condition in recipe.recipeConditions)
@@ -234,7 +243,7 @@ public class GameManager : SingletonNetwork<GameManager>
             }
         }
         var step = Instantiate(NetworkManagerUI.Instance.horizontalGroupPrefab);
-        
+        recipeSteps.Add(step);
         if (ingredients != null && ingredients.foods != null)
         {
             for (int i = 0; i < ingredients.foods.Count; i++)

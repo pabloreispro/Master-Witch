@@ -21,6 +21,7 @@ public class Settings : MonoBehaviour
     [SerializeField] Slider masterVolumeSlider;
     [SerializeField] Slider musicVolumeSlider;
     [SerializeField] Slider effectVolumeSlider;
+    [SerializeField] Toggle fullscreenToggle;
     List<Resolution> resolutions = new List<Resolution>();
     int currentResolutionIndex;
 
@@ -30,17 +31,27 @@ public class Settings : MonoBehaviour
         resolutions.AddRange(Screen.resolutions);
         resolutionsDropdown.ClearOptions();
         currentResolutionIndex = 0;
+        fullscreenToggle.isOn = Screen.fullScreen;
         for (int i = 0; i < Screen.resolutions.Length; i++)
         {
             var res = Screen.resolutions[i];
             //Filter for the resolution with the highest refresh hate
             if (i < Screen.resolutions.Length - 1)
+            {
+                //Filtra com o maior hz
                 if (res.width == Screen.resolutions[i + 1].width && res.height == Screen.resolutions[i + 1].height)
                 {
                     resolutions.Remove(res);
                     continue;
                 }
-            if (res.width == Screen.currentResolution.width && res.height == Screen.currentResolution.height)
+                //Filtra pra 16:9
+                if (!Mathf.Approximately((float)res.width / res.height, 16f / 9f))
+                {
+                    resolutions.Remove(res);
+                    continue;
+                }
+            }
+            if (res.width == Screen.width && res.height == Screen.height)
             {
                 currentResolutionIndex = resolutions.IndexOf(res);
             }
@@ -52,24 +63,34 @@ public class Settings : MonoBehaviour
         }
         resolutionsDropdown.AddOptions(resolutionsOptions);
         resolutionsDropdown.value = currentResolutionIndex;
+
         if (PlayerPrefs.GetInt(FIRST_PLAY) == 0)
         {
-            if (currentResolutionIndex < resolutions.Count)
+            foreach (var res in resolutions)
             {
-                currentResolutionIndex = resolutions.Count - 1;
-                SetResolution(currentResolutionIndex);
-                masterVolumeSlider.value = DEFAULT_MASTER_VOLUME;
-                musicVolumeSlider.value = DEFAULT_MUSIC_VOLUME;
-                effectVolumeSlider.value = DEFAULT_EFFECTS_VOLUME;
-                PlayerPrefs.SetInt(FIRST_PLAY, -1);
+                if (res.width == Screen.currentResolution.width && res.height == Screen.currentResolution.height)
+                {
+                    currentResolutionIndex = resolutions.IndexOf(res);
+                    SetResolution(currentResolutionIndex);
+                }
             }
-        }else
+            masterVolumeSlider.value = DEFAULT_MASTER_VOLUME;
+            musicVolumeSlider.value = DEFAULT_MUSIC_VOLUME;
+            effectVolumeSlider.value = DEFAULT_EFFECTS_VOLUME;
+            SetMasterVolume(masterVolumeSlider.value);
+            SetMusicVolume(musicVolumeSlider.value);
+            SetEffectsVolume(effectVolumeSlider.value);
+            PlayerPrefs.SetInt(FIRST_PLAY, -1);
+        }
+        else
         {
             masterVolumeSlider.value = PlayerPrefs.GetFloat(MASTER_VOLUME);
             musicVolumeSlider.value = PlayerPrefs.GetFloat(MUSIC_VOLUME);
             effectVolumeSlider.value = PlayerPrefs.GetFloat(EFFECTS_VOLUME);
+            SetMasterVolume(masterVolumeSlider.value);
+            SetMusicVolume(musicVolumeSlider.value);
+            SetEffectsVolume(effectVolumeSlider.value);
         }
-
     }
     public void SetMasterVolume(float volume) => SetVolume(MASTER_VOLUME, volume);
     public void SetMusicVolume(float volume) => SetVolume(MUSIC_VOLUME, volume);
