@@ -11,22 +11,28 @@ public class CuttingBench : Bench
 
     private void FixedUpdate()
     {
+
+        _Gameplay();
+        
+        
+    }
+
+    private void _Gameplay(){
         if(_player !=null && ingredients.Count > 0){
             if(_player.buttonPressed){
-                isPreparing.Value = true;
+                ChangeVariableServerRpc(true);
                 Debug.Log("Cutting");
                 Invoke("_ClickedButton", 0.5f);
             }else{
-                isPreparing.Value = false;
+                ChangeVariableServerRpc(false);
                 _player = null;
             }
         }
-        
     }
 
     private void _ClickedButton(){
         
-        isPreparing.Value = false;
+        ChangeVariableServerRpc(false);
         if(_player!=null){
            _player.buttonPressed = false;
         }

@@ -15,14 +15,15 @@ public class Mortar : Bench
         if(_player !=null && ingredients.Count > 0){
             if(_player.buttonPressed){
                 Debug.Log("Mortar");
-                isPreparing.Value = true;
+                ChangeVariableServerRpc(true);
             }else{
-                isPreparing.Value = false;
+                ChangeVariableServerRpc(false);
                 _player = null;
             }
         }
         
     }
+    
     
     public override void Pick(Player player)
     {

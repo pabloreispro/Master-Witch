@@ -15,9 +15,9 @@ public class Well : Bench
 
     private void _Special(){
         if(_toolInBench.Count>0){
-            isPreparing.Value = true;
+            ChangeVariableServerRpc(true);
         }else{
-            isPreparing.Value = false;
+            ChangeVariableServerRpc(false);
         }
     }
     public override void Pick(Player player)

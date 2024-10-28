@@ -15,14 +15,14 @@ public class Furnace : Bench
 
     private void _Special(){
         if(_toolInBench.Count>0 && ingredients.Count > 0){
-            isPreparing.Value = true;
+            ChangeVariableServerRpc(false);
             _timerWood += Time.deltaTime;
             if(_timerWood >= 5){
                 _toolInBench.RemoveAt(_toolInBench.Count-1);
                 _timerWood = 0;
             }
         }else{
-            isPreparing.Value = false;
+            ChangeVariableServerRpc(false);
         }
     }
     public override void Pick(Player player)

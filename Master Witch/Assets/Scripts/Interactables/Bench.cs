@@ -71,7 +71,7 @@ public class Bench : Interactable
             slider.value = _timer;
             if (_timer >= _timerProgress)
             {
-                isPreparing.Value = false;
+                ChangeVariableServerRpc(false);
                 OnEndProgress();
             }
         }
@@ -156,6 +156,11 @@ public class Bench : Interactable
         interact.gameObject.transform.position = _auxObject.position;
         interact.gameObject.GetComponent<Rigidbody>().useGravity = false;
         interact.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void ChangeVariableServerRpc(bool v){
+        isPreparing.Value = v;
     }
     
 }

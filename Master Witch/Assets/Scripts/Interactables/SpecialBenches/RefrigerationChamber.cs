@@ -12,9 +12,9 @@ public class RefrigerationChamber : Bench
 
     private void _Special(){
         if(_toolInBench.Count>0 && ingredients.Count > 0){
-            isPreparing.Value = true;
+            ChangeVariableServerRpc(true);
         }else{
-            isPreparing.Value = false;
+            ChangeVariableServerRpc(false);
         }
     }
 
