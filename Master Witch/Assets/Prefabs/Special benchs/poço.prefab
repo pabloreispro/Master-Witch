@@ -408,6 +408,80 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 3.02
+--- !u!1001 &5119929069383306106
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 9173019619145219572}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: b7faf4dbfd44ed041bc640aafd7e190d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b7faf4dbfd44ed041bc640aafd7e190d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b7faf4dbfd44ed041bc640aafd7e190d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b7faf4dbfd44ed041bc640aafd7e190d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b7faf4dbfd44ed041bc640aafd7e190d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b7faf4dbfd44ed041bc640aafd7e190d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b7faf4dbfd44ed041bc640aafd7e190d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b7faf4dbfd44ed041bc640aafd7e190d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b7faf4dbfd44ed041bc640aafd7e190d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b7faf4dbfd44ed041bc640aafd7e190d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b7faf4dbfd44ed041bc640aafd7e190d,
+        type: 3}
+      propertyPath: m_Name
+      value: Poco
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b7faf4dbfd44ed041bc640aafd7e190d, type: 3}
+--- !u!4 &4649717171368537233 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b7faf4dbfd44ed041bc640aafd7e190d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5119929069383306106}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8703107063236762143
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -483,7 +557,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: "po\xE7o"
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -5754084199372789682, guid: b8adfe716e67750408d1345444739813, type: 3}
+    - {fileID: -7511558181221131132, guid: b8adfe716e67750408d1345444739813, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: b8adfe716e67750408d1345444739813,
@@ -494,6 +570,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7812339448468547553}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: b8adfe716e67750408d1345444739813,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4649717171368537233}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b8adfe716e67750408d1345444739813,
         type: 3}
@@ -551,7 +631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1910714444
+  GlobalObjectIdHash: 1923219539
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
