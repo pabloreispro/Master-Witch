@@ -4,7 +4,7 @@ public class FollowTransform : MonoBehaviour
 {
     public Transform targetTransform;
 
-    void Update()
+    void LateUpdate()
     {
         if (targetTransform != null)
         {

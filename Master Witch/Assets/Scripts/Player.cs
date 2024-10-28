@@ -78,15 +78,20 @@ public class Player : NetworkBehaviour
     }
 
     private void Update() {
-        _VerifyHandServerRpc();
+        _VerifyHandClientRpc();
     }
 
     [ServerRpc (RequireOwnership = false)]
-    private void _VerifyHandServerRpc(){
+    private void _ChangeisHandServerRpc(bool state)
+    {
+        isHand.Value = state;
+    }
+    [ClientRpc]
+    private void _VerifyHandClientRpc(){
         if(this.GetComponentInChildren<Interactable>()){
-            isHand.Value = true;
+            _ChangeisHandServerRpc(true);
         }else{
-            isHand.Value = false;
+            _ChangeisHandServerRpc(false);
         }
     }
     

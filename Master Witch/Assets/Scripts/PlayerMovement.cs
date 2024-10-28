@@ -166,6 +166,7 @@ public class PlayerMovement : Player
                 this.GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = true;
                 var obj = this.GetComponentInChildren<Interactable>().GetComponent<NetworkObject>();
                 obj.GetComponent<FollowTransform>().targetTransform = null;
+                obj.GetComponent<Rigidbody>().useGravity = true;
                 obj.TryRemoveParent();
             }
             else

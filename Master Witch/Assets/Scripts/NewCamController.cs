@@ -114,7 +114,7 @@ public class NewCamController : SingletonNetwork<NewCamController>
         
         NetworkManagerUI.Instance.clock.active = true;
         NetworkManagerUI.Instance.recipeSteps.active = true;
-        StartCoroutine(TransitionController.Instance.TransitionMarketScene());
+        if(IsServer)StartCoroutine(TransitionController.Instance.TransitionMarketScene());
 
         
     }
