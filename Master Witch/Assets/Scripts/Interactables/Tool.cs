@@ -15,6 +15,7 @@ public class Tool : Interactable
     
     public override void Pick(Player player)
     {
+        
         this.GetComponent<Collider>().enabled = false;
         this.GetComponent<NetworkObject>().TrySetParent(player.transform);
         this.GetComponent<NetworkObject>().transform.position = player.boneItem.transform.position;

@@ -11,12 +11,14 @@ public class WoodStock : Bench
     {
         if(player.isHand.Value == false )
         {
-            var objectSpawn = Instantiate(food.prefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
-            objectSpawn.GetComponent<NetworkObject>().Spawn();
-            objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform); 
-            objectSpawn.GetComponent<Collider>().enabled = false;
-            player.SetItemHandClientRpc(objectSpawn);
-            player.ChangeState(PlayerState.Interact);
+            if(IsServer){
+                var objectSpawn = Instantiate(food.prefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
+                objectSpawn.GetComponent<NetworkObject>().Spawn();
+                objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform); 
+                objectSpawn.GetComponent<Collider>().enabled = false;
+                player.SetItemHandClientRpc(objectSpawn);
+                player.ChangeState(PlayerState.Interact);
+            }
         }
     }
 }

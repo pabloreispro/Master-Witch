@@ -11,10 +11,7 @@ public class CuttingBench : Bench
 
     private void FixedUpdate()
     {
-
         _Gameplay();
-        
-        
     }
 
     private void _Gameplay(){
