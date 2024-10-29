@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
   m_Name: Amor
   m_EditorClassIdentifier: 
-  foodID: 31
+  foodID: 64
   category: 
   foodPrefab: {fileID: 5005319937600832954, guid: 24be3c39e9de72943a5d8839e83f43f6,
     type: 3}
   imageFood: {fileID: 21300000, guid: eb0edd1d0ec001946b9e6fd6ec03c39a, type: 3}
   timeProgress: 30
+  modifiers:
+    igneousValue: 0
+    poisonousValue: 0
+    curativeValue: 0
   finishRecipe: 0
   recipeConditions:
   - type: 0
@@ -29,7 +33,7 @@ MonoBehaviour:
   - type: 1
     benchType: 0
     foods:
-    - {fileID: 11400000, guid: 9a6e129ceb2387c4183b45246170c9ae, type: 2}
+    - {fileID: 11400000, guid: 636c415477d7f554b83ff3f645422a6b, type: 2}
     - {fileID: 11400000, guid: 692c99cd507a30f4ab9861c37e4c1088, type: 2}
     category: 0
     categoryPoints: 0
