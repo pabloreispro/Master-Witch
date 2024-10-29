@@ -5,7 +5,7 @@ using TMPro;
 public class DialogueSystem : SingletonNetwork<DialogueSystem>
 {
     public TextMeshProUGUI dialogueText;
-    public float typingSpeed = 0.05f;
+    public float typingSpeed = 0.03f;
     
     
 

@@ -66,13 +66,22 @@ public class PlayerMovement : Player
         }
     }
 
-    private void _VerifyStorage(){
-        if ((interact as Storage) != null)
+    private void _VerifyStorage()
+    {
+        if (interact is Storage storage)
         {
-            _benchStorage = (interact as Storage);
+            _benchStorage = storage;
+            _benchStorage.ChangeState(Storage.StorageState.Open);
             _benchStorage.player = this;
-        }else if(_benchStorage!=null){
-            _benchStorage.player = null;
+        }
+        else
+        {
+            if (_benchStorage != null)
+            {
+                _benchStorage.ChangeState(Storage.StorageState.Close);
+                _benchStorage.player = null;
+                _benchStorage = null; 
+            }
         }
     }
 
@@ -132,7 +141,7 @@ public class PlayerMovement : Player
         else 
         {
             if(isHand.Value && isHandBasket.Value){ChangeState(PlayerState.IdleBasket);}
-            else if(isHand.Value && !isHandBasket.Value){ChangeState(PlayerState.IdleItem);}
+            if(isHand.Value && !isHandBasket.Value){ChangeState(PlayerState.IdleItem);}
             else ChangeState(PlayerState.Idle);
              isMoving.Value=false;
         }

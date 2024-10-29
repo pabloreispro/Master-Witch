@@ -11,6 +11,8 @@ using Unity.VisualScripting;
 
 public class Storage : Bench
 {
+    public StorageState currentState;
+    public Animator animator;
     public Button[] slots;
     public FoodSO slotSelected;
     public Camera mainCamera;
@@ -125,5 +127,39 @@ public class Storage : Bench
         transform.position = pos;
         transform.rotation = rot;
         //transform.rotation = Quaternion.Euler(0f,180f,0f);
+    }
+
+
+    public enum StorageState
+    {
+        Open,
+        Close
+    }
+    public void ChangeState(StorageState newState)
+    {
+        currentState = newState;
+        ChangeStateClientRpc(newState);
+        AnimatorStorage();
+    }
+
+    [ClientRpc]
+    private void ChangeStateClientRpc(StorageState newState)
+    {
+        currentState = newState;
+        AnimatorStorage();
+    }
+    public void AnimatorStorage()
+    {
+        switch (currentState)
+        {
+            case StorageState.Open:
+                animator.SetBool("Open", true);
+                animator.SetBool("Close", false);
+            break;
+            case StorageState.Close:
+                animator.SetBool("Open", false);
+                animator.SetBool("Close", true);
+            break;
+        }
     }
 }

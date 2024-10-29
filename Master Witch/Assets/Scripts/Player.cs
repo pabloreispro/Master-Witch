@@ -152,7 +152,7 @@ public class Player : NetworkBehaviour
                 animator.SetBool("IdleItem", true);
                 break;
             case PlayerState.Interact:
-                a.SetTrigger("Interact");
+                animator.SetTrigger("Interact");
             break;
             case PlayerState.Walking:
                 animator.SetBool("IsWalking", true);
@@ -169,6 +169,8 @@ public class Player : NetworkBehaviour
             
         }
     }
+
+    
 
     public void OnConnected(Material newMaterial, int id)
     {
