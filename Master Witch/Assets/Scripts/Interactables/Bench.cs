@@ -133,7 +133,7 @@ public class Bench : Interactable
     }
     public void OnEndProgress()
     {
-        if(endProgress==false){
+        if(endProgress==false && workBench == true){
             if(GetComponentInChildren<Ingredient>()!=null)
                 GetComponentInChildren<Ingredient>().DestroySelf();
             var recipeData = new RecipeData(targetRecipe, ingredients);
