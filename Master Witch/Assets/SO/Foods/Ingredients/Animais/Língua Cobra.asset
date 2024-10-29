@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a050a947ea54423f82b2119ed431967, type: 3}
   m_Name: "L\xEDngua Cobra"
   m_EditorClassIdentifier: 
-  foodID: 6
-  category: 
+  foodID: 4
+  category: 00000000
   foodPrefab: {fileID: 5104859499140714970, guid: 95500a15ce61a2f43bbeffdae2112a49,
     type: 3}
-  imageFood: {fileID: 0}
+  imageFood: {fileID: 21300000, guid: 7337b9e5bb7210d45bff2831188e3475, type: 3}
   timeProgress: 10
   modifiers:
-    igneousValue: 0
-    poisonousValue: 0
-    curativeValue: 0
+    igneousValue: -1
+    poisonousValue: 0.5
+    curativeValue: 2

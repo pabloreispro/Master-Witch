@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a050a947ea54423f82b2119ed431967, type: 3}
   m_Name: "Ovo de Drag\xE3o"
   m_EditorClassIdentifier: 
-  foodID: 7
-  category: 
+  foodID: 5
+  category: 00000000
   foodPrefab: {fileID: 5894753590609908615, guid: 01ee7216557e48746acaf2bc751d86a0,
     type: 3}
-  imageFood: {fileID: 0}
+  imageFood: {fileID: 21300000, guid: dca5490614c91fc48af39115193ee63a, type: 3}
   timeProgress: 10
   modifiers:
-    igneousValue: 0
-    poisonousValue: 0
-    curativeValue: 0
+    igneousValue: -1
+    poisonousValue: 0.5
+    curativeValue: 2

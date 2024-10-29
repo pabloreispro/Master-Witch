@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a050a947ea54423f82b2119ed431967, type: 3}
   m_Name: "Tent\xE1culo de Kraken"
   m_EditorClassIdentifier: 
-  foodID: 13
-  category: 
+  foodID: 9
+  category: 00000000
   foodPrefab: {fileID: 5878877525720200172, guid: e39db77da5df3c04d827e2a1766cf986,
     type: 3}
-  imageFood: {fileID: 21300000, guid: 39067555d161e4cf4bb2318972c83949, type: 3}
+  imageFood: {fileID: 21300000, guid: d2ca993c7cf48304dba5faf72f73bd43, type: 3}
   timeProgress: 10
   modifiers:
-    igneousValue: 0
-    poisonousValue: 0
-    curativeValue: 0
+    igneousValue: -1
+    poisonousValue: 0.5
+    curativeValue: 2

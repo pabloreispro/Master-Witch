@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
   m_Name: "Flor de L\xF3tus Assada"
   m_EditorClassIdentifier: 
-  foodID: 0
+  foodID: 57
   category: 
   foodPrefab: {fileID: 0}
   imageFood: {fileID: 0}
@@ -22,5 +22,18 @@ MonoBehaviour:
     poisonousValue: 0
     curativeValue: 0
   finishRecipe: 0
-  recipeConditions: []
+  recipeConditions:
+  - type: 0
+    benchType: 5
+    foods: []
+    category: 0
+    categoryPoints: 0
+    isAllowed: 0
+  - type: 1
+    benchType: 5
+    foods:
+    - {fileID: 11400000, guid: 7ec1735b58c22194abdba7b6f68be8ca, type: 2}
+    category: 0
+    categoryPoints: 0
+    isAllowed: 1
   reviewConditions: []
