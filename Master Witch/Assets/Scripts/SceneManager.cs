@@ -108,6 +108,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
         timeCount.Value = TIMER_MARKET;
         maxTime = timeCount.Value;
         StartCoroutine(TimeCounter());
+        GameManager.Instance.Reset();
     }
 
     
@@ -117,6 +118,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
         maxTime = timeCount.Value;
         StartCoroutine(TimeCounter());
         GameManager.Instance.matchStartTime = Time.time;
+        GameManager.Instance.Reset();
     }
            
 

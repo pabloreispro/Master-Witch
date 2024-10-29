@@ -140,6 +140,7 @@ public class GameManager : SingletonNetwork<GameManager>
     public void InitializeGameServerRpc()
     {
         int recipeIndex = Random.Range(0, recipeDatabase.Length); 
+        
         InitializeGameClientRpc(recipeIndex); 
         InitializeChefsServerRpc();
     }
@@ -158,6 +159,7 @@ public class GameManager : SingletonNetwork<GameManager>
         foreach (var step in ExtractRecipeSteps(targetRecipe))
         {
             step.transform.SetParent(NetworkManagerUI.Instance.recipeSteps.transform);
+            Debug.Log("Quantidade de processos e " + step);
         }
     }
     
@@ -380,10 +382,10 @@ public class GameManager : SingletonNetwork<GameManager>
             if((objectScene as Ingredient) != null )//&&(objectScene as Ingredient).isHandIngredient)
                 objectScene.DestroySelf();
         }
-        for(int i=0; i<numberPlayer; i++){
+        /*for(int i=0; i<numberPlayer; i++){
             NetworkManagerUI.Instance.playerFinalCheck[i].isOn = false;
             NetworkManagerUI.Instance.playerUI[i].gameObject.SetActive(false);
-        }
+        }*/
         foreach(StorageController store in FindObjectsOfType<StorageController>()){
             store.storageItems.Clear();
         }
