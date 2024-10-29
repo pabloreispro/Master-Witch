@@ -78,7 +78,7 @@ public class Player : NetworkBehaviour
     }
 
     private void Update() {
-        _VerifyHandClientRpc();
+        _VerifyHand();
     }
 
     [ServerRpc (RequireOwnership = false)]
@@ -86,8 +86,8 @@ public class Player : NetworkBehaviour
     {
         isHand.Value = state;
     }
-    [ClientRpc]
-    private void _VerifyHandClientRpc(){
+
+    private void _VerifyHand(){
         if(this.GetComponentInChildren<Interactable>()){
             _ChangeisHandServerRpc(true);
         }else{
@@ -111,17 +111,8 @@ public class Player : NetworkBehaviour
         transform.rotation = Quaternion.identity;
         transform.rotation = Quaternion.Euler(0f,180f,0f);
         GetComponent<PlayerMovement>().controller.enabled = true;
-        //StatusAssetServerRpc(false);
         isHandBasket.Value = false;
     }
-
-    /*public void AddItemBasket(FoodSO ingredient)
-    {
-        if(this.GetComponentInChildren<Tool>().ingredients.Count < basketMax)
-        {
-            this.GetComponentInChildren<Tool>().ingredients.Add(new RecipeData(ingredient));
-        }
-    }*/
 
     public void ChangeState(PlayerState newState)
     {
