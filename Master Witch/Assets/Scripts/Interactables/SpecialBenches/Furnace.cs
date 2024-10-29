@@ -21,8 +21,6 @@ public class Furnace : Bench
                 _toolInBench.RemoveAt(_toolInBench.Count-1);
                 _timerWood = 0;
             }
-        }else{
-            ChangeVariableServerRpc(false);
         }
     }
     public override void Pick(Player player)

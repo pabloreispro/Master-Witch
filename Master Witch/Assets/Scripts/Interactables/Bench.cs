@@ -133,6 +133,7 @@ public class Bench : Interactable
     }
     public void OnEndProgress()
     {
+        ChangeVariableServerRpc(false);
         if(endProgress==false && workBench == true){
             if(GetComponentInChildren<Ingredient>()!=null)
                 GetComponentInChildren<Ingredient>().DestroySelf();
