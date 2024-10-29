@@ -155,6 +155,15 @@ public class GameManager : SingletonNetwork<GameManager>
     {
         targetRecipe = recipeDatabase.ElementAt(recipeIndex);
         NetworkManagerUI.Instance.recipeName.text = targetRecipe.name;
+
+        if (recipeSteps.Count > 0)
+        {
+            for (int i = 0; i < recipeSteps.Count; i++)
+            {
+                Destroy(recipeSteps[i].gameObject);
+            }
+            recipeSteps.Clear();
+        }
         
         foreach (var step in ExtractRecipeSteps(targetRecipe))
         {
@@ -220,14 +229,7 @@ public class GameManager : SingletonNetwork<GameManager>
     }
     private IEnumerable<GameObject> ExtractRecipeSteps(RecipeSO recipe)
     {
-        if (recipeSteps.Count > 0)
-        {
-            for (int i = 0; i < recipeSteps.Count; i++)
-            {
-                Destroy(recipeSteps[i].gameObject);
-            }
-            recipeSteps.Clear();
-        }
+        
 
         var ingredients = recipe.recipeConditions.FirstOrDefault(r => r.type == RecipeCondition.ConditionType.Food);
         var bench = recipe.recipeConditions.FirstOrDefault(r => r.type == RecipeCondition.ConditionType.BenchType);

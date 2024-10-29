@@ -126,7 +126,6 @@ public class SceneManager : SingletonNetwork<SceneManager>
     public void ChangeSceneServerRpc(bool a, bool b)
     {
         ChangeSceneClientRpc(sceneMarket.Value = a, sceneMain.Value = b);
-        
     }
     [ClientRpc]
     public void ChangeSceneClientRpc(bool a, bool b)
