@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
   m_Name: "\xC1gua Esverdeada"
   m_EditorClassIdentifier: 
-  foodID: 0
+  foodID: 65
   category: 
   foodPrefab: {fileID: 0}
   imageFood: {fileID: 0}
   timeProgress: 0
+  modifiers:
+    igneousValue: 0
+    poisonousValue: 0
+    curativeValue: 0
   finishRecipe: 0
   recipeConditions: []
   reviewConditions: []
