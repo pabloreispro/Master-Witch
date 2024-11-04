@@ -176,6 +176,7 @@ public class PlayerMovement : Player
                 var obj = this.GetComponentInChildren<Interactable>().GetComponent<NetworkObject>();
                 obj.GetComponent<FollowTransform>().targetTransform = null;
                 obj.GetComponent<Rigidbody>().useGravity = true;
+                obj.GetComponent<Rigidbody>().isKinematic = false;
                 obj.TryRemoveParent();
             }
             else

@@ -382,7 +382,7 @@ public class GameManager : SingletonNetwork<GameManager>
             if((objectScene as Tool) != null )//&&(objectScene as Tool).isHandTool
                 objectScene.DestroySelf();
             if((objectScene as Ingredient) != null )//&&(objectScene as Ingredient).isHandIngredient)
-                objectScene.DestroySelf();
+                if(objectScene.transform.parent == null) objectScene.DestroySelf();
         }
         /*for(int i=0; i<numberPlayer; i++){
             NetworkManagerUI.Instance.playerFinalCheck[i].isOn = false;

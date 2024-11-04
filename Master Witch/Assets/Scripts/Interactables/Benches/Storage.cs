@@ -19,8 +19,9 @@ public class Storage : Bench
     public GameObject panelInventory;
     public int indexSlots;
     public bool isActive = false;
-    //public GameObject inventory;
     public Player player;
+
+    public GameObject[] slotsStorage;
 
     void Start()
     {
@@ -38,9 +39,23 @@ public class Storage : Bench
     public override void Drop(Player player)
     {
         var interact = player.GetComponentInChildren<Ingredient>();
-        if(ingredients.Count < 4){
+        if(ingredients.Count <= 4){
             AddIngredient(interact);
-            interact.DestroySelf();
+            //interact.DestroySelf();
+            foreach (var item in slotsStorage)
+            {
+                if(item.transform.childCount == 0)
+                {
+                    interact.GetComponent<FollowTransform>().targetTransform = null;
+                    interact.GetComponent<NetworkObject>().TrySetParent(item.transform);
+                    interact.gameObject.transform.rotation = new Quaternion(90,90,90,0);
+                    interact.gameObject.transform.position = item.transform.position;
+                    interact.gameObject.transform.localScale = new Vector3(20,20,20);
+                    interact.gameObject.GetComponent<Rigidbody>().useGravity = false;
+                    interact.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                    break;
+                }
+            }
         }
     }
 
@@ -59,15 +74,18 @@ public class Storage : Bench
     [ServerRpc(RequireOwnership = false)]
     void SetPlayerItemServerRpc(int itemIndex, ulong playerID)
     {
+        
         Debug.Log("Player id: "+ playerID);
         Debug.Log("index id: "+ itemIndex);
         var playerScene = PlayerNetworkManager.Instance.GetPlayer[playerID];
         Debug.Log("PlayerSCene: "+playerScene.id+" name: "+playerScene.name);
-        var objectSpawn = Instantiate(ingredients[itemIndex].TargetFood.foodPrefab, new Vector3(playerScene.assetIngredient.transform.position.x, 1.0f, playerScene.assetIngredient.transform.position.z), Quaternion.identity);
-        objectSpawn.GetComponent<NetworkObject>().Spawn();
-        objectSpawn.GetComponent<NetworkObject>().TrySetParent(playerScene.transform); 
-        objectSpawn.GetComponent<Collider>().enabled = false;
-        playerScene.SetItemHandClientRpc(objectSpawn);
+        var objSelected = slotsStorage[itemIndex].transform.GetChild(0).GetComponent<NetworkObject>();
+        objSelected.GetComponent<NetworkObject>().TrySetParent(playerScene.transform);
+        objSelected.transform.localScale = new Vector3(100,100,100);
+        objSelected.transform.rotation = Quaternion.identity;
+        objSelected.gameObject.GetComponent<Rigidbody>().useGravity = false;
+        objSelected.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        playerScene.SetItemHandClientRpc(objSelected);
         playerScene.ChangeState(PlayerState.Interact);
         //RemoveIngredient(ingredients[itemIndex].TargetFood);
     }
@@ -106,7 +124,6 @@ public class Storage : Bench
         }
         if(maxIndex!=0){
             SelectButton(0);
-
         }
         isActive = true;
     }
