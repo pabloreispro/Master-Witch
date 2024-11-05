@@ -74,7 +74,6 @@ public class Storage : Bench
     [ServerRpc(RequireOwnership = false)]
     void SetPlayerItemServerRpc(int itemIndex, ulong playerID)
     {
-        
         Debug.Log("Player id: "+ playerID);
         Debug.Log("index id: "+ itemIndex);
         var playerScene = PlayerNetworkManager.Instance.GetPlayer[playerID];
