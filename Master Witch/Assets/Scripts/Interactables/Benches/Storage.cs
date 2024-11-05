@@ -50,7 +50,7 @@ public class Storage : Bench
                     interact.GetComponent<NetworkObject>().TrySetParent(item.transform);
                     interact.gameObject.transform.rotation = new Quaternion(90,90,90,0);
                     interact.gameObject.transform.position = item.transform.position;
-                    interact.gameObject.transform.localScale = new Vector3(20,20,20);
+                    interact.gameObject.transform.localScale = new Vector3(0.5f,0.5f,0.5f);
                     interact.gameObject.GetComponent<Rigidbody>().useGravity = false;
                     interact.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                     break;

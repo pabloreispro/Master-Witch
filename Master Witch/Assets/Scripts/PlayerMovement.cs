@@ -40,7 +40,7 @@ public class PlayerMovement : Player
         _playerInput.PlayerInteract.Enable();
         _playerInput.PlayerInteract.Interaction.started += _Interact;
         _playerInput.PlayerInteract.Interaction.canceled += _Interact;
-        _playerInput.PlayerInteract.Storage.started += _InteractStorage;
+        //_playerInput.PlayerInteract.Interaction.started += _Interact;
         //inputs para buttons 
         //na funcao precisa colocar InputAction.CallbackContext context
         //e o context funciona como um ativador
@@ -149,18 +149,14 @@ public class PlayerMovement : Player
         controller.Move(move* Time.deltaTime * speedPlayer);
     }
 
-    private void _InteractStorage(InputAction.CallbackContext context){
-        if(IsOwner && interact as Storage){
-            if(context.started){
-                interact.GetComponent<Storage>().Initialize();
-            }
-        }
-    }
-
     private void _Interact(InputAction.CallbackContext context){
         if(IsOwner){
             if(context.started){
-                _PickDropObject();
+                if(interact as Storage && isHand.Value == false){
+                    interact.GetComponent<Storage>().Initialize();
+                }else{
+                    _PickDropObject();
+                }
                 buttonPressed = true;
             }
             if(context.canceled){
