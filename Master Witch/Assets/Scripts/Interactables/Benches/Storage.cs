@@ -81,7 +81,7 @@ public class Storage : Bench
         Debug.Log("PlayerSCene: "+playerScene.id+" name: "+playerScene.name);
         var objSelected = slotsStorage[itemIndex].transform.GetChild(0).GetComponent<NetworkObject>();
         objSelected.GetComponent<NetworkObject>().TrySetParent(playerScene.transform);
-        objSelected.transform.localScale = new Vector3(100,100,100);
+        objSelected.transform.localScale = new Vector3(1,1,1);
         objSelected.transform.rotation = Quaternion.identity;
         objSelected.gameObject.GetComponent<Rigidbody>().useGravity = false;
         objSelected.gameObject.GetComponent<Rigidbody>().isKinematic = true;
@@ -102,11 +102,13 @@ public class Storage : Bench
             UpdateInventory();
             panelInventory.SetActive(true);
             PanelPosition();
-        }else{
-            panelInventory.SetActive(false);
         }
         //OnSlotSelected(0);
         //Active = true;
+    }
+
+    public void DisableStorage(){
+        panelInventory.SetActive(false);
     }
 
     void UpdateInventory()

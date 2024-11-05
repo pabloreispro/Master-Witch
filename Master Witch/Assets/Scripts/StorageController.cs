@@ -62,18 +62,7 @@ public class StorageController : SingletonNetwork<StorageController>
     // Update is called once per frame
     void Update()
     {
-        if(IsOwner){
-            if(Input.GetKeyDown(KeyCode.G) && slotSelected != null)
-            {            
-                //Active = false;
-            }
-            if(Input.GetKeyDown(KeyCode.Q))
-            {
-                Time.timeScale = 1;
-                panelInventory.SetActive(false);
-                //Active = false;
-            }
-        }
+        
     }
 
     public void SelectedIngredient(int indexSlots){

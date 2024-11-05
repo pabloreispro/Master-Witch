@@ -70,6 +70,9 @@ public class PlayerMovement : Player
     {
         if (interact is Storage storage)
         {
+            if(interact as Storage && isHand.Value == false){
+                interact.GetComponent<Storage>().Initialize();
+            }
             _benchStorage = storage;
             _benchStorage.ChangeState(Storage.StorageState.Open);
             _benchStorage.player = this;
@@ -78,6 +81,7 @@ public class PlayerMovement : Player
         {
             if (_benchStorage != null)
             {
+                _benchStorage.DisableStorage();
                 _benchStorage.ChangeState(Storage.StorageState.Close);
                 _benchStorage.player = null;
                 _benchStorage = null; 
@@ -152,11 +156,7 @@ public class PlayerMovement : Player
     private void _Interact(InputAction.CallbackContext context){
         if(IsOwner){
             if(context.started){
-                if(interact as Storage && isHand.Value == false){
-                    interact.GetComponent<Storage>().Initialize();
-                }else{
-                    _PickDropObject();
-                }
+                _PickDropObject();
                 buttonPressed = true;
             }
             if(context.canceled){
