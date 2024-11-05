@@ -155,12 +155,12 @@ public class Storage : Bench
     public void ChangeState(StorageState newState)
     {
         currentState = newState;
-        ChangeStateClientRpc(newState);
+        ChangeStateServerRpc(newState);
         AnimatorStorage();
     }
 
-    [ClientRpc]
-    private void ChangeStateClientRpc(StorageState newState)
+    [ServerRpc(RequireOwnership = false)]
+    private void ChangeStateServerRpc(StorageState newState)
     {
         currentState = newState;
         AnimatorStorage();
