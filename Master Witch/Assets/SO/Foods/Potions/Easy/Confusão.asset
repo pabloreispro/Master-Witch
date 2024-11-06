@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
+  m_Name: "Confus\xE3o"
+  m_EditorClassIdentifier: 
+  foodID: 68
+  category: 
+  foodPrefab: {fileID: 4678132072690616373, guid: fdf6e6b55485fa242a03de081999ba1c,
+    type: 3}
+  imageFood: {fileID: 21300000, guid: 64bbd089be19eee45a6f405cbd61a5ae, type: 3}
+  timeProgress: 30
+  modifiers:
+    igneousValue: 1
+    poisonousValue: 2
+    curativeValue: 1
+  finishRecipe: 0
+  recipeConditions:
+  - type: 0
+    benchType: 0
+    foods: []
+    category: 0
+    categoryPoints: 0
+    isAllowed: 0
+  - type: 1
+    benchType: 4
+    foods:
+    - {fileID: 11400000, guid: c56b0c72f189d7246b78fb9f1fa929b4, type: 2}
+    - {fileID: 11400000, guid: ef692132faf1c584e9a615d0d7e69df5, type: 2}
+    category: 0
+    categoryPoints: 0
+    isAllowed: 0
+  reviewConditions: []
