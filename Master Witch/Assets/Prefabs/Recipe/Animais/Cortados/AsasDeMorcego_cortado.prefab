@@ -26,12 +26,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 8be0fddffc207534e88031aa78c94ae8,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071067
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8be0fddffc207534e88031aa78c94ae8,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8be0fddffc207534e88031aa78c94ae8,
         type: 3}
@@ -41,7 +41,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 8be0fddffc207534e88031aa78c94ae8,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8be0fddffc207534e88031aa78c94ae8,
         type: 3}
@@ -171,8 +171,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.03879872, y: 0.021851078, z: 0.0022234195}
-  m_Center: {x: -0.00017345324, y: 0.00023067505, z: 0.0030117691}
+  m_Size: {x: 3.9632013, y: 0.47086203, z: 2.4682956}
+  m_Center: {x: -0.0010458231, y: 0.29125637, z: 0.0011150837}
 --- !u!54 &5497154508332176311
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4df7e31a96f26488f912fab076f0f4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  food: {fileID: 11400000, guid: 11d08e1547690024ea9966c7ddd87bf5, type: 2}
+  food: {fileID: 11400000, guid: 0f99c961e4286b84eb1f1338e4978896, type: 2}
   itemsUsed: []
 --- !u!114 &4103545653181622590
 MonoBehaviour:

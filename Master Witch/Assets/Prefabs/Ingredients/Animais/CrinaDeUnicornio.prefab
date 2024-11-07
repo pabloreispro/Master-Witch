@@ -58,6 +58,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 8934cb0a2c70b5a4ba3fc4a466faf355,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 84954147d65a9534497f6089c2843984, type: 2}
     - target: {fileID: 919132149155446097, guid: 8934cb0a2c70b5a4ba3fc4a466faf355,
         type: 3}
       propertyPath: m_Name
@@ -135,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1875549109
+  GlobalObjectIdHash: 3042400864
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -224,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4df7e31a96f26488f912fab076f0f4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  food: {fileID: 11400000, guid: ab532f22c950eac4cb83eeabd434fe47, type: 2}
+  food: {fileID: 11400000, guid: 564c8a8652171f34385687d88fc3c158, type: 2}
   itemsUsed: []
 --- !u!114 &8744002218294686378
 MonoBehaviour:

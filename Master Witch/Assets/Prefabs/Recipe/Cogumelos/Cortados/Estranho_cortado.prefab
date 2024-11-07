@@ -26,12 +26,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 22ad10455103d0e4ab0cb298bade50d1,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071067
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 22ad10455103d0e4ab0cb298bade50d1,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 22ad10455103d0e4ab0cb298bade50d1,
         type: 3}
@@ -41,7 +41,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 22ad10455103d0e4ab0cb298bade50d1,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 22ad10455103d0e4ab0cb298bade50d1,
         type: 3}
@@ -121,8 +121,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.036212236, y: 0.013482421, z: 0.014600649}
-  m_Center: {x: -0.0019432455, y: 0.0015863441, z: -0.0010612258}
+  m_Size: {x: 2.3688025, y: 0.90011847, z: 0.84532297}
+  m_Center: {x: -0.14025134, y: -0.028839797, z: 0.099460855}
 --- !u!114 &686678365665952216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1857670120
+  GlobalObjectIdHash: 1746448864
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
