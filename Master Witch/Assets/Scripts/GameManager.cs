@@ -9,6 +9,7 @@ using UI;
 using Unity.VisualScripting;
 using UnityEngine.UI;
 using JetBrains.Annotations;
+using Game.UI;
 
 public class GameManager : SingletonNetwork<GameManager>
 {
@@ -39,62 +40,29 @@ public class GameManager : SingletonNetwork<GameManager>
     public int numberPlayer;
 
 
-    void ConnectionApprovalCallback(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
-    {
-        int i = PlayerNetworkManager.Instance.GetPlayer.Values.ToList().Count % SceneManager.Instance.spawnPlayersMarket.Count;
-
-        response.Approved = true;
-        response.CreatePlayerObject = true;
-        response.Position = SceneManager.Instance.spawnPlayersMarket.ElementAt(i).position;
-        //response.Rotation = Quaternion.Euler(0f,180f,0f);
-    }
 
     void Start()
     {
-        NetworkManager.Singleton.ConnectionApprovalCallback = ConnectionApprovalCallback;
-        
+        if (NetworkManager.IsServer)
+            StartGame();
     }
 
-
-    public async void HostRelay()
+    public void StartGame()
     {
-        NetworkManagerUI.Instance.EnableHUD(false);
-        await LobbyManager.Instance.StartHostRelay();
-    }
-
-    public void OnClientsReady()
-    {
-        Debug.Log("Chamou OnClientReady");
-        LobbyManager.Instance.CloseLobby();
+        Debug.Log("Game Started");
         OnGameStartedClientRpc();
-        /*for (int i = 0; i < benches.Length; i++)
-        {
-            var player = PlayerNetworkManager.Instance.GetPlayerByIndex(i);
-            if (player != null)
-                benches[i].SetPlayer(player);
-            else break;
-        }*/
     }
     [ClientRpc]
     void OnGameStartedClientRpc()
     {
         NewCamController.Instance.IntroClient();
-        NetworkManagerUI.Instance.OnGameStartedClient();
+        GameInterfaceManager.Instance.OnGameStartedClient();
         ResetInfo();
     }
     void ResetInfo()
     {
         LobbyManager.Instance.ResetJoinedLobby();
-        EliminationPlayer.Instance.Reset();
-    }
-    public void JoinRelay(string joinCode) => StartClientRelay(joinCode);
-    async void StartClientRelay(string joinCode)
-    {
-        if (NetworkManager.IsHost) return;
-        NetworkManagerUI.Instance.EnableHUD(false);
-        Debug.Log($"start relay {joinCode}");
-        await LobbyManager.Instance.StartClientWithRelay(joinCode);
-        Debug.Log($"join");
+        //EliminationPlayer.Instance.Reset();
     }
 
     public void ChangeGameState(GameState gameState)
@@ -154,7 +122,7 @@ public class GameManager : SingletonNetwork<GameManager>
     void GetInitialRecipe(int recipeIndex)
     {
         targetRecipe = recipeDatabase.ElementAt(recipeIndex);
-        NetworkManagerUI.Instance.recipeName.text = targetRecipe.name;
+        GameInterfaceManager.Instance.recipeName.text = targetRecipe.name;
 
         if (recipeSteps.Count > 0)
         {
@@ -167,7 +135,7 @@ public class GameManager : SingletonNetwork<GameManager>
         
         foreach (var step in ExtractRecipeSteps(targetRecipe))
         {
-            step.transform.SetParent(NetworkManagerUI.Instance.recipeSteps.transform);
+            step.transform.SetParent(GameInterfaceManager.Instance.recipeSteps.transform);
             Debug.Log("Quantidade de processos e " + step);
         }
     }
@@ -223,10 +191,6 @@ public class GameManager : SingletonNetwork<GameManager>
             }
         }
     }
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
     private IEnumerable<GameObject> ExtractRecipeSteps(RecipeSO recipe)
     {
         
@@ -246,14 +210,14 @@ public class GameManager : SingletonNetwork<GameManager>
                 }
             }
         }
-        var step = Instantiate(NetworkManagerUI.Instance.horizontalGroupPrefab);
+        var step = Instantiate(GameInterfaceManager.Instance.horizontalGroupPrefab);
         recipeSteps.Add(step);
         if (ingredients != null && ingredients.foods != null)
         {
             for (int i = 0; i < ingredients.foods.Count; i++)
             {
                 var ingredient = ingredients.foods[i];
-                var item = Instantiate(NetworkManagerUI.Instance.imagePrefab, step.transform);
+                var item = Instantiate(GameInterfaceManager.Instance.imagePrefab, step.transform);
                 var image = item.GetComponent<Image>();
                 image.sprite = ingredient.imageFood; 
                 image.preserveAspect = true;
@@ -261,9 +225,9 @@ public class GameManager : SingletonNetwork<GameManager>
                 
                 if (i < ingredients.foods.Count - 1)
                 {
-                    var plus = Instantiate(NetworkManagerUI.Instance.imagePrefab, step.transform);
+                    var plus = Instantiate(GameInterfaceManager.Instance.imagePrefab, step.transform);
                     var plusImage = plus.GetComponent<Image>();
-                    plusImage.sprite = NetworkManagerUI.Instance.plusSprite;
+                    plusImage.sprite = GameInterfaceManager.Instance.plusSprite;
                     plusImage.preserveAspect = true;
                 }
             }
@@ -272,40 +236,40 @@ public class GameManager : SingletonNetwork<GameManager>
         
         if (bench != null)
         {
-            var arrow = Instantiate(NetworkManagerUI.Instance.imagePrefab, step.transform);
+            var arrow = Instantiate(GameInterfaceManager.Instance.imagePrefab, step.transform);
             var arrowImage = arrow.GetComponent<Image>();
-            arrowImage.sprite = NetworkManagerUI.Instance.arrowSprite; 
+            arrowImage.sprite = GameInterfaceManager.Instance.arrowSprite; 
             arrowImage.preserveAspect = true;
 
-            var benchItem = Instantiate(NetworkManagerUI.Instance.imagePrefab, step.transform);
+            var benchItem = Instantiate(GameInterfaceManager.Instance.imagePrefab, step.transform);
             var benchImage = benchItem.GetComponent<Image>();
 
             if(bench.benchType == BenchType.Mortar)
             {
-                benchImage.sprite = NetworkManagerUI.Instance.benchOven; 
+                benchImage.sprite = GameInterfaceManager.Instance.benchOven; 
                 benchImage.preserveAspect = true;
             }
             else if (bench.benchType == BenchType.BusenBurner)
             {
-                benchImage.sprite = NetworkManagerUI.Instance.benchStove;
+                benchImage.sprite = GameInterfaceManager.Instance.benchStove;
                 benchImage.preserveAspect = true;
             }
             else
             {
-                benchImage.sprite = NetworkManagerUI.Instance.benchBoard;
+                benchImage.sprite = GameInterfaceManager.Instance.benchBoard;
                 benchImage.preserveAspect = true;
             }
             
         }
 
         
-        var equals = Instantiate(NetworkManagerUI.Instance.imagePrefab, step.transform);
+        var equals = Instantiate(GameInterfaceManager.Instance.imagePrefab, step.transform);
         var equalsImage = equals.GetComponent<Image>();
-        equalsImage.sprite = NetworkManagerUI.Instance.equalsSprite;
+        equalsImage.sprite = GameInterfaceManager.Instance.equalsSprite;
         equalsImage.preserveAspect = true;
 
         
-        var result = Instantiate(NetworkManagerUI.Instance.imagePrefab, step.transform);
+        var result = Instantiate(GameInterfaceManager.Instance.imagePrefab, step.transform);
         var resultImage = result.GetComponent<Image>();
         resultImage.sprite = recipe.imageFood; 
         resultImage.preserveAspect = true;
@@ -322,16 +286,16 @@ public class GameManager : SingletonNetwork<GameManager>
 
     [ClientRpc]
     public void AttToggleClientRpc(int playerID, bool isOn){
-        NetworkManagerUI.Instance.UpdateToggle(playerID, isOn);
+        GameInterfaceManager.Instance.UpdateToggle(playerID, isOn);
     }
 
     [ClientRpc]
     public void OnReturnMarketClientRpc(){
-        NetworkManagerUI.Instance.finalPanel.SetActive(false);
-        NetworkManagerUI.Instance.clock.active = false;
-        NetworkManagerUI.Instance.recipeSteps.active = false;
+        GameInterfaceManager.Instance.finalPanel.SetActive(false);
+        GameInterfaceManager.Instance.clock.active = false;
+        GameInterfaceManager.Instance.recipeSteps.active = false;
 
-        var r = NetworkManagerUI.Instance.recipeSteps.GetComponentsInChildren<HorizontalLayoutGroup>();
+        var r = GameInterfaceManager.Instance.recipeSteps.GetComponentsInChildren<HorizontalLayoutGroup>();
         foreach (HorizontalLayoutGroup layoutGroup in r)
         {
             Destroy(layoutGroup.gameObject);

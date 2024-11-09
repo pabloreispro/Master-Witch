@@ -5,6 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 using System.Net.Security;
 using UI;
+using Game.UI;
 
 public class NewCamController : SingletonNetwork<NewCamController>
 {
@@ -86,46 +87,46 @@ public class NewCamController : SingletonNetwork<NewCamController>
         
         yield return transform.DOMoveY(7f, 3f);
         yield return transform.DOLookAt(GameManager.Instance.chefsGO[0].transform.position, 2f).WaitForCompletion();
-        yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(1,0.3f); 
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1,0.3f); 
         yield return new WaitForSeconds(0.3f);  
-        yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(0.5f,0.2f);
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0.5f,0.2f);
         yield return new WaitForSeconds(0.2f);  
-        yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(1,0.2f);
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1,0.2f);
         yield return new WaitForSeconds(0.2f); 
         yield return StartCoroutine(dialogueSystem.StartDialogue(GameManager.Instance.chefsGO[0].GetComponent<Dialogue>().dialogueText[Random.Range(0,GameManager.Instance.chefsGO[0].GetComponent<Dialogue>().dialogueText.Count)]));
-        yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(0,1);
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0,1);
         yield return new WaitForSeconds(0.5f); 
 
         yield return transform.DOMoveY(7f, 3f);
         yield return transform.DOLookAt(GameManager.Instance.chefsGO[1].transform.position, 2f).WaitForCompletion();
-        yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(1,0.3f); 
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1,0.3f); 
         yield return new WaitForSeconds(0.3f);  
-        yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(0.8f,0.2f);
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0.8f,0.2f);
         yield return new WaitForSeconds(0.2f);  
-        yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(1,0.2f);
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1,0.2f);
         yield return new WaitForSeconds(0.2f);   
         yield return StartCoroutine(dialogueSystem.StartDialogue(GameManager.Instance.chefsGO[1].GetComponent<Dialogue>().dialogueText[Random.Range(0,GameManager.Instance.chefsGO[1].GetComponent<Dialogue>().dialogueText.Count)]));
-        yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(0,1);
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0,1);
         yield return new WaitForSeconds(0.5f); 
         
         yield return transform.DOMoveY(7f, 3f);
         yield return transform.DOLookAt(GameManager.Instance.chefsGO[2].transform.position, 2f).WaitForCompletion();
-       yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(1,0.3f); 
+       yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1,0.3f); 
         yield return new WaitForSeconds(0.3f);  
-        yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(0.8f,0.2f);
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0.8f,0.2f);
         yield return new WaitForSeconds(0.2f);  
-        yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(1,0.2f);
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1,0.2f);
         yield return new WaitForSeconds(0.2f);   
         yield return StartCoroutine(dialogueSystem.StartDialogue(GameManager.Instance.chefsGO[2].GetComponent<Dialogue>().dialogueText[Random.Range(0,GameManager.Instance.chefsGO[2].GetComponent<Dialogue>().dialogueText.Count)]));
-        yield return NetworkManagerUI.Instance.dialogueBox.transform.DOScale(0,1);
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0,1);
         yield return new WaitForSeconds(0.5f);
         
         yield return transform.DOMove(initialPosition.position, 1f);
         yield return transform.DORotateQuaternion(initialRotation, 1f);
         finishIntro = true;
-        
-        NetworkManagerUI.Instance.clock.active = true;
-        NetworkManagerUI.Instance.recipeSteps.active = true;
+
+        GameInterfaceManager.Instance.clock.active = true;
+        GameInterfaceManager.Instance.recipeSteps.active = true;
         if(IsServer)StartCoroutine(TransitionController.Instance.TransitionMarketScene());
 
         

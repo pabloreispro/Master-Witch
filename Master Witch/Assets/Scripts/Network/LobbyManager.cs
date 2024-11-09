@@ -15,12 +15,11 @@ using TMPro;
 using WebSocketSharp;
 using UnityEngine.UI;
 using UI;
-using static Cinemachine.CinemachineTriggerAction.ActionSettings;
-using System.ComponentModel.Design;
+using System.Linq;
 
 namespace Network
 {
-    public class LobbyManager : SingletonNetwork<LobbyManager>
+    public class LobbyManager : SingletonNetworkPersistent<LobbyManager>
     {
         #region Constants
         const int MAX_PLAYERS = 4;
@@ -48,9 +47,21 @@ namespace Network
             // Dispara uma rotina de login do usuario (de forma an�nima)
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             NetworkManager.Singleton.OnClientDisconnectCallback += OnPlayerDisconnected;
+            NetworkManager.ConnectionApprovalCallback = ConnectionApprovalCallback;
             //UIHandler.instance.mainPanelPlayerNameInput.text = nomePlayer;
             //GameManager.Instance.InitializeGame();
         }
+        void ConnectionApprovalCallback(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
+        {
+
+            response.Approved = true;
+            response.CreatePlayerObject = false;
+            //int i = PlayerNetworkManager.Instance.GetPlayer.Values.ToList().Count % SceneManager.Instance.spawnPlayersMarket.Count;
+            //response.Position = SceneManager.Instance.spawnPlayersMarket.ElementAt(i).position;
+            response.Pending = false;
+            //response.Rotation = Quaternion.Euler(0f,180f,0f);
+        }
+
         #region Lobby Connection
         /* Mantem o Lobby atual sempre ativo --> evita o timeout de 3 segundos */
         /* A cada 15 segundos, manda um ping para o server da Unity  */
@@ -259,7 +270,7 @@ namespace Network
             if (!NetworkManager.IsHost)
             {
                 if (joinedLobby.Data["RelayCode"].Value != "0")
-                    GameManager.Instance.JoinRelay(joinedLobby.Data["RelayCode"].Value);
+                    NetworkManagerUI.Instance.JoinRelay(joinedLobby.Data["RelayCode"].Value);
             }
             Debug.Log($"Update {joinedLobby.Data["RelayCode"].Value}     Lobby: {joinedLobby?.Id}");
         }

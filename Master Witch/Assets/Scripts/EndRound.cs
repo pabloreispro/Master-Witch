@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using Game.UI;
 using UI;
 using UnityEngine.Rendering;
 using System.Linq;
@@ -38,8 +39,8 @@ public class EndRound : SingletonNetwork<EndRound>
     
     public void CanNextRound(){
         int activeToggle = 0;
-        for(int i=0; i<NetworkManagerUI.Instance.playerFinalCheck.Length; i++){
-            if(NetworkManagerUI.Instance.playerFinalCheck[i].isOn){
+        for(int i=0; i<GameInterfaceManager.Instance.playerFinalCheck.Length; i++){
+            if(GameInterfaceManager.Instance.playerFinalCheck[i].isOn){
                 activeToggle++;
             }
         }
@@ -52,7 +53,7 @@ public class EndRound : SingletonNetwork<EndRound>
                 }
             }else{
                 if(!finalGame){
-                    NetworkManagerUI.Instance.UpdadeScreenFinalClientRpc();
+                    GameInterfaceManager.Instance.UpdadeScreenFinalClientRpc();
                 }else{
                     GameManager.Instance.EndGame();
                 }

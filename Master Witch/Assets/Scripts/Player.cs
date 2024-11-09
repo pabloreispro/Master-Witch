@@ -55,13 +55,14 @@ public class Player : NetworkBehaviour
     
     public override void OnNetworkSpawn()
     {
-        if(IsLocalPlayer)
-        {
-            NewCamController.Instance.target = this.transform;
-        }
     }
     void Start()
     {
+        if (IsLocalPlayer)
+        {
+            NewCamController.Instance.target = this.transform;
+        }
+
         isMoving.OnValueChanged += (a,b)=>footstepsVFX.SetBool("isMoving",isMoving.Value);
         animator = GetComponent<Animator>();
         

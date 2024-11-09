@@ -24,7 +24,6 @@ namespace UI
     {
         const string DEFAULT_PLAYER_NAME = "Mage ";
         [Header("HUDs")]
-        [SerializeField] GameObject gameHUD;
         [SerializeField] GameObject networkHUD;
         [SerializeField] GameObject networkOptionsHUD;
         [SerializeField] GameObject mainLobbyHUD;
@@ -44,7 +43,6 @@ namespace UI
         [SerializeField] Button hostButton;
         [SerializeField] Button clientButton;
         [SerializeField] Button startGameButton;
-        [SerializeField] Button disconnectButton;
         [Header("Lobby List HUD")]
         [SerializeField] LobbyItemUI lobbyItemPrefab;
         [SerializeField] TMP_InputField lobbyCode;
@@ -56,39 +54,17 @@ namespace UI
         [SerializeField] LobbyPlayerItem lobbyPlayerItemPrefab;
         [SerializeField] Transform playerList;
         List<GameObject> lobbyList = new List<GameObject>();
-        [Header("Final HUD")]
-        public GameObject[] playerUI;
-        public TextMeshProUGUI[] playerFinalScore;
-        [SerializeField] TextMeshProUGUI[] textScore;
-        public Toggle[] playerFinalCheck;
-        public GameObject finalPanel;
-        public GameObject ResultPanel;
-        [Header("Game HUD")]
-        [SerializeField] GameObject gameMenuHUD;
-        public GameObject recipeSteps,dialogueBox,clock,horizontalGroupPrefab,imagePrefab;
-        public Sprite plusSprite,equalsSprite,arrowSprite,benchOven,benchBoard,benchStove;
-        public TextMeshProUGUI recipeName;
 
 
         private void Awake()
         {
             networkHUD.SetActive(true);
-            //hostButton.onClick.AddListener(StartHost);
-            //clientButton.onClick.AddListener(StartClient);
-            //disconnectButton.onClick.AddListener(Disconnect);
             startGameButton.onClick.AddListener(StartGame);
-            disconnectButton.gameObject.SetActive(false);
         }
         private void Start()
         {
             playerNameIF.text = DEFAULT_PLAYER_NAME + Random.Range(0, 999);
             UpdatePlayerName(playerNameIF.text);
-        }
-
-        public void OpenGameMenu(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-        {
-            if(obj.performed)
-                gameMenuHUD.SetActive(!gameMenuHUD.activeSelf);
         }
 
         public void EnableLobbyHUD(bool enabled = true)
@@ -110,7 +86,6 @@ namespace UI
         {
             networkHUD.SetActive(true);
             networkOptionsHUD.SetActive(true);
-            gameHUD.SetActive(false);
             windowsHolder.SetActive(false);
         }
         public void NextTutorial()
@@ -127,48 +102,46 @@ namespace UI
             currentTutorial--;
             tutorialImages[currentTutorial].SetActive(true);
         }
-        public void OnGameStartedClient()
-        {
-            gameHUD.SetActive(true);
-            networkHUD.SetActive(false);
-            EliminationPlayer.Instance.AddScoresPlayers();
-            GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.GetPlayer.Count;
-        }
         
-        public void UpdatePlayerScore(int playerID, float score)
-        {
-            string name = LobbyManager.Instance.JoinedLobby.Players[playerID].Data["PlayerName"].Value;
-            playerFinalScore[playerID].text = name;
-            textScore[playerID].text = score.ToString("00.00");
-
-            //switch (playerID)
-            //{
-                
-            //    case 0:
-            //        playerFinalScore[0].text = name;
-            //        textScore[0].text = score.ToString();
-            //        break;
-            //    case 1:
-            //        playerFinalScore[1].text = name;
-            //        textScore[1].text = score.ToString();
-            //        break;
-            //    case 2:
-            //        playerFinalScore[2].text = name;
-            //        textScore[2].text = score.ToString();
-            //        break;
-            //    case 3:
-            //        playerFinalScore[3].text = name;
-            //        textScore[3].text = score.ToString();
-            //        break;
-            //    default:
-            //        break;
-            //}
-        }
         #region Network
         public void StartGame()
         {
-            GameManager.Instance.HostRelay();
+            HostRelay();
         }
+        public async void HostRelay()
+        {
+            EnableHUD(false);
+            await LobbyManager.Instance.StartHostRelay();
+            if (NetworkManager.IsHost)
+                NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += SceneManager_OnLoadEventCompleted;
+        }
+        private void SceneManager_OnLoadEventCompleted(string sceneName, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
+        {
+            PlayerNetworkManager.Instance.SceneManager_OnLoadEventCompleted(sceneName, loadSceneMode, clientsCompleted, clientsTimedOut);
+        }
+
+        public void JoinRelay(string joinCode)
+        {
+            if (NetworkManager.IsHost) return;
+            EnableHUD(false);
+            StartClientRelay(joinCode);
+        }
+        async void StartClientRelay(string joinCode)
+        {
+            if (NetworkManager.IsHost) return;
+            EnableHUD(false);
+            Debug.Log($"start relay {joinCode}");
+            await LobbyManager.Instance.StartClientWithRelay(joinCode);
+            Debug.Log($"join");
+        }
+
+        //Server-side
+        public void OnClientsReady()
+        {
+            LobbyManager.Instance.CloseLobby();
+            SceneLoader.Instance.ServerLoadLevel(SceneLoader.Scenes.Game);
+        }
+
         //public void StartHost()
         //{
         //    NetworkManager.Singleton.StartHost();
@@ -268,42 +241,6 @@ namespace UI
 
         #endregion
         #endregion
-        [ClientRpc]
-        public void UpdateFinalRoundScreenClientRpc(){
-            finalPanel.SetActive(true);
-            for(int i = 0; i<GameManager.Instance.numberPlayer; i++){
-                playerUI[i].gameObject.SetActive(true);
-            }
-            foreach(var item in EliminationPlayer.Instance.scoresPlayers){
-                UpdatePlayerScore(item.Key, item.Value);
-            }
-        }
-
-        public void UpdateToggle(int playerID, bool toggleValue){
-            playerFinalCheck[playerID].isOn = toggleValue;
-        }
-
-        [ClientRpc]
-        public void UpdadeScreenFinalClientRpc(){
-            EndRound.Instance.finalGame = true;
-            UpdateFinalResult(EndRound.Instance.finishGame());
-        }
-
-        public void UpdateFinalResult(List<KeyValuePair<int, float>> orderPlayers)
-        {
-            ResultPanel.SetActive(true);
-
-            for(int j=0; j<GameManager.Instance.numberPlayer; j++){
-                playerUI[j].gameObject.SetActive(true);
-                playerFinalCheck[j].isOn = false;
-            }
-            int i = 0;
-            foreach(var item in orderPlayers){
-                playerFinalScore[i].text = LobbyManager.Instance.JoinedLobby.Players[item.Key].Data["PlayerName"].Value;
-                textScore[i].text = item.Value.ToString();
-                i++;
-            }
-        }
         
     }
 }

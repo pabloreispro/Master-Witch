@@ -8,6 +8,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UI;
 using TMPro;
+using Game.UI;
 
 public class SceneManager : SingletonNetwork<SceneManager>
 {
@@ -154,7 +155,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
             StartCoroutine(TransitionController.Instance.TransitionMainScene());
         }
         else if(prefabMain.activeSelf){
-            NetworkManagerUI.Instance.UpdateFinalRoundScreenClientRpc();
+            GameInterfaceManager.Instance.UpdateFinalRoundScreenClientRpc();
         }
     }
     [ServerRpc(RequireOwnership =false)]

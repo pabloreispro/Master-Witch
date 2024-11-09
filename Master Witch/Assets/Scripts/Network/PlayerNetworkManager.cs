@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UI;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace Network
 {
-    public class PlayerNetworkManager : SingletonNetwork<PlayerNetworkManager>
+    public class PlayerNetworkManager : SingletonNetworkPersistent<PlayerNetworkManager>
     {
         Dictionary<ulong, Player> playerList = new Dictionary<ulong, Player>();
         Dictionary<Player, ulong> idList = new Dictionary<Player, ulong>();
+        [SerializeField] Player playerPrefab;
         [Header("Player Materials")]
         [SerializeField] Material player1Mat;
         [SerializeField] Material player2Mat;
@@ -20,10 +22,20 @@ namespace Network
         public Dictionary<Player, ulong> GetID => idList;
         Dictionary<ulong, bool> playersReady = new Dictionary<ulong, bool>();
         private static HashSet<ulong> readyClients = new HashSet<ulong>();
-        void Awake()
+        void Start()
         {
             NetworkManager.OnClientConnectedCallback += OnClientConnected;
             NetworkManager.OnClientDisconnectCallback += OnClientDisconnected;
+
+        }
+        public void SceneManager_OnLoadEventCompleted(string sceneName, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
+        {
+            Debug.Log("TESTE");
+            if (sceneName.Equals(SceneLoader.Scenes.Game.ToString()))
+            {
+            Debug.Log("Cena loaded");
+                SpawnPlayers();
+            }
         }
 
         public Player GetPlayerByIndex(int playerIndex)
@@ -48,16 +60,34 @@ namespace Network
         {
             if (!IsServer) return;
             Debug.Log("aqui");
-            var player = NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>();
+            //var player = NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>();
 
-            Debug.Log($"Connected id: {playerID}, NO ID: {player.NetworkObjectId}, NB ID {player.NetworkBehaviourId}");
-            playerList.Add(playerID, player);
-            idList.Add(player, playerID);
-            OnPlayerConnect();
-            OnClientConnectedClientRpc(playerID, playerList.Keys.ToArray());
-            if (playerList.Count >= LobbyManager.Instance.JoinedLobby.Players.Count)
+            //Debug.Log($"Connected id: {playerID}, NO ID: {player.NetworkObjectId}, NB ID {player.NetworkBehaviourId}");
+            //playerList.Add(playerID, player);
+            //idList.Add(player, playerID);
+            //OnPlayerConnect();
+            //OnClientConnectedClientRpc(playerID, playerList.Keys.ToArray());
+            //if (playerList.Count >= LobbyManager.Instance.JoinedLobby.Players.Count)
+            //{
+            if (NetworkManager.Singleton.ConnectedClientsList.Count >= LobbyManager.Instance.JoinedLobby.Players.Count)
             {
                 SignalClientReady(NetworkManager.Singleton.LocalClientId);
+            }
+        }
+        public void SpawnPlayers()
+        {
+            for (int i = 0; i < NetworkManager.Singleton.ConnectedClientsIds.Count; i++)
+            {
+                //int i = PlayerNetworkManager.Instance.GetPlayer.Values.ToList().Count % SceneManager.Instance.spawnPlayersMarket.Count;
+                //response.Position =;
+                var playerID = NetworkManager.Singleton.ConnectedClientsIds[i];
+                Player player = Instantiate(playerPrefab, SceneManager.Instance.spawnPlayersMarket.ElementAt(i).position, playerPrefab.transform.rotation);
+                NetworkObject networkObject = player.GetComponent<NetworkObject>();
+                networkObject.SpawnAsPlayerObject(playerID, true);
+                playerList.Add(playerID, player);
+                idList.Add(player, playerID);
+                OnPlayerConnect();
+                OnClientConnectedClientRpc(playerID, playerList.Keys.ToArray());
             }
         }
         [ClientRpc]
@@ -119,7 +149,7 @@ namespace Network
             Debug.Log("Chamou signal 1");
             readyClients.Add(clientId);
             Debug.Log("Chamou signal 2");
-            GameManager.Instance.OnClientsReady();
+            NetworkManagerUI.Instance.OnClientsReady();
             Debug.Log("Chamou signal 3");
         }
         void OnClientDisconnected(ulong playerID)
