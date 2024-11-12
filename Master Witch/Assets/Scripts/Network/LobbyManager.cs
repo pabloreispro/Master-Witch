@@ -224,15 +224,21 @@ namespace Network
         public async void LeaveLobby()
         {
             if (joinedLobby == null) return;
-            try
+            if (NetworkManager.IsHost)
             {
-                await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
+                CloseLobby();
             }
-            catch (LobbyServiceException e)
+            else
             {
-                Debug.LogError($"Erro ao sair do lobby: {e.Message}");
+                try
+                {
+                    await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
+                }
+                catch (LobbyServiceException e)
+                {
+                    Debug.LogError($"Erro ao sair do lobby: {e.Message}");
+                }
             }
-            NetworkManagerUI.Instance.EnableLobbyHUD(false);
             joinedLobby = null;
             CancelInvoke();
         }
@@ -280,6 +286,7 @@ namespace Network
         }
         #endregion
         #region Relay Connection
+
         public async Task<string> StartHostRelay()
         {
             try
@@ -335,6 +342,14 @@ namespace Network
                 throw;
             }
         }
+        //Server-side
+        public void OnClientsReady()
+        {
+            PlayerNetworkManager.Instance.SetPlayerInfo();
+            CloseLobby();
+            SceneLoader.Instance.ServerLoadLevel(SceneLoader.Scenes.Game);
+        }
+
 #pragma warning disable UNT0006 // Incorrect message signature
         private void OnPlayerDisconnected(ulong clientId)
 #pragma warning restore UNT0006 // Incorrect message signature
@@ -346,9 +361,9 @@ namespace Network
         }
         public void DisconnectFromServer()
         {
-            NetworkManagerUI.Instance.EnableMenu();
             NetworkManager.Singleton.Shutdown();
             PlayerNetworkManager.Instance.ResetPlayerList();
+            SceneLoader.Instance.LoadLevel(SceneLoader.Scenes.Menu);
         }
     }
     #endregion

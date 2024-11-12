@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnitySceneManager = UnityEngine.SceneManagement.SceneManager;
-public class SceneLoader : Singleton<SceneLoader>
+public class SceneLoader : MonoBehaviourSingletonPersistent<SceneLoader>
 {
     //[SerializeField] Slider slider;
     bool isLoading = false;
@@ -15,14 +15,14 @@ public class SceneLoader : Singleton<SceneLoader>
     /// Cleans after every load
     /// </summary>
     Action sceneLoaded;
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         UnitySceneManager.sceneLoaded += UnitySceneManager_sceneLoaded;
     }
 
     private void UnitySceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
-        Debug.Log("a");
         sceneLoaded?.Invoke();
         sceneLoaded = null;
     }
@@ -32,7 +32,7 @@ public class SceneLoader : Singleton<SceneLoader>
         sceneLoaded += doAfterLoad;
         NetworkManager.Singleton.SceneManager.LoadScene(scene.ToString(), LoadSceneMode.Single);
     }
-    public void LoadLevel(Scenes scene, Action doAfterLoad = null) => LoadLevel(UnitySceneManager.GetSceneByBuildIndex((int)scene).name, doAfterLoad);
+    public void LoadLevel(Scenes scene, Action doAfterLoad = null) => LoadLevel(scene.ToString(), doAfterLoad);
     public void LoadLevel(int sceneIndex, Action doAfterLoad = null) => LoadLevel(UnitySceneManager.GetSceneByBuildIndex(sceneIndex).name, doAfterLoad);
     public void LoadLevel(string sceneName, Action doAfterLoad = null)
     {

@@ -330,7 +330,7 @@ public class GameManager : SingletonNetwork<GameManager>
     [ClientRpc]
     void EndGameClientRpc()
     {
-        NetworkManagerUI.Instance.EnableMenu();
+        SceneLoader.Instance.LoadLevel(SceneLoader.Scenes.Menu);
     }
     public void ChangeBenchColor(Material material, int playerIndex)
     {

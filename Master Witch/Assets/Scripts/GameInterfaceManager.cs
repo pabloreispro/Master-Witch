@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,7 +32,7 @@ namespace Game.UI
         public void OnGameStartedClient()
         {
             EliminationPlayer.Instance.AddScoresPlayers();
-            GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.GetPlayer.Count;
+            GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.PlayersData.Length;
         }
         public void DisconnectFromServer()
         {
@@ -39,7 +40,8 @@ namespace Game.UI
         }
         public void UpdatePlayerScore(int playerID, float score)
         {
-            string name = LobbyManager.Instance.JoinedLobby.Players[playerID].Data["PlayerName"].Value;
+            Debug.Log("Update " + playerID);
+            string name = PlayerNetworkManager.Instance.PlayersData[playerID].PlayerName;
             playerFinalScore[playerID].text = name;
             textScore[playerID].text = score.ToString("00.00");
 
@@ -73,11 +75,12 @@ namespace Game.UI
             for (int i = 0; i < GameManager.Instance.numberPlayer; i++)
             {
                 playerUI[i].gameObject.SetActive(true);
+                UpdatePlayerScore(i, EliminationPlayer.Instance.scoresPlayers.Values.Count <= i ? EliminationPlayer.Instance.scoresPlayers[i] : 0);
             }
-            foreach (var item in EliminationPlayer.Instance.scoresPlayers)
-            {
-                UpdatePlayerScore(item.Key, item.Value);
-            }
+            //foreach (var item in EliminationPlayer.Instance.scoresPlayers)
+            //{
+            //    UpdatePlayerScore(item.Key, item.Value);
+            //}
         }
 
         public void UpdateToggle(int playerID, bool toggleValue)
@@ -104,7 +107,7 @@ namespace Game.UI
             int i = 0;
             foreach (var item in orderPlayers)
             {
-                playerFinalScore[i].text = LobbyManager.Instance.JoinedLobby.Players[item.Key].Data["PlayerName"].Value;
+                playerFinalScore[i].text = PlayerNetworkManager.Instance.PlayersData[item.Key].PlayerName;
                 textScore[i].text = item.Value.ToString();
                 i++;
             }

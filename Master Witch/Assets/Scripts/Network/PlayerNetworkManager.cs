@@ -17,25 +17,16 @@ namespace Network
         [SerializeField] Material player2Mat;
         [SerializeField] Material player3Mat;
         [SerializeField] Material player4Mat;
-
+        PlayerNetworkData[] playersData;
         public Dictionary<ulong, Player> GetPlayer => playerList;
         public Dictionary<Player, ulong> GetID => idList;
-        Dictionary<ulong, bool> playersReady = new Dictionary<ulong, bool>();
-        private static HashSet<ulong> readyClients = new HashSet<ulong>();
+        public PlayerNetworkData[] PlayersData => playersData;
+        //Dictionary<ulong, bool> playersReady = new Dictionary<ulong, bool>();
+        //private static HashSet<ulong> readyClients = new HashSet<ulong>();
         void Start()
         {
             NetworkManager.OnClientConnectedCallback += OnClientConnected;
             NetworkManager.OnClientDisconnectCallback += OnClientDisconnected;
-
-        }
-        public void SceneManager_OnLoadEventCompleted(string sceneName, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
-        {
-            Debug.Log("TESTE");
-            if (sceneName.Equals(SceneLoader.Scenes.Game.ToString()))
-            {
-            Debug.Log("Cena loaded");
-                SpawnPlayers();
-            }
         }
 
         public Player GetPlayerByIndex(int playerIndex)
@@ -56,10 +47,31 @@ namespace Network
             return -1;
         }
 
+
+        // USAR LISTA DE PLAYER DATA PARA INCLUIR DADOS QUANDO INICIAR PARTIDA NO LOBBY
+
+        public void SetPlayerInfo()
+        {
+            var players = LobbyManager.Instance.JoinedLobby.Players;
+            playersData = new PlayerNetworkData[players.Count];
+            for (int i = 0; i < players.Count; i++)
+            {
+                var playerName = players[i].Data["PlayerName"].Value;
+                var playerData = new PlayerNetworkData(i, playerName, PlayerNetworkData.PlayerNetworkStatus.LoadingScene);
+                playersData[i] = playerData;
+                Debug.Log(playerData);
+            }
+            SetPlayersDataClientRpc(playersData.ToArray());
+        }
+        [ClientRpc]
+        void SetPlayersDataClientRpc(PlayerNetworkData[] data)
+        {
+            playersData = data;
+        }
+        //When connected to Relay, match starting
         void OnClientConnected(ulong playerID)
         {
             if (!IsServer) return;
-            Debug.Log("aqui");
             //var player = NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>();
 
             //Debug.Log($"Connected id: {playerID}, NO ID: {player.NetworkObjectId}, NB ID {player.NetworkBehaviourId}");
@@ -71,7 +83,15 @@ namespace Network
             //{
             if (NetworkManager.Singleton.ConnectedClientsList.Count >= LobbyManager.Instance.JoinedLobby.Players.Count)
             {
-                SignalClientReady(NetworkManager.Singleton.LocalClientId);
+                //readyClients.Add(playerID);
+                LobbyManager.Instance.OnClientsReady();
+            }
+        }
+        public void OnSceneLoaded(string sceneName, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
+        {
+            if (sceneName.Equals(SceneLoader.Scenes.Game.ToString()))
+            {
+                SpawnPlayers();
             }
         }
         public void SpawnPlayers()
@@ -140,18 +160,9 @@ namespace Network
                 playerList.ElementAt(i).Value.OnConnected(material, i);
                 //GameManager.Instance.ChangeBenchColor(material, i);
             }
-
         }
 
 
-        void SignalClientReady(ulong clientId)
-        {
-            Debug.Log("Chamou signal 1");
-            readyClients.Add(clientId);
-            Debug.Log("Chamou signal 2");
-            NetworkManagerUI.Instance.OnClientsReady();
-            Debug.Log("Chamou signal 3");
-        }
         void OnClientDisconnected(ulong playerID)
         {
             playerList.Remove(playerID);
@@ -166,6 +177,68 @@ namespace Network
         public void ResetPlayerList()
         {
             playerList.Clear();
+        }
+    }
+    public struct PlayerNetworkData : INetworkSerializable
+    {
+        int playerIndex;
+        string playerName;
+        ulong playerID;
+        //int acessory01Id;
+        //int acessory02Id;
+        PlayerNetworkStatus status;
+        public int PlayerIndex => playerIndex;
+        public string PlayerName => playerName;
+        public ulong PlayerID => playerID;
+        public PlayerNetworkStatus Status => status;
+        public PlayerNetworkData(int playerIndex, string playerName, PlayerNetworkStatus status)
+        {
+            this.playerIndex = playerIndex;
+            playerID = 0;
+            this.playerName = playerName;
+            this.status = status;
+        }
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+        {
+            serializer.SerializeValue(ref playerIndex);
+            serializer.SerializeValue(ref playerName);
+            serializer.SerializeValue(ref playerID);
+            //serializer.SerializeValue(ref acessory01Id);
+            //serializer.SerializeValue(ref acessory02Id);
+            serializer.SerializeValue(ref status);
+        }
+
+        public void SetNewStatus(PlayerNetworkStatus newStatus)
+        {
+            //switch (newStatus)
+            //{
+            //    case PlayerNetworkStatus.Unknown:
+            //        break;
+            //    case PlayerNetworkStatus.Connected:
+            //        break;
+            //    case PlayerNetworkStatus.LoadingScene:
+            //        break;
+            //    case PlayerNetworkStatus.Disconnected:
+            //        break;
+            //    default:
+            //        break;
+            //}
+            status = newStatus;
+        }
+        public override string ToString()
+        {
+            return $"Player Network Data:" +
+                $"\n Name: {playerName}" +
+                $"\n Index: {playerIndex}" +
+                $"\n Status {status}";
+        }
+
+        public enum PlayerNetworkStatus
+        { 
+            Unknown,
+            Connected,
+            LoadingScene,
+            Disconnected,
         }
     }
 }

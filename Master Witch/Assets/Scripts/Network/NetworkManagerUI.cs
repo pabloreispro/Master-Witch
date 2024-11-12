@@ -23,6 +23,7 @@ namespace UI
     public class NetworkManagerUI : SingletonNetwork<NetworkManagerUI>
     {
         const string DEFAULT_PLAYER_NAME = "Mage ";
+        const string PLAYER_NAME_KEY = "PlayerName";
         [Header("HUDs")]
         [SerializeField] GameObject networkHUD;
         [SerializeField] GameObject networkOptionsHUD;
@@ -63,7 +64,10 @@ namespace UI
         }
         private void Start()
         {
-            playerNameIF.text = DEFAULT_PLAYER_NAME + Random.Range(0, 999);
+            if(PlayerPrefs.GetString(PLAYER_NAME_KEY).Equals(""))
+                playerNameIF.text = DEFAULT_PLAYER_NAME + Random.Range(0, 999);
+            else
+                playerNameIF.text = PlayerPrefs.GetString(PLAYER_NAME_KEY);
             UpdatePlayerName(playerNameIF.text);
         }
 
@@ -117,7 +121,7 @@ namespace UI
         }
         private void SceneManager_OnLoadEventCompleted(string sceneName, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
         {
-            PlayerNetworkManager.Instance.SceneManager_OnLoadEventCompleted(sceneName, loadSceneMode, clientsCompleted, clientsTimedOut);
+            PlayerNetworkManager.Instance.OnSceneLoaded(sceneName, loadSceneMode, clientsCompleted, clientsTimedOut);
         }
 
         public void JoinRelay(string joinCode)
@@ -134,43 +138,10 @@ namespace UI
             await LobbyManager.Instance.StartClientWithRelay(joinCode);
             Debug.Log($"join");
         }
-
-        //Server-side
-        public void OnClientsReady()
-        {
-            LobbyManager.Instance.CloseLobby();
-            SceneLoader.Instance.ServerLoadLevel(SceneLoader.Scenes.Game);
-        }
-
-        //public void StartHost()
-        //{
-        //    NetworkManager.Singleton.StartHost();
-        //    OnGameStarted();
-        //}
-        //public void StartClient()
-        //{
-        //    TryConnectClient();
-        //    OnGameStarted();
-        //}
-        //private void TryConnectClient()
-        //{
-        //    string ipAddress = addressInputField.text;
-        //    if (ipAddress == null || ipAddress.Length == 0)
-        //    {
-        //        ipAddress = "127.0.0.1";
-        //    }
-        //    UnityTransport transport = (UnityTransport)NetworkManager.Singleton.NetworkConfig.NetworkTransport;
-        //    transport.ConnectionData.Address = ipAddress;
-        //    transport.ConnectionData.Port = ushort.Parse("7777");
-        //    NetworkManager.Singleton.StartClient();
-        //}
-        //public void Disconnect()
-        //{
-        //    NetworkManager.DisconnectClient(OwnerClientId);
-        //}
         public void UpdatePlayerName(string name)
         {
             LobbyManager.Instance.UpdatePlayerName(name);
+            PlayerPrefs.SetString(PLAYER_NAME_KEY, name);
         }
         #region Lobby
         public void UpdateLobbiesList()
@@ -238,9 +209,14 @@ namespace UI
                 pHud.Initialize(player, players.IndexOf(player) == 0);
             }
         }
+        public void LeaveLobby()
+        {
+            LobbyManager.Instance.LeaveLobby();
+            //EnableLobbyHUD(false);
+        }
 
         #endregion
         #endregion
-        
+
     }
 }

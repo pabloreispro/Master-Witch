@@ -23,9 +23,11 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
 
 
     public void AddScoresPlayers(){
-        foreach(var item in PlayerNetworkManager.Instance.GetID){
-            scoresPlayers.Add(Convert.ToInt32(item.Value), 0);
-            //NetworkManagerUI.Instance.UpdatePlayerScore(Convert.ToInt32(item.Value), 0);
+        //foreach(var item in PlayerNetworkManager.Instance.GetID){
+        //    scoresPlayers.Add(Convert.ToInt32(item.Value), 0);
+        for (int i = 0; i < PlayerNetworkManager.Instance.PlayersData.Length; i++)
+        {
+            scoresPlayers.Add(PlayerNetworkManager.Instance.PlayersData[i].PlayerIndex, 0);
         }
     }
     public void GetPlayerScore(int playerID, RecipeData recipe)
