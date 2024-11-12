@@ -34,6 +34,7 @@ public class Player : NetworkBehaviour
     [Header("Info Player")]
     public int id;
     [SerializeField] MeshRenderer hatRenderer;
+    [SerializeField] SpriteRenderer circleRenderer;
 
     
     [Header("Scriptable Object")]
@@ -176,6 +177,7 @@ public class Player : NetworkBehaviour
     public void OnConnected(Material newMaterial, int id)
     {
         hatRenderer.material = newMaterial;
+        circleRenderer.color = newMaterial.color;
         this.id = id;
 
     }
