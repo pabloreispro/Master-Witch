@@ -18,6 +18,7 @@ public class PlayerMovement : Player
 {
     [Header("Movement Configs")]
     private PlayerInput _playerInput;
+    private Interactable tempInteract;
     public float speedRotation;
     public float speedPlayer;
     public CharacterController controller;
@@ -99,14 +100,15 @@ public class PlayerMovement : Player
 
             Ray ray = new Ray(transform.position + new Vector3(0, 0.5f, 0), direction);
             RaycastHit hit;
-
+            
             Debug.DrawRay(ray.origin, ray.direction * distanciaMaxima, Color.red);
 
             if (Physics.Raycast(ray, out hit, distanciaMaxima))
             {
-                Interactable tempInteract = hit.collider.gameObject.GetComponent<Interactable>();
+                tempInteract = hit.collider.gameObject.GetComponent<Interactable>();
                 if (tempInteract != null)
                 {
+                    if(tempInteract.gameObject.GetComponent<HighlightObj>() != null) tempInteract.gameObject.GetComponent<HighlightObj>().Highlight();
                     interact = tempInteract;
                     if(interact as Bench)
                         (interact as Bench)._player = this;
@@ -115,6 +117,11 @@ public class PlayerMovement : Player
             }
             else
             {
+                if (tempInteract != null)
+                {
+                    if(tempInteract.gameObject.GetComponent<HighlightObj>() != null) tempInteract.gameObject.GetComponent<HighlightObj>().RemoveHighlight();
+                }
+                
                 interact = null;
             }
         }
