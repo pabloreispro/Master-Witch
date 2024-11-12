@@ -22,5 +22,18 @@ MonoBehaviour:
     poisonousValue: 0
     curativeValue: 0
   finishRecipe: 0
-  recipeConditions: []
+  recipeConditions:
+  - type: 0
+    benchType: 6
+    foods: []
+    category: 0
+    categoryPoints: 0
+    isAllowed: 0
+  - type: 1
+    benchType: 6
+    foods:
+    - {fileID: 11400000, guid: 18f8dbfd8c392423f800d624744da673, type: 2}
+    category: 0
+    categoryPoints: 0
+    isAllowed: 1
   reviewConditions: []
