@@ -41,7 +41,7 @@ public class PlayerMovement : Player
         _playerInput.PlayerInteract.Enable();
         _playerInput.PlayerInteract.Interaction.started += _Interact;
         _playerInput.PlayerInteract.Interaction.canceled += _Interact;
-         _playerInput.PlayerInteract.Action.started += _Action;
+        _playerInput.PlayerInteract.Action.started += _Action;
         _playerInput.PlayerInteract.Action.canceled += _Action;
         //_playerInput.PlayerInteract.Interaction.started += _Interact;
         //inputs para buttons 
