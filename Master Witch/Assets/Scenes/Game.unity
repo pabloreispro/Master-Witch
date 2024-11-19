@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08023343, g: 0.099622905, b: 0.30101418, a: 1}
+  m_IndirectSpecularColor: {r: 0.08043665, g: 0.09983989, b: 0.30127284, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10134,34 +10134,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142683681}
   m_CullTransparentMesh: 1
---- !u!1 &1148300621 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2922995940297648574, guid: 4f410631c4953df4286ca33b0001708b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1846070037}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &1148300625
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1148300621}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1034878958065774682, guid: 4914a083418c1654a85ba6fd40b2f71e, type: 3}
 --- !u!1 &1168007633
 GameObject:
   m_ObjectHideFlags: 0
@@ -14214,6 +14186,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 133
       objectReference: {fileID: 0}
+    - target: {fileID: 2922995940297648574, guid: 4f410631c4953df4286ca33b0001708b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 2980088701168656356, guid: 4f410631c4953df4286ca33b0001708b,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -14596,11 +14573,7 @@ PrefabInstance:
         type: 3}
       insertIndex: 0
       addedObject: {fileID: 663797782}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2922995940297648574, guid: 4f410631c4953df4286ca33b0001708b,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1148300625}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f410631c4953df4286ca33b0001708b, type: 3}
 --- !u!1 &1846070038 stripped
 GameObject:
@@ -17572,6 +17545,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3258534155476511266, guid: 057bdb8946bb7c742b0210aa6d13a0c2,
         type: 3}
+    - target: {fileID: 4215841804626627044, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 4238519009770858075, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -17803,6 +17781,11 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3822645997
+      objectReference: {fileID: 0}
+    - target: {fileID: 7363512587956318661, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_Convex
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7458363225154949191, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
