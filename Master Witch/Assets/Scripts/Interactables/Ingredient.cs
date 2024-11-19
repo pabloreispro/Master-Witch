@@ -18,6 +18,8 @@ public class Ingredient : Interactable
         this.GetComponent<Collider>().enabled = false;
         this.GetComponent<NetworkObject>().TrySetParent(player.transform);
         this.GetComponent<NetworkObject>().transform.position = player.boneItem.transform.position;
+        this.GetComponent<Rigidbody>().useGravity = false;
+        this.GetComponent<Rigidbody>().isKinematic = false;
         this.GetComponent<FollowTransform>().targetTransform = player.boneItem.transform;
         player.SetItemHandClientRpc(gameObject);
         player.ChangeState(PlayerState.Interact);

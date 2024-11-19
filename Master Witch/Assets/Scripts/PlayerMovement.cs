@@ -183,12 +183,7 @@ public class PlayerMovement : Player
         if(isHand.Value)
         {
             if(interact == null){
-                this.GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = true;
-                var obj = this.GetComponentInChildren<Interactable>().GetComponent<NetworkObject>();
-                obj.GetComponent<FollowTransform>().targetTransform = null;
-                obj.GetComponent<Rigidbody>().useGravity = true;
-                obj.GetComponent<Rigidbody>().isKinematic = false;
-                obj.TryRemoveParent();
+                DropItemHandServerRpc();
             }
             else
             {
@@ -202,6 +197,22 @@ public class PlayerMovement : Player
                 ChangeState(PlayerState.Interact);
             }
         }
+    }
+
+    [ServerRpc (RequireOwnership = false)]
+    public void DropItemHandServerRpc()
+    {
+        DropItemHandClientRpc();
+    }
+    [ClientRpc]
+    public void DropItemHandClientRpc()
+    {
+        this.GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = true;
+        var obj = this.GetComponentInChildren<Interactable>().GetComponent<NetworkObject>();
+        obj.GetComponent<FollowTransform>().targetTransform = null;
+        obj.GetComponent<Rigidbody>().useGravity = true;
+        obj.GetComponent<Rigidbody>().isKinematic = false;
+        obj.TryRemoveParent();
     }
     
 
