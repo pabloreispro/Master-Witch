@@ -3,7 +3,22 @@ guid: 23bc699ba690a448f842b470950655f8
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_BolaDeCristal_Alpha
+    second: {fileID: 2100000, guid: 2b9096873b16bd043aff5d2eba7091cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_BolaDeCristal_Emissivo
+    second: {fileID: 2100000, guid: fd0e4714655725547a4c3b4c626e3806, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_MesaBolaDeCristal
+    second: {fileID: 2100000, guid: 057f01e62a7000a48b0bb50774a76ba3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
