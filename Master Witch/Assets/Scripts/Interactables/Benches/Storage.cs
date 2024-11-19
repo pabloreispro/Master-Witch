@@ -61,7 +61,7 @@ public class Storage : Bench
 
     public void SelectedIngredient(int indexSlots){
         if(player.IsOwner){
-            
+            UpdateInventory();
             Time.timeScale = 1;
             SetPlayerItemServerRpc(indexSlots, PlayerNetworkManager.Instance.GetID[player]);
             ingredients.RemoveAt(indexSlots);
@@ -93,10 +93,10 @@ public class Storage : Bench
     {
         if(panelInventory.activeSelf == false){
             //ingredients.Clear();
-            /*foreach (var item in slots)
+            foreach (var item in slots)
             {
                 item.interactable = false;
-            }*/
+            }
             //ingredients.AddRange(ingredients);
             UpdateInventory();
             panelInventory.SetActive(true);
@@ -114,6 +114,7 @@ public class Storage : Bench
     {
         
         int maxIndex = Mathf.Min(slots.Length, ingredients.Count); 
+
         for (int i = 0; i < maxIndex; i++)
         {
             if (ingredients.ElementAt(i) != null)
@@ -130,6 +131,7 @@ public class Storage : Bench
 
     void SelectButton(int index){
         slots[index].Select();
+
     }
 
     [ServerRpc (RequireOwnership = false)]
