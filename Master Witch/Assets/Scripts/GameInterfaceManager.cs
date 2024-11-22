@@ -2,22 +2,20 @@ using Network;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UI.Leaderboard;
 using Unity.Netcode;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace Game.UI
 {
     public class GameInterfaceManager : SingletonNetwork<GameInterfaceManager>
     {
         [Header("Final HUD")]
-        public GameObject[] playerUI;
-        public TextMeshProUGUI[] playerFinalScore;
-        [SerializeField] TextMeshProUGUI[] textScore;
-        public Toggle[] playerFinalCheck;
-        public GameObject finalPanel;
-        public GameObject ResultPanel;
+        [SerializeField] GameObject leaderboardPanel;
+        [SerializeField] GameObject finalRoundPanel;
         [Header("Game HUD")]
         [SerializeField] GameObject gameMenuHUD;
         public GameObject recipeSteps, dialogueBox, clock, horizontalGroupPrefab, imagePrefab;
@@ -31,87 +29,90 @@ namespace Game.UI
         }
         public void OnGameStartedClient()
         {
-            EliminationPlayer.Instance.AddScoresPlayers();
-            GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.PlayersData.Length;
+            ScoreManager.Instance.AddScoresPlayers();
         }
         public void DisconnectFromServer()
         {
             LobbyManager.Instance.DisconnectFromServer();
         }
-        public void UpdatePlayerScore(int playerID, float score)
-        {
-            Debug.Log("Update " + playerID);
-            string name = PlayerNetworkManager.Instance.PlayersData[playerID].PlayerName;
-            playerFinalScore[playerID].text = name;
-            textScore[playerID].text = score.ToString("00.00");
-
-            //switch (playerID)
-            //{
-
-            //    case 0:
-            //        playerFinalScore[0].text = name;
-            //        textScore[0].text = score.ToString();
-            //        break;
-            //    case 1:
-            //        playerFinalScore[1].text = name;
-            //        textScore[1].text = score.ToString();
-            //        break;
-            //    case 2:
-            //        playerFinalScore[2].text = name;
-            //        textScore[2].text = score.ToString();
-            //        break;
-            //    case 3:
-            //        playerFinalScore[3].text = name;
-            //        textScore[3].text = score.ToString();
-            //        break;
-            //    default:
-            //        break;
-            //}
-        }
+        //public void UpdatePlayerScore(int playerID, float score)
+        //{
+        //    Debug.Log("Update " + playerID);
+        //    string name = PlayerNetworkManager.Instance.PlayersData[playerID].PlayerName;
+        //    playerFinalScore[playerID].text = name;
+        //    textScore[playerID].text = score.ToString("00.00");
+        //}
         [ClientRpc]
-        public void UpdateFinalRoundScreenClientRpc()
+        public void EnableRoundScoresClientRpc()
         {
-            finalPanel.SetActive(true);
-            for (int i = 0; i < GameManager.Instance.numberPlayer; i++)
-            {
-                playerUI[i].gameObject.SetActive(true);
-                UpdatePlayerScore(i, EliminationPlayer.Instance.scoresPlayers.Values.Count <= i ? EliminationPlayer.Instance.scoresPlayers[i] : 0);
-            }
+            leaderboardPanel.SetActive(true);
+            finalRoundPanel.SetActive(GameManager.Instance.CurrentRound >= GameManager.Instance.TotalRounds);
+            //var leaderboard = LeaderboardManager.Instance.GetSortedPlayerScores();
+            //for (int i = 0; i < leaderboard.Count; i++)
+            //{
+            //    playerUI[i].gameObject.SetActive(true);
+            //    UpdatePlayerScore(leaderboard[i].Key, leaderboard[i].Value);
+            //}
             //foreach (var item in EliminationPlayer.Instance.scoresPlayers)
             //{
             //    UpdatePlayerScore(item.Key, item.Value);
             //}
+            LeaderboardManager.Instance.EnableRoundLeaderboard();
         }
 
-        public void UpdateToggle(int playerID, bool toggleValue)
+        //Server-Side
+        public void ResetGameHUD()
         {
-            playerFinalCheck[playerID].isOn = toggleValue;
+            ResetGameHUDClientRpc();
         }
-
         [ClientRpc]
-        public void UpdadeScreenFinalClientRpc()
+        void ResetGameHUDClientRpc()
         {
-            EndRound.Instance.finalGame = true;
-            UpdateFinalResult(EndRound.Instance.finishGame());
+            DisableRoundScores();
+            //for (int i = 0; i < playerFinalCheck.Length; i++)
+            //{
+            //    UpdateToggle(i, false);
+            //}
         }
 
-        public void UpdateFinalResult(List<KeyValuePair<int, float>> orderPlayers)
+        public void DisableRoundScores()
         {
-            ResultPanel.SetActive(true);
-
-            for (int j = 0; j < GameManager.Instance.numberPlayer; j++)
-            {
-                playerUI[j].gameObject.SetActive(true);
-                playerFinalCheck[j].isOn = false;
-            }
-            int i = 0;
-            foreach (var item in orderPlayers)
-            {
-                playerFinalScore[i].text = PlayerNetworkManager.Instance.PlayersData[item.Key].PlayerName;
-                textScore[i].text = item.Value.ToString();
-                i++;
-            }
+            leaderboardPanel.SetActive(false);
+            finalRoundPanel.SetActive(false);
         }
+
+
+        //public void UpdateToggle(int playerID, bool toggleValue)
+        //{
+        //    playerFinalCheck[playerID].Toggle.isOn = toggleValue;
+        //}
+
+        //LIGA TELA FINAL, COM PONTUACAO FINAL E TODOS OS JOGADORES
+        //[ClientRpc]
+        //public void UpdadeScreenFinalClientRpc()
+        //{
+        //    EndRound.Instance.finalGame = true;
+        //    UpdateFinalResult(EndRound.Instance.GetSortedPlayerScores());
+        //}
+
+        //public void UpdateFinalResult(List<KeyValuePair<int, float>> orderPlayers)
+        //{
+        //    finalRoundPanel.SetActive(true);
+
+        //    var data = PlayerNetworkManager.Instance.PlayersData;
+        //    for (int j = 0; j < data.Length; j++)
+        //    {
+        //        playerUI[j].gameObject.SetActive(true);
+        //        playerFinalCheck[j].isOn = false;
+        //    }
+        //    int i = 0;
+        //    foreach (var item in orderPlayers)
+        //    {
+        //        playerFinalScore[i].text = data[item.Key].PlayerName;
+        //        textScore[i].text = item.Value.ToString();
+        //        i++;
+        //    }
+        //}
 
     }
 }

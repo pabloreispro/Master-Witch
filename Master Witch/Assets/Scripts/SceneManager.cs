@@ -13,7 +13,7 @@ using Game.UI;
 public class SceneManager : SingletonNetwork<SceneManager>
 {
     public int TIMER_MARKET = 5000;
-    public const int TIMER_MAIN = 300;
+    public const int TIMER_MAIN = 10;
 
     [SerializeField]
     private GameObject prefabMarket, prefabMain;
@@ -123,6 +123,10 @@ public class SceneManager : SingletonNetwork<SceneManager>
     }
            
 
+    public void ChangeScene(bool a, bool b)
+    {
+        ChangeSceneClientRpc(sceneMarket.Value = a, sceneMain.Value = b);
+    }
     [ServerRpc(RequireOwnership = false)]
     public void ChangeSceneServerRpc(bool a, bool b)
     {
@@ -155,7 +159,7 @@ public class SceneManager : SingletonNetwork<SceneManager>
             StartCoroutine(TransitionController.Instance.TransitionMainScene());
         }
         else if(prefabMain.activeSelf){
-            GameInterfaceManager.Instance.UpdateFinalRoundScreenClientRpc();
+            GameInterfaceManager.Instance.EnableRoundScoresClientRpc();
         }
     }
     [ServerRpc(RequireOwnership =false)]

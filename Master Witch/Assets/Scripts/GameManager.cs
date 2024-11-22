@@ -14,6 +14,7 @@ using Game.UI;
 public class GameManager : SingletonNetwork<GameManager>
 {
     const int CHEFS_AMOUNT = 3;
+    const int TOTAL_ROUNDS = 2;
     GameState gameState;
     [SerializeField] FoodDatabaseSO foodDatabase;
     [SerializeField] Bench[] benches;
@@ -24,7 +25,6 @@ public class GameManager : SingletonNetwork<GameManager>
   
     public Text RecipeText;
     
-    Dictionary<int, float> ResultFinal = new Dictionary<int, float>();
     RecipeSO targetRecipe;
     public float matchStartTime;
     public List<ChefSO> chefs;
@@ -35,10 +35,11 @@ public class GameManager : SingletonNetwork<GameManager>
     public FoodDatabaseSO FoodDatabaseSO => foodDatabase;
     public RecipeSO TargetRecipe => targetRecipe;
     public List<ChefSO> Chefs => chefs;
+    public int TotalRounds => TOTAL_ROUNDS;
+    public int CurrentRound { get; private set; }
     #endregion
 
-    public int numberPlayer;
-
+    //public int numberPlayer;
 
 
     void Start()
@@ -50,6 +51,7 @@ public class GameManager : SingletonNetwork<GameManager>
     public void StartGame()
     {
         Debug.Log("Game Started");
+        CurrentRound = 1;
         OnGameStartedClientRpc();
     }
     [ClientRpc]
@@ -104,13 +106,15 @@ public class GameManager : SingletonNetwork<GameManager>
         }
     }
 
-    [ServerRpc]
-    public void InitializeGameServerRpc()
+    public void InitializeGame(bool updateChefs = true)
     {
         int recipeIndex = Random.Range(0, recipeDatabase.Length); 
         
-        InitializeGameClientRpc(recipeIndex); 
-        InitializeChefsServerRpc();
+        InitializeGameClientRpc(recipeIndex);
+        if(updateChefs)
+            InitializeChefs();
+        SceneManager.Instance.ChangeScene(false, true);
+        SceneManager.Instance.RepositionPlayersMarketSceneServerRpc();
     }
 
     [ClientRpc]
@@ -140,8 +144,7 @@ public class GameManager : SingletonNetwork<GameManager>
         }
     }
     
-    [ServerRpc]
-    public void InitializeChefsServerRpc()
+    public void InitializeChefs()
     {
         List<int> selectedChefsIndexes = new List<int>();
 
@@ -193,8 +196,6 @@ public class GameManager : SingletonNetwork<GameManager>
     }
     private IEnumerable<GameObject> ExtractRecipeSteps(RecipeSO recipe)
     {
-        
-
         var ingredients = recipe.recipeConditions.FirstOrDefault(r => r.type == RecipeCondition.ConditionType.Food);
         var bench = recipe.recipeConditions.FirstOrDefault(r => r.type == RecipeCondition.ConditionType.BenchType);
         foreach (var condition in recipe.recipeConditions)
@@ -281,19 +282,18 @@ public class GameManager : SingletonNetwork<GameManager>
     [ServerRpc(RequireOwnership = false)]
     public void ReadyPlayersServerRpc(int playerID, bool isOn){
         AttToggleClientRpc(playerID, isOn);
-        EndRound.Instance.CanNextRound();
+        //LeaderboardManager.Instance.CanNextRound();
     }
 
     [ClientRpc]
     public void AttToggleClientRpc(int playerID, bool isOn){
-        GameInterfaceManager.Instance.UpdateToggle(playerID, isOn);
+        //GameInterfaceManager.Instance.UpdateToggle(playerID, isOn);
     }
 
     [ClientRpc]
     public void OnReturnMarketClientRpc(){
-        GameInterfaceManager.Instance.finalPanel.SetActive(false);
-        GameInterfaceManager.Instance.clock.active = false;
-        GameInterfaceManager.Instance.recipeSteps.active = false;
+        GameInterfaceManager.Instance.clock.SetActive(false);
+        GameInterfaceManager.Instance.recipeSteps.SetActive(false);
 
         var r = GameInterfaceManager.Instance.recipeSteps.GetComponentsInChildren<HorizontalLayoutGroup>();
         foreach (HorizontalLayoutGroup layoutGroup in r)
@@ -303,24 +303,27 @@ public class GameManager : SingletonNetwork<GameManager>
         //Reset();
     }
 
-    [ClientRpc]
-    public void OnPlayerEliminatedClientRpc(int playerID){
-        Debug.Log("Player eliminado é: "+ playerID);
-        Reset();
-        foreach (Player player in FindObjectsOfType<Player>())
-        {
-            if (player.id == playerID)
-            {
-                player.GetComponent<NetworkObject>().gameObject.SetActive(false);
-            }
-        }
-        numberPlayer--;
-        //PlayerNetworkManager.Instance.GetPlayerByIndex(playerID).gameObject.SetActive(false);
-    }
+    //[ClientRpc]
+    //public void OnPlayerEliminatedClientRpc(int playerID){
+    //    Debug.Log("Player eliminado é: "+ playerID);
+    //    Reset();
+    //    foreach (Player player in FindObjectsOfType<Player>())
+    //    {
+    //        if (player.id == playerID)
+    //        {
+    //            player.GetComponent<NetworkObject>().gameObject.SetActive(false);
+    //        }
+    //    }
+    //    numberPlayer--;
+    //    //PlayerNetworkManager.Instance.GetPlayerByIndex(playerID).gameObject.SetActive(false);
+    //}
 
     public void OnReturnMarket(){
+
         OnReturnMarketClientRpc();
-        OnPlayerEliminatedClientRpc(EliminationPlayer.Instance.PlayerElimination());
+        CurrentRound++;
+        GameInterfaceManager.Instance.ResetGameHUD();
+        //OnPlayerEliminatedClientRpc(EliminationPlayer.Instance.PlayerElimination());
     }
 
     public void EndGame(){

@@ -79,9 +79,7 @@ public class NewCamController : SingletonNetwork<NewCamController>
     {
         if(IsServer)
         {
-            GameManager.Instance.InitializeGameServerRpc();
-            SceneManager.Instance.ChangeSceneServerRpc(false,true);
-            SceneManager.Instance.RepositionPlayersMarketSceneServerRpc();
+            GameManager.Instance.InitializeGame();
         }
         
         

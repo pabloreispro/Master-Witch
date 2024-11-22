@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5415765734376053541}
   - component: {fileID: 3567374289657433202}
   - component: {fileID: 942298446794193733}
-  - component: {fileID: 6831813918528109112}
   - component: {fileID: 6943736661385976556}
   m_Layer: 0
   m_Name: GameManager
@@ -49,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1532575283
+  GlobalObjectIdHash: 2890680050
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -95,7 +94,6 @@ MonoBehaviour:
   matchStartTime: 0
   chefs: []
   chefsGO: []
-  numberPlayer: 0
 --- !u!114 &3567374289657433202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +124,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  spawnBasketMarket: []
   benchStorage:
   - {fileID: 0}
   - {fileID: 0}
@@ -150,22 +149,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7467926850842336177}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff3ae25a710db2345bc657108e23346a, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d5a05b7fb43f5f47b46914cac24eddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6831813918528109112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7467926850842336177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac4316d11e096b34da069c7bc753eb6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  finalGame: 0
 --- !u!114 &6943736661385976556
 MonoBehaviour:
   m_ObjectHideFlags: 0

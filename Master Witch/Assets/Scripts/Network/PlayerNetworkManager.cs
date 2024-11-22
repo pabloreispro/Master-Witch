@@ -21,6 +21,7 @@ namespace Network
         public Dictionary<ulong, Player> GetPlayer => playerList;
         public Dictionary<Player, ulong> GetID => idList;
         public PlayerNetworkData[] PlayersData => playersData;
+        public int PlayersCount => playersData.Length;
         //Dictionary<ulong, bool> playersReady = new Dictionary<ulong, bool>();
         //private static HashSet<ulong> readyClients = new HashSet<ulong>();
         void Start()

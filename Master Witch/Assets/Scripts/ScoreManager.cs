@@ -8,10 +8,10 @@ using UnityEngine;
 using UI;
 using Game.SO;
 
-public class EliminationPlayer : Singleton<EliminationPlayer>
+public class ScoreManager : Singleton<ScoreManager>
 {
-    public Dictionary<int, float> scoresPlayers = new Dictionary<int, float>();
-    public Dictionary<int , float> ElimPlayers = new Dictionary<int, float>();
+    public Dictionary<int, float> playerScores = new Dictionary<int, float>();
+    //public Dictionary<int , float> ElimPlayers = new Dictionary<int, float>();
     
 
 
@@ -27,7 +27,7 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
         //    scoresPlayers.Add(Convert.ToInt32(item.Value), 0);
         for (int i = 0; i < PlayerNetworkManager.Instance.PlayersData.Length; i++)
         {
-            scoresPlayers.Add(PlayerNetworkManager.Instance.PlayersData[i].PlayerIndex, 0);
+            playerScores.Add(PlayerNetworkManager.Instance.PlayersData[i].PlayerIndex, 0);
         }
     }
     public void GetPlayerScore(int playerID, RecipeData recipe)
@@ -45,25 +45,25 @@ public class EliminationPlayer : Singleton<EliminationPlayer>
 
         Debug.Log($"score {Mathf.Lerp(30, 0, startTime / SceneManager.TIMER_MAIN)} Time {Time.time} Start{GameManager.Instance.matchStartTime} match {matchTime}");
         Debug.Log($"Total score for Player {playerID} is {score}");
-        UpdadeScoresPlayers(playerID, score);
+        UpdatePlayerScores(playerID, score);
     }
 
-    public void UpdadeScoresPlayers(int playerID, float score){
-        scoresPlayers[playerID] += score;
+    public void UpdatePlayerScores(int playerID, float score){
+        playerScores[playerID] += score;
     }
 
-    public int PlayerElimination(){
-        var player = scoresPlayers.Aggregate((l,r) => l.Value<r.Value ? l : r); 
-        Debug.Log("Player Eliminado no server e: "+player.Key);
-        ElimPlayers.Add(player.Key, player.Value);
-        scoresPlayers.Remove(player.Key);
-        return player.Key;
-    }
+    //public int PlayerElimination(){
+    //    var player = scoresPlayers.Aggregate((l,r) => l.Value<r.Value ? l : r); 
+    //    Debug.Log("Player Eliminado no server e: "+player.Key);
+    //    ElimPlayers.Add(player.Key, player.Value);
+    //    scoresPlayers.Remove(player.Key);
+    //    return player.Key;
+    //}
 
     
 
     public void Reset(){
-        scoresPlayers.Clear();
-        ElimPlayers.Clear();
+        playerScores.Clear();
+        //ElimPlayers.Clear();
     }
 }

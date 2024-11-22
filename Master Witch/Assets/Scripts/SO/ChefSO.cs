@@ -14,6 +14,7 @@ namespace Game.SO
         const float FOOD_MATCH_SCORE = 10;
         const float MODIFIER_MATCH_SCORE = 2.5f;
         int id;
+        public Sprite sprite;
         public GameObject prefab;
         public FoodModifiers foodModifiers;
         public ReviewCondition[] conditions; 

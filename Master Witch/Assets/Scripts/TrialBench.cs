@@ -27,6 +27,6 @@ public class TrialBench : Interactable
     }
     public void Review(RecipeData recipe, int playerID)
     {
-        EliminationPlayer.Instance.GetPlayerScore(playerID, recipe);
+        ScoreManager.Instance.GetPlayerScore(playerID, recipe);
     }
 }

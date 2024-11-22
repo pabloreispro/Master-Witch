@@ -8,19 +8,21 @@ using Network;
 
 public class ToggleState : SingletonNetwork<ToggleState>
 {
-    public Toggle toggle;
-    public int id;
+    [SerializeField] Toggle toggle;
+    [SerializeField] int id;
 
+    public Toggle Toggle => toggle;
     void Start()
     {
-        
-        toggle = gameObject.GetComponent<Toggle>();
         if (toggle != null)
         {
-            if(PlayerNetworkManager.Instance.GetPlayerByIndex(id).NetworkObjectId == NetworkManager.SpawnManager.GetLocalPlayerObject().NetworkObjectId){
+            if (PlayerNetworkManager.Instance.GetPlayerByIndex(id).NetworkObjectId == NetworkManager.SpawnManager.GetLocalPlayerObject().NetworkObjectId)
+            {
                 toggle.onValueChanged.AddListener(OnToggleValueChanged);
                 toggle.interactable = true;
-            }else{
+            }
+            else
+            {
                 toggle.interactable = false;
             }
         }
