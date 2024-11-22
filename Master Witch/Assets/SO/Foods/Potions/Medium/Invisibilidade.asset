@@ -10,30 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
-  m_Name: Asas de Borboleta Fatiada
+  m_Name: Invisibilidade
   m_EditorClassIdentifier: 
-  foodID: 29
+  foodID: 46
   category: 
-  foodPrefab: {fileID: 919132149155446097, guid: 54419d106c194e043bd3a0f559a1612e,
-    type: 3}
-  imageFood: {fileID: 0}
-  timeProgress: 0
+  foodPrefab: {fileID: 0}
+  imageFood: {fileID: 21300000, guid: 64bbd089be19eee45a6f405cbd61a5ae, type: 3}
+  timeProgress: 30
   modifiers:
-    igneousValue: 0
-    poisonousValue: 0
-    curativeValue: 0
+    igneousValue: 1
+    poisonousValue: 2
+    curativeValue: 1
   finishRecipe: 0
   recipeConditions:
   - type: 0
-    benchType: 1
+    benchType: 0
     foods: []
     category: 0
     categoryPoints: 0
     isAllowed: 0
   - type: 1
-    benchType: 1
+    benchType: 4
     foods:
-    - {fileID: 11400000, guid: acb83edd11ef0734bb1004cf4a444e8d, type: 2}
+    - {fileID: 11400000, guid: fdf24295765b455498b122604945ec4f, type: 2}
+    - {fileID: 11400000, guid: 4a415c22f3d5b5b4ebab5e33436a1c61, type: 2}
     category: 0
     categoryPoints: 0
     isAllowed: 1

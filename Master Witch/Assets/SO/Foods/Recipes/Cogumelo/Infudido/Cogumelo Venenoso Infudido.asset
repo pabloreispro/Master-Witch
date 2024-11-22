@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
-  m_Name: Asas de Borboleta Fatiada
+  m_Name: Cogumelo Venenoso Infudido
   m_EditorClassIdentifier: 
-  foodID: 29
+  foodID: 35
   category: 
-  foodPrefab: {fileID: 919132149155446097, guid: 54419d106c194e043bd3a0f559a1612e,
+  foodPrefab: {fileID: 3179536255620206203, guid: e18d1e2c4d4c2ac408edfda863908301,
     type: 3}
   imageFood: {fileID: 0}
   timeProgress: 0
@@ -25,15 +25,15 @@ MonoBehaviour:
   finishRecipe: 0
   recipeConditions:
   - type: 0
-    benchType: 1
+    benchType: 0
     foods: []
     category: 0
     categoryPoints: 0
     isAllowed: 0
   - type: 1
-    benchType: 1
+    benchType: 0
     foods:
-    - {fileID: 11400000, guid: acb83edd11ef0734bb1004cf4a444e8d, type: 2}
+    - {fileID: 11400000, guid: 549654824a6ca5044a24de5ce0b3a817, type: 2}
     category: 0
     categoryPoints: 0
     isAllowed: 1

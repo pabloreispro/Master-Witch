@@ -10,30 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
-  m_Name: Asas de Borboleta Fatiada
+  m_Name: Cura
   m_EditorClassIdentifier: 
-  foodID: 29
+  foodID: 45
   category: 
-  foodPrefab: {fileID: 919132149155446097, guid: 54419d106c194e043bd3a0f559a1612e,
-    type: 3}
-  imageFood: {fileID: 0}
-  timeProgress: 0
+  foodPrefab: {fileID: 0}
+  imageFood: {fileID: 21300000, guid: 64bbd089be19eee45a6f405cbd61a5ae, type: 3}
+  timeProgress: 30
   modifiers:
     igneousValue: 0
-    poisonousValue: 0
-    curativeValue: 0
+    poisonousValue: -2
+    curativeValue: 2
   finishRecipe: 0
   recipeConditions:
   - type: 0
-    benchType: 1
+    benchType: 3
     foods: []
     category: 0
     categoryPoints: 0
     isAllowed: 0
   - type: 1
-    benchType: 1
+    benchType: 4
     foods:
-    - {fileID: 11400000, guid: acb83edd11ef0734bb1004cf4a444e8d, type: 2}
+    - {fileID: 11400000, guid: 007a678354194c74a9d9c424fd133485, type: 2}
+    - {fileID: 11400000, guid: 8a8a76a775ec6514fb44754b9f995be2, type: 2}
+    - {fileID: 11400000, guid: 7cee6124e9ce6704eb73d3b1476049db, type: 2}
     category: 0
     categoryPoints: 0
     isAllowed: 1
