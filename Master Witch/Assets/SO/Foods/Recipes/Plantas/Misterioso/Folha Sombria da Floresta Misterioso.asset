@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
   m_Name: Folha Sombria da Floresta Misterioso
   m_EditorClassIdentifier: 
-  foodID: 41
+  foodID: 40
   category: 
   foodPrefab: {fileID: 8481738283761588854, guid: 5e3d71dbdca0df34da543d5ca3fb4d13,
     type: 3}
-  imageFood: {fileID: 0}
+  imageFood: {fileID: 21300000, guid: 7d2a894e8d73a6d4292ced834ddbf694, type: 3}
   timeProgress: 0
   modifiers:
-    igneousValue: 0
-    poisonousValue: 0
-    curativeValue: 0
+    igneousValue: 0.91
+    poisonousValue: 1.44
+    curativeValue: -1.9
   finishRecipe: 0
   recipeConditions:
   - type: 0

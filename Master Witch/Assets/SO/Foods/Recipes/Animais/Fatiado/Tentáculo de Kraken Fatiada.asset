@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
   m_Name: "Tent\xE1culo de Kraken Fatiada"
   m_EditorClassIdentifier: 
-  foodID: 30
+  foodID: 29
   category: 
   foodPrefab: {fileID: 7416630573988772522, guid: 13e65edaba0070248bb4acf4748f7c2c,
     type: 3}
-  imageFood: {fileID: 0}
+  imageFood: {fileID: 21300000, guid: ffa1e52ed3c832f47b0c7f269d8bac6b, type: 3}
   timeProgress: 0
   modifiers:
-    igneousValue: 0
-    poisonousValue: 0
-    curativeValue: 0
+    igneousValue: -1.9
+    poisonousValue: 1.02
+    curativeValue: 2
   finishRecipe: 0
   recipeConditions:
   - type: 0

@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
   m_Name: Folha Sombra da Floresta Cozida
   m_EditorClassIdentifier: 
-  foodID: 38
+  foodID: 37
   category: 
   foodPrefab: {fileID: 2756338162880156025, guid: 3539a74ce3b7d5842a2892e1ed4a8f6f,
     type: 3}
-  imageFood: {fileID: 0}
+  imageFood: {fileID: 21300000, guid: c0c0159253193b14c84de607ba9bc47b, type: 3}
   timeProgress: 0
   modifiers:
-    igneousValue: 0
-    poisonousValue: 0
-    curativeValue: 0
+    igneousValue: 0.93
+    poisonousValue: 1.25
+    curativeValue: -0.5
   finishRecipe: 0
   recipeConditions:
   - type: 0
