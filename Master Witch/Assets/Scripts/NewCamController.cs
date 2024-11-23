@@ -83,8 +83,10 @@ public class NewCamController : SingletonNetwork<NewCamController>
         }
         
         
-        yield return transform.DOMoveY(7f, 3f);
-        yield return transform.DOLookAt(GameManager.Instance.chefsGO[0].transform.position, 2f).WaitForCompletion();
+        yield return transform.DOMoveY(7f, 2f);
+         yield return transform.DOMoveZ(4f, 2f);
+        yield return transform.DORotate(new Vector3(14,0,0), 1f);
+        yield return transform.DOMoveX(GameManager.Instance.chefsGO[0].transform.position.x, 2f).WaitForCompletion();
         yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1,0.3f); 
         yield return new WaitForSeconds(0.3f);  
         yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0.5f,0.2f);
@@ -95,8 +97,10 @@ public class NewCamController : SingletonNetwork<NewCamController>
         yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0,1);
         yield return new WaitForSeconds(0.5f); 
 
-        yield return transform.DOMoveY(7f, 3f);
-        yield return transform.DOLookAt(GameManager.Instance.chefsGO[1].transform.position, 2f).WaitForCompletion();
+        //yield return transform.DOMoveY(7f, 3f);
+        
+        //yield return transform.DOLookAt(GameManager.Instance.chefsGO[1].transform.position, 2f);
+        yield return transform.DOMoveX(GameManager.Instance.chefsGO[1].transform.position.x, 2f).WaitForCompletion();
         yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1,0.3f); 
         yield return new WaitForSeconds(0.3f);  
         yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0.8f,0.2f);
@@ -107,9 +111,10 @@ public class NewCamController : SingletonNetwork<NewCamController>
         yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0,1);
         yield return new WaitForSeconds(0.5f); 
         
-        yield return transform.DOMoveY(7f, 3f);
-        yield return transform.DOLookAt(GameManager.Instance.chefsGO[2].transform.position, 2f).WaitForCompletion();
-       yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1,0.3f); 
+        //yield return transform.DOMoveY(7f, 3f);
+        //yield return transform.DOLookAt(GameManager.Instance.chefsGO[2].transform.position, 2f);
+        yield return transform.DOMoveX(GameManager.Instance.chefsGO[2].transform.position.x, 2f).WaitForCompletion();
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1,0.3f); 
         yield return new WaitForSeconds(0.3f);  
         yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0.8f,0.2f);
         yield return new WaitForSeconds(0.2f);  
