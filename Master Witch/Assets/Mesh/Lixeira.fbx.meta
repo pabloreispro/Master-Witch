@@ -3,7 +3,17 @@ guid: 790abaf825101c540a746d62f92a6c71
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_PlantaCarivora
+    second: {fileID: 2100000, guid: d0469a5d39e37954b891f3a808fdeb87, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_PlantaCarivora_Alpha
+    second: {fileID: 2100000, guid: 6ed93c01af75c0442ac23656b80d52e3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
