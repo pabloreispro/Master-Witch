@@ -144,7 +144,9 @@ public class Bench : Interactable
             objectSpawn.gameObject.GetComponent<Rigidbody>().useGravity = false;
             objectSpawn.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             objectInBench = objectSpawn;
-            GetComponentInChildren<Ingredient>().itemsUsed.Add(recipeData);
+            var ingredient = objectSpawn.GetComponent<Ingredient>();
+            ingredient.food = targetRecipe;
+            ingredient.itemsUsed.Add(recipeData);
         }
         slider.gameObject.SetActive(false);
         endProgress = true;

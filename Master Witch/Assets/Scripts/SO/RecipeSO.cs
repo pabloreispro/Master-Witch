@@ -19,11 +19,10 @@ namespace Game.SO {
             {
                 if (!recipeConditions[i].CheckCondition(ingredients, benchType))
                 {
-                    Debug.Log($"Condition {i} is not completed");
                     return false;
                 }
             }
-            Debug.Log($"All conditions completed");
+            Debug.Log($"All conditions completed for {name}");
             return true;
         }
         //public float GetScore(List<RecipeData> foods)

@@ -22,6 +22,7 @@ public class RecipeData
     }
     public RecipeData(FoodSO targetFood, List<RecipeData> utilizedIngredients)
     {
+        Debug.Log($"New Recipe data of {targetFood}, with {utilizedIngredients.Count} ingredients used");
         this.targetFood = targetFood;
         foreach (var item in utilizedIngredients)
         {

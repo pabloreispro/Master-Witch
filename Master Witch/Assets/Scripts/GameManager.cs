@@ -10,6 +10,7 @@ using Unity.VisualScripting;
 using UnityEngine.UI;
 using JetBrains.Annotations;
 using Game.UI;
+using UI.Leaderboard;
 using Game.SceneGame;
 
 public class GameManager : SingletonNetwork<GameManager>
@@ -31,13 +32,15 @@ public class GameManager : SingletonNetwork<GameManager>
     public List<ChefSO> chefs;
     public List<GameObject> chefsGO;
     List<GameObject> recipeSteps = new List<GameObject>();
+    int readyPlayersAmount;
+    NetworkVariable<int> currentRound = new NetworkVariable<int>();
     #region Properties
     public GameState GameState => gameState;
     public FoodDatabaseSO FoodDatabaseSO => foodDatabase;
     public RecipeSO TargetRecipe => targetRecipe;
     public List<ChefSO> Chefs => chefs;
     public int TotalRounds => TOTAL_ROUNDS;
-    public int CurrentRound { get; private set; }
+    public int CurrentRound => currentRound.Value;
     #endregion
 
     //public int numberPlayer;
@@ -46,20 +49,36 @@ public class GameManager : SingletonNetwork<GameManager>
     void Start()
     {
         if (NetworkManager.IsServer)
-            StartGame();
+        {
+            readyPlayersAmount++;
+            StartCoroutine(StartGame());
+        }
+        else
+            PlayerLoadedServerRpc();
     }
 
-    public void StartGame()
+    public IEnumerator StartGame()
     {
+        while (readyPlayersAmount < PlayerNetworkManager.Instance.PlayersCount)
+        {
+            yield return null;
+        }
+        readyPlayersAmount = 0;
         Debug.Log("Game Started");
-        CurrentRound = 1;
-        OnGameStartedClientRpc();
+        currentRound.Value = 1;
+        InitializeGame();
     }
-    [ClientRpc]
-    void OnGameStartedClientRpc()
+    [ServerRpc(RequireOwnership = false)]
+    void PlayerLoadedServerRpc()
     {
-        NewCamController.Instance.IntroClient();
-        GameInterfaceManager.Instance.OnGameStartedClient();
+        readyPlayersAmount++;
+    }
+
+    [ClientRpc]
+    void OnGameStartedClientRpc(bool playIntro)
+    {
+        if(playIntro)
+            NewCamController.Instance.IntroClient();
         ResetInfo();
     }
     void ResetInfo()
@@ -94,7 +113,6 @@ public class GameManager : SingletonNetwork<GameManager>
         Debug.Log(foodDatabase.RecipeContainer.Count);
         foreach (var recipe in foodDatabase.RecipeContainer)
         {
-            Debug.Log(recipe.name);
             if(recipe.CheckConditions(ingredients, benchType))
                 validRecipes.Add(recipe);
         }
@@ -107,15 +125,16 @@ public class GameManager : SingletonNetwork<GameManager>
         }
     }
 
-    public void InitializeGame(bool updateChefs = true)
+    public void InitializeGame(bool firstInit = true)
     {
         int recipeIndex = Random.Range(0, recipeDatabase.Length); 
         
         InitializeGameClientRpc(recipeIndex);
-        if(updateChefs)
+        if(firstInit)
             InitializeChefs();
         SceneManager.Instance.ChangeScene(false, true);
         SceneManager.Instance.RepositionPlayersMarketSceneServerRpc();
+        OnGameStartedClientRpc(firstInit);
     }
 
     [ClientRpc]
@@ -281,20 +300,61 @@ public class GameManager : SingletonNetwork<GameManager>
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void ReadyPlayersServerRpc(int playerID, bool isOn){
-        AttToggleClientRpc(playerID, isOn);
-        //LeaderboardManager.Instance.CanNextRound();
+    public void ReadyPlayersServerRpc(ulong playerNetworkID, bool isReady){
+        if(isReady)
+            readyPlayersAmount++;
+        else 
+            readyPlayersAmount--;
+        UpdatePlayerReadyClientRpc(PlayerNetworkManager.Instance.GetPlayerIndexID(PlayerNetworkManager.Instance.GetPlayer[playerNetworkID]), isReady);
+        CheckNextRound();
     }
 
     [ClientRpc]
-    public void AttToggleClientRpc(int playerID, bool isOn){
-        //GameInterfaceManager.Instance.UpdateToggle(playerID, isOn);
+    public void UpdatePlayerReadyClientRpc(int playerID, bool isOn){
+        LeaderboardManager.Instance.UpdateReadyPlayers(playerID, isOn);
+    }
+    //Server-Side
+    void CheckNextRound()
+    {
+        //if (!finalGame)
+        //{
+        //    //if (PlayerNetworkManager.Instance.PlayersData.Length > 2)
+        //    if (CurrentRound < TotalRounds)
+        //        ReturnMarket();
+        //    else
+        //        GameInterfaceManager.Instance.UpdadeScreenFinalClientRpc();
+        //}
+        //else
+        //{
+        //    EndGame();
+        //}
+        if (readyPlayersAmount < PlayerNetworkManager.Instance.PlayersCount) return;
+        readyPlayersAmount = 0;
+        ResetInfoBetweenRoundsClientRpc();
+        if (CurrentRound < TotalRounds)
+            ReturnMarket();
+        else
+            EndGame();
+    }
+    [ClientRpc]
+    void ResetInfoBetweenRoundsClientRpc()
+    {
+        LeaderboardManager.Instance.ResetInfo();
+    }
+    public void ReturnMarket()
+    {
+        OnReturnMarket();
+        //NewCamController.Instance.IntroClient();
+        GameInterfaceManager.Instance.clock.SetActive(true);
+        GameInterfaceManager.Instance.recipeSteps.SetActive(true);
+        InitializeGame(false);
+        StartCoroutine(TransitionController.Instance.TransitionMarketScene());
     }
 
     [ClientRpc]
     public void OnReturnMarketClientRpc(){
-        GameInterfaceManager.Instance.clock.SetActive(false);
-        GameInterfaceManager.Instance.recipeSteps.SetActive(false);
+        GameInterfaceManager.Instance.clock.SetActive(true);
+        GameInterfaceManager.Instance.recipeSteps.SetActive(true);
 
         var r = GameInterfaceManager.Instance.recipeSteps.GetComponentsInChildren<HorizontalLayoutGroup>();
         foreach (HorizontalLayoutGroup layoutGroup in r)
@@ -322,7 +382,7 @@ public class GameManager : SingletonNetwork<GameManager>
     public void OnReturnMarket(){
 
         OnReturnMarketClientRpc();
-        CurrentRound++;
+        currentRound.Value++;
         GameInterfaceManager.Instance.ResetGameHUD();
         //OnPlayerEliminatedClientRpc(EliminationPlayer.Instance.PlayerElimination());
     }

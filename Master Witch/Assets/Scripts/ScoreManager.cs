@@ -11,46 +11,43 @@ using Game.SceneGame;
 
 public class ScoreManager : Singleton<ScoreManager>
 {
-    public Dictionary<int, float> playerScores = new Dictionary<int, float>();
+    /// <summary>
+    /// Array pra cada round, com um array de pontuações de cada player
+    /// </summary>
+    [SerializeField] PlayerScore[][] playerScores;
+    [SerializeField] List<PlayerScore> debug = new List<PlayerScore>();
+    public PlayerScore[][] PlayerScores => playerScores;
     //public Dictionary<int , float> ElimPlayers = new Dictionary<int, float>();
     
-
-
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-
-    public void AddScoresPlayers(){
-        //foreach(var item in PlayerNetworkManager.Instance.GetID){
-        //    scoresPlayers.Add(Convert.ToInt32(item.Value), 0);
-        for (int i = 0; i < PlayerNetworkManager.Instance.PlayersData.Length; i++)
+        playerScores = new PlayerScore[GameManager.Instance.TotalRounds][];
+        for (int i = 0; i < playerScores.Length; i++)
         {
-            playerScores.Add(PlayerNetworkManager.Instance.PlayersData[i].PlayerIndex, 0);
+            playerScores[i] = new PlayerScore[PlayerNetworkManager.Instance.PlayersCount];
+            for (int j = 0; j < playerScores[i].Length; j++)
+            {
+                playerScores[i][j] = new PlayerScore();
+                debug.Add(playerScores[i][j]);
+            }
         }
     }
-    public void GetPlayerScore(int playerID, RecipeData recipe)
+
+    public void SetPlayerScore(int playerID, RecipeData recipe)
     {
-        float score = ChefSO.BASE_RECIPE_SCORE;
         foreach (var chef in GameManager.Instance.Chefs)
         {
-            var chefScore = chef.ReviewRecipe(recipe);
-            Debug.Log($"Total score of {recipe.TargetFood.name} by {chef.name} is {chefScore}");
-            score += chefScore;
+            float score = ChefSO.BASE_RECIPE_SCORE + chef.ReviewRecipe(recipe);
+            playerScores[GameManager.Instance.CurrentRound - 1][playerID].chefScores[chef] = score;
+            Debug.Log($"Total score of {recipe.TargetFood.name} by {chef.name} is {score}");
         }
         var matchTime = GameManager.Instance.matchStartTime + SceneManager.TIMER_MAIN / 2;
         var startTime = Mathf.Max(Time.time - matchTime, 0);
-        score += Mathf.Lerp(30, 0, startTime / (SceneManager.TIMER_MAIN / 2));
+        playerScores[GameManager.Instance.CurrentRound - 1][playerID].timeScore = Mathf.Lerp(30, 0, startTime / (SceneManager.TIMER_MAIN / 2));
 
         Debug.Log($"score {Mathf.Lerp(30, 0, startTime / SceneManager.TIMER_MAIN)} Time {Time.time} Start{GameManager.Instance.matchStartTime} match {matchTime}");
-        Debug.Log($"Total score for Player {playerID} is {score}");
-        UpdatePlayerScores(playerID, score);
-    }
-
-    public void UpdatePlayerScores(int playerID, float score){
-        playerScores[playerID] += score;
+        Debug.Log($"Total score for Player {playerID} is {playerScores[GameManager.Instance.CurrentRound - 1][playerID].Total}");
     }
 
     //public int PlayerElimination(){
@@ -61,10 +58,13 @@ public class ScoreManager : Singleton<ScoreManager>
     //    return player.Key;
     //}
 
-    
-
-    public void Reset(){
-        playerScores.Clear();
-        //ElimPlayers.Clear();
+    [Serializable]
+    public class PlayerScore
+    {
+        public int playerIndex;
+        public Dictionary<ChefSO, float> chefScores = new Dictionary<ChefSO, float>();
+        public bool[] hasLovedIngredient;
+        public float timeScore;
+        public float Total => chefScores.Values.Sum() + timeScore;
     }
 }

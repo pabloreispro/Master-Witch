@@ -8,6 +8,9 @@ using Game.SO;
 using Network;
 using TMPro;
 using System;
+using Unity.Netcode;
+using UnityEngine.Experimental.AI;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace UI.Leaderboard
 {
@@ -17,25 +20,47 @@ namespace UI.Leaderboard
         public Dictionary<int, float> FinalScores = new Dictionary<int, float>();
 
         [SerializeField] TextMeshProUGUI roundLabel;
+        [Header("Header Components")]
         [SerializeField] GameObject[] divisions;
         [SerializeField] ScoreCategory[] scoreCategories;
+        [Header("Player Components")]
         [SerializeField] PlayerScoreItem[] playerScoreItems;
+        [Header("Confirmation Components")]
+        [SerializeField] Image[] notReadyIcons;
+        [SerializeField] Image[] readyIcons;
+        [Header("Assets")]
         [SerializeField] protected Sprite clockSprite;
         [SerializeField] protected Sprite equalsSprite;
         List<LeaderboardCategory> leaderboardCategories = new List<LeaderboardCategory>();
-        public void EnableRoundLeaderboard()
+        bool playerIsReady;
+        public void EnableRoundLeaderboard(bool finalRound)
         {
-            roundLabel.text = "Round " + NumberToRoman(GameManager.Instance.CurrentRound);
-            int categoriesAmount = GameManager.Instance.Chefs.Count + ADDITIONAL_CATEGORIES;
-            EnableCategories(categoriesAmount);
-            for (int i = 0; i < categoriesAmount; i++)
+            leaderboardCategories = new List<LeaderboardCategory>();
+            int categoriesAmount;
+            if (!finalRound)
             {
-                if (i < GameManager.Instance.Chefs.Count)
-                    leaderboardCategories.Add(new ChefLeaderboardCategory(scoreCategories[i], GameManager.Instance.Chefs[i]));
-                else if(i < categoriesAmount - 1)
-                    leaderboardCategories.Add(new TimeLeaderboardCategory(scoreCategories[i]));
-                else
-                    leaderboardCategories.Add(new TotalLeaderboardCategory(scoreCategories[i]));
+                roundLabel.text = "Round " + NumberToRoman(GameManager.Instance.CurrentRound);
+                categoriesAmount = GameManager.Instance.Chefs.Count + ADDITIONAL_CATEGORIES;
+                EnableCategories(categoriesAmount);
+                for (int i = 0; i < categoriesAmount; i++)
+                {
+                    if (i < GameManager.Instance.Chefs.Count)
+                        leaderboardCategories.Add(new ChefLeaderboardCategory(scoreCategories[i], GameManager.Instance.Chefs[i]));
+                    else if (i < categoriesAmount - 1)
+                        leaderboardCategories.Add(new TimeLeaderboardCategory(scoreCategories[i]));
+                    else
+                        leaderboardCategories.Add(new TotalLeaderboardCategory(scoreCategories[i], "Total", GameManager.Instance.CurrentRound - 1));
+                }
+            }
+            else
+            {
+                roundLabel.text = "Pontuação Final";
+                categoriesAmount = GameManager.Instance.TotalRounds;
+                EnableCategories(categoriesAmount);
+                for (int i = 0; i < categoriesAmount; i++)
+                {
+                    leaderboardCategories.Add(new TotalLeaderboardCategory(scoreCategories[i], $"Round {NumberToRoman(i + 1)}", i));
+                }
             }
             for (int i = 0; i < playerScoreItems.Length; i++)
             {
@@ -44,6 +69,11 @@ namespace UI.Leaderboard
                 {
                     playerScoreItems[i].Initialize(categoriesAmount, PlayerNetworkManager.Instance.PlayersData[i], leaderboardCategories);
                 }
+            }
+            for (int i = 0; i < readyIcons.Length; i++)
+            {
+                readyIcons[i].gameObject.SetActive(false);
+                notReadyIcons[i].transform.parent.gameObject.SetActive(i < PlayerNetworkManager.Instance.PlayersCount);
             }
         }
 
@@ -62,73 +92,43 @@ namespace UI.Leaderboard
             if (number >= 1) return "I" + NumberToRoman(number - 1);
             else return "";
         }
-
-        #region OLD
-        public void ReturnMarket()
-        {
-            GameManager.Instance.OnReturnMarket();
-            //NewCamController.Instance.IntroClient();
-            GameInterfaceManager.Instance.clock.SetActive(true);
-            GameInterfaceManager.Instance.recipeSteps.SetActive(true);
-            GameManager.Instance.InitializeGame(false);
-            StartCoroutine(TransitionController.Instance.TransitionMarketScene());
-        }
-
-
-        public List<KeyValuePair<int, float>> GetSortedPlayerScores()
-        {
-            //NetworkManagerUI.Instance.finalResult.SetActive(true);
-            foreach (var item in ScoreManager.Instance.playerScores)
-            {
-                FinalScores[item.Key] = item.Value;
-            }
-            //foreach (var item in EliminationPlayer.Instance.ElimPlayers)
-            //{
-            //    FinalScores[item.Key] = item.Value;
-            //}
-            var orderedPlayers = FinalScores.OrderByDescending(player => player.Value).ToList();
-            //GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.GetPlayer.Count;
-
-            return orderedPlayers;
-        }
-
         //CHAMADA A CADA CHECK DO TOGGLE DE FIM DE JOGO
-        public void CanNextRound()
+        public void SetReady()
         {
-            int activeToggle = 0;
-            //for (int i = 0; i < GameInterfaceManager.Instance.playerFinalCheck.Length; i++)
-            //{
-            //    if (GameInterfaceManager.Instance.playerFinalCheck[i].Toggle.isOn)
-            //    {
-            //        activeToggle++;
-            //    }
-            //}
-            //if(activeToggle == GameManager.Instance.numberPlayer){
-            //    if(GameManager.Instance.numberPlayer>2){
-            if (activeToggle >= PlayerNetworkManager.Instance.PlayersData.Length)
-            {
-                //if (!finalGame)
-                //{
-                //    //if (PlayerNetworkManager.Instance.PlayersData.Length > 2)
-                //    if (GameManager.Instance.CurrentRound < GameManager.Instance.TotalRounds)
-                //        ReturnMarket();
-                //    else
-                //        GameInterfaceManager.Instance.UpdadeScreenFinalClientRpc();
-                //}
-                //else
-                //{
-                //    GameManager.Instance.EndGame();
-                //}
-                //if (PlayerNetworkManager.Instance.PlayersData.Length > 2)
-                if (GameManager.Instance.CurrentRound < GameManager.Instance.TotalRounds)
-                    ReturnMarket();
-                else
-                    GameManager.Instance.EndGame();
-            }
-            //StartCoroutine(TimeCounter());
+            playerIsReady = !playerIsReady;
+            GameManager.Instance.ReadyPlayersServerRpc(PlayerNetworkManager.Instance.LocalNetworkID, playerIsReady);
         }
+        public void UpdateReadyPlayers(int playerId, bool value)
+        {
+            readyIcons[playerId].gameObject.SetActive(value);
+        }
+        public void ResetInfo()
+        {
+            playerIsReady = false;
+        }
+        #region OLD
+
+
+        //public List<KeyValuePair<int, float>> GetSortedPlayerScores()
+        //{
+        //    //NetworkManagerUI.Instance.finalResult.SetActive(true);
+        //    foreach (var item in ScoreManager.Instance.playerScores)
+        //    {
+        //        FinalScores[item.Key] = item.Value;
+        //    }
+        //    //foreach (var item in EliminationPlayer.Instance.ElimPlayers)
+        //    //{
+        //    //    FinalScores[item.Key] = item.Value;
+        //    //}
+        //    var orderedPlayers = FinalScores.OrderByDescending(player => player.Value).ToList();
+        //    //GameManager.Instance.numberPlayer = PlayerNetworkManager.Instance.GetPlayer.Count;
+
+        //    return orderedPlayers;
+        //}
+
         #endregion
 
+        #region Classes
         [Serializable]
         public class ScoreCategory
         {
@@ -137,16 +137,17 @@ namespace UI.Leaderboard
 
             public void SetActive(bool value)
             {
-                scoreCategoryText.gameObject.SetActive(value);
+                scoreCategoryText.transform.parent.gameObject.SetActive(value);
                 scoreCategoryImage.gameObject.SetActive(value);
             }
             public void SetActive(bool textValue, bool imageValue)
             {
-                scoreCategoryText.gameObject.SetActive(textValue);
+                scoreCategoryText.transform.parent.gameObject.SetActive(textValue);
                 scoreCategoryImage.gameObject.SetActive(imageValue);
             }
         }
 
+        [Serializable]
         internal abstract class LeaderboardCategory
         {
             protected TextMeshProUGUI categoryName;
@@ -173,8 +174,11 @@ namespace UI.Leaderboard
 
             public override float GetPlayerScore(int playerIndex)
             {
-                ScoreManager.Instance.playerScores[playerIndex] += UnityEngine.Random.Range(0, 100); 
-                return ScoreManager.Instance.playerScores[playerIndex];
+                var playerScore = ScoreManager.Instance.PlayerScores[GameManager.Instance.CurrentRound - 1][playerIndex];
+                if (playerScore.chefScores.ContainsKey(chef))
+                    return playerScore.chefScores[chef];
+                else
+                    return 0;
             }
         }
         class TimeLeaderboardCategory : LeaderboardCategory
@@ -187,21 +191,24 @@ namespace UI.Leaderboard
 
             public override float GetPlayerScore(int playerIndex)
             {
-                return 10;
+                return ScoreManager.Instance.PlayerScores[GameManager.Instance.CurrentRound - 1][playerIndex].timeScore;
             }
         }
         class TotalLeaderboardCategory : LeaderboardCategory
         {
-            public TotalLeaderboardCategory(ScoreCategory scoreCategory) : base(scoreCategory)
+            int targetRound;
+            public TotalLeaderboardCategory(ScoreCategory scoreCategory, string categoryName, int targetRound) : base(scoreCategory)
             {
-                categoryName.text = "Total";
+                this.categoryName.text = categoryName;
+                this.targetRound = targetRound;
                 categorySprite.sprite = Instance.equalsSprite;
             }
 
             public override float GetPlayerScore(int playerIndex)
             {
-                return ScoreManager.Instance.playerScores[playerIndex] + 10;
+                return ScoreManager.Instance.PlayerScores[targetRound][playerIndex].Total;
             }
         }
+        #endregion
     }
 }

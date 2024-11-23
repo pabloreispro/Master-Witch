@@ -345,7 +345,7 @@ namespace Network
         //Server-side
         public void OnClientsReady()
         {
-            PlayerNetworkManager.Instance.SetPlayerInfo();
+            //PlayerNetworkManager.Instance.SetPlayerInfo();
             CloseLobby();
             SceneLoader.Instance.ServerLoadLevel(SceneLoader.Scenes.Game);
         }

@@ -27,10 +27,6 @@ namespace Game.UI
             if (obj.performed)
                 gameMenuHUD.SetActive(!gameMenuHUD.activeSelf);
         }
-        public void OnGameStartedClient()
-        {
-            ScoreManager.Instance.AddScoresPlayers();
-        }
         public void DisconnectFromServer()
         {
             LobbyManager.Instance.DisconnectFromServer();
@@ -46,7 +42,6 @@ namespace Game.UI
         public void EnableRoundScoresClientRpc()
         {
             leaderboardPanel.SetActive(true);
-            finalRoundPanel.SetActive(GameManager.Instance.CurrentRound >= GameManager.Instance.TotalRounds);
             //var leaderboard = LeaderboardManager.Instance.GetSortedPlayerScores();
             //for (int i = 0; i < leaderboard.Count; i++)
             //{
@@ -57,7 +52,7 @@ namespace Game.UI
             //{
             //    UpdatePlayerScore(item.Key, item.Value);
             //}
-            LeaderboardManager.Instance.EnableRoundLeaderboard();
+            LeaderboardManager.Instance.EnableRoundLeaderboard(GameManager.Instance.CurrentRound >= GameManager.Instance.TotalRounds);
         }
 
         //Server-Side

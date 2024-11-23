@@ -16,7 +16,7 @@ namespace UI.Leaderboard
         {
             EnableCategories(amount);
             playerName.text = playerData.PlayerName;
-            for (int i = 0; i < scoreCategories.Length; i++)
+            for (int i = 0; i < categories.Count; i++)
             {
                 scoreCategories[i].scoreCategoryText.text = categories[i].GetPlayerScore(playerData.PlayerIndex).ToString("00.00");
             }

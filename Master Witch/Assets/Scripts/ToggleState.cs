@@ -30,7 +30,7 @@ public class ToggleState : SingletonNetwork<ToggleState>
 
     void OnToggleValueChanged(bool isOn)
     {        
-        GameManager.Instance.ReadyPlayersServerRpc(id, isOn);
+        //GameManager.Instance.ReadyPlayersServerRpc(id, isOn);
     }
 
 }

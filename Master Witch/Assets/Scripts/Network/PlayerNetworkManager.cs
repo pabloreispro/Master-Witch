@@ -18,11 +18,16 @@ namespace Network
         [SerializeField] Material player2Mat;
         [SerializeField] Material player3Mat;
         [SerializeField] Material player4Mat;
-        PlayerNetworkData[] playersData;
+        List<PlayerNetworkData> playersData = new List<PlayerNetworkData>();
         public Dictionary<ulong, Player> GetPlayer => playerList;
         public Dictionary<Player, ulong> GetID => idList;
-        public PlayerNetworkData[] PlayersData => playersData;
-        public int PlayersCount => playersData.Length;
+        public List<PlayerNetworkData> PlayersData => playersData;
+        public int PlayersCount => playersData.Count;
+        public Material Player1Mat => player1Mat;
+        public Material Player2Mat => player2Mat;
+        public Material Player3Mat => player3Mat;
+        public Material Player4Mat => player4Mat;
+        public ulong LocalNetworkID => NetworkManager.Singleton.LocalClientId;
         //Dictionary<ulong, bool> playersReady = new Dictionary<ulong, bool>();
         //private static HashSet<ulong> readyClients = new HashSet<ulong>();
         void Start()
@@ -52,26 +57,26 @@ namespace Network
 
         // USAR LISTA DE PLAYER DATA PARA INCLUIR DADOS QUANDO INICIAR PARTIDA NO LOBBY
 
-        public void SetPlayerInfo()
-        {
-            var players = LobbyManager.Instance.JoinedLobby.Players;
-            playersData = new PlayerNetworkData[players.Count];
-            for (int i = 0; i < players.Count; i++)
-            {
-                var playerName = players[i].Data["PlayerName"].Value;
-                var playerData = new PlayerNetworkData(i, playerName, PlayerNetworkData.PlayerNetworkStatus.LoadingScene);
-                playersData[i] = playerData;
-                Debug.Log(playerData);
-            }
-            SetPlayersDataClientRpc(playersData.ToArray());
-        }
+        //public void SetPlayerInfo()
+        //{
+        //    var players = LobbyManager.Instance.JoinedLobby.Players;
+        //    playersData = new PlayerNetworkData[players.Count];
+        //    for (int i = 0; i < players.Count; i++)
+        //    {
+        //        var playerName = players[i].Data["PlayerName"].Value;
+        //        var playerData = new PlayerNetworkData(i, playerName, PlayerNetworkData.PlayerNetworkStatus.Ready);
+        //        playersData[i] = playerData;
+        //        Debug.Log(playerData);
+        //    }
+        //    SetPlayersDataClientRpc(playersData.ToArray());
+        //}
         [ClientRpc]
         void SetPlayersDataClientRpc(PlayerNetworkData[] data)
         {
-            playersData = data;
+            playersData = new List<PlayerNetworkData>(data);
         }
         //When connected to Relay, match starting
-        void OnClientConnected(ulong playerID)
+        void OnClientConnected(ulong playerNetworkId)
         {
             if (!IsServer) return;
             //var player = NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>();
@@ -83,6 +88,13 @@ namespace Network
             //OnClientConnectedClientRpc(playerID, playerList.Keys.ToArray());
             //if (playerList.Count >= LobbyManager.Instance.JoinedLobby.Players.Count)
             //{
+            var player = LobbyManager.Instance.JoinedLobby.Players.Last();
+            var id = playersData.Count;
+            var playerName = player.Data["PlayerName"].Value;
+            var playerData = new PlayerNetworkData(id, playerName, playerNetworkId, PlayerNetworkData.PlayerNetworkStatus.Ready);
+            playersData.Add(playerData);
+            Debug.Log(playerData);
+            SetPlayersDataClientRpc(playersData.ToArray());
             if (NetworkManager.Singleton.ConnectedClientsList.Count >= LobbyManager.Instance.JoinedLobby.Players.Count)
             {
                 //readyClients.Add(playerID);
@@ -185,18 +197,18 @@ namespace Network
     {
         int playerIndex;
         string playerName;
-        ulong playerID;
+        ulong playerNetworkID;
         //int acessory01Id;
         //int acessory02Id;
         PlayerNetworkStatus status;
         public int PlayerIndex => playerIndex;
         public string PlayerName => playerName;
-        public ulong PlayerID => playerID;
+        public ulong PlayerNetworkID => playerNetworkID;
         public PlayerNetworkStatus Status => status;
-        public PlayerNetworkData(int playerIndex, string playerName, PlayerNetworkStatus status)
+        public PlayerNetworkData(int playerIndex, string playerName, ulong playerNetworkID, PlayerNetworkStatus status)
         {
             this.playerIndex = playerIndex;
-            playerID = 0;
+            this.playerNetworkID = 0;
             this.playerName = playerName;
             this.status = status;
         }
@@ -204,7 +216,7 @@ namespace Network
         {
             serializer.SerializeValue(ref playerIndex);
             serializer.SerializeValue(ref playerName);
-            serializer.SerializeValue(ref playerID);
+            serializer.SerializeValue(ref playerNetworkID);
             //serializer.SerializeValue(ref acessory01Id);
             //serializer.SerializeValue(ref acessory02Id);
             serializer.SerializeValue(ref status);
@@ -212,19 +224,21 @@ namespace Network
 
         public void SetNewStatus(PlayerNetworkStatus newStatus)
         {
-            //switch (newStatus)
-            //{
-            //    case PlayerNetworkStatus.Unknown:
-            //        break;
-            //    case PlayerNetworkStatus.Connected:
-            //        break;
-            //    case PlayerNetworkStatus.LoadingScene:
-            //        break;
-            //    case PlayerNetworkStatus.Disconnected:
-            //        break;
-            //    default:
-            //        break;
-            //}
+            switch (newStatus)
+            {
+                case PlayerNetworkStatus.Unknown:
+                    break;
+                case PlayerNetworkStatus.Ready:
+                    break;
+                case PlayerNetworkStatus.NotReady:
+                    break;
+                case PlayerNetworkStatus.Loading:
+                    break;
+                case PlayerNetworkStatus.Waiting:
+                    break;
+                default:
+                    break;
+            }
             status = newStatus;
         }
         public override string ToString()
@@ -232,15 +246,17 @@ namespace Network
             return $"Player Network Data:" +
                 $"\n Name: {playerName}" +
                 $"\n Index: {playerIndex}" +
+                $"\n Network ID: {playerNetworkID}" +
                 $"\n Status {status}";
         }
 
         public enum PlayerNetworkStatus
         { 
             Unknown,
-            Connected,
-            LoadingScene,
-            Disconnected,
+            Ready,
+            NotReady,
+            Loading,
+            Waiting,
         }
     }
 }

@@ -28,7 +28,6 @@ public class RecipeCondition
                     {
                         if (!ingredients.Contains(item))
                         {
-                            Debug.Log($"Doesn't have food Item ({item}) that is obrigatory");
                             return false;
                         }
                     }
@@ -39,7 +38,6 @@ public class RecipeCondition
                     {
                         if (foods.Contains(item))
                         {
-                            Debug.Log($"Have Food Item ({item}) that is not allowed ");
                             return false;
                         }
                     }
@@ -60,12 +58,10 @@ public class RecipeCondition
                 }
                 if (isAllowed)
                 {
-                    Debug.Log($"{category} Category is obrigatory. Have? {hasCategory}");
                     return hasCategory;
                 }
                 else
                 {
-                    Debug.Log($"{category} Category is not allowed. Have? {hasCategory}");
                     return !hasCategory;
                 }
         }
