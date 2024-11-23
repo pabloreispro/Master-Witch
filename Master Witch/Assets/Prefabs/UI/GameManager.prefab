@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2890680050
+  GlobalObjectIdHash: 1532575283
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -80,8 +80,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   recipeDatabase:
-  - {fileID: 11400000, guid: 2daf1f50797ca5b429dcf35fda6d45ef, type: 2}
-  - {fileID: 11400000, guid: a91e6e10915b0844ea93023b6c9bd9a1, type: 2}
+  - {fileID: 11400000, guid: 8f85a9c672b7d3543b76f5d454e4d54d, type: 2}
+  - {fileID: 11400000, guid: a90d629f6e92d6443bc2a8c5d22829a6, type: 2}
+  - {fileID: 11400000, guid: f4b9e23504d021f4bb038178e39812bd, type: 2}
+  - {fileID: 11400000, guid: 4a5ce2e777c6d1044b31ae9373bd36f3, type: 2}
+  - {fileID: 11400000, guid: fbeae789db9d5474fa7c8a01e208b549, type: 2}
+  - {fileID: 11400000, guid: fdbeeb460aca064489ba0cde56cb3904, type: 2}
   chefsDatabase:
   - {fileID: 11400000, guid: bcc609bf0ea885c4c84947552613d14c, type: 2}
   - {fileID: 11400000, guid: b0fcf4ec4e7d9764eaffafd809ddbd74, type: 2}
@@ -124,7 +128,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  spawnBasketMarket: []
+  spawnBasketMarket:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   benchStorage:
   - {fileID: 0}
   - {fileID: 0}
