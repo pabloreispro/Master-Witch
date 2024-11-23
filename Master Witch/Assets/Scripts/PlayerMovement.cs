@@ -12,6 +12,7 @@ using System.Linq;
 using System;
 using Unity.Multiplayer.Tools.NetStatsMonitor;
 using UI;
+using Game.Scene;
 
 
 public class PlayerMovement : Player

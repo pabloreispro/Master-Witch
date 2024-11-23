@@ -4,6 +4,7 @@ using System.Linq;
 using UI;
 using Unity.Netcode;
 using UnityEngine;
+using Game.Scene;
 
 namespace Network
 {

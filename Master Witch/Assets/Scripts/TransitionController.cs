@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Game.Scene;
 public static class AnimatorType
 {
     public const int SceneTransition = 0;

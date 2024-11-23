@@ -7,6 +7,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UI;
 using Game.SO;
+using Game.Scene;
 
 public class ScoreManager : Singleton<ScoreManager>
 {
