@@ -76,13 +76,7 @@ public class NewCamController : SingletonNetwork<NewCamController>
     }
 
     public IEnumerator IntroCoroutine()
-    {
-        if(IsServer)
-        {
-            GameManager.Instance.InitializeGame();
-        }
-        
-        
+    {        
         yield return transform.DOMoveY(7f, 2f);
          yield return transform.DOMoveZ(4f, 2f);
         yield return transform.DORotate(new Vector3(14,0,0), 1f);
