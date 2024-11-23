@@ -9,12 +9,13 @@ using Unity.VisualScripting;
 using UI;
 using TMPro;
 using Game.UI;
+using Game.Audio;
 
-namespace Game.Scene{
+namespace Game.SceneGame{
     public class SceneManager : SingletonNetwork<SceneManager>
     {
         public int TIMER_MARKET = 5000;
-        public const int TIMER_MAIN = 10;
+        public const int TIMER_MAIN = 10000;
 
         [SerializeField]
         private GameObject prefabMarket, prefabMain;
@@ -35,6 +36,8 @@ namespace Game.Scene{
         public Transform clockHand; 
         public float maxTime = 0;  
         private float currentTime;
+
+        public AudioClip marketClip, mainClip;
 
         
         [ServerRpc(RequireOwnership = false)]
@@ -138,7 +141,6 @@ namespace Game.Scene{
         {
             prefabMarket.SetActive(a);
             prefabMain.SetActive(b);
-            
         }
         
         
@@ -178,7 +180,5 @@ namespace Game.Scene{
         {
             clockHand.eulerAngles = new Vector3(0, 0, angle);
         }
-
-        
     }
 }

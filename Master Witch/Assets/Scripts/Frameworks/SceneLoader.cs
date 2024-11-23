@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnitySceneManager = UnityEngine.SceneManagement.SceneManager;
+using Game.Audio;
 public class SceneLoader : MonoBehaviourSingletonPersistent<SceneLoader>
 {
     //[SerializeField] Slider slider;
@@ -14,7 +15,8 @@ public class SceneLoader : MonoBehaviourSingletonPersistent<SceneLoader>
     /// <summary>
     /// Cleans after every load
     /// </summary>
-    Action sceneLoaded;
+    public Action sceneLoaded;
+
     protected override void Awake()
     {
         base.Awake();
@@ -38,6 +40,7 @@ public class SceneLoader : MonoBehaviourSingletonPersistent<SceneLoader>
     {
         if (isLoading) return;
         LoadAsync(sceneName, doAfterLoad);
+        
     }
     public void LoadAdditiveScene(Scenes scene) => LoadAdditiveScene(UnitySceneManager.GetSceneByBuildIndex((int)scene).name);
     public void LoadAdditiveScene(int sceneIndex) => LoadAdditiveScene(UnitySceneManager.GetSceneByBuildIndex(sceneIndex).name);

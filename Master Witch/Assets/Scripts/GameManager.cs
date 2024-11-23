@@ -10,7 +10,7 @@ using Unity.VisualScripting;
 using UnityEngine.UI;
 using JetBrains.Annotations;
 using Game.UI;
-using Game.Scene;
+using Game.SceneGame;
 
 public class GameManager : SingletonNetwork<GameManager>
 {

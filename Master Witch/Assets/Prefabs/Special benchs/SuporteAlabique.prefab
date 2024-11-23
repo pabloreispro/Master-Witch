@@ -772,9 +772,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2483060610700929920}
   - component: {fileID: 7758554494684538573}
-  - component: {fileID: 2158964044821422293}
   - component: {fileID: 4546971600044763761}
   - component: {fileID: 6664567966993539011}
+  - component: {fileID: 1036283470208598515}
+  - component: {fileID: 8335642779297212367}
   m_Layer: 0
   m_Name: SuporteAlabique
   m_TagString: Untagged
@@ -823,28 +824,6 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!64 &2158964044821422293
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9169196298365796352}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 6238710794622858295, guid: 9329f9f13fde8964dbfff521ec3ba5f2, type: 3}
 --- !u!114 &4546971600044763761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -903,6 +882,48 @@ MonoBehaviour:
   particleSystemBench: {fileID: 0}
   slider: {fileID: 8974347994242824739}
   _toolInBench: []
+--- !u!65 &1036283470208598515
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9169196298365796352}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.8662586, y: 2.9556866, z: 1.5991384}
+  m_Center: {x: 11.5171385, y: 1.3073676, z: 0.50925964}
+--- !u!65 &8335642779297212367
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9169196298365796352}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.8561058, y: 4.3428726, z: 1.8153358}
+  m_Center: {x: -20.648357, y: 2.1198714, z: -1.9568095}
 --- !u!1001 &1812515328082887507
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1089,8 +1110,40 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2118297583868892392, guid: cf3692a47865e6348a70f125066f32dc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3801352812024046551}
   m_SourcePrefab: {fileID: 100100000, guid: cf3692a47865e6348a70f125066f32dc, type: 3}
+--- !u!1 &307068839823546299 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2118297583868892392, guid: cf3692a47865e6348a70f125066f32dc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1812515328082887507}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &3801352812024046551
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307068839823546299}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6238710794622858295, guid: cf3692a47865e6348a70f125066f32dc, type: 3}
 --- !u!4 &2210669742390879416 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cf3692a47865e6348a70f125066f32dc,
