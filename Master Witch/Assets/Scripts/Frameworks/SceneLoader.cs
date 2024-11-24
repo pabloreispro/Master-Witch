@@ -99,5 +99,6 @@ public class SceneLoader : MonoBehaviourSingletonPersistent<SceneLoader>
     {
         Menu,
         Game,
+        Tutorial
     }
 }

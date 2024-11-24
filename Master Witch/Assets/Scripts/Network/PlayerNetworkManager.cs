@@ -103,7 +103,7 @@ namespace Network
         }
         public void OnSceneLoaded(string sceneName, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
         {
-            if (sceneName.Equals(SceneLoader.Scenes.Game.ToString()))
+            if (sceneName.Equals(SceneLoader.Scenes.Game.ToString()) || sceneName.Equals(SceneLoader.Scenes.Tutorial.ToString()))
             {
                 SpawnPlayers();
             }

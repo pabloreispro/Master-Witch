@@ -70,62 +70,90 @@ public class NewCamController : SingletonNetwork<NewCamController>
         transform.position = smoothedPosition;
     }
 
-    public void IntroClient()
+    public void IntroClient(bool tutorialIntro)
     {
-        StartCoroutine(IntroCoroutine());
+        if (tutorialIntro)
+            StartCoroutine(TutorialIntroCoroutine());
+        else
+            StartCoroutine(IntroCoroutine());
     }
 
     public IEnumerator IntroCoroutine()
-    {        
+    {
         yield return transform.DOMoveY(7f, 2f);
-         yield return transform.DOMoveZ(4f, 2f);
-        yield return transform.DORotate(new Vector3(14,0,0), 1f);
+        yield return transform.DOMoveZ(4f, 2f);
+        yield return transform.DORotate(new Vector3(14, 0, 0), 1f);
         yield return transform.DOMoveX(GameManager.Instance.chefsGO[0].transform.position.x, 2f).WaitForCompletion();
-        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1,0.3f); 
-        yield return new WaitForSeconds(0.3f);  
-        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0.5f,0.2f);
-        yield return new WaitForSeconds(0.2f);  
-        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1,0.2f);
-        yield return new WaitForSeconds(0.2f); 
-        yield return StartCoroutine(dialogueSystem.StartDialogue(GameManager.Instance.chefsGO[0].GetComponent<Dialogue>().dialogueText[Random.Range(0,GameManager.Instance.chefsGO[0].GetComponent<Dialogue>().dialogueText.Count)]));
-        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0,1);
-        yield return new WaitForSeconds(0.5f); 
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1, 0.3f);
+        yield return new WaitForSeconds(0.3f);
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0.5f, 0.2f);
+        yield return new WaitForSeconds(0.2f);
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1, 0.2f);
+        yield return new WaitForSeconds(0.2f);
+        yield return StartCoroutine(dialogueSystem.StartDialogue(GameManager.Instance.chefsGO[0].GetComponent<Dialogue>().dialogueText[Random.Range(0, GameManager.Instance.chefsGO[0].GetComponent<Dialogue>().dialogueText.Count)]));
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0, 1);
+        yield return new WaitForSeconds(0.5f);
 
         //yield return transform.DOMoveY(7f, 3f);
-        
+
         //yield return transform.DOLookAt(GameManager.Instance.chefsGO[1].transform.position, 2f);
         yield return transform.DOMoveX(GameManager.Instance.chefsGO[1].transform.position.x, 2f).WaitForCompletion();
-        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1,0.3f); 
-        yield return new WaitForSeconds(0.3f);  
-        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0.8f,0.2f);
-        yield return new WaitForSeconds(0.2f);  
-        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1,0.2f);
-        yield return new WaitForSeconds(0.2f);   
-        yield return StartCoroutine(dialogueSystem.StartDialogue(GameManager.Instance.chefsGO[1].GetComponent<Dialogue>().dialogueText[Random.Range(0,GameManager.Instance.chefsGO[1].GetComponent<Dialogue>().dialogueText.Count)]));
-        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0,1);
-        yield return new WaitForSeconds(0.5f); 
-        
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1, 0.3f);
+        yield return new WaitForSeconds(0.3f);
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0.8f, 0.2f);
+        yield return new WaitForSeconds(0.2f);
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1, 0.2f);
+        yield return new WaitForSeconds(0.2f);
+        yield return StartCoroutine(dialogueSystem.StartDialogue(GameManager.Instance.chefsGO[1].GetComponent<Dialogue>().dialogueText[Random.Range(0, GameManager.Instance.chefsGO[1].GetComponent<Dialogue>().dialogueText.Count)]));
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0, 1);
+        yield return new WaitForSeconds(0.5f);
+
         //yield return transform.DOMoveY(7f, 3f);
         //yield return transform.DOLookAt(GameManager.Instance.chefsGO[2].transform.position, 2f);
         yield return transform.DOMoveX(GameManager.Instance.chefsGO[2].transform.position.x, 2f).WaitForCompletion();
-        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1,0.3f); 
-        yield return new WaitForSeconds(0.3f);  
-        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0.8f,0.2f);
-        yield return new WaitForSeconds(0.2f);  
-        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1,0.2f);
-        yield return new WaitForSeconds(0.2f);   
-        yield return StartCoroutine(dialogueSystem.StartDialogue(GameManager.Instance.chefsGO[2].GetComponent<Dialogue>().dialogueText[Random.Range(0,GameManager.Instance.chefsGO[2].GetComponent<Dialogue>().dialogueText.Count)]));
-        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0,1);
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1, 0.3f);
+        yield return new WaitForSeconds(0.3f);
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0.8f, 0.2f);
+        yield return new WaitForSeconds(0.2f);
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1, 0.2f);
+        yield return new WaitForSeconds(0.2f);
+        yield return StartCoroutine(dialogueSystem.StartDialogue(GameManager.Instance.chefsGO[2].GetComponent<Dialogue>().dialogueText[Random.Range(0, GameManager.Instance.chefsGO[2].GetComponent<Dialogue>().dialogueText.Count)]));
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0, 1);
         yield return new WaitForSeconds(0.5f);
-        
+
         yield return transform.DOMove(initialPosition.position, 1f);
         yield return transform.DORotateQuaternion(initialRotation, 1f);
+        OnIntroFinish();
+    }
+    IEnumerator TutorialIntroCoroutine()
+    {
+        yield return transform.DOMoveY(7f, 2f);
+        yield return transform.DOMoveZ(4f, 2f);
+        yield return transform.DORotate(new Vector3(14, 0, 0), 1f);
+        yield return transform.DOMoveX(GameManager.Instance.chefsGO[0].transform.position.x, 2f).WaitForCompletion();
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1, 0.3f);
+        yield return new WaitForSeconds(0.3f);
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0.5f, 0.2f);
+        yield return new WaitForSeconds(0.2f);
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1, 0.2f);
+        yield return new WaitForSeconds(0.2f);
+        for (int i = 0; i < TutorialController.Instance.ChefMessages.Length; i++)
+        {
+            yield return StartCoroutine(dialogueSystem.StartDialogue(TutorialController.Instance.ChefMessages[i]));
+        }
+        yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0, 1);
+        yield return new WaitForSeconds(0.5f);
+
+        yield return transform.DOMove(initialPosition.position, 1f);
+        yield return transform.DORotateQuaternion(initialRotation, 1f);
+        OnIntroFinish();
+
+    }
+    void OnIntroFinish()
+    {
         finishIntro = true;
-
-        GameInterfaceManager.Instance.clock.active = true;
-        GameInterfaceManager.Instance.recipeSteps.active = true;
-        if(IsServer)StartCoroutine(TransitionController.Instance.TransitionMarketScene());
-
-        
+        GameInterfaceManager.Instance.clock.SetActive(true);
+        GameInterfaceManager.Instance.recipeSteps.SetActive(true);
+        if (IsServer) StartCoroutine(TransitionController.Instance.TransitionMarketScene());
     }
 }

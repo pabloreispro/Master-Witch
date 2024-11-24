@@ -18,6 +18,7 @@ public class GameManager : SingletonNetwork<GameManager>
     const int CHEFS_AMOUNT = 3;
     const int TOTAL_ROUNDS = 2;
     GameState gameState;
+    GameMode gameMode;
     [SerializeField] FoodDatabaseSO foodDatabase;
     [SerializeField] Bench[] benches;
     [SerializeField] MeshRenderer[] benchColorRenderer;
@@ -36,6 +37,7 @@ public class GameManager : SingletonNetwork<GameManager>
     NetworkVariable<int> currentRound = new NetworkVariable<int>();
     #region Properties
     public GameState GameState => gameState;
+    public GameMode GameMode => gameMode;
     public FoodDatabaseSO FoodDatabaseSO => foodDatabase;
     public RecipeSO TargetRecipe => targetRecipe;
     public List<ChefSO> Chefs => chefs;
@@ -78,7 +80,7 @@ public class GameManager : SingletonNetwork<GameManager>
     void OnGameStartedClientRpc(bool playIntro)
     {
         if(playIntro)
-            NewCamController.Instance.IntroClient();
+            NewCamController.Instance.IntroClient(GameMode == GameMode.Tutorial);
         ResetInfo();
     }
     void ResetInfo()
@@ -127,10 +129,10 @@ public class GameManager : SingletonNetwork<GameManager>
 
     public void InitializeGame(bool firstInit = true)
     {
-        int recipeIndex = Random.Range(0, recipeDatabase.Length); 
-        
-        InitializeGameClientRpc(recipeIndex);
-        if(firstInit)
+        gameMode = TutorialController.Instance != null ? GameMode.Tutorial : GameMode.Main;
+        int recipeIndex = Random.Range(0, recipeDatabase.Length);
+        InitializeGameClientRpc(recipeIndex, gameMode);
+        if (firstInit)
             InitializeChefs();
         SceneManager.Instance.ChangeScene(false, true);
         SceneManager.Instance.RepositionPlayersMarketSceneServerRpc();
@@ -138,8 +140,9 @@ public class GameManager : SingletonNetwork<GameManager>
     }
 
     [ClientRpc]
-    public void InitializeGameClientRpc(int recipeIndex)
+    public void InitializeGameClientRpc(int recipeIndex, GameMode gameMode)
     {
+        this.gameMode = gameMode;
         GetInitialRecipe(recipeIndex);
     }
 
@@ -168,8 +171,8 @@ public class GameManager : SingletonNetwork<GameManager>
     {
         List<int> selectedChefsIndexes = new List<int>();
 
-        
-        while (selectedChefsIndexes.Count < CHEFS_AMOUNT)
+        var amount = GameMode == GameMode.Main ? CHEFS_AMOUNT : 1;
+        while (selectedChefsIndexes.Count < amount)
         {
             int index = Random.Range(0, chefsDatabase.Length);
             if (!selectedChefsIndexes.Contains(index))
@@ -177,7 +180,6 @@ public class GameManager : SingletonNetwork<GameManager>
                 selectedChefsIndexes.Add(index);
             }
         }
-
         
         InitializeChefsClientRpc(selectedChefsIndexes.ToArray());
     }
@@ -428,4 +430,9 @@ public enum GameState
     Starting,
     Playing,
     Ending
+}
+public enum GameMode
+{
+    Main,
+    Tutorial
 }

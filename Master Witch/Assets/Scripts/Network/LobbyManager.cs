@@ -346,8 +346,12 @@ namespace Network
         public void OnClientsReady()
         {
             //PlayerNetworkManager.Instance.SetPlayerInfo();
+            bool isTutorial = joinedLobby.Data["GameMode"].Value == "Tutorial";
             CloseLobby();
-            SceneLoader.Instance.ServerLoadLevel(SceneLoader.Scenes.Game);
+            if (isTutorial)
+                SceneLoader.Instance.ServerLoadLevel(SceneLoader.Scenes.Tutorial);
+            else
+                SceneLoader.Instance.ServerLoadLevel(SceneLoader.Scenes.Game);
         }
 
 #pragma warning disable UNT0006 // Incorrect message signature

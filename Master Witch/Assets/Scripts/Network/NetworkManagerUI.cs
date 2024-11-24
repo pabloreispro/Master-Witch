@@ -218,5 +218,12 @@ namespace UI
         #endregion
         #endregion
 
+        #region Tutorial
+        public void StartTutorial()
+        {
+            LobbyManager.Instance.CreateLobby("TutorialLobby", false, "Tutorial");
+            StartGame();
+        }
+        #endregion
     }
 }
