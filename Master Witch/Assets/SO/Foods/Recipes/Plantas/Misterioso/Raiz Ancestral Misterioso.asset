@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodID: 48
   category: 
-  foodPrefab: {fileID: 2976587000970115668, guid: fc530ae57cfadd4469e320f1b4eb7fa4,
+  foodPrefab: {fileID: 2756338162880156025, guid: bae8ec8771d32144f9508ce90a5fd693,
     type: 3}
-  imageFood: {fileID: 21300000, guid: 0a72e7b5c3b619c4291aa5bf31c03ebd, type: 3}
-  timeProgress: 5
+  imageFood: {fileID: 21300000, guid: fee99be61937d8340930ab03a3e9ef95, type: 3}
+  timeProgress: 3
   modifiers:
     igneousValue: 1.92
     poisonousValue: -1.65
@@ -25,7 +25,7 @@ MonoBehaviour:
   finishRecipe: 0
   recipeConditions:
   - type: 0
-    benchType: 6
+    benchType: 4
     foods: []
     category: 0
     categoryPoints: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
   - type: 1
     benchType: 0
     foods:
-    - {fileID: 11400000, guid: 598c3399e7ccdbe479c9813145c43492, type: 2}
+    - {fileID: 11400000, guid: 7ec1735b58c22194abdba7b6f68be8ca, type: 2}
     category: 0
     categoryPoints: 0
     isAllowed: 1
