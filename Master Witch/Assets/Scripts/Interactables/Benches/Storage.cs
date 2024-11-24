@@ -8,6 +8,8 @@ using System;
 using Unity.Netcode;
 using Network;
 using Unity.VisualScripting;
+using static UnityEditor.Progress;
+using UnityEngine.Rendering;
 
 public class Storage : Bench
 {
@@ -47,13 +49,7 @@ public class Storage : Bench
             {
                 if(item.transform.childCount == 0)
                 {
-                    interact.GetComponent<FollowTransform>().targetTransform = null;
-                    interact.GetComponent<NetworkObject>().TrySetParent(item.transform);
-                    interact.gameObject.transform.rotation = new Quaternion(90,90,90,0);
-                    interact.gameObject.transform.position = item.transform.position;
-                    interact.gameObject.transform.localScale = new Vector3(0.5f,0.5f,0.5f);
-                    interact.gameObject.GetComponent<Rigidbody>().useGravity = false;
-                    interact.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                    AddItemToStorageTransform(item, interact.gameObject);
                     break;
                 }
             }
@@ -62,7 +58,6 @@ public class Storage : Bench
 
     public void SelectedIngredient(int indexSlots){
         if(player.IsOwner){
-            UpdateInventory();
             Time.timeScale = 1;
             ingredients.RemoveAt(indexSlots);
             SetPlayerItemServerRpc(indexSlots, PlayerNetworkManager.Instance.GetID[player]);
@@ -89,6 +84,30 @@ public class Storage : Bench
         //RemoveIngredient(ingredients[itemIndex].TargetFood);
     }
 
+    void AddItemToStorageTransform(int index, GameObject interact) => AddItemToStorageTransform(slotsStorage[index], interact);
+    void AddItemToStorageTransform(GameObject slot, GameObject item)
+    {
+        item.GetComponent<FollowTransform>().targetTransform = null;
+        item.GetComponent<NetworkObject>().TrySetParent(slot.transform);
+        item.transform.rotation = new Quaternion(90, 90, 90, 0);
+        item.transform.position = slot.transform.position;
+        item.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        var rb = item.GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        rb.isKinematic = true;
+    }
+    void OrganizeItemTransforms()
+    {
+        for (int i = slotsStorage.Length - 1; i >= 0; i--)
+        {
+            if (slotsStorage[i].transform.childCount > 0 && i > 0)
+            {
+                if (slotsStorage[i - 1].transform.childCount > 0)
+                    continue;
+                AddItemToStorageTransform(i - 1, slotsStorage[i].transform.GetChild(0).gameObject);
+            }
+        }
+    }
     public void Initialize()
     {
         if(panelInventory.activeSelf == false){
@@ -115,19 +134,26 @@ public class Storage : Bench
 
     void UpdateInventory()
     {
-        int maxIndex = Mathf.Min(slots.Length, ingredients.Count); 
+        //int maxIndex = Mathf.Min(slots.Length, ingredients.Count); 
 
-        for (int i = 0; i < maxIndex; i++)
+        for (int i = 0; i < slots.Length; i++)
         {
-            if (ingredients.ElementAt(i) != null)
+            if (i < ingredients.Count && ingredients.ElementAt(i) != null)
             {
                 slots[i].interactable = true;
                 slots[i].image.sprite = ingredients[i].TargetFood.imageFood;
             }
+            else
+            {
+                slots[i].interactable = false;
+                slots[i].image.sprite = null;
+            }
         }
-        if(maxIndex!=0){
+        if (ingredients.Count > 0)
+        {
             SelectButton(0);
         }
+        OrganizeItemTransforms();
         isActive = true;
     }
 
