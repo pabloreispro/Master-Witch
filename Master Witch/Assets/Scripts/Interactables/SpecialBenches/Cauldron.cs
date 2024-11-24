@@ -6,7 +6,9 @@ using Unity.Netcode;
 public class Cauldron : Bench
 {
     public List<ToolsSO> _toolInBench = new();
+    public GameObject cauldronParticule;
 
+    
     private void FixedUpdate() {
         _Special();
     }
@@ -14,6 +16,11 @@ public class Cauldron : Bench
     private void _Special(){
         if(_toolInBench.Count>0 && ingredients.Count > 0){
             ChangeVariableServerRpc(true);
+            EnabledParticlesClientRpc();
+        }
+        else
+        {
+            DisableParticlesClientRpc();
         }
     }
 
@@ -48,5 +55,16 @@ public class Cauldron : Bench
             }
             interact.DestroySelf();
         }
+    }
+
+    [ClientRpc]
+    public void EnabledParticlesClientRpc()
+    {
+        cauldronParticule.SetActive(true);
+    }
+    [ClientRpc]
+    public void DisableParticlesClientRpc()
+    {
+        cauldronParticule.SetActive(false);
     }
 }

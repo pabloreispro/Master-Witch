@@ -522,10 +522,10 @@ MonoBehaviour:
   endProgress: 0
   isPreparing:
     m_InternalValue: 0
-  visualEffect: []
   particleSystemBench: {fileID: 0}
   slider: {fileID: 7513909985368293687}
   _toolInBench: []
+  cauldronParticule: {fileID: 8584700405464137396}
 --- !u!114 &4021053468293090153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1011,6 +1011,12 @@ PrefabInstance:
 --- !u!4 &1211812791166389298 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2446128498167649203, guid: ec7d40c2897c55149b14309e56f20d1f,
+    type: 3}
+  m_PrefabInstance: {fileID: 3540776779440545665}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8584700405464137396 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5044495784554668341, guid: ec7d40c2897c55149b14309e56f20d1f,
     type: 3}
   m_PrefabInstance: {fileID: 3540776779440545665}
   m_PrefabAsset: {fileID: 0}

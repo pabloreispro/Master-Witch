@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.VFX;
 
 public class Mortar : Bench
 {
-    private void Start()
-    {
-        
-    }
+    public VisualEffect smoke;
 
     private void FixedUpdate()
     {
@@ -16,9 +14,11 @@ public class Mortar : Bench
             if(_player.buttonPressed){
                 Debug.Log("Mortar");
                 ChangeVariableServerRpc(true);
+                EnabledParticlesClientRpc();
             }else{
                 ChangeVariableServerRpc(false);
                 _player = null;
+                DisableParticlesClientRpc();
             }
         }
         
@@ -45,5 +45,18 @@ public class Mortar : Bench
         AddIngredient(interact);
         progress();
         interact.DestroySelf();
+    }
+
+    [ClientRpc]
+    public void EnabledParticlesClientRpc()
+    {
+        
+        smoke.SetBool("isPreparing",true);
+    }
+    [ClientRpc]
+    public void DisableParticlesClientRpc()
+    {
+        
+        smoke.SetBool("isPreparing",false);
     }
 }

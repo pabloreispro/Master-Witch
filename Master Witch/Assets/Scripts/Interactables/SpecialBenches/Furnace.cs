@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.VFX;
 
 public class Furnace : Bench
 {
     public List<ToolsSO> _toolInBench = new();
 
     private float _timerWood;
+    public GameObject fire;
+    public VisualEffect smoke;
 
     private void FixedUpdate() {
         _Special();
@@ -16,11 +19,16 @@ public class Furnace : Bench
     private void _Special(){
         if(_toolInBench.Count>0 && ingredients.Count > 0){
             ChangeVariableServerRpc(false);
+            EnabledParticlesClientRpc();
             _timerWood += Time.deltaTime;
             if(_timerWood >= 5){
                 _toolInBench.RemoveAt(_toolInBench.Count-1);
                 _timerWood = 0;
             }
+        }
+        else
+        {
+            DisableParticlesClientRpc();
         }
     }
     public override void Pick(Player player)
@@ -53,5 +61,18 @@ public class Furnace : Bench
             break;
         }
         interact.DestroySelf();
+    }
+
+    [ClientRpc]
+    public void EnabledParticlesClientRpc()
+    {
+        fire.SetActive(true);
+        smoke.SetBool("inUse",true);
+    }
+    [ClientRpc]
+    public void DisableParticlesClientRpc()
+    {
+        fire.SetActive(false);
+        smoke.SetBool("inUse",false);
     }
 }
