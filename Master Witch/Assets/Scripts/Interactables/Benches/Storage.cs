@@ -131,7 +131,6 @@ public class Storage : Bench
 
     void SelectButton(int index){
         slots[index].Select();
-
     }
 
     [ServerRpc (RequireOwnership = false)]
