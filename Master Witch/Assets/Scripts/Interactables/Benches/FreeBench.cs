@@ -17,7 +17,9 @@ public class FreeBench : Bench
     }
     public override void Drop(Player player)
     {
-        var interact = player.GetComponentInChildren<Interactable>();
-        PositionBench(interact);
+        if(this.GetComponentInChildren<Interactable>() == null){
+            var interact = player.GetComponentInChildren<Interactable>();
+            PositionBench(interact);
+        }
     }
 }

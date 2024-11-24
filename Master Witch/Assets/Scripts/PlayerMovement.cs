@@ -157,7 +157,7 @@ public class PlayerMovement : Player
             if(isHand.Value && isHandBasket.Value){ChangeState(PlayerState.IdleBasket);}
             if(isHand.Value && !isHandBasket.Value){ChangeState(PlayerState.IdleItem);}
             else ChangeState(PlayerState.Idle);
-             isMoving.Value=false;
+            isMoving.Value=false;
         }
 
         controller.Move(move* Time.deltaTime * speedPlayer);
