@@ -13685,6 +13685,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 395854663158782360, guid: 4f410631c4953df4286ca33b0001708b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 420408246208521241, guid: 4f410631c4953df4286ca33b0001708b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2311983057912074933, guid: 4f410631c4953df4286ca33b0001708b,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -13700,6 +13710,11 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 2030291984
       objectReference: {fileID: 0}
+    - target: {fileID: 3423076786061863480, guid: 4f410631c4953df4286ca33b0001708b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4443689693978481564, guid: 4f410631c4953df4286ca33b0001708b,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -13714,6 +13729,11 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2206465509
+      objectReference: {fileID: 0}
+    - target: {fileID: 6759878842218494932, guid: 4f410631c4953df4286ca33b0001708b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6781632717697619764, guid: 4f410631c4953df4286ca33b0001708b,
         type: 3}
@@ -13784,11 +13804,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MarketScene
-      objectReference: {fileID: 0}
-    - target: {fileID: 9110003991338779502, guid: 4f410631c4953df4286ca33b0001708b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
