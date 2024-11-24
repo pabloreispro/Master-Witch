@@ -7,7 +7,7 @@ public class Mortar : Bench
 {
     private void Start()
     {
-        isPreparing.OnValueChanged += (a,b) => visualEffect[0].SetBool("isPreparing", isPreparing.Value);
+        
     }
 
     private void FixedUpdate()

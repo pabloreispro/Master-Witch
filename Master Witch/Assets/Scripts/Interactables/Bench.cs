@@ -32,7 +32,6 @@ public class Bench : Interactable
     private float _timerProgress;
     private float _auxTimer;
     public NetworkVariable<bool> isPreparing = new NetworkVariable<bool>(false);
-    public VisualEffect[] visualEffect;
     public ParticleSystem particleSystemBench;
     
     [Header("UI")]
