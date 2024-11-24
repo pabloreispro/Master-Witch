@@ -12,6 +12,7 @@ public class BusenBurner : Bench
     public NetworkVariable<float> timeBusen = new();
     public Slider tempSlider;
     public Image backgroundSliderTemp;
+    public GameObject fire, smoke;
     private void Start()
     {
        
@@ -23,9 +24,11 @@ public class BusenBurner : Bench
             if(_player.buttonPressed){
                 Debug.Log("Busen");
                 _UpTimeBenchServerRpc();
+                EnabledParticlesClientRpc();
                 
             }else if(timeBusen.Value >= 0){
                 _DownTimeBenchServerRpc();
+                DisableParticlesClientRpc();
             }
             tempSlider.value = timeBusen.Value;
             switch(timeBusen.Value)
@@ -82,5 +85,18 @@ public class BusenBurner : Bench
         AddIngredient(interact);
         progress();
         interact.DestroySelf();
+    }
+
+    [ClientRpc]
+    public void EnabledParticlesClientRpc()
+    {
+        fire.SetActive(true);
+        smoke.SetActive(true);
+    }
+    [ClientRpc]
+    public void DisableParticlesClientRpc()
+    {
+        fire.SetActive(false);
+        smoke.SetActive(false);
     }
 }
