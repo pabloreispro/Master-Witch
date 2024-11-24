@@ -18,7 +18,7 @@ namespace Game.UI
         [SerializeField] GameObject finalRoundPanel;
         [Header("Game HUD")]
         [SerializeField] GameObject gameMenuHUD;
-        public GameObject recipeSteps, dialogueBox, clock, horizontalGroupPrefab, imagePrefab;
+        public GameObject recipeSteps, recipeStepsContent, dialogueBox, clock, horizontalGroupPrefab, imagePrefab;
         public Sprite plusSprite, equalsSprite, arrowSprite, benchOven, benchBoard, benchStove;
         public TextMeshProUGUI recipeName;
 

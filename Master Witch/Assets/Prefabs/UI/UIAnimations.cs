@@ -18,7 +18,7 @@ public class UIAnimations : MonoBehaviour
     public void Suspend(InputAction.CallbackContext context)
     {
         if (context.performed)
-        recipeStepsTransform.DOAnchorPosY(395, 3).OnComplete(()=> 
+        recipeStepsTransform.DOAnchorPosY(340, 1.5f).OnComplete(()=> 
         {
             b.SetActive(false); 
             a.SetActive(true);
@@ -28,7 +28,7 @@ public class UIAnimations : MonoBehaviour
     public void Display(InputAction.CallbackContext context)
     {
         if(context.performed)
-        recipeStepsTransform.DOAnchorPosY(-442.5f,3).OnComplete(()=>
+        recipeStepsTransform.DOAnchorPosY(-375f, 1.5f).OnComplete(()=>
         {
             b.SetActive(true); 
             a.SetActive(false);

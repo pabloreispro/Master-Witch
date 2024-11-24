@@ -8,7 +8,6 @@ using System;
 using Unity.Netcode;
 using Network;
 using Unity.VisualScripting;
-using static UnityEditor.Progress;
 using UnityEngine.Rendering;
 
 public class Storage : Bench

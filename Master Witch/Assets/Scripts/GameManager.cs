@@ -162,7 +162,8 @@ public class GameManager : SingletonNetwork<GameManager>
         
         foreach (var step in ExtractRecipeSteps(targetRecipe))
         {
-            step.transform.SetParent(GameInterfaceManager.Instance.recipeSteps.transform);
+            Debug.Log("Step before " + step.transform.localScale);
+            Debug.Log("Step aft " + step.transform.localScale);
             Debug.Log("Quantidade de processos e " + step);
         }
     }
@@ -233,7 +234,8 @@ public class GameManager : SingletonNetwork<GameManager>
                 }
             }
         }
-        var step = Instantiate(GameInterfaceManager.Instance.horizontalGroupPrefab);
+        var step = Instantiate(GameInterfaceManager.Instance.horizontalGroupPrefab, GameInterfaceManager.Instance.recipeStepsContent.transform);
+        Debug.Log("Instantiatie "+ step.name);
         recipeSteps.Add(step);
         if (ingredients != null && ingredients.foods != null)
         {
