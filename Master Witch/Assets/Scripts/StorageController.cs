@@ -79,10 +79,7 @@ public class StorageController : SingletonNetwork<StorageController>
     [ServerRpc(RequireOwnership = false)]
     void SetPlayerItemServerRpc(int itemIndex, ulong playerID)
     {
-        Debug.Log("Player id: "+ playerID);
-        Debug.Log("index id: "+ itemIndex);
         var playerScene = PlayerNetworkManager.Instance.GetPlayer[playerID];
-        Debug.Log("PlayerSCene: "+playerScene.id+" name: "+playerScene.name);
         var objectSpawn = Instantiate(storageItems[itemIndex].foodPrefab, new Vector3(playerScene.assetIngredient.transform.position.x, 1.0f, playerScene.assetIngredient.transform.position.z), Quaternion.identity);
         objectSpawn.GetComponent<NetworkObject>().Spawn();
         objectSpawn.GetComponent<NetworkObject>().TrySetParent(playerScene.transform); 
@@ -90,7 +87,6 @@ public class StorageController : SingletonNetwork<StorageController>
         playerScene.SetItemHandClientRpc(objectSpawn);
         playerScene.ChangeState(PlayerState.Interact);
         bench.RemoveIngredient(storageItems[itemIndex]);
-        
     }
     void UpdateInventory()
     {

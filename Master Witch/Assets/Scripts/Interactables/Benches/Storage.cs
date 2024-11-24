@@ -41,6 +41,7 @@ public class Storage : Bench
         var interact = player.GetComponentInChildren<Ingredient>();
         if(ingredients.Count <= 4){
             AddIngredient(interact);
+            UpdateInventory();
             //interact.DestroySelf();
             foreach (var item in slotsStorage)
             {
@@ -63,8 +64,8 @@ public class Storage : Bench
         if(player.IsOwner){
             UpdateInventory();
             Time.timeScale = 1;
-            SetPlayerItemServerRpc(indexSlots, PlayerNetworkManager.Instance.GetID[player]);
             ingredients.RemoveAt(indexSlots);
+            SetPlayerItemServerRpc(indexSlots, PlayerNetworkManager.Instance.GetID[player]);
             slotSelected = null;
             isActive = false;
             panelInventory.SetActive(false);
@@ -74,10 +75,7 @@ public class Storage : Bench
     [ServerRpc(RequireOwnership = false)]
     void SetPlayerItemServerRpc(int itemIndex, ulong playerID)
     {
-        Debug.Log("Player id: "+ playerID);
-        Debug.Log("index id: "+ itemIndex);
         var playerScene = PlayerNetworkManager.Instance.GetPlayer[playerID];
-        Debug.Log("PlayerSCene: "+playerScene.id+" name: "+playerScene.name);
         var objSelected = slotsStorage[itemIndex].transform.GetChild(0).GetComponent<NetworkObject>();
         objSelected.GetComponent<NetworkObject>().TrySetParent(playerScene.transform);
         objSelected.transform.localScale = new Vector3(1,1,1);
@@ -86,18 +84,19 @@ public class Storage : Bench
         objSelected.gameObject.GetComponent<Rigidbody>().isKinematic = true;
         playerScene.SetItemHandClientRpc(objSelected);
         playerScene.ChangeState(PlayerState.Interact);
+        //RemoveIngredient(itemIndex);
+        UpdateInventory();
         //RemoveIngredient(ingredients[itemIndex].TargetFood);
     }
 
     public void Initialize()
     {
         if(panelInventory.activeSelf == false){
-            //ingredients.Clear();
+            //ingredients.AddRange(ingredients);
             foreach (var item in slots)
             {
                 item.interactable = false;
             }
-            //ingredients.AddRange(ingredients);
             UpdateInventory();
             panelInventory.SetActive(true);
             PanelPosition();
@@ -110,9 +109,12 @@ public class Storage : Bench
         panelInventory.SetActive(false);
     }
 
+    void RemoveIngredient(int index){
+        
+    }
+
     void UpdateInventory()
     {
-        
         int maxIndex = Mathf.Min(slots.Length, ingredients.Count); 
 
         for (int i = 0; i < maxIndex; i++)

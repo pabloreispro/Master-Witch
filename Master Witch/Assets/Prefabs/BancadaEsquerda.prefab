@@ -658,10 +658,9 @@ MonoBehaviour:
   endProgress: 0
   isPreparing:
     m_InternalValue: 0
-  visualEffect:
-  - {fileID: 0}
   particleSystemBench: {fileID: 1674579767252212693}
   slider: {fileID: 4557504843938822863}
+  cutParticle: {fileID: 0}
 --- !u!1 &998995422757527828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1259,8 +1258,6 @@ MonoBehaviour:
   endProgress: 0
   isPreparing:
     m_InternalValue: 0
-  visualEffect:
-  - {fileID: 4219715403221975072}
   particleSystemBench: {fileID: 0}
   slider: {fileID: 6750638863068869825}
 --- !u!1 &1766015031155405866
@@ -1475,7 +1472,7 @@ MonoBehaviour:
   _player: {fileID: 0}
   targetRecipe: {fileID: 0}
   benchType: 0
-  _auxObject: {fileID: 0}
+  _auxObject: {fileID: 7977157758476103301}
   objectInBench: {fileID: 0}
   ingredients: []
   timerMultiply: 1
@@ -1484,15 +1481,14 @@ MonoBehaviour:
   endProgress: 0
   isPreparing:
     m_InternalValue: 0
-  visualEffect:
-  - {fileID: 0}
-  - {fileID: 0}
   particleSystemBench: {fileID: 0}
   slider: {fileID: 5760569699141208043}
   timeBusen:
     m_InternalValue: 0
   tempSlider: {fileID: 6499394788889855544}
   backgroundSliderTemp: {fileID: 979868161834250436}
+  fire: {fileID: 0}
+  smoke: {fileID: 0}
 --- !u!1 &2365362800733209322
 GameObject:
   m_ObjectHideFlags: 0
@@ -2736,7 +2732,6 @@ MonoBehaviour:
   endProgress: 0
   isPreparing:
     m_InternalValue: 0
-  visualEffect: []
   particleSystemBench: {fileID: 0}
   slider: {fileID: 1138877551069256494}
 --- !u!1 &4796140754802471378
@@ -2960,7 +2955,6 @@ MonoBehaviour:
   endProgress: 0
   isPreparing:
     m_InternalValue: 0
-  visualEffect: []
   particleSystemBench: {fileID: 0}
   slider: {fileID: 3202881334318531017}
 --- !u!1 &5020319042124050192
@@ -3284,7 +3278,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1825823954795548057, guid: f610088bfd3402e4992909375c89074b, type: 3}
+  m_Mesh: {fileID: 5070617068713024317, guid: f5af99aa600559240952d66b9ca97dae, type: 3}
 --- !u!1 &5534182003895046013
 GameObject:
   m_ObjectHideFlags: 0
@@ -3790,7 +3784,6 @@ MonoBehaviour:
   endProgress: 0
   isPreparing:
     m_InternalValue: 0
-  visualEffect: []
   particleSystemBench: {fileID: 0}
   slider: {fileID: 0}
 --- !u!1 &7526204843703312929
@@ -5563,12 +5556,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c795d46cf269814b817f9c7d6dc8f19, type: 3}
---- !u!2083052967 &4219715403221975072 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 4657194687237758170, guid: 3c795d46cf269814b817f9c7d6dc8f19,
-    type: 3}
-  m_PrefabInstance: {fileID: 8804217493895699706}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4439482503659768558 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5166447879394235924, guid: 3c795d46cf269814b817f9c7d6dc8f19,

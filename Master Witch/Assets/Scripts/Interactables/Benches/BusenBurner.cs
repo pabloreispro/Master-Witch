@@ -79,7 +79,6 @@ public class BusenBurner : Bench
     }
     public override void Drop(Player player)
     {
-        
         var interact = player.GetComponentInChildren<Ingredient>();
         endProgress = false;
         AddIngredient(interact);
