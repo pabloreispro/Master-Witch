@@ -12315,9 +12315,14 @@ MonoBehaviour:
   plusSprite: {fileID: 21300000, guid: c1e148bd21ec0a946809a39b77099a29, type: 3}
   equalsSprite: {fileID: 21300000, guid: bc40f1f72ae511b49bf745e9275223ad, type: 3}
   arrowSprite: {fileID: 21300000, guid: 1d494a21502fe27428e9231f30772bc9, type: 3}
-  benchOven: {fileID: 21300000, guid: a5b6992c5fd44224c9422e0db5a8e8e7, type: 3}
-  benchBoard: {fileID: 21300000, guid: 07979f5ff0e76ac4d89978f88b7f3884, type: 3}
-  benchStove: {fileID: 21300000, guid: 5ec2bc1125180b64eb80fd831a3b116f, type: 3}
+  benchBusen: {fileID: 21300000, guid: 65cb0ba0683ce2443b7c2603aab6f966, type: 3}
+  benchMortar: {fileID: 21300000, guid: 44fbc4b779be15847b1599a17fee033e, type: 3}
+  benchCutting: {fileID: 21300000, guid: e52ac3e193d34be479955d21ef9b9656, type: 3}
+  benchAlambic: {fileID: 21300000, guid: 750317d7a5642c84da8cad6cb86fe56b, type: 3}
+  benchCauldron: {fileID: 21300000, guid: 8fbd56222e160ef4eadb1c477f967b50, type: 3}
+  benchFurnace: {fileID: 21300000, guid: 42e147f31ea771b4784665ed6b082b01, type: 3}
+  benchMysterious: {fileID: 0}
+  benchRefrigeration: {fileID: 21300000, guid: ffddb1448043acb4d82a09ce4af4b8fa, type: 3}
   recipeName: {fileID: 1963543180}
 --- !u!1 &1207682364
 GameObject:
@@ -17594,6 +17599,11 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1444402593
+      objectReference: {fileID: 0}
+    - target: {fileID: 6063895702691793768, guid: 4f410631c4953df4286ca33b0001708b,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2035102318
       objectReference: {fileID: 0}
     - target: {fileID: 6544336739411050467, guid: 4f410631c4953df4286ca33b0001708b,
         type: 3}

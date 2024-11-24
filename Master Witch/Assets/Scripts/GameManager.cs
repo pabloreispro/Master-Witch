@@ -271,17 +271,42 @@ public class GameManager : SingletonNetwork<GameManager>
 
             if(bench.benchType == BenchType.Mortar)
             {
-                benchImage.sprite = GameInterfaceManager.Instance.benchOven; 
+                benchImage.sprite = GameInterfaceManager.Instance.benchMortar; 
                 benchImage.preserveAspect = true;
             }
             else if (bench.benchType == BenchType.BusenBurner)
             {
-                benchImage.sprite = GameInterfaceManager.Instance.benchStove;
+                benchImage.sprite = GameInterfaceManager.Instance.benchBusen;
                 benchImage.preserveAspect = true;
             }
-            else
+            else if (bench.benchType == BenchType.Cutting)
             {
-                benchImage.sprite = GameInterfaceManager.Instance.benchBoard;
+                benchImage.sprite = GameInterfaceManager.Instance.benchCutting;
+                benchImage.preserveAspect = true;
+            }
+            else if (bench.benchType == BenchType.Alembic)
+            {
+                benchImage.sprite = GameInterfaceManager.Instance.benchAlambic;
+                benchImage.preserveAspect = true;
+            }
+            else if (bench.benchType == BenchType.Cauldron)
+            {
+                benchImage.sprite = GameInterfaceManager.Instance.benchCauldron;
+                benchImage.preserveAspect = true;
+            }
+            else if (bench.benchType == BenchType.Furnace)
+            {
+                benchImage.sprite = GameInterfaceManager.Instance.benchFurnace;
+                benchImage.preserveAspect = true;
+            }
+            else if (bench.benchType == BenchType.MysteriousFountain)
+            {
+                benchImage.sprite = GameInterfaceManager.Instance.benchMysterious;
+                benchImage.preserveAspect = true;
+            }
+            else if (bench.benchType == BenchType.Refrigeration)
+            {
+                benchImage.sprite = GameInterfaceManager.Instance.benchRefrigeration;
                 benchImage.preserveAspect = true;
             }
             

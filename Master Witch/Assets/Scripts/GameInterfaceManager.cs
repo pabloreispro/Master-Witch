@@ -19,7 +19,7 @@ namespace Game.UI
         [Header("Game HUD")]
         [SerializeField] GameObject gameMenuHUD;
         public GameObject recipeSteps, recipeStepsContent, dialogueBox, clock, horizontalGroupPrefab, imagePrefab;
-        public Sprite plusSprite, equalsSprite, arrowSprite, benchOven, benchBoard, benchStove;
+        public Sprite plusSprite, equalsSprite, arrowSprite, benchBusen, benchMortar, benchCutting, benchAlambic, benchCauldron, benchFurnace, benchMysterious, benchRefrigeration;
         public TextMeshProUGUI recipeName;
 
         public void OpenGameMenu(UnityEngine.InputSystem.InputAction.CallbackContext obj)
