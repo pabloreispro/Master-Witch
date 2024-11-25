@@ -25,6 +25,7 @@ public class SceneLoader : MonoBehaviourSingletonPersistent<SceneLoader>
 
     private void UnitySceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
+        isLoading = false;
         sceneLoaded?.Invoke();
         sceneLoaded = null;
     }
