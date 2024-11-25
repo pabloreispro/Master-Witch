@@ -17628,7 +17628,7 @@ PrefabInstance:
     - target: {fileID: 9063652971663941084, guid: 4f410631c4953df4286ca33b0001708b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.8
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 9063652971663941084, guid: 4f410631c4953df4286ca33b0001708b,
         type: 3}
@@ -17679,6 +17679,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MarketScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 9110003991338779502, guid: 4f410631c4953df4286ca33b0001708b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20903,6 +20908,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5415765734376053541, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
         type: 3}
+      propertyPath: recipeDatabase.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: a90d629f6e92d6443bc2a8c5d22829a6,
+        type: 2}
+    - target: {fileID: 5415765734376053541, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
+      propertyPath: recipeDatabase.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f85a9c672b7d3543b76f5d454e4d54d,
+        type: 2}
+    - target: {fileID: 5415765734376053541, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
+      propertyPath: recipeDatabase.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: f4b9e23504d021f4bb038178e39812bd,
+        type: 2}
+    - target: {fileID: 5415765734376053541, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
+      propertyPath: recipeDatabase.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4a5ce2e777c6d1044b31ae9373bd36f3,
+        type: 2}
+    - target: {fileID: 5415765734376053541, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
       propertyPath: recipeDatabase.Array.data[4]
       value: 
       objectReference: {fileID: 11400000, guid: fdbeeb460aca064489ba0cde56cb3904,
@@ -21575,11 +21604,6 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1829013100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3030824726308635619, guid: 010d67ac3e0926d409e937d25bfe4b51,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -87.2
       objectReference: {fileID: 0}
     - target: {fileID: 3744921254793114226, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
