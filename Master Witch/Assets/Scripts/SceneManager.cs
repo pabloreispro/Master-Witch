@@ -14,8 +14,8 @@ using Game.Audio;
 namespace Game.SceneGame{
     public class SceneManager : SingletonNetwork<SceneManager>
     {
-        public int TIMER_MARKET = 5000;
-        public const int TIMER_MAIN = 10000;
+        public int TIMER_MARKET = 30;
+        public const int TIMER_MAIN = 180;
 
         [SerializeField]
         private GameObject prefabMarket, prefabMain;
