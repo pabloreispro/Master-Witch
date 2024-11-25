@@ -2600,6 +2600,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c58fbef724a4a159fefefc7767064e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!23 &274672382 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 499625519141945014, guid: 3542d4dc71fe54ce4a54adc6f75d5a8d,
+    type: 3}
+  m_PrefabInstance: {fileID: 274672380}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &276259830
 GameObject:
   m_ObjectHideFlags: 0
@@ -7251,6 +7257,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3542d4dc71fe54ce4a54adc6f75d5a8d, type: 3}
+--- !u!23 &707790091 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 499625519141945014, guid: 3542d4dc71fe54ce4a54adc6f75d5a8d,
+    type: 3}
+  m_PrefabInstance: {fileID: 707790090}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &710815933
 GameObject:
   m_ObjectHideFlags: 0
@@ -13918,6 +13930,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c58fbef724a4a159fefefc7767064e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!23 &1299283123 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 499625519141945014, guid: 3542d4dc71fe54ce4a54adc6f75d5a8d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1299283121}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1325018210
 GameObject:
   m_ObjectHideFlags: 0
@@ -14728,6 +14746,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c58fbef724a4a159fefefc7767064e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!23 &1350453196 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 499625519141945014, guid: 3542d4dc71fe54ce4a54adc6f75d5a8d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1350453194}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1350712124
 GameObject:
   m_ObjectHideFlags: 0
@@ -20938,6 +20962,11 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 5415765734376053541, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
         type: 3}
+      propertyPath: storageColorRenderer.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5415765734376053541, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
       propertyPath: benchColorRenderer.Array.data[0]
       value: 
       objectReference: {fileID: 4599330954522170822}
@@ -20956,6 +20985,26 @@ PrefabInstance:
       propertyPath: benchColorRenderer.Array.data[3]
       value: 
       objectReference: {fileID: 4599330954522170819}
+    - target: {fileID: 5415765734376053541, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
+      propertyPath: storageColorRenderer.Array.data[0]
+      value: 
+      objectReference: {fileID: 707790091}
+    - target: {fileID: 5415765734376053541, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
+      propertyPath: storageColorRenderer.Array.data[1]
+      value: 
+      objectReference: {fileID: 1299283123}
+    - target: {fileID: 5415765734376053541, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
+      propertyPath: storageColorRenderer.Array.data[2]
+      value: 
+      objectReference: {fileID: 274672382}
+    - target: {fileID: 5415765734376053541, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
+      propertyPath: storageColorRenderer.Array.data[3]
+      value: 
+      objectReference: {fileID: 1350453196}
     - target: {fileID: 5928533908577401159, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
         type: 3}
       propertyPath: GlobalObjectIdHash

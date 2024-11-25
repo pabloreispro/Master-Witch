@@ -22,6 +22,7 @@ public class GameManager : SingletonNetwork<GameManager>
     [SerializeField] FoodDatabaseSO foodDatabase;
     [SerializeField] Bench[] benches;
     [SerializeField] MeshRenderer[] benchColorRenderer;
+    [SerializeField] MeshRenderer[] storageColorRenderer;
     [SerializeField] RecipeSO[] recipeDatabase;
     [SerializeField] ChefSO[] chefsDatabase;
     [SerializeField] Transform[] chefsSpawn;
@@ -427,12 +428,18 @@ public class GameManager : SingletonNetwork<GameManager>
     }
     public void ChangeBenchColor(Material material, int playerIndex)
     {
-        Material[] list = 
+        Material[] benchList = 
         {
             material,
             benchColorRenderer[playerIndex].material
         };
-        benchColorRenderer[playerIndex].materials = list;
+        Material[] storageList = 
+        {
+            storageColorRenderer[playerIndex].material,
+            material,
+        };
+        benchColorRenderer[playerIndex].materials = benchList;
+        storageColorRenderer[playerIndex].materials = storageList;
     }
     public void Reset(){
         foreach(Interactable objectScene in FindObjectsOfType<Interactable>()){
