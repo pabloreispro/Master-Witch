@@ -429,8 +429,8 @@ public class GameManager : SingletonNetwork<GameManager>
     {
         Material[] list = 
         {
-            benchColorRenderer[playerIndex].material,
-            material
+            material,
+            benchColorRenderer[playerIndex].material
         };
         benchColorRenderer[playerIndex].materials = list;
     }

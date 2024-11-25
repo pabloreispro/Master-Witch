@@ -20936,6 +20936,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: fdbeeb460aca064489ba0cde56cb3904,
         type: 2}
+    - target: {fileID: 5415765734376053541, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
+      propertyPath: benchColorRenderer.Array.data[0]
+      value: 
+      objectReference: {fileID: 4599330954522170822}
+    - target: {fileID: 5415765734376053541, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
+      propertyPath: benchColorRenderer.Array.data[1]
+      value: 
+      objectReference: {fileID: 4599330954522170821}
+    - target: {fileID: 5415765734376053541, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
+      propertyPath: benchColorRenderer.Array.data[2]
+      value: 
+      objectReference: {fileID: 4599330954522170820}
+    - target: {fileID: 5415765734376053541, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
+        type: 3}
+      propertyPath: benchColorRenderer.Array.data[3]
+      value: 
+      objectReference: {fileID: 4599330954522170819}
     - target: {fileID: 5928533908577401159, guid: 6279ecd4098eedc40bb4bde7dfd5f73d,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -21545,6 +21565,21 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 1616031249
       objectReference: {fileID: 0}
+    - target: {fileID: 1028472376125676700, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275852990704523213, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1378252755009398974, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1392579847540116700, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -21585,6 +21620,11 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 718401302
       objectReference: {fileID: 0}
+    - target: {fileID: 2591490145204636917, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2675991619545213460, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -21614,6 +21654,11 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1073059545
+      objectReference: {fileID: 0}
+    - target: {fileID: 3886643815263698128, guid: 010d67ac3e0926d409e937d25bfe4b51,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4238519009770858075, guid: 010d67ac3e0926d409e937d25bfe4b51,
         type: 3}
@@ -21790,6 +21835,30 @@ Transform:
 --- !u!4 &4599330954522170818 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9033949569855509834, guid: 010d67ac3e0926d409e937d25bfe4b51,
+    type: 3}
+  m_PrefabInstance: {fileID: 4599330954522170815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4599330954522170819 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4213994011026079988, guid: 010d67ac3e0926d409e937d25bfe4b51,
+    type: 3}
+  m_PrefabInstance: {fileID: 4599330954522170815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4599330954522170820 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4572453974321461170, guid: 010d67ac3e0926d409e937d25bfe4b51,
+    type: 3}
+  m_PrefabInstance: {fileID: 4599330954522170815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4599330954522170821 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 23011734523887125, guid: 010d67ac3e0926d409e937d25bfe4b51,
+    type: 3}
+  m_PrefabInstance: {fileID: 4599330954522170815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4599330954522170822 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 771313974934222360, guid: 010d67ac3e0926d409e937d25bfe4b51,
     type: 3}
   m_PrefabInstance: {fileID: 4599330954522170815}
   m_PrefabAsset: {fileID: 0}
