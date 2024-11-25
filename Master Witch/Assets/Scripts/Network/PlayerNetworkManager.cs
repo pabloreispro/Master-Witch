@@ -191,6 +191,7 @@ namespace Network
         public void ResetPlayerList()
         {
             playerList.Clear();
+            playersData.Clear();
         }
     }
     public struct PlayerNetworkData : INetworkSerializable
