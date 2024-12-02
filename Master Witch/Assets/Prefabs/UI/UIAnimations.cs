@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class UIAnimations : MonoBehaviour
 {
-    
+    private bool isSuspended;
     public RectTransform recipeStepsTransform;
     public GameObject a,b;
     
@@ -17,23 +17,28 @@ public class UIAnimations : MonoBehaviour
 
     public void Suspend(InputAction.CallbackContext context)
     {
-        if (context.performed)
-        recipeStepsTransform.DOAnchorPosY(340, 1.5f).OnComplete(()=> 
+        if (context.performed )
         {
-            b.SetActive(false); 
-            a.SetActive(true);
-            StartButtonPulse(a.transform);
-        });
-    }
-    public void Display(InputAction.CallbackContext context)
-    {
-        if(context.performed)
-        recipeStepsTransform.DOAnchorPosY(-375f, 1.5f).OnComplete(()=>
-        {
-            b.SetActive(true); 
-            a.SetActive(false);
-            StartButtonPulse(b.transform);
-        });
+            if(!isSuspended)
+            {
+                recipeStepsTransform.DOAnchorPosY(340, 1.5f).OnComplete(()=> 
+                {
+                    isSuspended = true;
+                });
+                
+            }
+            else
+            {
+                recipeStepsTransform.DOAnchorPosY(-375f, 1.5f).OnComplete(()=>
+                {
+                    
+                    isSuspended = false;
+                });
+                
+            }
+            
+        }
+        
     }
     
     public void StartButtonPulse(Transform interactButton)
