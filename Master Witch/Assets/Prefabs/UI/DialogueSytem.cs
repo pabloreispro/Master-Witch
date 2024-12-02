@@ -4,7 +4,7 @@ using TMPro;
 
 public class DialogueSystem : SingletonNetwork<DialogueSystem>
 {
-    public TextMeshProUGUI dialogueText;
+    public TextMeshProUGUI dialogueText, chefName;
     public float typingSpeed = 0.03f;
     
     
@@ -18,7 +18,7 @@ public class DialogueSystem : SingletonNetwork<DialogueSystem>
             dialogueText.text += letter;
             yield return new WaitForSeconds(typingSpeed);
         }
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         dialogueText.text = "";
 
     }
