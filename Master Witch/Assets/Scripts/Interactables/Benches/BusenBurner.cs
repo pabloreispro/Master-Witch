@@ -61,8 +61,9 @@ public class BusenBurner : Bench
                     _player = null;
                     break;
             }
+            
         }
-        if(_player == null && timeBusen.Value>0){
+        else if(_player == null && timeBusen.Value>0){
             DisableSFXClientRpc();
             _DownTimeBenchServerRpc();
             DisableParticlesClientRpc();
