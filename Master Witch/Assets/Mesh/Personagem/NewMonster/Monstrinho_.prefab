@@ -238,7 +238,7 @@ Transform:
   m_GameObject: {fileID: 2911660302139796723}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.23744702, y: 1.228797, z: -0.23712164}
+  m_LocalPosition: {x: -0.12, y: -0.13, z: 0.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -255,17 +255,17 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 465698778071443927, guid: 6a5987f9226ef7d4a8718ea5e35af4ca,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: b389165db524c014d978b684eaa2a6ac, type: 3}
+  m_audioClip: {fileID: 8300000, guid: fe2bf9509cffdc3458da5f77b26f05cb, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.841
+  m_Volume: 0.375
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 152
+  Priority: 128
   DopplerLevel: 1
-  MinDistance: 2
+  MinDistance: 1
   MaxDistance: 5
   Pan2D: 0
   rolloffMode: 1
@@ -728,7 +728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 678175760
+  GlobalObjectIdHash: 2192514020
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
