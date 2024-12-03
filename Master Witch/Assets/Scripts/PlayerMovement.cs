@@ -13,6 +13,7 @@ using System;
 using Unity.Multiplayer.Tools.NetStatsMonitor;
 using UI;
 using Game.SceneGame;
+using Unity.Services.Lobbies.Models;
 
 
 public class PlayerMovement : Player
@@ -27,9 +28,11 @@ public class PlayerMovement : Player
     public int numberOfRays = 10;
     private Storage _benchStorage;
     public bool buttonPressed;
+    float explosionTime;
+    Vector3 explosionVelocity;
 
-    
-
+    public bool CanMove { get; set; } = true;
+    public float SpeedModifier { get; set; } = 1;
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
@@ -60,7 +63,15 @@ public class PlayerMovement : Player
             
             _RaycastPlayer();
 
-            if(SceneManager.Instance.isMovementAllowed.Value)
+            if (explosionTime > 0)
+            {
+                explosionTime -= Time.deltaTime;
+                controller.Move(explosionVelocity * Time.deltaTime);
+                explosionVelocity = Vector3.Lerp(explosionVelocity, Vector3.zero, Time.deltaTime * 5f); // Diminui gradualmente a força
+                return;
+            }
+
+            if (SceneManager.Instance.isMovementAllowed.Value && CanMove)
             {
                 _MovementPlayer();
             }
@@ -71,19 +82,22 @@ public class PlayerMovement : Player
             
         }
     }
-
+    public override void Reposition(Vector3 pos)
+    {
+        base.Reposition(pos);
+        SpeedModifier = 1;
+        CanMove = true;
+    }
     private void _VerifyStorage()
     {
         if (interact is Storage storage)
         {
-            
             if(interact as Storage && isHand.Value == false){
                 interact.GetComponent<Storage>().Initialize();
             }
             _benchStorage = storage;
             _benchStorage.ChangeState(Storage.StorageState.Open);
             _benchStorage.player = this;
-            
         }
         else
         {
@@ -167,9 +181,21 @@ public class PlayerMovement : Player
             WalkClientRpc();
         }
 
-        controller.Move(move* Time.deltaTime * speedPlayer);
+        controller.Move(move* Time.deltaTime * speedPlayer * SpeedModifier);
     }
+    public void AddExplosiveForce(float explosionForce, Vector3 explosionPosition, float explosionRadius, float upwardsModifier, float explosionDuration)
+    {
+        Vector3 direction = (transform.position - explosionPosition).normalized;
+        float distance = Vector3.Distance(transform.position, explosionPosition);
 
+        // Calcula a força com base na distância da explosão
+        float force = Mathf.Clamp(1 - (distance / explosionRadius), 0, 1) * explosionForce;
+
+        // Adiciona uma força para cima
+        explosionVelocity = direction * force + Vector3.up * upwardsModifier;
+
+        explosionTime = explosionDuration; // Reseta o tempo de explosão
+    }
     private void _Interact(InputAction.CallbackContext context){
         if(IsOwner){
             if(context.started){
@@ -217,11 +243,17 @@ public class PlayerMovement : Player
     [ClientRpc]
     public void DropItemHandClientRpc()
     {
-        this.GetComponentInChildren<Interactable>().GetComponent<Collider>().enabled = true;
-        var obj = this.GetComponentInChildren<Interactable>().GetComponent<NetworkObject>();
+        var interactable = GetComponentInChildren<Interactable>();
+
+        interactable.GetComponent<Collider>().enabled = true;
+        var obj = interactable.GetComponent<NetworkObject>();
         obj.GetComponent<FollowTransform>().targetTransform = null;
         obj.GetComponent<Rigidbody>().useGravity = true;
         obj.GetComponent<Rigidbody>().isKinematic = false;
+        if (interactable is Ingredient)
+        {
+            (interactable as Ingredient).DropServerRpc(NetworkObjectId);
+        }
         obj.TryRemoveParent();
     }
     

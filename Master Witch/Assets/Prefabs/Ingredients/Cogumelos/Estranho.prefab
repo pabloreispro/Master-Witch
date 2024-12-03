@@ -68,6 +68,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Estranho
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c6dd6a601d00e7e4baa147a746860c93,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -210,6 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   food: {fileID: 11400000, guid: 9a49ebbdc16317842aa6d3da636fab4c, type: 2}
   itemsUsed: []
+  startDelay: -1
 --- !u!114 &1118430311866457705
 MonoBehaviour:
   m_ObjectHideFlags: 0

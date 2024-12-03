@@ -9,6 +9,9 @@ using Network;
 using System;
 using UI;
 using UnityEngine.VFX;
+using Unity.VisualScripting;
+using static UnityEditor.PlayerSettings;
+using UnityEditor.PackageManager;
 
 
 public enum PlayerState
@@ -107,17 +110,17 @@ public class Player : NetworkBehaviour
         RepositionClientRpc(pos);
     }
     [ClientRpc]
-    public void RepositionClientRpc(Vector3 pos)
+    public void RepositionClientRpc(Vector3 pos) => Reposition(pos);
+
+    public virtual void Reposition(Vector3 pos)
     {
-        
         GetComponent<PlayerMovement>().controller.enabled = false;
         transform.position = pos;
         transform.rotation = Quaternion.identity;
-        transform.rotation = Quaternion.Euler(0f,180f,0f);
+        transform.rotation = Quaternion.Euler(0f, 180f, 0f);
         GetComponent<PlayerMovement>().controller.enabled = true;
         isHandBasket.Value = false;
     }
-
     public void ChangeState(PlayerState newState)
     {
         currentState = newState;

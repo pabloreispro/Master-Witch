@@ -63,6 +63,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlorDeLotus
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f5c2855b09705634cb4395f1105a81a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -200,11 +205,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8017062480212127067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4df7e31a96f26488f912fab076f0f4ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ffb7a2b4f02b7041aa9e4fb96b7f393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   food: {fileID: 11400000, guid: 7ec1735b58c22194abdba7b6f68be8ca, type: 2}
   itemsUsed: []
+  startDelay: -1
 --- !u!114 &2178793390091869709
 MonoBehaviour:
   m_ObjectHideFlags: 0

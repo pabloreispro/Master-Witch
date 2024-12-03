@@ -68,6 +68,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: "Explos\xE3o"
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 197862eb6727b094aa295d02479fddae,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -209,11 +214,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 9064047492471789051}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4df7e31a96f26488f912fab076f0f4ba, type: 3}
+  m_Script: {fileID: 11500000, guid: f9a3581149996b7408aaefab17d6e32a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   food: {fileID: 11400000, guid: 3c214fab5dbeaf448b3f3efd671c99a9, type: 2}
   itemsUsed: []
+  startDelay: 2
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 264
+  range: 5
+  force: 100
+  fogVfx: {fileID: 3506507015636650634, guid: f3861d058290d7e4187d506fcc214918, type: 3}
 --- !u!114 &8713309406237479431
 MonoBehaviour:
   m_ObjectHideFlags: 0

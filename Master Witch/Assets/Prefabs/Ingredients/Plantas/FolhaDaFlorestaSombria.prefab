@@ -63,6 +63,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FolhaDaFlorestaSombria
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ed1df52b8a0f2784784121013d630cea,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -95,6 +100,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2319373945102128852}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ed1df52b8a0f2784784121013d630cea,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -757277306860569295}
   m_SourcePrefab: {fileID: 100100000, guid: ed1df52b8a0f2784784121013d630cea, type: 3}
 --- !u!1 &8481738283761588854 stripped
 GameObject:
@@ -200,11 +209,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 8481738283761588854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4df7e31a96f26488f912fab076f0f4ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 310b7a1f7b1644d4d8446893f6e28cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   food: {fileID: 11400000, guid: ca7d2b2f34ee2b7489c3d89ec6067b0a, type: 2}
   itemsUsed: []
+  startDelay: 0.5
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  range: 5
+  duration: 10
+  fogVfx: {fileID: 3506507015636650634, guid: f3861d058290d7e4187d506fcc214918, type: 3}
+  aoeCollider: {fileID: -757277306860569295}
 --- !u!114 &3056251317110771333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,3 +257,24 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1749296460181329645, guid: ed1df52b8a0f2784784121013d630cea, type: 3}
+--- !u!135 &-757277306860569295
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8481738283761588854}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.1757697
+  m_Center: {x: -1.1564656, y: 0.02936545, z: 0.042444482}

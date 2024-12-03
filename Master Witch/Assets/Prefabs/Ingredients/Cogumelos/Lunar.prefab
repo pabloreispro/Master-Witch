@@ -68,6 +68,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lunar
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: acc78de383234d5428e53875defddaf0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -214,6 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   food: {fileID: 11400000, guid: fb7eeb9737ce5374cbf4872fbe48e40d, type: 2}
   itemsUsed: []
+  startDelay: -1
 --- !u!114 &8094076613628122451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,7 +272,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30

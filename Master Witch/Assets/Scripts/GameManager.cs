@@ -36,6 +36,9 @@ public class GameManager : SingletonNetwork<GameManager>
     List<GameObject> recipeSteps = new List<GameObject>();
     int readyPlayersAmount;
     NetworkVariable<int> currentRound = new NetworkVariable<int>();
+    [Header("DEBUG")]
+    public bool skipIntro;
+    public bool SkipIntro => skipIntro;
     #region Properties
     public GameState GameState => gameState;
     public GameMode GameMode => gameMode;

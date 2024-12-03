@@ -63,6 +63,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LirioDeSangue
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2994689b21a0fcd43aefe1b181cf1759,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -205,6 +210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   food: {fileID: 11400000, guid: 35718ad198a772145a1617871493e038, type: 2}
   itemsUsed: []
+  startDelay: -1
 --- !u!114 &8181507058680029554
 MonoBehaviour:
   m_ObjectHideFlags: 0

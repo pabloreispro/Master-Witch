@@ -63,6 +63,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TentaculoDeKraken
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5298576ebeace38438d3c2f6bf2eed26,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -200,11 +205,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 5878877525720200172}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4df7e31a96f26488f912fab076f0f4ba, type: 3}
+  m_Script: {fileID: 11500000, guid: fdc5ab5daa33397468bb79742f134d38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   food: {fileID: 11400000, guid: 18fbb6a6e6cc48444abeaa0511054be6, type: 2}
   itemsUsed: []
+  startDelay: 1
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  range: 5
+  duration: 5
+  rootVfx: {fileID: 3506507015636650634, guid: f3861d058290d7e4187d506fcc214918, type: 3}
 --- !u!114 &4266417489431621730
 MonoBehaviour:
   m_ObjectHideFlags: 0
