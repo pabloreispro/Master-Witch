@@ -7,15 +7,27 @@ using UnityEngine.VFX;
 public class Mortar : Bench
 {
     public VisualEffect smoke;
+    public AudioSource sfx;
+
+    [ClientRpc]
+    public void EnableSFXClientRpc(){
+        sfx.Play();
+    }
+
+    [ClientRpc]
+    public void DisableSFXClientRpc(){
+        sfx.Stop();
+    }
 
     private void FixedUpdate()
     {
         if(_player !=null && ingredients.Count > 0){
             if(_player.buttonPressed){
-                Debug.Log("Mortar");
+                EnableSFXClientRpc();
                 ChangeVariableServerRpc(true);
                 EnabledParticlesClientRpc();
             }else{
+                DisableSFXClientRpc();
                 ChangeVariableServerRpc(false);
                 _player = null;
                 DisableParticlesClientRpc();

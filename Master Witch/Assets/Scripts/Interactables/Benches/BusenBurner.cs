@@ -13,9 +13,16 @@ public class BusenBurner : Bench
     public Slider tempSlider;
     public Image backgroundSliderTemp;
     public GameObject fire, smoke;
-    private void Start()
-    {
-       
+    public AudioSource sfx;
+
+    [ClientRpc]
+    public void EnableSFXClientRpc(){
+        sfx.Play();
+    }
+
+    [ClientRpc]
+    public void DisableSFXClientRpc(){
+        sfx.Stop();
     }
 
     private void FixedUpdate()
@@ -26,9 +33,12 @@ public class BusenBurner : Bench
                 _UpTimeBenchServerRpc();
                 EnabledParticlesClientRpc();
                 
-            }else if(timeBusen.Value >= 0){
+            }else if(timeBusen.Value > 0){
+                EnableSFXClientRpc();
                 _DownTimeBenchServerRpc();
                 DisableParticlesClientRpc();
+            }else if(timeBusen.Value <= 0){
+                DisableSFXClientRpc();
             }
             tempSlider.value = timeBusen.Value;
             switch(timeBusen.Value)
@@ -51,6 +61,11 @@ public class BusenBurner : Bench
                     _player = null;
                     break;
             }
+        }
+        if(_player == null && timeBusen.Value>0){
+            DisableSFXClientRpc();
+            _DownTimeBenchServerRpc();
+            DisableParticlesClientRpc();
         }
     }
 

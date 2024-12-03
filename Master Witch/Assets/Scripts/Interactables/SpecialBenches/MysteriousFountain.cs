@@ -8,12 +8,24 @@ public class MysteriousFountain : Bench
 {
     public List<ToolsSO> _toolInBench = new();
     public FoodSO food;
+    public AudioSource sfx;
+
+    [ClientRpc]
+    public void EnableSFXClientRpc(){
+        sfx.Play();
+    }
+
+    [ClientRpc]
+    public void DisableSFXClientRpc(){
+        sfx.Stop();
+    }
     private void FixedUpdate() {
         _Special();
     }
 
     private void _Special(){
         if(_toolInBench.Count>0){
+            
             ChangeVariableServerRpc(true);
         }
     }
@@ -27,10 +39,12 @@ public class MysteriousFountain : Bench
             objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
             player.GetComponentInChildren<Ingredient>().itemsUsed.Add(recipeData);    
             player.SetItemHandClientRpc(objectSpawn);
-            _toolInBench.Clear();         
+                    
             Reset();*/
+            DisableSFXClientRpc();
             objectInBench.GetComponentInChildren<NetworkObject>().TrySetParent(player.transform);
             player.SetItemHandClientRpc(objectInBench);
+            _toolInBench.Clear(); 
             Reset();
         }
     }

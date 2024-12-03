@@ -12,6 +12,7 @@ public class RefrigerationChamber : Bench
 
     private void _Special(){
         if(_toolInBench.Count>0 && ingredients.Count > 0){
+            
             ChangeVariableServerRpc(true);
         }
     }
@@ -26,10 +27,10 @@ public class RefrigerationChamber : Bench
             objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
             player.GetComponentInChildren<Ingredient>().itemsUsed.Add(recipeData);  
             player.SetItemHandClientRpc(objectSpawn); 
-            _toolInBench.Clear();         
             Reset();*/
             objectInBench.GetComponentInChildren<NetworkObject>().TrySetParent(player.transform);
             player.SetItemHandClientRpc(objectInBench);
+            _toolInBench.Clear(); 
             Reset();
         }
     }

@@ -23,6 +23,17 @@ public class Storage : Bench
     public Player player;
 
     public GameObject[] slotsStorage;
+    public AudioSource sfx, sfx2;
+
+    [ClientRpc]
+    public void EnableSFXClientRpc(){
+        sfx.Play();
+    }
+
+    [ClientRpc]
+    public void DisableSFXClientRpc(){
+        sfx2.Play();
+    }
 
     void Start()
     {
@@ -86,6 +97,7 @@ public class Storage : Bench
     void AddItemToStorageTransform(int index, GameObject interact) => AddItemToStorageTransform(slotsStorage[index], interact);
     void AddItemToStorageTransform(GameObject slot, GameObject item)
     {
+        
         item.GetComponent<FollowTransform>().targetTransform = null;
         item.GetComponent<NetworkObject>().TrySetParent(slot.transform);
         item.transform.rotation = new Quaternion(90, 90, 90, 0);
@@ -110,6 +122,7 @@ public class Storage : Bench
     public void Initialize()
     {
         if(panelInventory.activeSelf == false){
+            EnableSFXClientRpc();
             //ingredients.AddRange(ingredients);
             foreach (var item in slots)
             {
@@ -125,6 +138,7 @@ public class Storage : Bench
 
     public void DisableStorage(){
         panelInventory.SetActive(false);
+        DisableSFXClientRpc();
     }
 
     void RemoveIngredient(int index){
@@ -197,10 +211,12 @@ public class Storage : Bench
         switch (currentState)
         {
             case StorageState.Open:
+                
                 animator.SetBool("Open", true);
                 animator.SetBool("Close", false);
             break;
             case StorageState.Close:
+                
                 animator.SetBool("Open", false);
                 animator.SetBool("Close", true);
             break;

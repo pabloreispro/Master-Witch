@@ -7,8 +7,18 @@ public class Cauldron : Bench
 {
     public List<ToolsSO> _toolInBench = new();
     public GameObject cauldronParticule;
+    public AudioSource sfx;
 
-    
+    [ClientRpc]
+    public void EnableSFXClientRpc(){
+        sfx.Play();
+    }
+
+    [ClientRpc]
+    public void DisableSFXClientRpc(){
+        sfx.Stop();
+    }
+
     private void FixedUpdate() {
         _Special();
     }
@@ -16,10 +26,10 @@ public class Cauldron : Bench
     private void _Special(){
         if(_toolInBench.Count>0 && ingredients.Count > 0){
             ChangeVariableServerRpc(true);
-            EnabledParticlesClientRpc();
         }
         else
         {
+            
             DisableParticlesClientRpc();
         }
     }
@@ -36,8 +46,10 @@ public class Cauldron : Bench
             player.SetItemHandClientRpc(objectSpawn); 
             _toolInBench.Clear();         
             Reset();*/
+            DisableSFXClientRpc();
             objectInBench.GetComponentInChildren<NetworkObject>().TrySetParent(player.transform);
             player.SetItemHandClientRpc(objectInBench);
+            _toolInBench.Clear(); 
             Reset();
         }
     }
@@ -52,7 +64,8 @@ public class Cauldron : Bench
                     AddIngredient(i);
                     progress();
                 break;
-                case Tool t when t.tool.benchType == benchType:         
+                case Tool t when t.tool.benchType == benchType:  
+                    EnableSFXClientRpc();       
                     _toolInBench.Add(t.tool);
                 break;
             }

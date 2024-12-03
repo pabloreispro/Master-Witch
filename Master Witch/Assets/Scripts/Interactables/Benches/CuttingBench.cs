@@ -5,9 +5,16 @@ using Unity.Netcode;
 public class CuttingBench : Bench
 {
     public ParticleSystem cutParticle;
-    private void Start()
-    {
-        
+    public AudioSource sfx;
+
+    [ClientRpc]
+    public void EnableSFXClientRpc(){
+        sfx.Play();
+    }
+
+    [ClientRpc]
+    public void DisableSFXClientRpc(){
+        sfx.Stop();
     }
 
     private void FixedUpdate()
@@ -18,12 +25,14 @@ public class CuttingBench : Bench
     private void _Gameplay(){
         if(_player !=null && ingredients.Count > 0){
             if(_player.buttonPressed){
+                EnableSFXClientRpc();
                 ChangeVariableServerRpc(true);
                 GetInfoIngredient();
                 Debug.Log("Cutting");
                 Invoke("_ClickedButton", 0.5f);
             }else{
                 ChangeVariableServerRpc(false);
+                
                 _player = null;
                 StopCutParticleClientRpc();
             }

@@ -11,6 +11,17 @@ public class Furnace : Bench
     private float _timerWood;
     public GameObject fire;
     public VisualEffect smoke;
+     public AudioSource sfx;
+
+    [ClientRpc]
+    public void EnableSFXClientRpc(){
+        sfx.Play();
+    }
+
+    [ClientRpc]
+    public void DisableSFXClientRpc(){
+        sfx.Stop();
+    }
 
     private void FixedUpdate() {
         _Special();
@@ -18,6 +29,7 @@ public class Furnace : Bench
 
     private void _Special(){
         if(_toolInBench.Count>0 && ingredients.Count > 0){
+            
             ChangeVariableServerRpc(false);
             EnabledParticlesClientRpc();
             _timerWood += Time.deltaTime;
@@ -28,6 +40,7 @@ public class Furnace : Bench
         }
         else
         {
+            
             DisableParticlesClientRpc();
         }
     }
@@ -43,8 +56,10 @@ public class Furnace : Bench
             player.SetItemHandClientRpc(objectSpawn); 
             _toolInBench.Clear();          
             Reset();*/
+            DisableSFXClientRpc();
             objectInBench.GetComponentInChildren<NetworkObject>().TrySetParent(player.transform);
             player.SetItemHandClientRpc(objectInBench);
+            _toolInBench.Clear(); 
             Reset();
         }
     }
@@ -61,6 +76,7 @@ public class Furnace : Bench
             break;
             case Tool t when t.tool.benchType == benchType:         
                 _toolInBench.Add(t.tool);
+                EnableSFXClientRpc();
             break;
         }
         interact.DestroySelf();

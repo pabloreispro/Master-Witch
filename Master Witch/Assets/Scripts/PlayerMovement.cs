@@ -28,6 +28,8 @@ public class PlayerMovement : Player
     private Storage _benchStorage;
     public bool buttonPressed;
 
+    
+
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
@@ -74,12 +76,14 @@ public class PlayerMovement : Player
     {
         if (interact is Storage storage)
         {
+            
             if(interact as Storage && isHand.Value == false){
                 interact.GetComponent<Storage>().Initialize();
             }
             _benchStorage = storage;
             _benchStorage.ChangeState(Storage.StorageState.Open);
             _benchStorage.player = this;
+            
         }
         else
         {
@@ -131,6 +135,7 @@ public class PlayerMovement : Player
     }
 
     private void _MovementPlayer(){
+        
         Vector2 inputVector = _playerInput.PlayerControl.Movement.ReadValue<Vector2>();
         
         Vector3 move = new Vector3(inputVector.x, 0, inputVector.y).normalized;
@@ -151,6 +156,7 @@ public class PlayerMovement : Player
             else if(isHand.Value && !isHandBasket.Value){ChangeState(PlayerState.WalkingItem);}
             else ChangeState(PlayerState.Walking);
             isMoving.Value=true;
+            
         }
         else 
         {
@@ -158,6 +164,7 @@ public class PlayerMovement : Player
             if(isHand.Value && !isHandBasket.Value){ChangeState(PlayerState.IdleItem);}
             else ChangeState(PlayerState.Idle);
             isMoving.Value=false;
+            WalkClientRpc();
         }
 
         controller.Move(move* Time.deltaTime * speedPlayer);
@@ -181,10 +188,12 @@ public class PlayerMovement : Player
         }
     }
     private void _PickDropObject(){
+        PickPutClientRpc();
         if(isHand.Value)
         {
             if(interact == null){
                 DropItemHandServerRpc();
+                
             }
             else
             {

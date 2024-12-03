@@ -54,6 +54,8 @@ public class Player : NetworkBehaviour
 
     public bool isPressingInterect;
     
+    public AudioSource walk, pick;
+    
     public override void OnNetworkSpawn()
     {
     }
@@ -142,31 +144,39 @@ public class Player : NetworkBehaviour
                 animator.SetBool("IsWalkingBasket", false);
                 animator.SetBool("IsWalkingItem", false);
                 animator.SetBool("PutInBasket",false);
+                
             break;
             case PlayerState.IdleBasket:
                 animator.SetBool("IsWalkingBasket", false);
                 animator.SetBool("PutInBasket",false);
                 animator.SetBool("IdleBasket", true);
                 
+                
             break;
             case PlayerState.IdleItem:
                 animator.SetBool("IsWalkingItem", false);
                 animator.SetBool("IdleItem", true);
+                
                 break;
             case PlayerState.Interact:
                 animator.SetTrigger("Interact");
+                
             break;
             case PlayerState.Walking:
                 animator.SetBool("IsWalking", true);
+                
             break;
             case PlayerState.WalkingItem:
                 animator.SetBool("IsWalkingItem", true);
+                
             break;
             case PlayerState.WalkingBasket:
                 animator.SetBool("IsWalkingBasket", true);
+                
             break;
             case PlayerState.PuttingBasket:
                 animator.SetBool("PutInBasket",true);
+                
             break;
             
         }
@@ -195,22 +205,23 @@ public class Player : NetworkBehaviour
     [ClientRpc]
     public void SetItemHandClientRpc(NetworkObjectReference item)
     {
-        if(item.TryGet(out NetworkObject obj) )
+        if(item.TryGet(out NetworkObject obj))
         {
             FollowTransform followTransform = obj.GetComponent<FollowTransform>();
             followTransform.targetTransform = boneItem;
         }
-
     }
 
-   
-        
-    
-    
-        
-    
+    [ClientRpc]
+    public void WalkClientRpc(){
 
-    
-
+        walk.Play();
+        
+    }
+        
+    [ClientRpc]
+    public void PickPutClientRpc(){
+        pick.Play();
+    }
     
 }

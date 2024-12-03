@@ -5,6 +5,18 @@ using Unity.Netcode;
 public class Alembic : Bench
 {
     public List<ToolsSO> _toolInBench = new();
+    
+    public AudioSource sfx;
+
+    [ClientRpc]
+    public void EnableSFXClientRpc(){
+        sfx.Play();
+    }
+
+    [ClientRpc]
+    public void DisableSFXClientRpc(){
+        sfx.Stop();
+    }
 
     private void FixedUpdate() {
         _Special();
@@ -27,8 +39,11 @@ public class Alembic : Bench
             player.SetItemHandClientRpc(objectSpawn); 
             _toolInBench.Clear();          
             Reset();*/
+            
+            DisableSFXClientRpc();
             objectInBench.GetComponentInChildren<NetworkObject>().TrySetParent(player.transform);
             player.SetItemHandClientRpc(objectInBench);
+            _toolInBench.Clear();
             Reset();
         }
     }
@@ -42,7 +57,8 @@ public class Alembic : Bench
                 AddIngredient(i);
                 progress();
             break;
-            case Tool t when t.tool.benchType == benchType:         
+            case Tool t when t.tool.benchType == benchType:
+                EnableSFXClientRpc();         
                 _toolInBench.Add(t.tool);
             break;
         }
