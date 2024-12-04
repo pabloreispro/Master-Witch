@@ -51,6 +51,7 @@ namespace Game.SceneGame{
         [ServerRpc(RequireOwnership = false)]
         public void RepositionStorageMarketSceneServerRpc(){
             for(int i =0; i< spawnBasketMarket.Count; i++){
+                Debug.Log($"Repo bench {i}");
                 var bench = benchStorage.ElementAt(i);
                 bench.RepositionServerRpc(spawnBasketMarket.ElementAt(i).position, spawnBasketMarket.ElementAt(i).rotation);
                 
@@ -126,7 +127,26 @@ namespace Game.SceneGame{
             GameManager.Instance.Reset();
         }
             
-
+        public void LoadMarket()
+        {
+            prefabMarket = GameObject.Find("MarketScene");
+            spawnBasketMarket = new List<Transform>
+            {
+                GameObject.Find("SpawnStorage1").transform,
+                GameObject.Find("SpawnStorage2").transform,
+                GameObject.Find("SpawnStorage3").transform,
+                GameObject.Find("SpawnStorage4").transform
+            };
+            spawnPlayersMarket = new List<Transform>
+            {
+                GameObject.Find("SpawnP1").transform,
+                GameObject.Find("SpawnP2").transform,
+                GameObject.Find("SpawnP3").transform,
+                GameObject.Find("SpawnP4").transform
+            };
+            prefabMarket.SetActive(false);
+            Debug.Log("Load");
+        }
         public void ChangeScene(bool a, bool b)
         {
             ChangeSceneClientRpc(sceneMarket.Value = a, sceneMain.Value = b);

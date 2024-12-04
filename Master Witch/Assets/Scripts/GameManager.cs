@@ -26,7 +26,9 @@ public class GameManager : SingletonNetwork<GameManager>
     [SerializeField] RecipeSO[] recipeDatabase;
     [SerializeField] ChefSO[] chefsDatabase;
     [SerializeField] Transform[] chefsSpawn;
-  
+    [Header("Async load")]
+    [SerializeField] MeshRenderer lakeMeshRenderer;
+    const string PATH = "Toxic";
     public Text RecipeText;
     
     RecipeSO targetRecipe;
@@ -51,9 +53,13 @@ public class GameManager : SingletonNetwork<GameManager>
 
     //public int numberPlayer;
 
-
+    private void Awake()
+    {
+    }
     void Start()
     {
+        StartCoroutine(LoadResource());
+        SceneLoader.Instance.LoadAdditiveScene("Market", () => SceneManager.Instance.LoadMarket());
         if (NetworkManager.IsServer)
         {
             readyPlayersAmount++;
@@ -61,14 +67,27 @@ public class GameManager : SingletonNetwork<GameManager>
         }
         else
             PlayerLoadedServerRpc();
-    }
 
+    }
+    IEnumerator LoadResource()
+    {
+        var load = Resources.LoadAsync<Material>(PATH);
+        Debug.Log("Loading Resource");
+        while (!load.isDone)
+        {
+        Debug.Log("Waiting");
+            yield return null;
+        }
+        Debug.Log("Loaded " + load.asset);
+        lakeMeshRenderer.material = load.asset as Material;
+    }
     public IEnumerator StartGame()
     {
-        while (readyPlayersAmount < PlayerNetworkManager.Instance.PlayersCount)
+        while (readyPlayersAmount < PlayerNetworkManager.Instance.PlayersCount || SceneLoader.Instance.IsLoading)
         {
             yield return null;
         }
+        PlayerNetworkManager.Instance.SpawnPlayers();
         readyPlayersAmount = 0;
         Debug.Log("Game Started");
         currentRound.Value = 1;

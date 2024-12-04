@@ -12,6 +12,7 @@ public class SceneLoader : MonoBehaviourSingletonPersistent<SceneLoader>
 {
     //[SerializeField] Slider slider;
     bool isLoading = false;
+    public bool IsLoading => isLoading;
     /// <summary>
     /// Cleans after every load
     /// </summary>
@@ -40,15 +41,12 @@ public class SceneLoader : MonoBehaviourSingletonPersistent<SceneLoader>
     public void LoadLevel(string sceneName, Action doAfterLoad = null)
     {
         if (isLoading) return;
-        LoadAsync(sceneName, doAfterLoad);
+        LoadAsync(sceneName, LoadSceneMode.Single, doAfterLoad);
         
     }
-    public void LoadAdditiveScene(Scenes scene) => LoadAdditiveScene(UnitySceneManager.GetSceneByBuildIndex((int)scene).name);
+    public void LoadAdditiveScene(Scenes scene, Action doAfterLoad = null) => LoadAdditiveScene(UnitySceneManager.GetSceneByBuildIndex((int)scene).name);
     public void LoadAdditiveScene(int sceneIndex) => LoadAdditiveScene(UnitySceneManager.GetSceneByBuildIndex(sceneIndex).name);
-    public void LoadAdditiveScene(string sceneName)
-    {
-        UnitySceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-    }
+    public void LoadAdditiveScene(string sceneName, Action doAfterLoad = null) => LoadAsync(sceneName, LoadSceneMode.Additive, doAfterLoad);
 
     public void UnloadAdditiveScenes()
     {
@@ -66,7 +64,7 @@ public class SceneLoader : MonoBehaviourSingletonPersistent<SceneLoader>
     {
         if (isLoading) return;
         isLoading = true;
-        LoadAsync(UnitySceneManager.GetActiveScene().name);
+        LoadAsync(UnitySceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
 
     public void CloseGame()
@@ -76,7 +74,7 @@ public class SceneLoader : MonoBehaviourSingletonPersistent<SceneLoader>
     }
 
     //Shows the async loading process via the referenced slide, then load the scene
-    void LoadAsync(string sceneName, Action doAfterLoad = null)
+    void LoadAsync(string sceneName, LoadSceneMode loadSceneMode, Action doAfterLoad = null)
     {
         isLoading = true;
         Time.timeScale = 1;
@@ -91,7 +89,7 @@ public class SceneLoader : MonoBehaviourSingletonPersistent<SceneLoader>
         //    Engine.Destroy();
         //    }, Transition.TransitionType.Strokes, false);
         UnloadAdditiveScenes();
-        UnitySceneManager.LoadSceneAsync(sceneName);
+        UnitySceneManager.LoadSceneAsync(sceneName, loadSceneMode);
         sceneLoaded += doAfterLoad;
     }
 
@@ -100,6 +98,7 @@ public class SceneLoader : MonoBehaviourSingletonPersistent<SceneLoader>
     {
         Menu,
         Game,
-        Tutorial
+        Tutorial,
+        Market
     }
 }

@@ -105,7 +105,7 @@ namespace Network
         {
             if (sceneName.Equals(SceneLoader.Scenes.Game.ToString()) || sceneName.Equals(SceneLoader.Scenes.Tutorial.ToString()))
             {
-                SpawnPlayers();
+                //SpawnPlayers();
             }
         }
         public void SpawnPlayers()
