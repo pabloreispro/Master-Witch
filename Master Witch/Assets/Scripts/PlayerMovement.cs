@@ -67,7 +67,7 @@ public class PlayerMovement : Player
             {
                 explosionTime -= Time.deltaTime;
                 controller.Move(explosionVelocity * Time.deltaTime);
-                explosionVelocity = Vector3.Lerp(explosionVelocity, Vector3.zero, Time.deltaTime * 5f); // Diminui gradualmente a força
+                explosionVelocity = Vector3.Lerp(explosionVelocity, Vector3.zero, Time.deltaTime * 5f); // Diminui gradualmente a forï¿½a
                 return;
             }
 
@@ -140,7 +140,14 @@ public class PlayerMovement : Player
             {
                 if (tempInteract != null)
                 {
-                    if(tempInteract.gameObject.GetComponent<HighlightObj>() != null) tempInteract.gameObject.GetComponent<HighlightObj>().RemoveHighlight();
+                    if(tempInteract.gameObject.GetComponent<HighlightObj>() != null) 
+                    {
+                        tempInteract.gameObject.GetComponent<HighlightObj>().RemoveHighlight();
+                    }
+                    if(tempInteract as Bench)
+                    {
+                        (tempInteract as Bench)._player = null;
+                    }
                 }
                 
                 interact = null;
@@ -188,13 +195,13 @@ public class PlayerMovement : Player
         Vector3 direction = (transform.position - explosionPosition).normalized;
         float distance = Vector3.Distance(transform.position, explosionPosition);
 
-        // Calcula a força com base na distância da explosão
+        // Calcula a forï¿½a com base na distï¿½ncia da explosï¿½o
         float force = Mathf.Clamp(1 - (distance / explosionRadius), 0, 1) * explosionForce;
 
-        // Adiciona uma força para cima
+        // Adiciona uma forï¿½a para cima
         explosionVelocity = direction * force + Vector3.up * upwardsModifier;
 
-        explosionTime = explosionDuration; // Reseta o tempo de explosão
+        explosionTime = explosionDuration; // Reseta o tempo de explosï¿½o
     }
     private void _Interact(InputAction.CallbackContext context){
         if(IsOwner){

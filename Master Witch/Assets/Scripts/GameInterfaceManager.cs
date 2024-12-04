@@ -21,6 +21,8 @@ namespace Game.UI
         public GameObject recipeSteps, recipeStepsContent, dialogueBox, clock, horizontalGroupPrefab, imagePrefab;
         public Sprite plusSprite, equalsSprite, arrowSprite, benchBusen, benchMortar, benchCutting, benchAlambic, benchCauldron, benchFurnace, benchMysterious, benchRefrigeration;
         public TextMeshProUGUI recipeName;
+        public GameObject spaceKey, eKey;
+        public Animator spaceAnim,eAnim;
 
         public void OpenGameMenu(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {

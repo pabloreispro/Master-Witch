@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Game.SO;
+using Game.UI;
 using Network;
 using Unity.Mathematics;
 using Unity.Netcode;
@@ -164,5 +165,6 @@ public class Bench : Interactable
     public void ChangeVariableServerRpc(bool v){
         isPreparing.Value = v;
     }
+    
     
 }

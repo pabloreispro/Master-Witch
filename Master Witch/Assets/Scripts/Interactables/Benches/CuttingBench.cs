@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using Game.UI;
 public class CuttingBench : Bench
 {
     public ParticleSystem cutParticle;
     public AudioSource sfx;
-
+    
     [ClientRpc]
     public void EnableSFXClientRpc(){
         sfx.Play();
@@ -23,20 +24,37 @@ public class CuttingBench : Bench
     }
 
     private void _Gameplay(){
-        if(_player !=null && ingredients.Count > 0){
-            if(_player.buttonPressed){
-                EnableSFXClientRpc();
-                ChangeVariableServerRpc(true);
-                GetInfoIngredient();
-                Debug.Log("Cutting");
-                Invoke("_ClickedButton", 0.5f);
-            }else{
-                ChangeVariableServerRpc(false);
-                
-                _player = null;
-                StopCutParticleClientRpc();
+        if(_player !=null)
+        {
+            
+            //GameInterfaceManager.Instance.eKey.SetActive(true);
+           
+            if(ingredients.Count > 0)
+            {
+                GameInterfaceManager.Instance.spaceKey.SetActive(true);
+                GameInterfaceManager.Instance.spaceAnim.SetBool("Click", true); 
+
+                if(_player.buttonPressed){
+                    EnableSFXClientRpc();
+                    ChangeVariableServerRpc(true);
+                    GetInfoIngredient();
+                    Debug.Log("Cutting");
+                    Invoke("_ClickedButton", 0.2f);
+                }else{
+                    ChangeVariableServerRpc(false);
+                    
+                    _player = null;
+                    StopCutParticleClientRpc();
+                }
+            }
+            else
+            {
+                GameInterfaceManager.Instance.spaceKey.SetActive(false);
+                GameInterfaceManager.Instance.spaceAnim.SetBool("Click", false);
             }
         }
+        
+        
     }
 
     private void _ClickedButton(){
