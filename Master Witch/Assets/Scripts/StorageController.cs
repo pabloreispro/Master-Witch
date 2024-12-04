@@ -50,14 +50,14 @@ public class StorageController : SingletonNetwork<StorageController>
         //Active = true;
     }
 
-    /*public void OnSlotSelected(int slotIndex)
+    public void OnSlotSelected(int slotIndex)
     {
         if(storageItems.ElementAt(slotIndex) != null) 
         {
             slotSelected = storageItems.ElementAt(slotIndex);
             indexSlots = slotIndex;
         }
-    }*/
+    }
 
     // Update is called once per frame
     void Update()

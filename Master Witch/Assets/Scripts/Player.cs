@@ -10,8 +10,7 @@ using System;
 using UI;
 using UnityEngine.VFX;
 using Unity.VisualScripting;
-using static UnityEditor.PlayerSettings;
-using UnityEditor.PackageManager;
+
 
 
 public enum PlayerState

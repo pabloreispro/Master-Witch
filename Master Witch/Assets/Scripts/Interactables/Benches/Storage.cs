@@ -9,6 +9,7 @@ using Unity.Netcode;
 using Network;
 using Unity.VisualScripting;
 using UnityEngine.Rendering;
+using UnityEngine.EventSystems;
 
 public class Storage : Bench
 {
@@ -24,6 +25,7 @@ public class Storage : Bench
 
     public GameObject[] slotsStorage;
     public AudioSource sfx, sfx2;
+    
 
     [ClientRpc]
     public void EnableSFXClientRpc(){
@@ -131,6 +133,10 @@ public class Storage : Bench
             UpdateInventory();
             panelInventory.SetActive(true);
             PanelPosition();
+            /*if (EventSystem.current != null)
+            {
+                EventSystem.current.SetSelectedGameObject(slotsStorage[0]);
+            }*/
         }
         //OnSlotSelected(0);
         //Active = true;
