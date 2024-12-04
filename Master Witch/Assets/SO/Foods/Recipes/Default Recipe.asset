@@ -14,10 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodID: 999
   category: 
-  foodPrefab: {fileID: 7215296140735246990, guid: fe2ad2d42c28846a8863677bd440c7f5,
+  foodPrefab: {fileID: 6651728689303584051, guid: d9198302cd83f9341909722f2aed4e14,
     type: 3}
   imageFood: {fileID: 0}
-  timeProgress: 40
+  timeProgress: 20
+  modifiers:
+    igneousValue: 0
+    poisonousValue: 0
+    curativeValue: 0
   finishRecipe: 0
   recipeConditions: []
   reviewConditions: []

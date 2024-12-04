@@ -73,19 +73,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: TuboCaldeirao
       objectReference: {fileID: 0}
+    - target: {fileID: 875257100093615978, guid: 0465e53fb14391743ab792e103a20b13,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 875257100093615978, guid: 0465e53fb14391743ab792e103a20b13,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 875257100093615978, guid: 0465e53fb14391743ab792e103a20b13,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0465e53fb14391743ab792e103a20b13,
         type: 3}
       propertyPath: m_Name
       value: Folha Sombria da Floresta Cozida
       objectReference: {fileID: 0}
+    - target: {fileID: 8560359241518221187, guid: 0465e53fb14391743ab792e103a20b13,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560359241518221187, guid: 0465e53fb14391743ab792e103a20b13,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560359241518221187, guid: 0465e53fb14391743ab792e103a20b13,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0465e53fb14391743ab792e103a20b13,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7964242775171960912}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0465e53fb14391743ab792e103a20b13,
         type: 3}
       insertIndex: -1
@@ -110,6 +136,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1488641769925490379}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0465e53fb14391743ab792e103a20b13,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3824541198970005828}
   m_SourcePrefab: {fileID: 100100000, guid: 0465e53fb14391743ab792e103a20b13, type: 3}
 --- !u!1 &2756338162880156025 stripped
 GameObject:
@@ -117,27 +147,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3062750273158917160}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &7964242775171960912
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2756338162880156025}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.8321419, y: 1.0166206, z: 0.88547516}
-  m_Center: {x: 2.7914639, y: 2.35184, z: 1.7022791}
 --- !u!114 &6560085269917811840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 638185310
+  GlobalObjectIdHash: 56308735
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -172,6 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   food: {fileID: 11400000, guid: 007a678354194c74a9d9c424fd133485, type: 2}
   itemsUsed: []
+  startDelay: -1
 --- !u!114 &5334186017475794287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,3 +264,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
+--- !u!64 &3824541198970005828
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2756338162880156025}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6700347755140181982, guid: f9062c0743eb7ce459b345483830eff6, type: 3}

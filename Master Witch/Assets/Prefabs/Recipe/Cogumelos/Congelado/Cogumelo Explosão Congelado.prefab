@@ -99,7 +99,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 197862eb6727b094aa295d02479fddae,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6533335839755339548}
+      addedObject: {fileID: 6532791805818876566}
   m_SourcePrefab: {fileID: 100100000, guid: 197862eb6727b094aa295d02479fddae, type: 3}
 --- !u!1 &9064047492471789051 stripped
 GameObject:
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3148469971
+  GlobalObjectIdHash: 4047683897
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -210,6 +210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   food: {fileID: 11400000, guid: 10e97dfc10ae39243884c89bc93ce734, type: 2}
   itemsUsed: []
+  startDelay: -1
 --- !u!114 &8713309406237479431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,8 +224,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
---- !u!65 &6533335839755339548
-BoxCollider:
+--- !u!64 &6532791805818876566
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -241,6 +242,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.9551078, y: 1.3003814, z: 1.946693}
-  m_Center: {x: 0.96271414, y: 0.07485399, z: -0.13549232}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6517312207846335232, guid: 197862eb6727b094aa295d02479fddae, type: 3}

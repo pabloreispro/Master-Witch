@@ -125,7 +125,6 @@ public class Storage : Bench
     {
         if(panelInventory.activeSelf == false){
             EnableSFXClientRpc();
-            //ingredients.AddRange(ingredients);
             foreach (var item in slots)
             {
                 item.interactable = false;
@@ -133,22 +132,12 @@ public class Storage : Bench
             UpdateInventory();
             panelInventory.SetActive(true);
             PanelPosition();
-            /*if (EventSystem.current != null)
-            {
-                EventSystem.current.SetSelectedGameObject(slotsStorage[0]);
-            }*/
         }
-        //OnSlotSelected(0);
-        //Active = true;
     }
 
     public void DisableStorage(){
         panelInventory.SetActive(false);
         DisableSFXClientRpc();
-    }
-
-    void RemoveIngredient(int index){
-        
     }
 
     void UpdateInventory()
@@ -193,7 +182,6 @@ public class Storage : Bench
         //transform.rotation = Quaternion.Euler(0f,180f,0f);
     }
 
-
     public enum StorageState
     {
         Open,
@@ -217,12 +205,10 @@ public class Storage : Bench
         switch (currentState)
         {
             case StorageState.Open:
-                
                 animator.SetBool("Open", true);
                 animator.SetBool("Close", false);
             break;
             case StorageState.Close:
-                
                 animator.SetBool("Open", false);
                 animator.SetBool("Close", true);
             break;
