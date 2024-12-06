@@ -8,6 +8,16 @@ public class Alembic : Bench
     
     public AudioSource sfx;
 
+    [ServerRpc(RequireOwnership = false)]
+    public void EnableSFXServerRpc(){
+        EnableSFXClientRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void DisableSFXServerRpc(){
+        DisableSFXClientRpc();
+    }
+
     [ClientRpc]
     public void EnableSFXClientRpc(){
         sfx.Play();
@@ -40,7 +50,7 @@ public class Alembic : Bench
             _toolInBench.Clear();          
             Reset();*/
             
-            DisableSFXClientRpc();
+            DisableSFXServerRpc();
             objectInBench.GetComponentInChildren<NetworkObject>().TrySetParent(player.transform);
             player.SetItemHandClientRpc(objectInBench);
             _toolInBench.Clear();
@@ -58,7 +68,7 @@ public class Alembic : Bench
                 progress();
             break;
             case Tool t when t.tool.benchType == benchType:
-                EnableSFXClientRpc();         
+                EnableSFXServerRpc();         
                 _toolInBench.Add(t.tool);
             break;
         }

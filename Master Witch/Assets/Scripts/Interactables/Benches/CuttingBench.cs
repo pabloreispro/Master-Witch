@@ -8,6 +8,16 @@ public class CuttingBench : Bench
     public ParticleSystem cutParticle;
     public AudioSource sfx;
     
+    [ServerRpc(RequireOwnership = false)]
+    public void EnableSFXServerRpc(){
+        EnableSFXClientRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void DisableSFXServerRpc(){
+        DisableSFXClientRpc();
+    }
+
     [ClientRpc]
     public void EnableSFXClientRpc(){
         sfx.Play();
@@ -35,7 +45,7 @@ public class CuttingBench : Bench
                 GameInterfaceManager.Instance.spaceAnim.SetBool("Click", true); 
 
                 if(_player.buttonPressed){
-                    EnableSFXClientRpc();
+                    EnableSFXServerRpc();
                     ChangeVariableServerRpc(true);
                     GetInfoIngredient();
                     Debug.Log("Cutting");
@@ -44,7 +54,7 @@ public class CuttingBench : Bench
                     ChangeVariableServerRpc(false);
                     
                     _player = null;
-                    StopCutParticleClientRpc();
+                    StopCutParticleServerRpc();
                 }
             }
             else
@@ -88,7 +98,18 @@ public class CuttingBench : Bench
         var ingredient = ingredients[ingredients.Count - 1].targetFood.foodPrefab.gameObject;
         cutParticle.GetComponent<ParticleSystemRenderer>().mesh = ingredient.GetComponent<MeshFilter>().sharedMesh;
         cutParticle.GetComponent<ParticleSystemRenderer>().material = ingredient.GetComponent<Renderer>().sharedMaterial;
+        PlayCutParticleServerRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void PlayCutParticleServerRpc()
+    {
         PlayCutParticleClientRpc();
+    }
+    [ServerRpc(RequireOwnership = false)]
+    public void StopCutParticleServerRpc()
+    {
+        StopCutParticleClientRpc();
     }
 
     [ClientRpc]

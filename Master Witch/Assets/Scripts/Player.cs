@@ -218,11 +218,19 @@ public class Player : NetworkBehaviour
         }
     }
 
+    [ServerRpc]
+    public void WalkServerRpc(){
+        WalkClientRpc();
+    }
+        
+    [ServerRpc]
+    public void PickPutServerRpc(){
+        PickPutClientRpc();
+    }
+
     [ClientRpc]
     public void WalkClientRpc(){
-
         walk.Play();
-        
     }
         
     [ClientRpc]

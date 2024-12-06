@@ -26,6 +26,15 @@ public class Storage : Bench
     public GameObject[] slotsStorage;
     public AudioSource sfx, sfx2;
     
+    [ServerRpc(RequireOwnership = false)]
+    public void EnableSFXServerRpc(){
+        EnableSFXClientRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void DisableSFXServerRpc(){
+        DisableSFXClientRpc();
+    }
 
     [ClientRpc]
     public void EnableSFXClientRpc(){
@@ -124,7 +133,7 @@ public class Storage : Bench
     public void Initialize()
     {
         if(panelInventory.activeSelf == false){
-            EnableSFXClientRpc();
+            EnableSFXServerRpc();
             foreach (var item in slots)
             {
                 item.interactable = false;
@@ -137,7 +146,7 @@ public class Storage : Bench
 
     public void DisableStorage(){
         panelInventory.SetActive(false);
-        DisableSFXClientRpc();
+        DisableSFXServerRpc();
     }
 
     void UpdateInventory()

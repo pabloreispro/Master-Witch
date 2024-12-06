@@ -13,6 +13,16 @@ public class Furnace : Bench
     public VisualEffect smoke;
      public AudioSource sfx;
 
+     [ServerRpc(RequireOwnership = false)]
+    public void EnableSFXServerRpc(){
+        EnableSFXClientRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void DisableSFXServerRpc(){
+        DisableSFXClientRpc();
+    }
+
     [ClientRpc]
     public void EnableSFXClientRpc(){
         sfx.Play();
@@ -29,19 +39,18 @@ public class Furnace : Bench
 
     private void _Special(){
         if(_toolInBench.Count>0 && ingredients.Count > 0){
-            
-            ChangeVariableServerRpc(false);
-            EnabledParticlesClientRpc();
+            ChangeVariableServerRpc(true);
+            EnabledParticlesServerRpc();
             _timerWood += Time.deltaTime;
-            if(_timerWood >= 5){
+            if(_timerWood >= 10){
                 _toolInBench.RemoveAt(_toolInBench.Count-1);
                 _timerWood = 0;
             }
         }
         else
         {
-            
-            DisableParticlesClientRpc();
+            DisableParticlesServerRpc();
+            ChangeVariableServerRpc(false);
         }
     }
     public override void Pick(Player player)
@@ -56,7 +65,7 @@ public class Furnace : Bench
             player.SetItemHandClientRpc(objectSpawn); 
             _toolInBench.Clear();          
             Reset();*/
-            DisableSFXClientRpc();
+            DisableSFXServerRpc();
             objectInBench.GetComponentInChildren<NetworkObject>().TrySetParent(player.transform);
             player.SetItemHandClientRpc(objectInBench);
             _toolInBench.Clear(); 
@@ -76,10 +85,21 @@ public class Furnace : Bench
             break;
             case Tool t when t.tool.benchType == benchType:         
                 _toolInBench.Add(t.tool);
-                EnableSFXClientRpc();
+                EnableSFXServerRpc();
             break;
         }
         interact.DestroySelf();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void EnabledParticlesServerRpc()
+    {
+        EnabledParticlesClientRpc();
+    }
+    [ServerRpc(RequireOwnership = false)]
+    public void DisableParticlesServerRpc()
+    {
+        DisableParticlesClientRpc();
     }
 
     [ClientRpc]

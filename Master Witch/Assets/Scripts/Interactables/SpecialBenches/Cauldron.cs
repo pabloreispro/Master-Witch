@@ -9,6 +9,16 @@ public class Cauldron : Bench
     public GameObject cauldronParticule;
     public AudioSource sfx;
 
+    [ServerRpc(RequireOwnership = false)]
+    public void EnableSFXServerRpc(){
+        EnableSFXClientRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void DisableSFXServerRpc(){
+        DisableSFXClientRpc();
+    }
+
     [ClientRpc]
     public void EnableSFXClientRpc(){
         sfx.Play();
@@ -26,12 +36,12 @@ public class Cauldron : Bench
     private void _Special(){
         if(_toolInBench.Count>0 && ingredients.Count > 0){
             ChangeVariableServerRpc(true);
-            EnabledParticlesClientRpc();
+            EnabledParticlesServerRpc();
         }
         else
         {
             
-            DisableParticlesClientRpc();
+            DisableParticlesServerRpc();
         }
     }
 
@@ -47,7 +57,7 @@ public class Cauldron : Bench
             player.SetItemHandClientRpc(objectSpawn); 
             _toolInBench.Clear();         
             Reset();*/
-            DisableSFXClientRpc();
+            DisableSFXServerRpc();
             objectInBench.GetComponentInChildren<NetworkObject>().TrySetParent(player.transform);
             player.SetItemHandClientRpc(objectInBench);
             _toolInBench.Clear(); 
@@ -66,12 +76,23 @@ public class Cauldron : Bench
                     progress();
                 break;
                 case Tool t when t.tool.benchType == benchType:  
-                    EnableSFXClientRpc();       
+                    EnableSFXServerRpc();       
                     _toolInBench.Add(t.tool);
                 break;
             }
             interact.DestroySelf();
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void EnabledParticlesServerRpc()
+    {
+        EnabledParticlesClientRpc();
+    }
+    [ServerRpc(RequireOwnership = false)]
+    public void DisableParticlesServerRpc()
+    {
+        DisableParticlesClientRpc();
     }
 
     [ClientRpc]

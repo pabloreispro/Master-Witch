@@ -10,6 +10,16 @@ public class MysteriousFountain : Bench
     public FoodSO food;
     public AudioSource sfx;
 
+    [ServerRpc(RequireOwnership = false)]
+    public void EnableSFXServerRpc(){
+        EnableSFXClientRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void DisableSFXServerRpc(){
+        DisableSFXClientRpc();
+    }
+
     [ClientRpc]
     public void EnableSFXClientRpc(){
         sfx.Play();
@@ -41,7 +51,7 @@ public class MysteriousFountain : Bench
             player.SetItemHandClientRpc(objectSpawn);
                     
             Reset();*/
-            DisableSFXClientRpc();
+            DisableSFXServerRpc();
             objectInBench.GetComponentInChildren<NetworkObject>().TrySetParent(player.transform);
             player.SetItemHandClientRpc(objectInBench);
             _toolInBench.Clear(); 

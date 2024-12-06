@@ -9,6 +9,16 @@ public class Mortar : Bench
     public VisualEffect smoke;
     public AudioSource sfx;
 
+    [ServerRpc(RequireOwnership = false)]
+    public void EnableSFXServerRpc(){
+        EnableSFXClientRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void DisableSFXServerRpc(){
+        DisableSFXClientRpc();
+    }
+
     [ClientRpc]
     public void EnableSFXClientRpc(){
         sfx.Play();
@@ -23,14 +33,14 @@ public class Mortar : Bench
     {
         if(_player !=null && ingredients.Count > 0){
             if(_player.buttonPressed){
-                EnableSFXClientRpc();
+                EnableSFXServerRpc();
                 ChangeVariableServerRpc(true);
-                EnabledParticlesClientRpc();
+                EnabledParticlesServerRpc();
             }else{
-                DisableSFXClientRpc();
+                DisableSFXServerRpc();
                 ChangeVariableServerRpc(false);
                 _player = null;
-                DisableParticlesClientRpc();
+                DisableParticlesServerRpc();
             }
         }
         
@@ -62,16 +72,25 @@ public class Mortar : Bench
         interact.DestroySelf();
     }
 
+    [ServerRpc(RequireOwnership=false)]
+    public void EnabledParticlesServerRpc()
+    {
+        EnabledParticlesClientRpc();
+    }
+    [ServerRpc(RequireOwnership=false)]
+    public void DisableParticlesServerRpc()
+    { 
+        DisableParticlesClientRpc();
+    }
+
     [ClientRpc]
     public void EnabledParticlesClientRpc()
     {
-        
         smoke.SetBool("isPreparing",true);
     }
     [ClientRpc]
     public void DisableParticlesClientRpc()
-    {
-        
+    { 
         smoke.SetBool("isPreparing",false);
     }
 }

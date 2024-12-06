@@ -8,21 +8,31 @@ public class Well : Bench
 {
     public List<ToolsSO> _toolInBench = new();
     private FoodSO food;
-    private RecipeSO recipe;
     public AudioSource sfx;
+
+    [ServerRpc(RequireOwnership = false)]
+    public void EnableSFXServerRpc(){
+        EnableSFXClientRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void DisableSFXServerRpc(){
+        DisableSFXClientRpc();
+    }
 
     [ClientRpc]
     public void EnableSFXClientRpc(){
         sfx.Play();
     }
-    private void FixedUpdate() {
-        _Special();
+
+    [ClientRpc]
+    public void DisableSFXClientRpc(){
+        sfx.Stop();
     }
 
     private void _Special(){
         if(_toolInBench.Count>0){
             ChangeVariableServerRpc(true);
-            EnableSFXClientRpc();
         }
     }
     public override void Pick(Player player)
@@ -35,7 +45,7 @@ public class Well : Bench
             objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
             player.GetComponentInChildren<Ingredient>().itemsUsed.Add(recipeData);  
             player.SetItemHandClientRpc(objectSpawn);
-            
+            EnableSFXServerRpc();
             _toolInBench.Clear();           
             Reset();
         }

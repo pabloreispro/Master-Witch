@@ -79,14 +79,10 @@ public class Bench : Interactable
     public void progress()
     {
         targetRecipe = GameManager.Instance.GetValidRecipe(foodList, benchType);
-        foreach (FoodSO item in foodList)
-        {
-            _auxTimer = item.timeProgress;
-        }
+        _auxTimer = targetRecipe.timeProgress;
         _timerProgress += _auxTimer;
         slider.gameObject.SetActive(true);
         slider.maxValue = _timerProgress;
-        Debug.Log("O Tempo para fazer o ingrediente e de: "+_timerProgress);
     }
 
     public void AddIngredient(Ingredient ingredient)

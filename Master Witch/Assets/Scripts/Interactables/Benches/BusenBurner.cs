@@ -15,6 +15,16 @@ public class BusenBurner : Bench
     public GameObject fire, smoke;
     public AudioSource sfx;
 
+    [ServerRpc(RequireOwnership = false)]
+    public void EnableSFXServerRpc(){
+        EnableSFXClientRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void DisableSFXServerRpc(){
+        DisableSFXClientRpc();
+    }
+
     [ClientRpc]
     public void EnableSFXClientRpc(){
         sfx.Play();
@@ -31,13 +41,13 @@ public class BusenBurner : Bench
             if(_player.buttonPressed){
                 Debug.Log("Busen");
                 _UpTimeBenchServerRpc();
-                EnabledParticlesClientRpc();
+                EnabledParticlesServerRpc();
             }else if(timeBusen.Value > 0){
-                EnableSFXClientRpc();
+                EnableSFXServerRpc();
                 _DownTimeBenchServerRpc();
-                DisableParticlesClientRpc();
+                DisableParticlesServerRpc();
             }else if(timeBusen.Value <= 0){
-                DisableSFXClientRpc();
+                DisableSFXServerRpc();
             }
             tempSlider.value = timeBusen.Value;
             switch(timeBusen.Value)
@@ -65,7 +75,7 @@ public class BusenBurner : Bench
         else if(_player == null && timeBusen.Value>0){
             DisableSFXClientRpc();
             _DownTimeBenchServerRpc();
-            DisableParticlesClientRpc();
+            DisableParticlesServerRpc();
         }
     }
 
@@ -102,6 +112,17 @@ public class BusenBurner : Bench
         AddIngredient(interact);
         progress();
         interact.DestroySelf();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void EnabledParticlesServerRpc()
+    {
+        EnabledParticlesClientRpc();
+    }
+    [ServerRpc(RequireOwnership = false)]
+    public void DisableParticlesServerRpc()
+    {
+        DisableParticlesClientRpc();
     }
 
     [ClientRpc]
