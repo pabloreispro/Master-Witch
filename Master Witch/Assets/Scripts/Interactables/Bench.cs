@@ -139,7 +139,7 @@ public class Bench : Interactable
             if(GetComponentInChildren<Ingredient>()!=null)
                 GetComponentInChildren<Ingredient>().DestroySelf();
             var recipeData = new RecipeData(targetRecipe, ingredients);
-            var objectSpawn = Instantiate(recipeData.TargetFood.foodPrefab, new Vector3(_auxObject.position.x, 1.0f, _auxObject.position.z), Quaternion.identity);
+            var objectSpawn = Instantiate(recipeData.TargetFood.foodPrefab, new Vector3(_auxObject.position.x, _auxObject.position.y, _auxObject.position.z), Quaternion.identity);
             objectSpawn.GetComponent<NetworkObject>().Spawn();
             objectSpawn.GetComponentInChildren<NetworkObject>().TrySetParent(this.transform);
             objectSpawn.gameObject.GetComponent<Rigidbody>().useGravity = false;

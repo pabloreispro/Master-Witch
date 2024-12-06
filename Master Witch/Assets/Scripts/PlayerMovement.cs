@@ -226,7 +226,6 @@ public class PlayerMovement : Player
         {
             if(interact == null){
                 DropItemHandServerRpc();
-                
             }
             else
             {

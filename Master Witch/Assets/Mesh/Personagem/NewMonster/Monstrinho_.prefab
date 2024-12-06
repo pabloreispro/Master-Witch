@@ -425,46 +425,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &4384116862308229202
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4167981235414230240}
-  - component: {fileID: 1323560268613841929}
-  m_Layer: 0
-  m_Name: AudioListener
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &4167981235414230240
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4384116862308229202}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.60623074, y: 0.267771, z: -6.4159474}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 144133019002613364}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1323560268613841929
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4384116862308229202}
-  m_Enabled: 1
 --- !u!1 &6120988941719910651
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,10 +1009,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8273899222248766239}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7228e517d8e0f1948b0dc8cf0213b443,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4167981235414230240}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7228e517d8e0f1948b0dc8cf0213b443,
         type: 3}
@@ -1157,7 +1113,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 418ab5126eb3a304aa5f35243a6ac9b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioplayer: {fileID: 4384116862308229202}
   currentState: 0
   animator: {fileID: -6478921826064568150}
   a: {fileID: 7139182526516293599}

@@ -26,7 +26,7 @@ public enum PlayerState
 }
 public class Player : NetworkBehaviour
 {
-    public GameObject audioplayer;
+    
     [Header("Animation Configs")]
     public PlayerState currentState;
     public Animator animator;
@@ -61,13 +61,14 @@ public class Player : NetworkBehaviour
     
     public override void OnNetworkSpawn()
     {
-        if(IsOwner)
-            audioplayer.SetActive(true);
+        
     }
     void Start()
     {
+
         if (IsLocalPlayer)
         {
+            GetComponent<AudioListener>().enabled = true;
             NewCamController.Instance.target = this.transform;
         }
 
