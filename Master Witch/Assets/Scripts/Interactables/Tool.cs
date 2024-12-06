@@ -20,8 +20,9 @@ public class Tool : Interactable
         this.GetComponent<NetworkObject>().TrySetParent(player.transform);
         this.GetComponent<NetworkObject>().transform.position = player.boneItem.transform.position;
         this.GetComponent<FollowTransform>().targetTransform = player.boneItem.transform;
+        player.ChangeState(PlayerState.PickItem);
         player.SetItemHandClientRpc(gameObject);
-        player.ChangeState(PlayerState.Interact);
+        
     }
     
 }

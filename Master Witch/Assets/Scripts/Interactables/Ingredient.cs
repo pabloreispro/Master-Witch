@@ -38,8 +38,9 @@ public class Ingredient : Interactable
         rb.useGravity = false;
         rb.isKinematic = false;
         followTransform.targetTransform = player.boneItem.transform;
+        player.ChangeState(PlayerState.PickItem);
         player.SetItemHandClientRpc(gameObject);
-        player.ChangeState(PlayerState.Interact);
+        
     }
     public override void Drop(Player player)
     {

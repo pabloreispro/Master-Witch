@@ -40,7 +40,7 @@ public class Well : Bench
         if (endProgress && player.isHand.Value == false)
         {
             var recipeData = new RecipeData(targetRecipe, ingredients);
-            var objectSpawn = Instantiate(recipeData.TargetFood.foodPrefab, new Vector3(player.assetIngredient.transform.position.x, 1.0f, player.assetIngredient.transform.position.z), Quaternion.identity);
+            var objectSpawn = Instantiate(recipeData.TargetFood.foodPrefab, new Vector3(player.boneItem.transform.position.x, 1.0f, player.boneItem.transform.position.z), Quaternion.identity);
             objectSpawn.GetComponent<NetworkObject>().Spawn();
             objectSpawn.GetComponent<NetworkObject>().TrySetParent(player.transform);
             player.GetComponentInChildren<Ingredient>().itemsUsed.Add(recipeData);  

@@ -84,8 +84,8 @@ public class StorageController : SingletonNetwork<StorageController>
         objectSpawn.GetComponent<NetworkObject>().Spawn();
         objectSpawn.GetComponent<NetworkObject>().TrySetParent(playerScene.transform); 
         objectSpawn.GetComponent<Collider>().enabled = false;
+        playerScene.ChangeState(PlayerState.PickItem);
         playerScene.SetItemHandClientRpc(objectSpawn);
-        playerScene.ChangeState(PlayerState.Interact);
         bench.RemoveIngredient(storageItems[itemIndex]);
     }
     void UpdateInventory()

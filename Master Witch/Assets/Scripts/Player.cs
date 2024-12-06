@@ -16,13 +16,12 @@ using Unity.VisualScripting;
 public enum PlayerState
 {
     Idle,
-    IdleBasket,
     IdleItem,
     Interact,
     Walking,
     WalkingItem,
-    WalkingBasket,
-    PuttingBasket
+    PickItem,
+    DropItem
 }
 public class Player : NetworkBehaviour
 {
@@ -146,17 +145,10 @@ public class Player : NetworkBehaviour
             case PlayerState.Idle:
                 animator.SetBool("IsWalking", false);
                 animator.SetBool("IdleItem", false);
-                animator.SetBool("IdleBasket", false);
-                animator.SetBool("IsWalkingBasket", false);
                 animator.SetBool("IsWalkingItem", false);
-                animator.SetBool("PutInBasket",false);
-                
-            break;
-            case PlayerState.IdleBasket:
-                animator.SetBool("IsWalkingBasket", false);
-                animator.SetBool("PutInBasket",false);
-                animator.SetBool("IdleBasket", true);
-                
+                animator.SetBool("IsInteracting",false);
+                animator.SetBool("PickItem",false);
+                animator.SetBool("DropItem",false);
                 
             break;
             case PlayerState.IdleItem:
@@ -165,7 +157,7 @@ public class Player : NetworkBehaviour
                 
                 break;
             case PlayerState.Interact:
-                animator.SetTrigger("Interact");
+                animator.SetBool("IsInteracting",true);
                 
             break;
             case PlayerState.Walking:
@@ -176,13 +168,14 @@ public class Player : NetworkBehaviour
                 animator.SetBool("IsWalkingItem", true);
                 
             break;
-            case PlayerState.WalkingBasket:
-                animator.SetBool("IsWalkingBasket", true);
-                
+            case PlayerState.PickItem:
+                animator.SetBool("PickItem",true);
+                animator.SetBool("IdleItem",true);
             break;
-            case PlayerState.PuttingBasket:
-                animator.SetBool("PutInBasket",true);
-                
+            case PlayerState.DropItem:
+                animator.SetTrigger("DropItem");
+                animator.SetBool("IdleItem",false);
+                animator.SetBool("IsWalkingItem",false);
             break;
             
         }
@@ -192,7 +185,7 @@ public class Player : NetworkBehaviour
 
     public void OnConnected(Material newMaterial, int id)
     {
-        hatRenderer.material = newMaterial;
+        //hatRenderer.material = newMaterial;
         circleRenderer.color = newMaterial.color;
         this.id = id;
 

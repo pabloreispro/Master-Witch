@@ -62,6 +62,7 @@ public class Storage : Bench
     public override void Drop(Player player)
     {
         var interact = player.GetComponentInChildren<Ingredient>();
+        player.ChangeState(PlayerState.DropItem);
         if(ingredients.Count <= 4){
             AddIngredient(interact);
             UpdateInventory();
@@ -98,8 +99,9 @@ public class Storage : Bench
         objSelected.transform.rotation = Quaternion.identity;
         objSelected.gameObject.GetComponent<Rigidbody>().useGravity = false;
         objSelected.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        playerScene.ChangeState(PlayerState.PickItem);
         playerScene.SetItemHandClientRpc(objSelected);
-        playerScene.ChangeState(PlayerState.Interact);
+        
         //RemoveIngredient(itemIndex);
         UpdateInventory();
         //RemoveIngredient(ingredients[itemIndex].TargetFood);

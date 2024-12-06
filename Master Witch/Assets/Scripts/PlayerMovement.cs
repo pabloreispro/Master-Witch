@@ -173,16 +173,16 @@ public class PlayerMovement : Player
             Quaternion r = Quaternion.LookRotation(move);
             transform.rotation = Quaternion.Slerp(transform.rotation, r, speedRotation);
             
-            if(isHand.Value && isHandBasket.Value){ChangeState(PlayerState.WalkingBasket);}
-            else if(isHand.Value && !isHandBasket.Value){ChangeState(PlayerState.WalkingItem);}
+            
+            if(isHand.Value ){ChangeState(PlayerState.WalkingItem);}
             else ChangeState(PlayerState.Walking);
             isMoving.Value=true;
             
         }
         else 
         {
-            if(isHand.Value && isHandBasket.Value){ChangeState(PlayerState.IdleBasket);}
-            if(isHand.Value && !isHandBasket.Value){ChangeState(PlayerState.IdleItem);}
+           
+            if(isHand.Value){ChangeState(PlayerState.IdleItem);}
             else ChangeState(PlayerState.Idle);
             isMoving.Value=false;
             WalkServerRpc();
@@ -236,7 +236,7 @@ public class PlayerMovement : Player
         {
             if(interact != null){
                 interact.PickServerRpc(NetworkObjectId);
-                ChangeState(PlayerState.Interact);
+                ChangeState(PlayerState.PickItem);
             }
         }
     }
@@ -261,5 +261,6 @@ public class PlayerMovement : Player
             (interactable as Ingredient).DropServerRpc(NetworkObjectId);
         }
         obj.TryRemoveParent();
+        ChangeState(PlayerState.DropItem);
     }
 }
