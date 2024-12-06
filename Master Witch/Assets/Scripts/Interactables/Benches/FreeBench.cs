@@ -5,6 +5,9 @@ using Unity.Netcode;
 
 public class FreeBench : Bench
 {
+    void FixedUpdate(){
+
+    }
     public override void Pick(Player player)
     {
         if(!player.isHand.Value){
@@ -17,9 +20,12 @@ public class FreeBench : Bench
     }
     public override void Drop(Player player)
     {
-        if(this.GetComponentInChildren<Interactable>() == null){
+        if(objectInBench == null){
             var interact = player.GetComponentInChildren<Interactable>();
+            objectInBench = interact.gameObject;
             PositionBench(interact);
         }
     }
+
+    
 }

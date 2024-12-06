@@ -26,7 +26,8 @@ public enum PlayerState
 }
 public class Player : NetworkBehaviour
 {
-     [Header("Animation Configs")]
+    public AudioListener audioplayer;
+    [Header("Animation Configs")]
     public PlayerState currentState;
     public Animator animator;
     public TestAnimator a;

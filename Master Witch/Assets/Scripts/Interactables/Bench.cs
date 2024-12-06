@@ -50,7 +50,7 @@ public class Bench : Interactable
             return list;
         }
     }
-
+    
     public void Reset()
     {
         endProgress = false;
@@ -72,7 +72,7 @@ public class Bench : Interactable
             if (_timer >= _timerProgress)
             {
                 ChangeVariableServerRpc(false);
-                OnEndProgress();
+                OnEndProgressServerRpc();
             }
         }
     }
@@ -131,9 +131,10 @@ public class Bench : Interactable
         if (IsServer) return;
         ingredients.RemoveAt(recipeSlot);
     }
-    public void OnEndProgress()
+    [ServerRpc(RequireOwnership = false)]
+    public void OnEndProgressServerRpc()
     {
-        ChangeVariableServerRpc(false);
+        isPreparing.Value = false;
         if(endProgress==false && workBench == true){
             if(GetComponentInChildren<Ingredient>()!=null)
                 GetComponentInChildren<Ingredient>().DestroySelf();
@@ -148,6 +149,10 @@ public class Bench : Interactable
             ingredient.food = targetRecipe;
             ingredient.itemsUsed.Add(recipeData);
         }
+        OnEndProgressClientRpc();
+    }
+    [ClientRpc]
+    public void OnEndProgressClientRpc(){
         slider.gameObject.SetActive(false);
         endProgress = true;
     }
@@ -159,6 +164,7 @@ public class Bench : Interactable
         interact.gameObject.transform.position = _auxObject.position;
         interact.gameObject.GetComponent<Rigidbody>().useGravity = false;
         interact.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+
     }
 
     [ServerRpc(RequireOwnership = false)]

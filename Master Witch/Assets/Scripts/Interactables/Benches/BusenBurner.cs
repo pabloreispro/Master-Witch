@@ -32,7 +32,6 @@ public class BusenBurner : Bench
                 Debug.Log("Busen");
                 _UpTimeBenchServerRpc();
                 EnabledParticlesClientRpc();
-                
             }else if(timeBusen.Value > 0){
                 EnableSFXClientRpc();
                 _DownTimeBenchServerRpc();

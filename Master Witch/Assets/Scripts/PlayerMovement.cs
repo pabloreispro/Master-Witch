@@ -41,6 +41,7 @@ public class PlayerMovement : Player
     
     void Awake()
     {
+        
         controller = GetComponent<CharacterController>();
         _playerInput = new PlayerInput();
         _playerInput.PlayerControl.Enable();
@@ -60,7 +61,7 @@ public class PlayerMovement : Player
     void FixedUpdate()
     {
         if(IsOwner == true){
-            
+            audioplayer.enabled = true;
             _RaycastPlayer();
 
             if (explosionTime > 0)
@@ -263,7 +264,4 @@ public class PlayerMovement : Player
         }
         obj.TryRemoveParent();
     }
-    
-
-    
 }
