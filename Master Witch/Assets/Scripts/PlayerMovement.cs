@@ -61,7 +61,6 @@ public class PlayerMovement : Player
     void FixedUpdate()
     {
         if(IsOwner == true){
-            audioplayer.enabled = true;
             _RaycastPlayer();
 
             if (explosionTime > 0)
