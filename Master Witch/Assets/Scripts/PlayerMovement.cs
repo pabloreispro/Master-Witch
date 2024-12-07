@@ -185,7 +185,7 @@ public class PlayerMovement : Player
             if(isHand.Value){ChangeState(PlayerState.IdleItem);}
             else ChangeState(PlayerState.Idle);
             isMoving.Value=false;
-            WalkServerRpc();
+            //WalkServerRpc();
         }
 
         controller.Move(move* Time.deltaTime * speedPlayer * SpeedModifier);
@@ -221,7 +221,7 @@ public class PlayerMovement : Player
         }
     }
     private void _PickDropObject(){
-        PickPutServerRpc();
+        //PickPutServerRpc();
         if(isHand.Value)
         {
             if(interact == null){

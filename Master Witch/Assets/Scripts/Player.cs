@@ -56,7 +56,7 @@ public class Player : NetworkBehaviour
 
     public bool isPressingInterect;
     
-    public AudioSource walk, pick;
+    public AudioSource walkleft, walkright, WalkComp, pick;
     
     public override void OnNetworkSpawn()
     {
@@ -212,18 +212,39 @@ public class Player : NetworkBehaviour
     }
 
     [ServerRpc]
-    public void WalkServerRpc(){
-        WalkClientRpc();
-    }
-        
-    [ServerRpc]
-    public void PickPutServerRpc(){
-        PickPutClientRpc();
+    public void WalkLeftServerRpc(){
+        Debug.Log("Animation walk left");
+        WalkLeftClientRpc();
     }
 
     [ClientRpc]
-    public void WalkClientRpc(){
-        walk.Play();
+    public void WalkLeftClientRpc(){
+        walkleft.Play();
+    }
+
+    [ServerRpc]
+    public void WalkRightServerRpc(){
+        WalkRightClientRpc();
+    }
+
+    [ClientRpc]
+    public void WalkRightClientRpc(){
+        walkright.Play();
+    }
+
+    [ServerRpc]
+    public void WalkCompServerRpc(){
+        WalkCompClientRpc();
+    }
+
+    [ClientRpc]
+    public void WalkCompClientRpc(){
+        WalkComp.Play();
+    }
+
+    [ServerRpc]
+    public void PickPutServerRpc(){
+        PickPutClientRpc();
     }
         
     [ClientRpc]

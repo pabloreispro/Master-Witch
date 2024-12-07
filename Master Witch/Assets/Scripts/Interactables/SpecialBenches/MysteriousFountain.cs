@@ -63,13 +63,15 @@ public class MysteriousFountain : Bench
         if(_toolInBench.Count < 2){
             var interact = player.GetComponentInChildren<Interactable>();
             switch(interact){
-                case Tool t when t.tool.benchType == benchType:
+                case Ingredient i:
+                    endProgress = false;
+                    AddIngredient(i);
+                    progress();
+                break;
+                case Tool t when t.tool.benchType == benchType:         
                     _toolInBench.Add(t.tool);
                 break;
             }
-            endProgress = false;
-            AddIngredient(food);
-            progress();
             interact.DestroySelf();
         }
     }
