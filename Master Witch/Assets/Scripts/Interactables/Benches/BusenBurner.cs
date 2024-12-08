@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
+using Game.UI;
 public class BusenBurner : Bench
 {
     public const float TIMER_MULTI = 30;
@@ -38,6 +39,9 @@ public class BusenBurner : Bench
     private void FixedUpdate()
     {
         if(_player !=null && ingredients.Count > 0){
+            GameInterfaceManager.Instance.spaceKey.SetActive(true);
+            GameInterfaceManager.Instance.spaceAnim.SetBool("Hold", true); 
+
             if(_player.buttonPressed){
                 Debug.Log("Busen");
                 _UpTimeBenchServerRpc();
@@ -73,6 +77,7 @@ public class BusenBurner : Bench
             
         }
         else if(_player == null && timeBusen.Value>0){
+            
             DisableSFXClientRpc();
             _DownTimeBenchServerRpc();
             DisableParticlesServerRpc();

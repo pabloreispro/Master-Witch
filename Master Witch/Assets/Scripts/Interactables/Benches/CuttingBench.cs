@@ -7,6 +7,8 @@ public class CuttingBench : Bench
 {
     public ParticleSystem cutParticle;
     public AudioSource sfx;
+
+    bool _wasPlayerInteracting;
     
     [ServerRpc(RequireOwnership = false)]
     public void EnableSFXServerRpc(){
@@ -34,16 +36,12 @@ public class CuttingBench : Bench
     }
 
     private void _Gameplay(){
+        
         if(_player !=null)
         {
-            
-            //GameInterfaceManager.Instance.eKey.SetActive(true);
-           
             if(ingredients.Count > 0)
             {
-                GameInterfaceManager.Instance.spaceKey.SetActive(true);
-                GameInterfaceManager.Instance.spaceAnim.SetBool("Click", true); 
-
+                //GameInterfaceManager.Instance.spaceKey.SetActive(_player != null);
                 if(_player.buttonPressed){
                     EnableSFXServerRpc();
                     ChangeVariableServerRpc(true);
@@ -57,12 +55,18 @@ public class CuttingBench : Bench
                     StopCutParticleServerRpc();
                 }
             }
-            else
-            {
-                GameInterfaceManager.Instance.spaceKey.SetActive(false);
-                GameInterfaceManager.Instance.spaceAnim.SetBool("Click", false);
-            }
+            
         }
+        if( (_player!=null) != _wasPlayerInteracting)
+        {
+            _wasPlayerInteracting = !_wasPlayerInteracting;
+            GameInterfaceManager.Instance.eKey.SetActive(_player!=null && _player.isHand.Value);
+            GameInterfaceManager.Instance.spaceKey.SetActive(_player!= null && ingredients.Count > 0 && objectInBench == null);
+        }
+        
+        
+       
+        
         
         
     }
