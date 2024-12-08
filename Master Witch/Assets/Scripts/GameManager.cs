@@ -140,7 +140,7 @@ public class GameManager : SingletonNetwork<GameManager>
         gameMode = TutorialController.Instance != null ? GameMode.Tutorial : GameMode.Main;
         int recipeIndex = 0;
         if (gameMode != GameMode.Tutorial)
-            Random.Range(0, recipeDatabase.Length);
+            recipeIndex = Random.Range(0, recipeDatabase.Length);
         InitializeGameClientRpc(recipeIndex, gameMode);
         if (firstInit)
             InitializeChefs();
