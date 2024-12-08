@@ -9,9 +9,10 @@ public class ButterflyWings : Ingredient
     [SerializeField] float range;
     [SerializeField] float duration;
     [SerializeField] float speedModifier;
-    [SerializeField] GameObject fogVfx;
+    [SerializeField] GameObject vfx;
     [SerializeField] SphereCollider aoeCollider;
     List<PlayerMovement> players = new List<PlayerMovement>();
+    List<GameObject> vfxs = new List<GameObject>();
 
     protected override void Awake()
     {
@@ -23,8 +24,6 @@ public class ButterflyWings : Ingredient
         base.StartEffect();
         aoeCollider.enabled = true;
         aoeCollider.radius = range;
-        var vfx = Instantiate(fogVfx, transform.position, fogVfx.transform.rotation, transform);
-        Destroy(vfx, duration);
         Invoke(nameof(EndEffect), duration);
     }
     public override void EndEffect()
@@ -33,8 +32,13 @@ public class ButterflyWings : Ingredient
         aoeCollider.enabled = false;
         foreach (var player in players)
         {
-            player.SpeedModifier = 1;
         }
+        for (int i = 0; i < players.Count; i++)
+        {
+            players[i].SpeedModifier = 1;
+            Destroy(vfxs[i]);
+        }
+        vfxs.Clear();
     }
     public override void OnEffectCanceled()
     {
@@ -47,6 +51,9 @@ public class ButterflyWings : Ingredient
             var player = other.GetComponent<PlayerMovement>();
             player.SpeedModifier = speedModifier;
             players.Add(player);
+            var vfx = Instantiate(this.vfx, player.transform.position, player.transform.rotation, player.transform);
+            vfx.transform.Rotate(180, 0, 0);
+            vfxs.Add(vfx);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -55,7 +62,10 @@ public class ButterflyWings : Ingredient
         {
             var player = other.GetComponent<PlayerMovement>();
             player.SpeedModifier = 1;
+            int i = players.IndexOf(player);
             players.Remove(player);
+            Destroy(vfxs[i]);
+            vfxs.RemoveAt(i);
         }
     }
     private void OnDrawGizmosSelected()

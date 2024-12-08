@@ -9,7 +9,16 @@ public class AncestralRoot : Ingredient
     [SerializeField] float range;
     [SerializeField] float duration;
     [SerializeField] GameObject rootVfx;
+    [SerializeField] GameObject aoeVfx;
     PlayerMovement[] players;
+
+    public override void Drop(Player player)
+    {
+        base.Drop(player);
+        var vfx = Instantiate(aoeVfx, transform.position, rootVfx.transform.rotation, transform);
+        Destroy(vfx, startDelay);
+    }
+
     public override void StartEffect()
     {
         base.StartEffect();

@@ -15,7 +15,7 @@ public class KrakenTentacle : Ingredient
     public override void Drop(Player player)
     {
         base.Drop(player);
-        var vfx = Instantiate(aoeVfx, player.transform.position, rootVfx.transform.rotation);
+        var vfx = Instantiate(aoeVfx, transform.position, rootVfx.transform.rotation, transform);
         Destroy(vfx, startDelay);
     }
     public override void StartEffect()

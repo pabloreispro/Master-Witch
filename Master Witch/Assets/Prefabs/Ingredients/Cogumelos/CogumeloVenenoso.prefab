@@ -156,7 +156,7 @@ MonoBehaviour:
   range: 5
   duration: 10
   speedModifier: 0.5
-  fogVfx: {fileID: 3506507015636650634, guid: f3861d058290d7e4187d506fcc214918, type: 3}
+  fogVfx: {fileID: 8404067708245478603, guid: 02dee6604a189304590468b48bf9c9f3, type: 3}
   aoeCollider: {fileID: 7518301781728853611}
 --- !u!114 &3576226888739401085
 MonoBehaviour:
@@ -291,9 +291,9 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 1.0874126
   m_Center: {x: 0.045403063, y: 0.029397845, z: -0.0019139051}
