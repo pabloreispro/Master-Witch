@@ -48,6 +48,7 @@ public class TutorialController : Singleton<TutorialController>
     }
     IEnumerator StartMarketDialogue()
     {
+        DialogueSystem.Instance.chefName.text = GameManager.Instance.chefsGO[0].name.Replace("(Clone)", "").Trim();
         SceneManager.Instance.isMovementAllowed.Value = false;
         yield return StartCoroutine(DialogueSystem.Instance.StartDialogue(step01Messages[currentStep]));
         SceneManager.Instance.isMovementAllowed.Value = true;
@@ -61,6 +62,7 @@ public class TutorialController : Singleton<TutorialController>
     }
     IEnumerator StartMainDialogue()
     {
+        DialogueSystem.Instance.chefName.text = GameManager.Instance.chefsGO[0].name.Replace("(Clone)", "").Trim();
         SceneManager.Instance.isMovementAllowed.Value = false;
         yield return StartCoroutine(DialogueSystem.Instance.StartDialogue(startMainMessages));
         SceneManager.Instance.isMovementAllowed.Value = true;
@@ -112,18 +114,21 @@ public class TutorialController : Singleton<TutorialController>
     }
     IEnumerator Step02Dialogue()
     {
+        DialogueSystem.Instance.chefName.text = GameManager.Instance.chefsGO[0].name.Replace("(Clone)", "").Trim();
         SceneManager.Instance.isMovementAllowed.Value = false;
         yield return StartCoroutine(DialogueSystem.Instance.StartDialogue(step02Messages[currentStep]));
         SceneManager.Instance.isMovementAllowed.Value = true;
     }
     IEnumerator OnRetrievePotionDialogue()
     {
+        DialogueSystem.Instance.chefName.text = GameManager.Instance.chefsGO[0].name.Replace("(Clone)", "").Trim();
         SceneManager.Instance.isMovementAllowed.Value = false;
         yield return StartCoroutine(DialogueSystem.Instance.StartDialogue(deliveryMessages));
         SceneManager.Instance.isMovementAllowed.Value = true;
     }
     IEnumerator EndGameDialogue()
     {
+        DialogueSystem.Instance.chefName.text = GameManager.Instance.chefsGO[0].name.Replace("(Clone)", "").Trim();
         SceneManager.Instance.isMovementAllowed.Value = false;
         yield return StartCoroutine(DialogueSystem.Instance.StartDialogue(endGameMessages));
         SceneManager.Instance.isMovementAllowed.Value = true;

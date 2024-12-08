@@ -73,12 +73,26 @@ namespace Network
         [ClientRpc]
         void SetPlayersDataClientRpc(PlayerNetworkData[] data)
         {
-            playersData = new List<PlayerNetworkData>(data);
+            playersData = data.ToList();
+            for (int i = 0; i < playersData.Count; i++)
+            {
+                Debug.Log(playersData[i]);
+            }
         }
         //When connected to Relay, match starting
         void OnClientConnected(ulong playerNetworkId)
         {
+            Debug.Log("Connect");
+            if (playerNetworkId == LocalNetworkID)
+            {
+
+                Debug.Log("local");
+                SetPlayerCustomizationDataServerRpc(playerNetworkId, PlayerPrefs.GetInt(CustomizationController.PLAYER_ACESSORY_KEY),
+                    PlayerPrefs.GetInt(CustomizationController.PLAYER_HAT_KEY),
+                    PlayerPrefs.GetInt(CustomizationController.PLAYER_SKIN_KEY));
+            }
             if (!IsServer) return;
+            Debug.Log("server");
             //var player = NetworkManager.SpawnManager.GetPlayerNetworkObject(playerID).GetComponent<Player>();
 
             //Debug.Log($"Connected id: {playerID}, NO ID: {player.NetworkObjectId}, NB ID {player.NetworkBehaviourId}");
@@ -88,10 +102,15 @@ namespace Network
             //OnClientConnectedClientRpc(playerID, playerList.Keys.ToArray());
             //if (playerList.Count >= LobbyManager.Instance.JoinedLobby.Players.Count)
             //{
+        }
+        [ServerRpc(RequireOwnership = false)]
+        void SetPlayerCustomizationDataServerRpc(ulong playerNetworkId, int acessoryIndex, int hatIndex, int skinIndex)
+        {
+            Debug.Log("rpc");
             var player = LobbyManager.Instance.JoinedLobby.Players.Last();
             var id = playersData.Count;
             var playerName = player.Data["PlayerName"].Value;
-            var playerData = new PlayerNetworkData(id, playerName, playerNetworkId, PlayerNetworkData.PlayerNetworkStatus.Ready);
+            var playerData = new PlayerNetworkData(id, playerName, playerNetworkId, PlayerNetworkData.PlayerNetworkStatus.Ready, new PlayerCustomizationData(acessoryIndex, hatIndex, skinIndex));
             playersData.Add(playerData);
             Debug.Log(playerData);
             SetPlayersDataClientRpc(playersData.ToArray());
@@ -171,8 +190,10 @@ namespace Network
                     default:
                         break;
                 }
-                playerList.ElementAt(i).Value.OnConnected(material, i);
+                var player = playerList.ElementAt(i).Value;
+                player.OnConnected(material, i);
                 GameManager.Instance.ChangeBenchColor(material, i);
+                player.GetComponent<PlayerCustomization>().SetCustomization(PlayersData[i].CustomizationData);
             }
         }
 
@@ -202,16 +223,20 @@ namespace Network
         //int acessory01Id;
         //int acessory02Id;
         PlayerNetworkStatus status;
+        PlayerCustomizationData customization;
+
         public int PlayerIndex => playerIndex;
         public string PlayerName => playerName;
         public ulong PlayerNetworkID => playerNetworkID;
         public PlayerNetworkStatus Status => status;
-        public PlayerNetworkData(int playerIndex, string playerName, ulong playerNetworkID, PlayerNetworkStatus status)
+        public PlayerCustomizationData CustomizationData => customization;
+        public PlayerNetworkData(int playerIndex, string playerName, ulong playerNetworkID, PlayerNetworkStatus status, PlayerCustomizationData customization)
         {
             this.playerIndex = playerIndex;
             this.playerNetworkID = 0;
             this.playerName = playerName;
             this.status = status;
+            this.customization = customization;
         }
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
         {
@@ -221,6 +246,7 @@ namespace Network
             //serializer.SerializeValue(ref acessory01Id);
             //serializer.SerializeValue(ref acessory02Id);
             serializer.SerializeValue(ref status);
+            serializer.SerializeValue(ref customization);
         }
 
         public void SetNewStatus(PlayerNetworkStatus newStatus)
@@ -248,16 +274,43 @@ namespace Network
                 $"\n Name: {playerName}" +
                 $"\n Index: {playerIndex}" +
                 $"\n Network ID: {playerNetworkID}" +
-                $"\n Status {status}";
+                $"\n Status {status}" +
+                $"\n Custom: {customization}";
         }
 
         public enum PlayerNetworkStatus
-        { 
+        {
             Unknown,
             Ready,
             NotReady,
             Loading,
             Waiting,
+        }
+    }
+    public struct PlayerCustomizationData : INetworkSerializable
+    {
+        public int acessoryIndex;
+        public int hatIndex;
+        public int skinIndex;
+
+        public PlayerCustomizationData(int acessoryIndex, int hatIndex, int skinIndex)
+        {
+            this.acessoryIndex = acessoryIndex;
+            this.hatIndex = hatIndex;
+            this.skinIndex = skinIndex;
+        }
+        public override string ToString()
+        {
+            return $"Customization" +
+                $"\n Acessory: {acessoryIndex}" +
+                $"\n Hat: {hatIndex}" +
+                $"\n Skin: {skinIndex}";
+        }
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+        {
+            serializer.SerializeValue(ref acessoryIndex);
+            serializer.SerializeValue(ref hatIndex);
+            serializer.SerializeValue(ref skinIndex);
         }
     }
 }
