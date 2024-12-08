@@ -12,10 +12,10 @@ public class Ingredient : Interactable
     protected FollowTransform followTransform;
     public FoodSO food;
     public List<RecipeData> itemsUsed = new List<RecipeData>();
-    [SerializeField] float startDelay = -1;
-    bool effectStarted;
+    [SerializeField] protected float startDelay = -1;
+    protected bool effectStarted;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         meshCollider = GetComponent<MeshCollider>();
         networkObject = GetComponent<NetworkObject>();
@@ -50,6 +50,7 @@ public class Ingredient : Interactable
     }
     public virtual void StartEffect()
     {
+        Debug.Log("Startted");
         effectStarted = true;
         BlockPosition();
     }

@@ -15,7 +15,7 @@ namespace Game.SceneGame{
     public class SceneManager : SingletonNetwork<SceneManager>
     {
         public int TIMER_MARKET = 60;
-        public const int TIMER_MAIN = 5000;
+        public int TIMER_MAIN = 5000;
 
         [SerializeField]
         private GameObject prefabMarket, prefabMain;
@@ -124,6 +124,10 @@ namespace Game.SceneGame{
             StartCoroutine(TimeCounter());
             GameManager.Instance.matchStartTime = Time.time;
             GameManager.Instance.Reset();
+            if (GameManager.Instance.GameMode == GameMode.Tutorial)
+            {
+                TutorialController.Instance.OnStartMain();
+            }
         }
             
 

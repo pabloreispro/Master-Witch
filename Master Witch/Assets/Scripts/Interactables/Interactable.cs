@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using Network;
+using System;
 
 public enum TypeObject{Ingredient, Tool}
 public abstract class Interactable : NetworkBehaviour
 {
-
+    public Action<bool> action; //True if is Pick Action
     public virtual void Drop(Player player){}
     public virtual void Pick(Player player){}
 
@@ -20,6 +21,7 @@ public abstract class Interactable : NetworkBehaviour
         foreach(Player player in FindObjectsOfType<Player>()){
             if(player.NetworkObjectId == playerID){
                 Drop(player);
+                action?.Invoke(false);
             }
         }
         //Drop(PlayerNetworkManager.Instance.playerList[playerID]);
@@ -31,12 +33,15 @@ public abstract class Interactable : NetworkBehaviour
     }
     [ClientRpc]
     public void PickClientRpc(ulong playerID){
+        int i = 0;
         foreach (Player player in FindObjectsOfType<Player>())
         {
             if (player.NetworkObjectId == playerID)
             {
                 Pick(player);
+                action?.Invoke(true);
             }
+            i++;
         }
         //Pick(PlayerNetworkManager.Instance.playerList[playerID]);
     }

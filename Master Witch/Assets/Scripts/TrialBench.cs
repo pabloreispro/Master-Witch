@@ -8,11 +8,13 @@ using UI;
 public class TrialBench : Interactable
 {
     // PROVISORIO
+    public FoodSO Delivery { get; private set; }
     public override void Drop(Player player)
     {
         var recipe = player.GetComponentInChildren<Ingredient>();
         if (recipe == null) return;
         base.Drop(player);
+        Delivery = recipe.food;
         Review(new RecipeData(recipe.food, recipe.itemsUsed), player.id);
         recipe.DestroySelf();
     }

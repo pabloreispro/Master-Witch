@@ -12,6 +12,12 @@ public class PoisonousMushroom : Ingredient
     [SerializeField] GameObject fogVfx;
     [SerializeField] SphereCollider aoeCollider;
     List<PlayerMovement> players = new List<PlayerMovement>();
+    protected override void Awake()
+    {
+        base.Awake();
+        aoeCollider.enabled = false;
+    }
+
     public override void StartEffect()
     {
         base.StartEffect();

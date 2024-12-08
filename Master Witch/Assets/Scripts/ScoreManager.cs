@@ -42,11 +42,11 @@ public class ScoreManager : Singleton<ScoreManager>
             playerScores[GameManager.Instance.CurrentRound - 1][playerID].chefScores[chef] = score;
             Debug.Log($"Total score of {recipe.TargetFood.name} by {chef.name} is {score}");
         }
-        var matchTime = GameManager.Instance.matchStartTime + SceneManager.TIMER_MAIN / 2;
+        var matchTime = GameManager.Instance.matchStartTime + SceneManager.Instance.TIMER_MAIN / 2;
         var startTime = Mathf.Max(Time.time - matchTime, 0);
-        playerScores[GameManager.Instance.CurrentRound - 1][playerID].timeScore = Mathf.Lerp(30, 0, startTime / (SceneManager.TIMER_MAIN / 2));
+        playerScores[GameManager.Instance.CurrentRound - 1][playerID].timeScore = Mathf.Lerp(30, 0, startTime / (SceneManager.Instance.TIMER_MAIN / 2));
 
-        Debug.Log($"score {Mathf.Lerp(30, 0, startTime / SceneManager.TIMER_MAIN)} Time {Time.time} Start{GameManager.Instance.matchStartTime} match {matchTime}");
+        Debug.Log($"score {Mathf.Lerp(30, 0, startTime / SceneManager.Instance.TIMER_MAIN)} Time {Time.time} Start{GameManager.Instance.matchStartTime} match {matchTime}");
         Debug.Log($"Total score for Player {playerID} is {playerScores[GameManager.Instance.CurrentRound - 1][playerID].Total}");
     }
 

@@ -16,7 +16,6 @@ using Game.SceneGame;
 public class GameManager : SingletonNetwork<GameManager>
 {
     const int CHEFS_AMOUNT = 3;
-    const int TOTAL_ROUNDS = 2;
     GameState gameState;
     GameMode gameMode;
     [SerializeField] FoodDatabaseSO foodDatabase;
@@ -39,13 +38,13 @@ public class GameManager : SingletonNetwork<GameManager>
     [Header("DEBUG")]
     public bool skipIntro;
     public bool SkipIntro => skipIntro;
+    public int TotalRounds => gameMode == GameMode.Tutorial ? 1 : 2;
     #region Properties
     public GameState GameState => gameState;
     public GameMode GameMode => gameMode;
     public FoodDatabaseSO FoodDatabaseSO => foodDatabase;
     public RecipeSO TargetRecipe => targetRecipe;
     public List<ChefSO> Chefs => chefs;
-    public int TotalRounds => TOTAL_ROUNDS;
     public int CurrentRound => currentRound.Value;
     #endregion
 
@@ -85,6 +84,11 @@ public class GameManager : SingletonNetwork<GameManager>
     {
         if(playIntro)
             NewCamController.Instance.IntroClient(GameMode == GameMode.Tutorial);
+        if (GameMode == GameMode.Tutorial)
+        {
+            SceneManager.Instance.TIMER_MARKET = TutorialController.TUTORIAL_TIMER;
+            SceneManager.Instance.TIMER_MAIN = TutorialController.TUTORIAL_TIMER;
+        }
         ResetInfo();
     }
     void ResetInfo()
@@ -134,7 +138,9 @@ public class GameManager : SingletonNetwork<GameManager>
     public void InitializeGame(bool firstInit = true)
     {
         gameMode = TutorialController.Instance != null ? GameMode.Tutorial : GameMode.Main;
-        int recipeIndex = Random.Range(0, recipeDatabase.Length);
+        int recipeIndex = 0;
+        if (gameMode != GameMode.Tutorial)
+            Random.Range(0, recipeDatabase.Length);
         InitializeGameClientRpc(recipeIndex, gameMode);
         if (firstInit)
             InitializeChefs();
