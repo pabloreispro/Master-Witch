@@ -10,6 +10,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 3965b28275c30474e8f5b15e9478be94,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3965b28275c30474e8f5b15e9478be94,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3965b28275c30474e8f5b15e9478be94,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3965b28275c30474e8f5b15e9478be94,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -57,6 +72,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3965b28275c30474e8f5b15e9478be94,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3965b28275c30474e8f5b15e9478be94,
         type: 3}
@@ -234,7 +254,6 @@ MonoBehaviour:
   range: 5
   duration: 3
   rootVfx: {fileID: 1445209839600482122, guid: 7b2e00d83da04424bb1d3bc209794596, type: 3}
-  aoeVfx: {fileID: 4116105265914757621, guid: 1a866b2e2a602994aa743351bfe8dcf0, type: 3}
 --- !u!114 &7746159458256188593
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,6 +10,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 597cfb1244362e24eb98106c1a4e54bb,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 597cfb1244362e24eb98106c1a4e54bb,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 597cfb1244362e24eb98106c1a4e54bb,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 597cfb1244362e24eb98106c1a4e54bb,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -57,6 +72,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 597cfb1244362e24eb98106c1a4e54bb,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 597cfb1244362e24eb98106c1a4e54bb,
         type: 3}
@@ -221,7 +241,7 @@ MonoBehaviour:
   range: 5
   duration: 10
   speedModifier: 2
-  vfx: {fileID: 4798877573463440719, guid: e813045711d61b1469fcc4b731292a98, type: 3}
+  fogVfx: {fileID: 0}
   aoeCollider: {fileID: -8860627537717247594}
 --- !u!114 &8671525078803529154
 MonoBehaviour:
