@@ -446,19 +446,22 @@ public class GameManager : SingletonNetwork<GameManager>
 
     public void Reset(){
         foreach (Interactable objectScene in FindObjectsOfType<Interactable>()) {
-            // Verifica se é um Tool
+            // Verifica se o objeto é uma Tool
             if (objectScene is Tool tool) {
-                // Se for uma Tool, destrói independentemente do pai
-                objectScene.DestroySelf();
+                // Destroi se o pai for o Player
+                if (objectScene.transform.parent != null && objectScene.transform.parent.CompareTag("Player")) {
+                    objectScene.DestroySelf();
+                }
             }
-            // Verifica se é um Ingredient
+            // Verifica se o objeto é um Ingredient
             else if (objectScene is Ingredient ingredient) {
-                // Destroi apenas se tiver um pai (está dentro de outro objeto)
-                if (objectScene.transform.parent != null) {
+                // Destroi se o pai for o Player
+                if (objectScene.transform.parent != null && objectScene.transform.parent.CompareTag("Player")) {
                     objectScene.DestroySelf();
                 }
             }
         }
+
 
         /*for(int i=0; i<numberPlayer; i++){
             NetworkManagerUI.Instance.playerFinalCheck[i].isOn = false;
