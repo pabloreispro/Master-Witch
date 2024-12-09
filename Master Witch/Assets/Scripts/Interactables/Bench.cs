@@ -53,15 +53,17 @@ public class Bench : Interactable
     
     public void Reset()
     {
-        slider.value = 0;
-        endProgress = false;
-        _timer = 0f;
-        isPreparing.Value = false;
-        _timerProgress = 0;
-        _auxTimer = 0f;
-        ingredients.Clear();
-        targetRecipe = null;
-        objectInBench = null;
+        if(workBench){
+            slider.value = 0;
+            endProgress = false;
+            _timer = 0f;
+            isPreparing.Value = false;
+            _timerProgress = 0;
+            _auxTimer = 0f;
+            ingredients.Clear();
+            targetRecipe = null;
+            objectInBench = null;
+        }
     }
 
     private void Update()
