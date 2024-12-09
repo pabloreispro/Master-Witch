@@ -42,8 +42,6 @@ public class BusenBurner : Bench
     {
         if(_player !=null && ingredients.Count > 0){
             //GameInterfaceManager.Instance.spaceKey.SetActive(true);
-             
-
             if(_player.buttonPressed){
                 Debug.Log("Busen");
                 _UpTimeBenchServerRpc();
@@ -94,12 +92,12 @@ public class BusenBurner : Bench
         }
     }
 
-    [ServerRpc(RequireOwnership = false)]
+    [ServerRpc]
     private void _UpTimeBenchServerRpc(){
         timeBusen.Value = timeBusen.Value + Time.deltaTime * TIMER_MULTI;
     }
 
-    [ServerRpc(RequireOwnership = false)]
+    [ServerRpc]
     private void _DownTimeBenchServerRpc(){
         timeBusen.Value = timeBusen.Value - Time.deltaTime * TIMER_MULTI;
     }

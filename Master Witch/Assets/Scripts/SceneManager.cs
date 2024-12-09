@@ -118,6 +118,7 @@ namespace Game.SceneGame{
             {
                 benchStorage[i].ResetStorageClientRpc();
             }
+            
             if (GameManager.Instance.GameMode == GameMode.Tutorial)
             {
                 TutorialController.Instance.OnStartLevel();
