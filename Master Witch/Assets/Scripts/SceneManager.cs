@@ -113,7 +113,10 @@ namespace Game.SceneGame{
             timeCount.Value = TIMER_MARKET;
             maxTime = timeCount.Value;
             StartCoroutine(TimeCounter());
-            GameManager.Instance.Reset();
+            GameManager.Instance.ResetClientRpc();
+            for(int i=0; i<benchStorage.Count; i++){
+                benchStorage[i].ResetStorageClientRpc();
+            }
         }
 
         
@@ -123,7 +126,7 @@ namespace Game.SceneGame{
             maxTime = timeCount.Value;
             StartCoroutine(TimeCounter());
             GameManager.Instance.matchStartTime = Time.time;
-            GameManager.Instance.Reset();
+            GameManager.Instance.ResetClientRpc();
             if (GameManager.Instance.GameMode == GameMode.Tutorial)
             {
                 TutorialController.Instance.OnStartMain();

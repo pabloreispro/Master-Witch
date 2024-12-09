@@ -211,7 +211,7 @@ public class Player : NetworkBehaviour
         }
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership =false)]
     public void WalkLeftServerRpc(){
         Debug.Log("Animation walk left");
         WalkLeftClientRpc();
@@ -222,7 +222,7 @@ public class Player : NetworkBehaviour
         walkleft.Play();
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership =false)]
     public void WalkRightServerRpc(){
         WalkRightClientRpc();
     }
@@ -232,7 +232,7 @@ public class Player : NetworkBehaviour
         walkright.Play();
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership =false)]
     public void WalkCompServerRpc(){
         WalkCompClientRpc();
     }
@@ -242,7 +242,7 @@ public class Player : NetworkBehaviour
         WalkComp.Play();
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership =false)]
     public void PickPutServerRpc(){
         PickPutClientRpc();
     }

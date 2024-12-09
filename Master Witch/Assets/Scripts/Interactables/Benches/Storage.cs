@@ -25,6 +25,23 @@ public class Storage : Bench
 
     public GameObject[] slotsStorage;
     public AudioSource sfx, sfx2;
+
+    [ClientRpc]
+    public void ResetStorageClientRpc(){
+        foreach (GameObject objetoPai in slotsStorage)
+        {
+            if (objetoPai != null) // Certifica-se de que o objeto pai não seja nulo
+            {
+                // Itera pelos filhos do objeto pai
+                foreach (Transform filho in objetoPai.transform)
+                {
+                    // Destroi o filho
+                    Destroy(filho.gameObject);
+                }
+            }
+        }
+        ingredients.Clear();
+    }
     
     [ServerRpc(RequireOwnership = false)]
     public void EnableSFXServerRpc(){

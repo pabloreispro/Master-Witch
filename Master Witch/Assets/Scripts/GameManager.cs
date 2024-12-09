@@ -408,23 +408,8 @@ public class GameManager : SingletonNetwork<GameManager>
         {
             Destroy(layoutGroup.gameObject);
         }
-        //Reset();
-    }
 
-    //[ClientRpc]
-    //public void OnPlayerEliminatedClientRpc(int playerID){
-    //    Debug.Log("Player eliminado é: "+ playerID);
-    //    Reset();
-    //    foreach (Player player in FindObjectsOfType<Player>())
-    //    {
-    //        if (player.id == playerID)
-    //        {
-    //            player.GetComponent<NetworkObject>().gameObject.SetActive(false);
-    //        }
-    //    }
-    //    numberPlayer--;
-    //    //PlayerNetworkManager.Instance.GetPlayerByIndex(playerID).gameObject.SetActive(false);
-    //}
+    }
 
     public void OnReturnMarket(){
 
@@ -458,7 +443,8 @@ public class GameManager : SingletonNetwork<GameManager>
         benchColorRenderer[playerIndex].materials = benchList;
         storageColorRenderer[playerIndex].materials = storageList;
     }
-    public void Reset(){
+    [ClientRpc]
+    public void ResetClientRpc(){
         foreach(Interactable objectScene in FindObjectsOfType<Interactable>()){
             if((objectScene as Tool) != null )//&&(objectScene as Tool).isHandTool
                 objectScene.DestroySelf();
@@ -469,9 +455,10 @@ public class GameManager : SingletonNetwork<GameManager>
             NetworkManagerUI.Instance.playerFinalCheck[i].isOn = false;
             NetworkManagerUI.Instance.playerUI[i].gameObject.SetActive(false);
         }*/
-        foreach(StorageController store in FindObjectsOfType<StorageController>()){
+        /*foreach(Storage store in FindObjectsOfType<Storage>()){
             store.storageItems.Clear();
-        }
+        }*/
+        
     }
 }
 public enum GameState
