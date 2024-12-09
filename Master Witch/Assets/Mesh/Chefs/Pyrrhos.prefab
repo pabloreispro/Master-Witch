@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3564471135059781273
 Transform:
   m_ObjectHideFlags: 0
@@ -181,6 +181,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pyrrhos
       objectReference: {fileID: 0}
+    - target: {fileID: 3150573995720643268, guid: dc1c309f37a4fcc498ddede0bad7cf8c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e14e2a5f21ba1f649810ff4397571525, type: 2}
+    - target: {fileID: 4207175921607942320, guid: dc1c309f37a4fcc498ddede0bad7cf8c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e14e2a5f21ba1f649810ff4397571525, type: 2}
+    - target: {fileID: 5539804276488733493, guid: dc1c309f37a4fcc498ddede0bad7cf8c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e14e2a5f21ba1f649810ff4397571525, type: 2}
+    - target: {fileID: 5539804276488733493, guid: dc1c309f37a4fcc498ddede0bad7cf8c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: e14e2a5f21ba1f649810ff4397571525, type: 2}
+    - target: {fileID: 5539804276488733493, guid: dc1c309f37a4fcc498ddede0bad7cf8c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: e14e2a5f21ba1f649810ff4397571525, type: 2}
     - target: {fileID: 5866666021909216657, guid: dc1c309f37a4fcc498ddede0bad7cf8c,
         type: 3}
       propertyPath: m_Controller
