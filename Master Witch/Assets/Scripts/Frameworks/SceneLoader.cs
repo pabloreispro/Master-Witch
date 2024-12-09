@@ -79,17 +79,10 @@ public class SceneLoader : MonoBehaviourSingletonPersistent<SceneLoader>
     //Shows the async loading process via the referenced slide, then load the scene
     void LoadAsync(string sceneName, Action doAfterLoad = null)
     {
+        
+
+        
         isLoading = true;
-        Time.timeScale = 1;
-
-        
-        if (a != null)
-            a.SetActive(true);
-
-        
-        StartCoroutine(LoadSceneWithFakeLoading(sceneName, doAfterLoad));
-
-        /*isLoading = true;
         Time.timeScale = 1;
         //DataCarrier.HoldData((Scene arg0, LoadSceneMode arg1) =>
         //{
@@ -103,34 +96,9 @@ public class SceneLoader : MonoBehaviourSingletonPersistent<SceneLoader>
         //    }, Transition.TransitionType.Strokes, false);
         UnloadAdditiveScenes();
         UnitySceneManager.LoadSceneAsync(sceneName);
-        sceneLoaded += doAfterLoad;*/
-    }
-
-    private IEnumerator LoadSceneWithFakeLoading(string sceneName, Action doAfterLoad)
-    {
-        float fakeLoadingDuration = 50f; // Duração do loading falso em segundos
-        float elapsedTime = 0f;
-
-        
-        while (elapsedTime < fakeLoadingDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        
-         
-        UnitySceneManager.LoadSceneAsync(sceneName);
-
-        
-
-        
-        if (a != null)
-            a.SetActive(false);
-
-        
         sceneLoaded += doAfterLoad;
     }
+    
 
     // Keep in the same order as the build scenes order
     public enum Scenes
