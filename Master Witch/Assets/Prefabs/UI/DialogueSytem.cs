@@ -8,10 +8,10 @@ public class DialogueSystem : SingletonNetwork<DialogueSystem>
 {
     public TextMeshProUGUI dialogueText, chefName;
     public float typingSpeed = 0.03f;
-    
-    
+    public bool DialogueIsOpen { get; private set; }
     public IEnumerator OpenDialogue()
     {
+        DialogueIsOpen = true;
         yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(1, 0.3f);
         yield return new WaitForSeconds(0.3f);
         yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0.5f, 0.2f);
@@ -23,10 +23,15 @@ public class DialogueSystem : SingletonNetwork<DialogueSystem>
     {
         yield return GameInterfaceManager.Instance.dialogueBox.transform.DOScale(0, 1);
         yield return new WaitForSeconds(0.5f);
+        DialogueIsOpen = false;
     }
     // Corrotina para digitar o texto letra por letra
     public IEnumerator StartDialogue(string[] texts)
     {
+        while (DialogueIsOpen)
+        {
+            yield return null;
+        }
         yield return StartCoroutine(OpenDialogue());
         foreach (var item in texts)
         {
@@ -38,6 +43,11 @@ public class DialogueSystem : SingletonNetwork<DialogueSystem>
     }
     public IEnumerator StartDialogue(string text, bool open = true, bool close = true)
     {
+
+        while (DialogueIsOpen && open)
+        {
+            yield return null;
+        }
         if(open)
             yield return StartCoroutine(OpenDialogue());
         foreach (char letter in text.ToCharArray())
@@ -49,5 +59,9 @@ public class DialogueSystem : SingletonNetwork<DialogueSystem>
         dialogueText.text = "";
         if(close)
             yield return StartCoroutine(CloseDialogue());
+    }
+
+    public void SkipDialogue()
+    {
     }
 }

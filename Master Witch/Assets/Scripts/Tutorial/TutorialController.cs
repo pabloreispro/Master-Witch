@@ -75,87 +75,87 @@ public class TutorialController : Singleton<TutorialController>
         SceneManager.Instance.timeCount.Value = 1;
 
     }
-    public void OnStartMain()
+    public void OnStartLevel()
     {
         CurrentStep.OnStart();
     }
 
-    public void NextIngredientPickStep()
-    {
-        var correctStep = false;
-        foreach (var item in SceneManager.Instance.benchStorage[0].ingredients)
-        {
-            correctStep = item.TargetFood == ingredientsCrates[currentStepIndex].food;
-            if (correctStep) break;
-        }
-        if (!correctStep) return;
-        StartCoroutine(StartMarketDialogue());
-        ingredientsCrates[currentStepIndex].gameObject.SetActive(false);
-        currentStepIndex++;
-        if (currentStepIndex >= ingredientsCrates.Length) return;
-        ingredientsCrates[currentStepIndex].gameObject.SetActive(true);
-    }
-    IEnumerator StartMarketDialogue()
-    {
-        DialogueSystem.Instance.chefName.text = GameManager.Instance.chefsGO[0].name.Replace("(Clone)", "").Trim();
-        SceneManager.Instance.isMovementAllowed.Value = false;
-        yield return StartCoroutine(DialogueSystem.Instance.StartDialogue(step01Messages[currentStepIndex]));
-        SceneManager.Instance.isMovementAllowed.Value = true;
-        if (currentStepIndex >= ingredientsCrates.Length)
-            SceneManager.Instance.timeCount.Value = 1;
-    }
-    IEnumerator StartMainDialogue()
-    {
-        DialogueSystem.Instance.chefName.text = GameManager.Instance.chefsGO[0].name.Replace("(Clone)", "").Trim();
-        SceneManager.Instance.isMovementAllowed.Value = false;
-        yield return StartCoroutine(DialogueSystem.Instance.StartDialogue(startMainMessages));
-        SceneManager.Instance.isMovementAllowed.Value = true;
-    }
+    //public void NextIngredientPickStep()
+    //{
+    //    var correctStep = false;
+    //    foreach (var item in SceneManager.Instance.benchStorage[0].ingredients)
+    //    {
+    //        correctStep = item.TargetFood == ingredientsCrates[currentStepIndex].food;
+    //        if (correctStep) break;
+    //    }
+    //    if (!correctStep) return;
+    //    StartCoroutine(StartMarketDialogue());
+    //    ingredientsCrates[currentStepIndex].gameObject.SetActive(false);
+    //    currentStepIndex++;
+    //    if (currentStepIndex >= ingredientsCrates.Length) return;
+    //    ingredientsCrates[currentStepIndex].gameObject.SetActive(true);
+    //}
+    //IEnumerator StartMarketDialogue()
+    //{
+    //    DialogueSystem.Instance.chefName.text = GameManager.Instance.chefsGO[0].name.Replace("(Clone)", "").Trim();
+    //    SceneManager.Instance.isMovementAllowed.Value = false;
+    //    yield return StartCoroutine(DialogueSystem.Instance.StartDialogue(step01Messages[currentStepIndex]));
+    //    SceneManager.Instance.isMovementAllowed.Value = true;
+    //    if (currentStepIndex >= ingredientsCrates.Length)
+    //        SceneManager.Instance.timeCount.Value = 1;
+    //}
+    //IEnumerator StartMainDialogue()
+    //{
+    //    DialogueSystem.Instance.chefName.text = GameManager.Instance.chefsGO[0].name.Replace("(Clone)", "").Trim();
+    //    SceneManager.Instance.isMovementAllowed.Value = false;
+    //    yield return StartCoroutine(DialogueSystem.Instance.StartDialogue(startMainMessages));
+    //    SceneManager.Instance.isMovementAllowed.Value = true;
+    //}
 
-    public void NextBenchStep(GameObject benchObj, bool isPick)
-    {
-        var bench = benchObj.GetComponent<Bench>();
-        if (bench == null)
-        {
-            var trialBench = benchObj.GetComponent<TrialBench>();
-            if (trialBench == null)
-                return;
-            if (trialBench.Delivery == GameManager.Instance.TargetRecipe)
-            {
-                StartCoroutine(EndGameDialogue());
-            }
-        }
-        if (!isPick)
-        {
-            if (currentStepIndex >= foodSteps.Length) return;
-            if (currentStepIndex >= 3 && currentStepIndex < 6)
-            {
-                if (bench.benchType != BenchType.Cauldron || (bench.ingredients[0].targetFood != foodSteps[3] &&
-                    bench.ingredients[0].targetFood != foodSteps[4] && bench.ingredients[0].targetFood != foodSteps[5]))
-                {
-                    StartCoroutine(DialogueSystem.Instance.StartDialogue($"Quase lá! Tente adicionar todos os ingredientes que preparou no {benchSteps[currentStepIndex]}"));
-                    return;
-                }
-                else if(currentStepIndex >= 5)
-                    StartCoroutine(Step02Dialogue());
-            }
-            else if (bench.benchType != benchSteps[currentStepIndex] || bench.ingredients[0].targetFood != foodSteps[currentStepIndex])
-            {
-                StartCoroutine(DialogueSystem.Instance.StartDialogue($"Boa! Mas não é o que precisamos. Tente usar o {foodSteps[currentStepIndex].name} na bancada de {benchSteps[currentStepIndex]}"));
-                return;
-            }
-            else
-                StartCoroutine(Step02Dialogue());
-            currentStepIndex++;
-        }
-        else
-        {
-            if (bench.benchType == benchSteps[currentStepIndex])
-            {
-                StartCoroutine(OnRetrievePotionDialogue());
-            }
-        }
-    }
+    //public void NextBenchStep(GameObject benchObj, bool isPick)
+    //{
+    //    var bench = benchObj.GetComponent<Bench>();
+    //    if (bench == null)
+    //    {
+    //        var trialBench = benchObj.GetComponent<TrialBench>();
+    //        if (trialBench == null)
+    //            return;
+    //        if (trialBench.Delivery == GameManager.Instance.TargetRecipe)
+    //        {
+    //            StartCoroutine(EndGameDialogue());
+    //        }
+    //    }
+    //    if (!isPick)
+    //    {
+    //        if (currentStepIndex >= foodSteps.Length) return;
+    //        if (currentStepIndex >= 3 && currentStepIndex < 6)
+    //        {
+    //            if (bench.benchType != BenchType.Cauldron || (bench.ingredients[0].targetFood != foodSteps[3] &&
+    //                bench.ingredients[0].targetFood != foodSteps[4] && bench.ingredients[0].targetFood != foodSteps[5]))
+    //            {
+    //                StartCoroutine(DialogueSystem.Instance.StartDialogue($"Quase lá! Tente adicionar todos os ingredientes que preparou no {benchSteps[currentStepIndex]}"));
+    //                return;
+    //            }
+    //            else if(currentStepIndex >= 5)
+    //                StartCoroutine(Step02Dialogue());
+    //        }
+    //        else if (bench.benchType != benchSteps[currentStepIndex] || bench.ingredients[0].targetFood != foodSteps[currentStepIndex])
+    //        {
+    //            StartCoroutine(DialogueSystem.Instance.StartDialogue($"Boa! Mas não é o que precisamos. Tente usar o {foodSteps[currentStepIndex].name} na bancada de {benchSteps[currentStepIndex]}"));
+    //            return;
+    //        }
+    //        else
+    //            StartCoroutine(Step02Dialogue());
+    //        currentStepIndex++;
+    //    }
+    //    else
+    //    {
+    //        if (bench.benchType == benchSteps[currentStepIndex])
+    //        {
+    //            StartCoroutine(OnRetrievePotionDialogue());
+    //        }
+    //    }
+    //}
     public IEnumerator StartDialogue(string[] messages)
     {
         if (messages.Length <= 0) yield break;
@@ -164,28 +164,28 @@ public class TutorialController : Singleton<TutorialController>
         yield return StartCoroutine(DialogueSystem.Instance.StartDialogue(messages));
         SceneManager.Instance.isMovementAllowed.Value = true;
     }
-    IEnumerator Step02Dialogue()
-    {
-        DialogueSystem.Instance.chefName.text = GameManager.Instance.chefsGO[0].name.Replace("(Clone)", "").Trim();
-        SceneManager.Instance.isMovementAllowed.Value = false;
-        yield return StartCoroutine(DialogueSystem.Instance.StartDialogue(step02Messages[currentStepIndex]));
-        SceneManager.Instance.isMovementAllowed.Value = true;
-    }
-    IEnumerator OnRetrievePotionDialogue()
-    {
-        DialogueSystem.Instance.chefName.text = GameManager.Instance.chefsGO[0].name.Replace("(Clone)", "").Trim();
-        SceneManager.Instance.isMovementAllowed.Value = false;
-        yield return StartCoroutine(DialogueSystem.Instance.StartDialogue(deliveryMessages));
-        SceneManager.Instance.isMovementAllowed.Value = true;
-    }
-    IEnumerator EndGameDialogue()
-    {
-        DialogueSystem.Instance.chefName.text = GameManager.Instance.chefsGO[0].name.Replace("(Clone)", "").Trim();
-        SceneManager.Instance.isMovementAllowed.Value = false;
-        yield return StartCoroutine(DialogueSystem.Instance.StartDialogue(endGameMessages));
-        SceneManager.Instance.isMovementAllowed.Value = true;
-        SceneManager.Instance.timeCount.Value = 1;
-    }
+    //IEnumerator Step02Dialogue()
+    //{
+    //    DialogueSystem.Instance.chefName.text = GameManager.Instance.chefsGO[0].name.Replace("(Clone)", "").Trim();
+    //    SceneManager.Instance.isMovementAllowed.Value = false;
+    //    yield return StartCoroutine(DialogueSystem.Instance.StartDialogue(step02Messages[currentStepIndex]));
+    //    SceneManager.Instance.isMovementAllowed.Value = true;
+    //}
+    //IEnumerator OnRetrievePotionDialogue()
+    //{
+    //    DialogueSystem.Instance.chefName.text = GameManager.Instance.chefsGO[0].name.Replace("(Clone)", "").Trim();
+    //    SceneManager.Instance.isMovementAllowed.Value = false;
+    //    yield return StartCoroutine(DialogueSystem.Instance.StartDialogue(deliveryMessages));
+    //    SceneManager.Instance.isMovementAllowed.Value = true;
+    //}
+    //IEnumerator EndGameDialogue()
+    //{
+    //    DialogueSystem.Instance.chefName.text = GameManager.Instance.chefsGO[0].name.Replace("(Clone)", "").Trim();
+    //    SceneManager.Instance.isMovementAllowed.Value = false;
+    //    yield return StartCoroutine(DialogueSystem.Instance.StartDialogue(endGameMessages));
+    //    SceneManager.Instance.isMovementAllowed.Value = true;
+    //    SceneManager.Instance.timeCount.Value = 1;
+    //}
 
     [Serializable]
     public class TutorialStep

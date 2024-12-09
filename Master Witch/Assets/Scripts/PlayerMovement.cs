@@ -252,6 +252,7 @@ public class PlayerMovement : Player
     }
     private void _Interact(InputAction.CallbackContext context){
         if(IsOwner){
+            if (!CanDoInput()) return;
             if(context.started){
                 _PickDropObject();
             }
@@ -259,6 +260,7 @@ public class PlayerMovement : Player
     }
     private void _Action(InputAction.CallbackContext context){
         if(IsOwner){
+            if (!CanDoInput()) return;
             if(context.started){
                 buttonPressed = true;
             }
@@ -266,6 +268,15 @@ public class PlayerMovement : Player
                 buttonPressed = false;
             }
         }
+    }
+    public bool CanDoInput()
+    {
+        if (DialogueSystem.Instance.DialogueIsOpen)
+        {
+            DialogueSystem.Instance.SkipDialogue();
+            return false;
+        }
+        return true;
     }
     private void _PickDropObject(){
         //PickPutServerRpc();

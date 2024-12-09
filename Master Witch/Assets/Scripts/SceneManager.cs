@@ -107,19 +107,24 @@ namespace Game.SceneGame{
             }
         }
 
-        
+
         public void StartMarket()
         {
             timeCount.Value = TIMER_MARKET;
             maxTime = timeCount.Value;
             StartCoroutine(TimeCounter());
             GameManager.Instance.Reset();
-            for(int i=0; i<benchStorage.Count; i++){
+            for (int i = 0; i < benchStorage.Count; i++)
+            {
                 benchStorage[i].ResetStorageClientRpc();
+            }
+            if (GameManager.Instance.GameMode == GameMode.Tutorial)
+            {
+                TutorialController.Instance.OnStartLevel();
             }
         }
 
-        
+
         public void StartMain()
         {
             timeCount.Value = TIMER_MAIN;
@@ -129,7 +134,7 @@ namespace Game.SceneGame{
             GameManager.Instance.Reset();
             if (GameManager.Instance.GameMode == GameMode.Tutorial)
             {
-                TutorialController.Instance.OnStartMain();
+                TutorialController.Instance.OnStartLevel();
             }
         }
             

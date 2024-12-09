@@ -76,7 +76,7 @@ public class CustomizationController : MonoBehaviour
     }
     public void PreviousSkin()
     {
-        currentSkin = currentAcessory <= 0 ? player.skins.Length - 1 : currentSkin - 1;
+        currentSkin = currentSkin <= 0 ? player.skins.Length - 1 : currentSkin - 1;
         SetSkin(currentSkin);
     }
     void SetSkin(int index)
