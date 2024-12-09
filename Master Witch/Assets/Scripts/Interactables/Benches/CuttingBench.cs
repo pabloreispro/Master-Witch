@@ -8,7 +8,7 @@ public class CuttingBench : Bench
     public ParticleSystem cutParticle;
     public AudioSource sfx;
 
-    bool _wasPlayerInteracting;
+    public bool _wasPlayerInteracting;
     
     [ServerRpc(RequireOwnership = false)]
     public void EnableSFXServerRpc(){
@@ -41,7 +41,8 @@ public class CuttingBench : Bench
         {
             if(ingredients.Count > 0)
             {
-                //GameInterfaceManager.Instance.spaceKey.SetActive(_player != null);
+
+                
                 if(_player.buttonPressed){
                     EnableSFXServerRpc();
                     ChangeVariableServerRpc(true);
@@ -61,7 +62,7 @@ public class CuttingBench : Bench
         {
             _wasPlayerInteracting = !_wasPlayerInteracting;
             GameInterfaceManager.Instance.eKey.SetActive(_player!=null && _player.isHand.Value);
-            GameInterfaceManager.Instance.spaceKey.SetActive(_player!= null && ingredients.Count > 0 && objectInBench == null);
+            //GameInterfaceManager.Instance.spaceKey.SetActive(_player!= null && ingredients.Count > 0 && objectInBench == null);
         }
         
         

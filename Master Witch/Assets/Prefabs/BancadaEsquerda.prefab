@@ -592,7 +592,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &3110540766576771630
 MonoBehaviour:
@@ -935,6 +935,7 @@ MonoBehaviour:
   slider: {fileID: 4557504843938822863}
   cutParticle: {fileID: 0}
   sfx: {fileID: 6156922154364062415}
+  _wasPlayerInteracting: 0
 --- !u!82 &6156922154364062415
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1539,7 +1540,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &8541439975119647941
 MonoBehaviour:
@@ -1885,6 +1886,7 @@ MonoBehaviour:
   slider: {fileID: 6750638863068869825}
   smoke: {fileID: 0}
   sfx: {fileID: 4190304199163615801}
+  _wasPlayerInteracting: 0
 --- !u!82 &4190304199163615801
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2296,6 +2298,7 @@ MonoBehaviour:
   fire: {fileID: 0}
   smoke: {fileID: 0}
   sfx: {fileID: 4337854134123896729}
+  _wasPlayerInteracting: 0
 --- !u!82 &4337854134123896729
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3443,7 +3446,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 121, y: 153}
+  m_AnchoredPosition: {x: 190, y: 153}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6499394788889855544
@@ -4352,7 +4355,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &1115211830382629698
 MonoBehaviour:

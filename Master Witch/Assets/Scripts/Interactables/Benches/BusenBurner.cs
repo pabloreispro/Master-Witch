@@ -16,7 +16,7 @@ public class BusenBurner : Bench
     public GameObject fire, smoke;
     public AudioSource sfx;
 
-    private bool _wasPlayerInteracting;
+    public bool _wasPlayerInteracting;
 
     [ServerRpc(RequireOwnership = false)]
     public void EnableSFXServerRpc(){
@@ -89,8 +89,8 @@ public class BusenBurner : Bench
         {
             _wasPlayerInteracting = !_wasPlayerInteracting;
             GameInterfaceManager.Instance.eKey.SetActive(_player!=null && _player.isHand.Value);
-            GameInterfaceManager.Instance.spaceKey.SetActive(_player!= null && ingredients.Count > 0 && objectInBench == null);
-            GameInterfaceManager.Instance.spaceAnim.SetBool("Hold", _player!= null && ingredients.Count > 0 && objectInBench == null);
+            //GameInterfaceManager.Instance.spaceKey.SetActive(_player!= null && ingredients.Count > 0 && objectInBench == null);
+            
         }
     }
 

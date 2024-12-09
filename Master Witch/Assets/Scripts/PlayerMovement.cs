@@ -14,6 +14,7 @@ using Unity.Multiplayer.Tools.NetStatsMonitor;
 using UI;
 using Game.SceneGame;
 using Unity.Services.Lobbies.Models;
+using Game.UI;
 
 
 public class PlayerMovement : Player
@@ -133,7 +134,24 @@ public class PlayerMovement : Player
                     interact = tempInteract;
                     if(interact as Bench)
                         (interact as Bench)._player = this;
-                    break;
+                    
+
+                    if(interact as CuttingBench && (interact as CuttingBench)._wasPlayerInteracting && (interact as CuttingBench).ingredients.Count > 0 && (interact as CuttingBench).objectInBench == null)
+                    {
+                        GameInterfaceManager.Instance.spaceKey.SetActive(true);
+                        GameInterfaceManager.Instance.spaceAnim.SetBool("Hold",false);
+                    }
+                    if(interact as BusenBurner && (interact as BusenBurner)._wasPlayerInteracting && (interact as BusenBurner).ingredients.Count > 0 && (interact as BusenBurner).objectInBench == null)
+                    {
+                        GameInterfaceManager.Instance.spaceKey.SetActive(true);
+                        GameInterfaceManager.Instance.spaceAnim.SetBool("Hold",true);
+                    }
+                    if(interact as Mortar && (interact as Mortar)._wasPlayerInteracting && (interact as Mortar).ingredients.Count > 0 && (interact as Mortar).objectInBench == null)
+                    {
+                        GameInterfaceManager.Instance.spaceKey.SetActive(true);
+                        GameInterfaceManager.Instance.spaceAnim.SetBool("Hold",true);
+                    }
+                    
                 }
             }
             else
@@ -149,7 +167,7 @@ public class PlayerMovement : Player
                         (tempInteract as Bench)._player = null;
                     }
                 }
-                
+                GameInterfaceManager.Instance.spaceKey.SetActive(false);
                 interact = null;
             }
         }

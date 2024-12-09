@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.VFX;
+using Game.UI;
 
 public class Mortar : Bench
 {
     public VisualEffect smoke;
     public AudioSource sfx;
+    public bool _wasPlayerInteracting;
 
     [ServerRpc(RequireOwnership = false)]
     public void EnableSFXServerRpc(){
@@ -42,6 +44,12 @@ public class Mortar : Bench
                 _player = null;
                 DisableParticlesServerRpc();
             }
+        }
+        if( (_player!=null) != _wasPlayerInteracting)
+        {
+            _wasPlayerInteracting = !_wasPlayerInteracting;
+            GameInterfaceManager.Instance.eKey.SetActive(_player!=null && _player.isHand.Value);
+            //GameInterfaceManager.Instance.spaceKey.SetActive(_player!= null && ingredients.Count > 0 && objectInBench == null);
         }
         
     }

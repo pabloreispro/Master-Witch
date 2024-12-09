@@ -531,7 +531,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &3110540766576771630
 MonoBehaviour:
@@ -949,6 +949,7 @@ MonoBehaviour:
   slider: {fileID: 4557504843938822863}
   cutParticle: {fileID: 0}
   sfx: {fileID: 2098303172009191478}
+  _wasPlayerInteracting: 0
 --- !u!82 &2098303172009191478
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1395,7 +1396,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &8541439975119647941
 MonoBehaviour:
@@ -1575,6 +1576,7 @@ MonoBehaviour:
   slider: {fileID: 6750638863068869825}
   smoke: {fileID: 0}
   sfx: {fileID: 2733455890621234204}
+  _wasPlayerInteracting: 0
 --- !u!82 &2733455890621234204
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2085,6 +2087,7 @@ MonoBehaviour:
   fire: {fileID: 0}
   smoke: {fileID: 0}
   sfx: {fileID: 8312700698388841592}
+  _wasPlayerInteracting: 0
 --- !u!82 &8312700698388841592
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4221,7 +4224,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 130, y: 160}
+  m_AnchoredPosition: {x: 190, y: 160}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &988887382309860324
@@ -4376,7 +4379,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8430607802030295583
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4418,7 +4421,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &1115211830382629698
 MonoBehaviour:
@@ -5544,7 +5547,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7658001666899397487
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7546,6 +7549,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7778074732808527276}
     m_Modifications:
+    - target: {fileID: 2228676517922968635, guid: f09b11520f2116d4490e7cd6a828482e,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1793119017
+      objectReference: {fileID: 0}
     - target: {fileID: 4165021218852863837, guid: f09b11520f2116d4490e7cd6a828482e,
         type: 3}
       propertyPath: m_Name
