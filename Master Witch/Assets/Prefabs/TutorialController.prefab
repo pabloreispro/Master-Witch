@@ -1,0 +1,635 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &644525027138220752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3312483891255339206}
+  - component: {fileID: 8650577064681619810}
+  m_Layer: 0
+  m_Name: TutorialController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3312483891255339206
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644525027138220752}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.1679761, y: 6.8214345, z: 1.9287281}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8650577064681619810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644525027138220752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a567c9cf47567e4d95a4c7a81db886b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialChefMessages:
+  - "Seja bem vindo ao programa Master Chef! Onde voc\xEA ter\xE1 que provar que
+    \xE9 o maior bruxo existente!"
+  - "Voc\xEA ter\xE1 que agradar a n\xF3s, os Chefs Anci\xE3os, reproduzindo as po\xE7\xF5es
+    que pediremos ao inicio de cada round."
+  - "Para provar que \xE9 o melhor, voc\xEA ter\xE1 que ser mais r\xE1pido que seus
+    advers\xE1rios, e tentar conquistar a aprova\xE7\xE3o dos Chefs adicionando ingredientes
+    que eles gostem em sua receita. \xC9 importante ser criativo!"
+  - "Agora, vamos tentar criar uma po\xE7\xE3o do Amor. Pegue uma Flor de L\xF3tus
+    (TECLA E) na caixa de estoque."
+  ingredientsCrates:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  step01Messages:
+  - "\xD3timo! Agora vamos precisar de algumas Asas de Borboleta. Ah! Alguns ingredientes
+    ativam efeitos especiais ao serem jogados no ch\xE3o. Teste com as Asas de Borboleta,
+    e depois coloque uma no ba\xFA."
+  - Muito bem! .
+  - "Perfeito! Agora que temos o necess\xE1rio, vamos preparar a po\xE7\xE3o."
+  startMainMessages:
+  - "Este \xE9 o espa\xE7o de preparo. Seus ingredientes estar\xE3o no ba\xFA ao
+    lado, clique no \xEDcone do ingrediente que deseja retirar."
+  - "Comece pegando a Flor de L\xF3tus, e cortando-a na Mesa de Corte da sua Bancada
+    (Tecla E para interagir)"
+  step02Messages:
+  - "Para cortar os ingredientes na Mesa De Corte, pressione Tecla de Espa\xE7o at\xE9
+    o progresso terminar. Depois, deixe o ingrediente cortado em um espa\xE7o livre
+    da sua Bancada e triture as Asas De Borboleta no Almofariz."
+  - "Cada bancada de trabalho possui um tipo de intera\xE7\xE3o diferente. No Almofariz,
+    voc\xEA deve SEGURAR a Tecla de Espa\xE7o. Depois de conseguir as Asas Trituradas,
+    voc\xEA ir\xE1 precisar de Cortar o Peda\xE7o de Kraken."
+  - "Voc\xEA est\xE1 indo bem! Assim que terminar de cortar, junte todos os ingredientes
+    no Caldeir\xE3o abaixo de sua bancada."
+  - 
+  - 
+  - "O Caldeir\xE3o, assim como outras Bancadas Especiais que se encontra pelo mapa,
+    necessitam de uma ferramenta especial para funcionar. Pegue um balde d'agua no
+    Po\xE7o e adicione ao Caldeir\xE3o."
+  deliveryMessages:
+  - "Muito bem! Sua Po\xE7\xE3o do Amor est\xE1 pronta! Entregue-a na Mesa de Avalia\xE7\xE3o
+    para que os Anci\xE3os deem seu veredito!"
+  endGameMessages:
+  - "Agora voc\xEA est\xE1 pronto para competir! V\xE1 e prove a todos que voc\xEA
+    \xE9 o melhor!"
+  benchSteps: 01000000020000000100000004000000040000000400000004000000
+  foodSteps:
+  - {fileID: 11400000, guid: 7ec1735b58c22194abdba7b6f68be8ca, type: 2}
+  - {fileID: 11400000, guid: acb83edd11ef0734bb1004cf4a444e8d, type: 2}
+  - {fileID: 11400000, guid: 18fbb6a6e6cc48444abeaa0511054be6, type: 2}
+  - {fileID: 11400000, guid: 3ba23502a25075f4aa4fc2b2d3bd4312, type: 2}
+  - {fileID: 11400000, guid: 8b07d96fa4c06924094dd842fa00998e, type: 2}
+  - {fileID: 11400000, guid: 643683ce383ad4449b63ff13d1a2a8e2, type: 2}
+  tutorialCompassPrefab: {fileID: 1047297077309765802, guid: 04fcf764a4188cb43a03b4b2dddca4bf,
+    type: 3}
+  tutorialSteps:
+  - name: Pegar Lotus
+    interactionType: 0
+    startInsta: 1
+    startMessages:
+    - Start 1
+    interactMessages: []
+    errorMessages: []
+    targetTriggers:
+    - {fileID: 0}
+    foodSteps: []
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Guardar Lotus
+    interactionType: 1
+    startInsta: 1
+    startMessages:
+    - "Muito bem! Agora vamos guard\xE1-la no seu ba\xFA."
+    interactMessages: []
+    errorMessages: []
+    targetTriggers:
+    - {fileID: 0}
+    foodSteps:
+    - {fileID: 11400000, guid: 7ec1735b58c22194abdba7b6f68be8ca, type: 2}
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Pegar Borboleta
+    interactionType: 0
+    startInsta: 1
+    startMessages:
+    - Vamos precisar de mais alguns ingredientes. Pegue as Asas de Borboleta.
+    interactMessages:
+    - "Alguns ingredientes possuem efeitos especiais quando s\xE3o soltos no ch\xE3o
+      (TECLA E). Teste com as Asas de Borboleta!"
+    errorMessages: []
+    targetTriggers:
+    - {fileID: 0}
+    foodSteps: []
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Guardar Borboleta
+    interactionType: 1
+    startInsta: 1
+    startMessages:
+    - Step 4
+    interactMessages: []
+    errorMessages: []
+    targetTriggers:
+    - {fileID: 0}
+    foodSteps:
+    - {fileID: 11400000, guid: acb83edd11ef0734bb1004cf4a444e8d, type: 2}
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Pegar Kraken
+    interactionType: 0
+    startInsta: 1
+    startMessages:
+    - "Alguns chefes possuem gostos por ingredientes espec\xEDficos, que se estiverem
+      na receita, podem lhe dar pontos adicionais."
+    - "Vamos pegar um Tent\xE1culo de Kr\xE1ken para adicion\xE1-lo \xE0 po\xE7\xE3o
+      e ganhar pontos extras."
+    interactMessages: []
+    errorMessages: []
+    targetTriggers:
+    - {fileID: 0}
+    foodSteps: []
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Guardar Kraken
+    interactionType: 1
+    startInsta: 1
+    startMessages: []
+    interactMessages:
+    - "Perfeito! Agora que temos o necess\xE1rio, vamos preparar a po\xE7\xE3o."
+    errorMessages: []
+    targetTriggers:
+    - {fileID: 0}
+    foodSteps:
+    - {fileID: 11400000, guid: 18fbb6a6e6cc48444abeaa0511054be6, type: 2}
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8650577064681619810}
+          m_TargetAssemblyTypeName: TutorialController, Assembly-CSharp
+          m_MethodName: EndRound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: Start Main - Pick Lotus
+    interactionType: 0
+    startInsta: 0
+    startMessages:
+    - "Este \xE9 o espa\xE7o de preparo das po\xE7\xF5es. Seus ingredientes est\xE3o
+      no ba\xFA ao lado de sua bancada."
+    - "Pegue a Flor de L\xF3tus para come\xE7armos o preparo. (CLIQUE COM O BOT\xC3O
+      ESQUERDO DO MOUSE NO INGREDIENTE DESEJADO)."
+    interactMessages: []
+    errorMessages:
+    - "Vamos come\xE7ar o preparo pegando a Flor De L\xF3tus no seu ba\xFA de armazenamento.
+      (CLIQUE NO \xCDCONE DO INGREDIENTE DESEJADO)"
+    targetTriggers:
+    - {fileID: 0}
+    - {fileID: 0}
+    foodSteps:
+    - {fileID: 11400000, guid: 7ec1735b58c22194abdba7b6f68be8ca, type: 2}
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Cortar Lotus
+    interactionType: 1
+    startInsta: 1
+    startMessages:
+    - "Agora vamos processar o ingrediente na Mesa De Corte. Interaja segurando o
+      ingrediente (TECLA E) para solt\xE1-lo na bancada."
+    interactMessages:
+    - "Muito bem! Agora, para come\xE7ar a cortar, pressione ESPA\xC7O por poucos
+      segundos, solte a tecla, e repita at\xE9 que o ingrediente esteja completamente
+      cortado."
+    errorMessages:
+    - "Voc\xEA ainda n\xE3o preparou a Flor De L\xF3tus! Coloque-a na Mesa De Corte
+      (TECLA E) e corte-a (BARRA DE ESPA\xC7O) pressionando por poucos segundos at\xE9
+      o progresso terminar."
+    targetTriggers:
+    - {fileID: 0}
+    foodSteps:
+    - {fileID: 11400000, guid: 7ec1735b58c22194abdba7b6f68be8ca, type: 2}
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Pegar Lotus Cortada
+    interactionType: 0
+    startInsta: 1
+    startMessages:
+    - "Muito bem! Voc\xEA tem jeito com isso!"
+    - Agora, retire o ingrediente da bancada (TECLA E).
+    interactMessages: []
+    errorMessages:
+    - "N\xE3o se esque\xE7a de pegar a Flor De L\xF3tus Fatiada que deixou na Mesa
+      de Corte!"
+    targetTriggers:
+    - {fileID: 0}
+    foodSteps:
+    - {fileID: 11400000, guid: 3ba23502a25075f4aa4fc2b2d3bd4312, type: 2}
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Lotus free bench
+    interactionType: 1
+    startInsta: 1
+    startMessages:
+    - "Vamos deixar essa Flor Fatiada em algum lugar at\xE9 que precisemos dela novamente."
+    - Interaja (TECLA E) em uma Bancada Livre para guardar ingredientes processados.
+    interactMessages: []
+    errorMessages:
+    - "Guarde a L\xF3tus Fatiada em uma Bancada Livre! \xC9 sempre importante manter
+      uma \xE1rea de trabalho organizada!"
+    targetTriggers:
+    - {fileID: 0}
+    - {fileID: 0}
+    foodSteps:
+    - {fileID: 11400000, guid: 3ba23502a25075f4aa4fc2b2d3bd4312, type: 2}
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Pegar Borboleta
+    interactionType: 0
+    startInsta: 1
+    startMessages:
+    - "Iremos precisar de Asas de Borboleta Mo\xEDdas para a receita."
+    - "Pegue algumas Asas de Borboleta em seu ba\xFA ou em uma bancada de armazenamento."
+    interactMessages: []
+    errorMessages:
+    - "Ainda precisamos de algumas Asas de Borboleta. Pegue em seu ba\xFA ou em uma
+      Bancada de Armazenamento."
+    targetTriggers:
+    - {fileID: 0}
+    - {fileID: 0}
+    foodSteps:
+    - {fileID: 11400000, guid: acb83edd11ef0734bb1004cf4a444e8d, type: 2}
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Moer Borboleta
+    interactionType: 1
+    startInsta: 1
+    startMessages:
+    - "Coloque as Asas no Almofariz para que possamos mo\xEA-la."
+    interactMessages:
+    - "Cada bancada possui uma forma diferente de intera\xE7\xE3o para processar
+      os ingredientes."
+    - "No Almofariz, pressione BARRA DE ESPA\xC7O at\xE9 que o progresso termine."
+    errorMessages:
+    - "Precisamos processar essas Asas. Coloque-a no Almofariz para que possamos
+      continuar a po\xE7\xE3o!"
+    targetTriggers:
+    - {fileID: 0}
+    foodSteps:
+    - {fileID: 11400000, guid: acb83edd11ef0734bb1004cf4a444e8d, type: 2}
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Pega Borboleta Moida
+    interactionType: 0
+    startInsta: 1
+    startMessages:
+    - Boa! Guarde-a em outra Bancada Livre para que possamos continuar.
+    interactMessages: []
+    errorMessages:
+    - "Estamos progredindo! Mas n\xE3o terminamos. Pegue a Borboleta Mo\xEDda que
+      deixou no Almofariz."
+    targetTriggers:
+    - {fileID: 0}
+    foodSteps:
+    - {fileID: 11400000, guid: 8b07d96fa4c06924094dd842fa00998e, type: 2}
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Borboleta free bench
+    interactionType: 1
+    startInsta: 1
+    startMessages: []
+    interactMessages: []
+    errorMessages:
+    - "Guarde as Asas de Borboleta Mo\xEDda em uma Bancada Livre!"
+    targetTriggers:
+    - {fileID: 0}
+    - {fileID: 0}
+    foodSteps:
+    - {fileID: 11400000, guid: 8b07d96fa4c06924094dd842fa00998e, type: 2}
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Pegar Kraken
+    interactionType: 0
+    startInsta: 1
+    startMessages:
+    - "Agora vamos preparar uma solu\xE7\xE3o de Tent\xE1culo de Kr\xE1ken Infundido.
+      Pegue-o no ba\xFA."
+    interactMessages: []
+    errorMessages:
+    - "Precisamos de Tent\xE1culos de Kr\xE1ken! Pegue em seu ba\xFA ou em uma Bancada
+      de Armazenamento!"
+    targetTriggers:
+    - {fileID: 0}
+    - {fileID: 0}
+    foodSteps:
+    - {fileID: 11400000, guid: 18fbb6a6e6cc48444abeaa0511054be6, type: 2}
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Processar Kraken
+    interactionType: 1
+    startInsta: 1
+    startMessages:
+    - "Para infundir o Tent\xE1culo, coloque-o no Bico De Busen."
+    interactMessages:
+    - "Voc\xEA ir\xE1 precisar manter a temperatura do Bico De Busen alta o suficiente
+      para processar os ingredientes."
+    - "Pressione BARRA DE ESPA\xC7O at\xE9 que o indicador fique verde, e mantenha-o
+      at\xE9 que o progresso termine."
+    errorMessages:
+    - "Precisamos infundir este Tent\xE1culo! Coloque-o no Bico de Busen para continuar."
+    targetTriggers:
+    - {fileID: 0}
+    foodSteps:
+    - {fileID: 11400000, guid: 18fbb6a6e6cc48444abeaa0511054be6, type: 2}
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Pegar Kraken Processado
+    interactionType: 0
+    startInsta: 1
+    startMessages:
+    - "Muito bem! J\xE1 estamos quase no fim."
+    interactMessages: []
+    errorMessages:
+    - "N\xE3o se esque\xE7a do Tent\xE1culo de Kr\xE1ken infundido que est\xE1 no
+      Bico de Busen!"
+    targetTriggers:
+    - {fileID: 0}
+    foodSteps:
+    - {fileID: 11400000, guid: 459072daab7e733418bdbb5d10ffde73, type: 2}
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Coloca tudo no Caldron
+    interactionType: 1
+    startInsta: 1
+    startMessages:
+    - "Vamos colocar os tr\xEAs ingredientes preparados no Caldeir\xE3o para finalizar
+      a po\xE7\xE3o."
+    interactMessages: []
+    errorMessages:
+    - "Precisamos adicionar a Flor de L\xF3tus Fatiada, Asas de Borboleta Mo\xEDda
+      e o Tent\xE1culo de Kr\xE1ken Infundido em um caldeir\xE3o."
+    targetTriggers:
+    - {fileID: 0}
+    foodSteps:
+    - {fileID: 11400000, guid: 3ba23502a25075f4aa4fc2b2d3bd4312, type: 2}
+    - {fileID: 11400000, guid: 8b07d96fa4c06924094dd842fa00998e, type: 2}
+    - {fileID: 11400000, guid: 459072daab7e733418bdbb5d10ffde73, type: 2}
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: "\xC1gua"
+    interactionType: 0
+    startInsta: 1
+    startMessages:
+    - "As Bancadas Especiais, como o Caldeir\xE3o, n\xE3o precisam de sua intera\xE7\xE3o
+      para produzir. Por\xE9m, voc\xEA ter\xE1 que adicionar a ferramenta necess\xE1ria
+      para que a Bancada funcione."
+    - "Voc\xEA pode identificar qual ferramenta \xE9 necess\xE1ria observando a cor
+      da Aura da Bancada. Os compartimentos com ferramentas compartilham da mesma
+      cor de suas respectivas Bancadas Especiais."
+    - "V\xE1 at\xE9 ao Po\xE7o e busque um pouco de \xC1gua para que possamos terminar
+      a po\xE7\xE3o"
+    interactMessages: []
+    errorMessages:
+    - "O Caldeir\xE3o precisa de \xC1gua para come\xE7ar a funcionar! Pegue um pouco
+      no Po\xE7o."
+    targetTriggers:
+    - {fileID: 0}
+    foodSteps: []
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Coloca Agua
+    interactionType: 1
+    startInsta: 1
+    startMessages: []
+    interactMessages:
+    - "Muito bem! Agora \xE9 s\xF3 aguardar at\xE9 que o processo termine."
+    errorMessages:
+    - "Coloque um pouco de \xC1gua no Caldeir\xE3o para continuar."
+    targetTriggers:
+    - {fileID: 0}
+    foodSteps: []
+    toolSteps:
+    - {fileID: 11400000, guid: 4b315bd2f2cf3ce4abf5fdc08cd861a0, type: 2}
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: "Pega Po\xE7\xE3o"
+    interactionType: 0
+    startInsta: 1
+    startMessages: []
+    interactMessages: []
+    errorMessages:
+    - "J\xE1 estamos no fim! Pegue a Po\xE7\xE3o do Amor que voc\xEA preparou!"
+    targetTriggers:
+    - {fileID: 0}
+    foodSteps:
+    - {fileID: 11400000, guid: a90d629f6e92d6443bc2a8c5d22829a6, type: 2}
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: "Entrega Po\xE7\xE3o"
+    interactionType: 1
+    startInsta: 1
+    startMessages:
+    - "Meus parab\xE9ns! Voc\xEA realmente tem talento!"
+    - "Agora que terminamos a po\xE7\xE3o, leve-a at\xE9 a Mesa De Avalia\xE7\xE3o
+      para que os Anci\xE3os d\xEAem seu veredito."
+    interactMessages:
+    - "Muito bem! Voc\xEA j\xE1 est\xE1 preparado! Agora v\xE1 e prove que voc\xEA
+      \xE9 o maior Bruxo que Master Witch j\xE1 viu!"
+    errorMessages:
+    - "Voc\xEA ainda precisa ser avaliado! Entregue a Po\xE7\xE3o do Amor em uma
+      Bancada de Avalia\xE7\xE3o."
+    targetTriggers:
+    - {fileID: 0}
+    foodSteps:
+    - {fileID: 11400000, guid: a90d629f6e92d6443bc2a8c5d22829a6, type: 2}
+    toolSteps: []
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onInteract:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8650577064681619810}
+          m_TargetAssemblyTypeName: TutorialController, Assembly-CSharp
+          m_MethodName: EndRound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2

@@ -86,6 +86,7 @@ public class Storage : Bench
             slotSelected = null;
             isActive = false;
             panelInventory.SetActive(false);
+            action?.Invoke(true);
         }
     }
 

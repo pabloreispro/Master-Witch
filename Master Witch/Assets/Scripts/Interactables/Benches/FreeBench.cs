@@ -10,11 +10,14 @@ public class FreeBench : Bench
     }
     public override void Pick(Player player)
     {
-        if(!player.isHand.Value){
-            this.GetComponentInChildren<Ingredient>().gameObject.transform.position = player.boneItem.transform.position;
-            this.GetComponentInChildren<Ingredient>().gameObject.GetComponent<FollowTransform>().targetTransform = player.boneItem.transform;
-            this.GetComponentInChildren<Ingredient>().GetComponent<NetworkObject>().TrySetParent(player.transform);               
-            player.SetItemHandClientRpc(GetComponentInChildren<Ingredient>().gameObject);
+        if (!player.isHand.Value){
+            var ingredient = objectInBench.GetComponent<Ingredient>();
+            ingredient.gameObject.transform.position = player.boneItem.transform.position;
+            ingredient.GetComponent<FollowTransform>().targetTransform = player.boneItem.transform;
+            player.SetItemHandClientRpc(ingredient.gameObject);
+            ingredient.GetComponent<NetworkObject>().TrySetParent(player.transform);               
+            objectInBench = null;
+            ingredients.Clear();
         }
         Reset();
     }
@@ -24,6 +27,7 @@ public class FreeBench : Bench
             var interact = player.GetComponentInChildren<Interactable>();
             objectInBench = interact.gameObject;
             PositionBench(interact);
+            ingredients.Add(new RecipeData((interact as Ingredient).food));
         }
     }
 

@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e0a38b21b9f1449a219c029213391d, type: 3}
+  m_Name: "Tent\xE1culo de Kraken Infundido"
+  m_EditorClassIdentifier: 
+  foodID: 51
+  category: 
+  foodPrefab: {fileID: 3179536255620206203, guid: 1a7a4d15c6e58ee40acc93d5134b2a89,
+    type: 3}
+  imageFood: {fileID: 21300000, guid: 0324e428f4401a94da2e71965b545a24, type: 3}
+  timeProgress: 10
+  modifiers:
+    igneousValue: -1.9
+    poisonousValue: 1.02
+    curativeValue: 2
+  finishRecipe: 0
+  recipeConditions:
+  - type: 0
+    benchType: 0
+    foods: []
+    category: 0
+    categoryPoints: 0
+    isAllowed: 0
+  - type: 1
+    benchType: 0
+    foods:
+    - {fileID: 11400000, guid: 18fbb6a6e6cc48444abeaa0511054be6, type: 2}
+    category: 0
+    categoryPoints: 0
+    isAllowed: 1
+  reviewConditions: []
