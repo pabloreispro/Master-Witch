@@ -16,6 +16,8 @@ public class BusenBurner : Bench
     public GameObject fire, smoke;
     public AudioSource sfx;
 
+    private bool _wasPlayerInteracting;
+
     [ServerRpc(RequireOwnership = false)]
     public void EnableSFXServerRpc(){
         EnableSFXClientRpc();
@@ -39,8 +41,8 @@ public class BusenBurner : Bench
     private void FixedUpdate()
     {
         if(_player !=null && ingredients.Count > 0){
-            GameInterfaceManager.Instance.spaceKey.SetActive(true);
-            GameInterfaceManager.Instance.spaceAnim.SetBool("Hold", true); 
+            //GameInterfaceManager.Instance.spaceKey.SetActive(true);
+             
 
             if(_player.buttonPressed){
                 Debug.Log("Busen");
@@ -81,6 +83,14 @@ public class BusenBurner : Bench
             DisableSFXClientRpc();
             _DownTimeBenchServerRpc();
             DisableParticlesServerRpc();
+        }
+
+        if( (_player!=null) != _wasPlayerInteracting)
+        {
+            _wasPlayerInteracting = !_wasPlayerInteracting;
+            GameInterfaceManager.Instance.eKey.SetActive(_player!=null && _player.isHand.Value);
+            GameInterfaceManager.Instance.spaceKey.SetActive(_player!= null && ingredients.Count > 0 && objectInBench == null);
+            GameInterfaceManager.Instance.spaceAnim.SetBool("Hold", _player!= null && ingredients.Count > 0 && objectInBench == null);
         }
     }
 
