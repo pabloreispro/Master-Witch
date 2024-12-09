@@ -42,7 +42,7 @@ public class Furnace : Bench
             ChangeVariableServerRpc(true);
             EnabledParticlesServerRpc();
             _timerWood += Time.deltaTime;
-            if(_timerWood >= 10){
+            if(_timerWood >= 15){
                 _toolInBench.RemoveAt(_toolInBench.Count-1);
                 _timerWood = 0;
             }
