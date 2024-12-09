@@ -155,39 +155,70 @@ public class PlayerMovement : Player
         }
     }
 
-    private void _MovementPlayer(){
-        
-        Vector2 inputVector = _playerInput.PlayerControl.Movement.ReadValue<Vector2>();
-        
-        Vector3 move = new Vector3(inputVector.x, 0, inputVector.y).normalized;
-        
-        float gravity = -9.81f; 
-        float verticalVelocity = 0; 
+    private void _MovementPlayer()
+{
+    // Captura o input do jogador
+    Vector2 inputVector = _playerInput.PlayerControl.Movement.ReadValue<Vector2>();
+    Vector3 horizontalMove = new Vector3(inputVector.x, 0, inputVector.y).normalized;
 
-        verticalVelocity += gravity * Time.deltaTime;
+    float gravity = -9.81f;
+    float verticalVelocity = 0;
+    float groundCheckDistance = 0.1f;
+    bool isGrounded;
 
-        move.y += verticalVelocity;
-        
-        if(inputVector!=new Vector2(0,0)){
-            
-            Quaternion r = Quaternion.LookRotation(move);
-            transform.rotation = Quaternion.Slerp(transform.rotation, r, speedRotation);
-            if(isHand.Value ){ChangeState(PlayerState.WalkingItem);}
-            else ChangeState(PlayerState.Walking);
-            isMoving.Value=true;
-            
-        }
-        else 
-        {
-           
-            if(isHand.Value){ChangeState(PlayerState.IdleItem);}
-            else ChangeState(PlayerState.Idle);
-            isMoving.Value=false;
-            //WalkServerRpc();
-        }
+    // Checa se o jogador está no chão
+    isGrounded = controller.isGrounded;
 
-        controller.Move(move* Time.deltaTime * speedPlayer * SpeedModifier);
+    if (isGrounded && verticalVelocity < 0)
+    {
+        verticalVelocity = -2f; // Mantém o jogador próximo ao chão
     }
+
+    // Aplica gravidade quando no ar
+    if (!isGrounded)
+    {
+        verticalVelocity += gravity * Time.deltaTime;
+    }
+
+    // Movimento horizontal
+    if (inputVector != Vector2.zero)
+    {
+        Quaternion targetRotation = Quaternion.LookRotation(horizontalMove);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speedRotation);
+        
+        if (isHand.Value)
+        {
+            ChangeState(PlayerState.WalkingItem);
+        }
+        else
+        {
+            ChangeState(PlayerState.Walking);
+        }
+
+        isMoving.Value = true;
+    }
+    else
+    {
+        if (isHand.Value)
+        {
+            ChangeState(PlayerState.IdleItem);
+        }
+        else
+        {
+            ChangeState(PlayerState.Idle);
+        }
+
+        isMoving.Value = false;
+    }
+
+    // Combina movimento horizontal com gravidade no eixo Y
+    Vector3 finalMove = horizontalMove * speedPlayer * SpeedModifier;
+    finalMove.y = verticalVelocity;
+
+    // Move o jogador
+    controller.Move(finalMove * Time.deltaTime);
+}
+
     public void AddExplosiveForce(float explosionForce, Vector3 explosionPosition, float explosionRadius, float upwardsModifier, float explosionDuration)
     {
         Vector3 direction = (transform.position - explosionPosition).normalized;
