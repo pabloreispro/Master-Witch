@@ -172,8 +172,6 @@ public class PlayerMovement : Player
             
             Quaternion r = Quaternion.LookRotation(move);
             transform.rotation = Quaternion.Slerp(transform.rotation, r, speedRotation);
-            
-            
             if(isHand.Value ){ChangeState(PlayerState.WalkingItem);}
             else ChangeState(PlayerState.Walking);
             isMoving.Value=true;
