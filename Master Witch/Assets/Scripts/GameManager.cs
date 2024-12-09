@@ -25,6 +25,14 @@ public class GameManager : SingletonNetwork<GameManager>
     [SerializeField] RecipeSO[] recipeDatabase;
     [SerializeField] ChefSO[] chefsDatabase;
     [SerializeField] Transform[] chefsSpawn;
+    private string [] dialogueChefs = new string[] { "Eu gosto de poção com ",
+                                                    "Eu adoraria uma poção que tivesse ",
+                                                    "Eu sempre quis experimentar uma poção com ",
+                                                    "Eu amo poções que têm um toque de ",
+                                                    "Eu sonho em criar uma poção com ",
+                                                    "Seria incrível beber uma poção feita de ",
+                                                    "Eu não consigo resistir a uma poção com ",
+                                                    "Nada como uma poção de "};
   
     public Text RecipeText;
     
@@ -222,7 +230,7 @@ public class GameManager : SingletonNetwork<GameManager>
             {
                 foreach (var foodPreference in reviewCondition.foods)
                 {
-                    chefGO.GetComponent<Dialogue>().dialogueText.Add(foodPreference.name);
+                    chefGO.GetComponent<Dialogue>().dialogueText.Add(dialogueChefs[Random.Range(0,dialogueChefs.Length)] + foodPreference.name);
                 }
             }
         }
