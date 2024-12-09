@@ -106,6 +106,10 @@ namespace UI
             currentTutorial--;
             tutorialImages[currentTutorial].SetActive(true);
         }
+
+        public void QuitGame(){
+            SceneLoader.Instance.CloseGame();
+        }
         
         #region Network
         public void StartGame()
