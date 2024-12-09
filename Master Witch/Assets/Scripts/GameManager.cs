@@ -448,20 +448,26 @@ public class GameManager : SingletonNetwork<GameManager>
         foreach (Interactable objectScene in FindObjectsOfType<Interactable>()) {
             // Verifica se o objeto é uma Tool
             if (objectScene is Tool tool) {
-                objectScene.DestroySelf();
+                
                 // Destroi se o pai for o Player
                 if (objectScene.transform.parent != null && objectScene.transform.parent.CompareTag("Player")) {
+                    objectScene.DestroySelf();
+                }else if(objectScene.transform.parent == null){
                     objectScene.DestroySelf();
                 }
             }
             // Verifica se o objeto é um Ingredient
             else if (objectScene is Ingredient ingredient) {
-                objectScene.DestroySelf();
                 // Destroi se o pai for o Player
                 if (objectScene.transform.parent != null && objectScene.transform.parent.CompareTag("Player")) {
                     objectScene.DestroySelf();
+                }else if(objectScene.transform.parent == null){
+                    objectScene.DestroySelf();
+                }else if(objectScene.transform.parent != null && objectScene.transform.parent.CompareTag("Bench")){
+                    objectScene.DestroySelf();
                 }
             }
+
         }
         foreach (Bench objectScene in FindObjectsOfType<Bench>()){
             objectScene.Reset();
