@@ -170,7 +170,6 @@ public class Player : NetworkBehaviour
             break;
             case PlayerState.PickItem:
                 animator.SetBool("PickItem",true);
-                animator.SetBool("IdleItem",true);
             break;
             case PlayerState.DropItem:
                 animator.SetTrigger("DropItem");
