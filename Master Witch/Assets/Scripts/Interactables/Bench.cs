@@ -53,6 +53,7 @@ public class Bench : Interactable
     
     public void Reset()
     {
+        slider.value = 0;
         endProgress = false;
         _timer = 0f;
         isPreparing.Value = false;

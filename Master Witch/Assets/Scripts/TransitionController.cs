@@ -109,6 +109,7 @@ public class TransitionController : SingletonNetwork<TransitionController>
         PlayAnimationClientRpc(AnimatorType.SceneTransition, fadeIn.name);
         yield return new WaitForSeconds(fadeIn.length);
         */
+        ActivatePanelClientRpc(PanelType.SceneTransition, true);
         PlayAnimationClientRpc(AnimatorType.SceneTransition,fadeIn.name);
         yield return new WaitForSeconds(2f);
 
