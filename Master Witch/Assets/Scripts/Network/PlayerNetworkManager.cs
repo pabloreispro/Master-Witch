@@ -107,8 +107,8 @@ namespace Network
         void SetPlayerCustomizationDataServerRpc(ulong playerNetworkId, int acessoryIndex, int hatIndex, int skinIndex)
         {
             Debug.Log("rpc");
-            var player = LobbyManager.Instance.JoinedLobby.Players.Last();
             var id = playersData.Count;
+            var player = LobbyManager.Instance.JoinedLobby.Players.ElementAt(id);
             var playerName = player.Data["PlayerName"].Value;
             var playerData = new PlayerNetworkData(id, playerName, playerNetworkId, PlayerNetworkData.PlayerNetworkStatus.Ready, new PlayerCustomizationData(acessoryIndex, hatIndex, skinIndex));
             playersData.Add(playerData);
