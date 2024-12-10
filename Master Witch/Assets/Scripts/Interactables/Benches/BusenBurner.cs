@@ -10,7 +10,7 @@ using Game.UI;
 public class BusenBurner : Bench
 {
     public const float TIMER_MULTI = 30;
-    public NetworkVariable<float> timeBusen = new();
+    public float timeBusen;
     public Slider tempSlider;
     public Image backgroundSliderTemp;
     public GameObject fire, smoke;
@@ -44,17 +44,17 @@ public class BusenBurner : Bench
             //GameInterfaceManager.Instance.spaceKey.SetActive(true);
             if(_player.buttonPressed){
                 Debug.Log("Busen");
-                _UpTimeBenchServerRpc();
+                _UpTimeBench();
                 EnabledParticlesServerRpc();
-            }else if(timeBusen.Value > 0){
+            }else if(timeBusen > 0){
                 EnableSFXServerRpc();
-                _DownTimeBenchServerRpc();
+                _DownTimeBench();
                 DisableParticlesServerRpc();
-            }else if(timeBusen.Value <= 0){
+            }else if(timeBusen <= 0){
                 DisableSFXServerRpc();
             }
-            tempSlider.value = timeBusen.Value;
-            switch(timeBusen.Value)
+            tempSlider.value = timeBusen;
+            switch(timeBusen)
             {
                 case >= 90 and <= 100:
                     ChangeVariableServerRpc(false);
@@ -76,10 +76,10 @@ public class BusenBurner : Bench
             }
             
         }
-        else if(_player == null && timeBusen.Value>0){
+        else if(_player == null && timeBusen>0){
             
             DisableSFXClientRpc();
-            _DownTimeBenchServerRpc();
+            _DownTimeBench();
             DisableParticlesServerRpc();
         }
 
@@ -92,14 +92,14 @@ public class BusenBurner : Bench
         }
     }
 
-    [ServerRpc]
-    private void _UpTimeBenchServerRpc(){
-        timeBusen.Value = timeBusen.Value + Time.deltaTime * TIMER_MULTI;
+    //[ServerRpc(RequireOwnership =false)]
+    private void _UpTimeBench(){
+        timeBusen = timeBusen + Time.deltaTime * TIMER_MULTI;
     }
 
-    [ServerRpc]
-    private void _DownTimeBenchServerRpc(){
-        timeBusen.Value = timeBusen.Value - Time.deltaTime * TIMER_MULTI;
+    //[ServerRpc(RequireOwnership =false)]
+    private void _DownTimeBench(){
+        timeBusen = timeBusen - Time.deltaTime * TIMER_MULTI;
     }
     
     public override void Pick(Player player)

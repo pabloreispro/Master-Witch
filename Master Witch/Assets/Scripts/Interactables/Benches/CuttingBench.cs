@@ -41,8 +41,6 @@ public class CuttingBench : Bench
         {
             if(ingredients.Count > 0)
             {
-
-                
                 if(_player.buttonPressed){
                     EnableSFXServerRpc();
                     ChangeVariableServerRpc(true);

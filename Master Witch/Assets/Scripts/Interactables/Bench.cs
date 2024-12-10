@@ -54,7 +54,7 @@ public class Bench : Interactable
     public void Reset()
     {
         if(workBench){
-            //slider.value = 0;
+            //
             endProgress = false;
             _timer = 0f;
             isPreparing.Value = false;
@@ -64,6 +64,11 @@ public class Bench : Interactable
             targetRecipe = null;
             objectInBench = null;
         }
+    }
+
+    public void resetSlider(){
+        slider.value = 0;
+        slider.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -152,7 +157,7 @@ public class Bench : Interactable
     }
     [ClientRpc]
     public void OnEndProgressClientRpc(){
-        slider.gameObject.SetActive(false);
+        resetSlider();
         endProgress = true;
     }
 
