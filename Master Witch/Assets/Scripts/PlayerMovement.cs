@@ -189,13 +189,13 @@ public class PlayerMovement : Player
 
     if (isGrounded && verticalVelocity < 0)
     {
-        verticalVelocity = -2f; // Mantém o jogador próximo ao chão
+        verticalVelocity = -10f; // Mantém o jogador próximo ao chão
     }
 
     // Aplica gravidade quando no ar
     if (!isGrounded)
     {
-        verticalVelocity += gravity * Time.deltaTime;
+        verticalVelocity += gravity * 3;
     }
 
     // Movimento horizontal
